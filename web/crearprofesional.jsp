@@ -1,3 +1,4 @@
+<%@page import="java.lang.String"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% HttpSession sesion = request.getSession();%>
@@ -7,27 +8,23 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="Css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="Css/Css.css">
-        <title>NMA</title>
+        <title>Crear Profesional</title>
     </head>
     <body>
 
-        <c:set var="rol" value="roles" scope="session"/>
-        <c:set var="estado" value="0" scope="session" />
-        
+        <% String rs = String.valueOf(sesion.getAttribute("id_rol"));%>
+        <c:set var="id_rol" value="<%=rs%>" />
+
         <c:choose>
-            <c:when test="${rol == '1'}&&${estado == '0'}">
-                <h3>USUARIO: <%= sesion.getAttribute("run")%> </h3><br>
-                <h3>Pass <%= sesion.getAttribute("run")%> </h3><br>
-                <h3>Nombre <%= sesion.getAttribute("nombre")%> </h3><br>
-                <h3>id usuario  <%= sesion.getAttribute("id_usuario")%> </h3><br>
-                <h3>id rol <%= sesion.getAttribute("id_rol")%> </h3><br>
-                <h3>id empresa <%= sesion.getAttribute("id_empresa")%> </h3><br>
+            <c:when test="${id_rol == 1}">
+
             </c:when>    
             <c:otherwise>
                 <%response.sendRedirect("http://localhost:8080/nma/home.jsp");%>
             </c:otherwise>
         </c:choose>
 
+        <h2>Crear Profesional </h2>
         <form action="crearProfesional" method="post">
             <br>
             <h4>nombre</h4>
@@ -56,8 +53,7 @@
 
             <br>
             <br>
-            <input type = "submit" class="input-login"  value = "Crear Profesional">
-            <br>
+            <input type = "submit" class="input-login"  value = "CREAR PROFESIONAL">
             <br>
         </form>
 

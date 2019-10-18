@@ -83,10 +83,8 @@ public class reportarAccidenteServlets extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        HttpSession sesion = (HttpSession) request.getSession();
-        String id = String.valueOf(sesion.getAttribute("id_empresa")) ;
-        int idEmpresa = Integer.parseInt(id);
+
+        boolean banderaError=true;
 
         String hr = request.getParameter("txtHora");
         String min = request.getParameter("txtMinutos");
@@ -94,49 +92,49 @@ public class reportarAccidenteServlets extends HttpServlet {
         String horaMin = hr + ":" + min;
         String fecha = request.getParameter("txtFecha");
 
-        String dateString = fecha+" " + hora;
+        //String dateString = fecha+" " + hora;
         String comentario = request.getParameter("textareaDescripcion");
         int idSucursal = Integer.parseInt(request.getParameter("selectSucursalId"));
         int idTipoAccidente = Integer.parseInt(request.getParameter("selectTipoAccidente"));
 
 //        HashMap<String, Object> errores = new HashMap<>();
-//        if (!ValidarParametros.validarSeleccione(idSucursal)) {
-//            errores.put("sucursal", "Seleccione Sucursal");
-//        }
-//        
-//        if (!ValidarParametros.validarSeleccione(idTipoAccidente)) {
-//            errores.put("tipo", "Seleccione Tipo Accidente");
-//        }
-//        
-//        if (!errores.isEmpty()) {
-//            request.setAttribute("errores", errores);
-//            request.getRequestDispatcher("listasucursal").forward(request, response);
-//            return;
-//        }
+        if (idSucursal == 0) {
+            banderaError = false;
+            request.setAttribute("mensajeLugar", "Seleccione Lugar");
+        }
         
-        
-        
-        try {
-            //SE CREA REPORTE ACCIDENTE
-            ReporteAccidenteDAOImpl raDAO = new ReporteAccidenteDAOImpl();
-            System.out.println(dateString);
-            ReporteAccidente ra = new ReporteAccidente();
-            //ate f = ra.castDate(dateString);
-            ra.setHora(horaMin);
-            ra.setComentario(comentario);
-            ra.setId_sucursal_fk(idSucursal);
-            ra.setId_tipo_accidente_fk(idTipoAccidente);
-            ra.setFecha((java.util.Date) castDate(dateString));
-
-            raDAO.agregar(ra);
-            
-            request.getRequestDispatcher("/home_1.jsp").forward(request, response);
-
-        } catch (ParseException | SQLException ex) {
-            Logger.getLogger(reportarAccidenteServlets.class.getName()).log(Level.SEVERE, null, ex);
+        if (idTipoAccidente == 0) {
+            banderaError = false;
+            request.setAttribute("mensajeTipo", "Seleccione Tipo Accidente");
         }
 
-        
+        if (banderaError) {
+            try {
+                //SE CREA REPORTE ACCIDENTE
+                ReporteAccidenteDAOImpl raDAO = new ReporteAccidenteDAOImpl();
+                System.out.println(fecha);
+                ReporteAccidente ra = new ReporteAccidente();
+                //ate f = ra.castDate(dateString);
+                ra.setHora(horaMin);
+                ra.setComentario(comentario);
+                ra.setId_sucursal_fk(idSucursal);
+                ra.setId_tipo_accidente_fk(idTipoAccidente);
+                ra.setFecha(castDate(fecha));
+
+                raDAO.agregar(ra);
+
+                request.setAttribute("mensaje", "Reporte informado correctamente!");
+                request.getRequestDispatcher("/reportaraccidente.jsp").forward(request, response);
+
+            } catch (ParseException | SQLException ex) {
+                Logger.getLogger(reportarAccidenteServlets.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else {
+            request.getRequestDispatcher("/reportaraccidente.jsp").forward(request, response);
+           // request.getRequestDispatcher("/listasucursal").forward(request, response);
+        }
+
     }
 
     /**
@@ -148,13 +146,19 @@ public class reportarAccidenteServlets extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
-     public Date castDate(String date) throws ParseException{
-        
-        SimpleDateFormat simpleDateFormat  = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        
-        Date fech = (Date) simpleDateFormat.parse(date);
-       
+
+    public Date castDate(String date) throws ParseException {
+
+        String mes = date.substring(0, 2);
+        String dia = date.substring(3, 5);
+        String anio = date.substring(6, 10);
+
+        String fechaCast = anio + "-" + mes + "-" + dia;
+        System.out.println(fechaCast);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date fech = (Date) simpleDateFormat.parse(fechaCast);
+
         return fech;
     }
 

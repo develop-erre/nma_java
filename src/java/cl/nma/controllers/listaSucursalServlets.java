@@ -74,6 +74,9 @@ public class listaSucursalServlets extends HttpServlet {
         String id = String.valueOf(sesion.getAttribute("id_empresa")) ;
         System.out.println(id);
         int idSucursal = Integer.parseInt(id);
+        
+        //getAtribute
+       // int id_entero = Integer.parseInt(request.getParameter(id_emp));
 
         List<Sucursal> lista = new ArrayList();
         try {

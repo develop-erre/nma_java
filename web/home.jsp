@@ -10,6 +10,10 @@
     <body>
         <h1>Hello Home!</h1>
         
+        <% String rs = String.valueOf(sesion.getAttribute("id_rol")) ;%>
+        <h1>id rol rescatado </h1>
+        <h1><%=rs%></h1>
+        
         <h3>rut <%= sesion.getAttribute("run") %> </h3><br>
         <h3>Nombre <%= sesion.getAttribute("nombre") %> </h3><br>
         <h3>id usuario  <%= sesion.getAttribute("id_usuario") %> </h3><br>

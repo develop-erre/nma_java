@@ -1,13 +1,29 @@
+<%@page import="java.lang.String"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% HttpSession sesion = request.getSession();%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="Css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="Css/Css.css">
-        <title>NMA</title>
+        <title>Crear Empresa</title>
     </head>
     <body>
+          <% String rs = String.valueOf(sesion.getAttribute("id_rol"));%>
+        <c:set var="id_rol" value="<%=rs%>" />
+
+        <c:choose>
+            <c:when test="${id_rol == 1}">
+
+            </c:when>    
+            <c:otherwise>
+                <%response.sendRedirect("http://localhost:8080/nma/home.jsp");%>
+            </c:otherwise>
+        </c:choose>
+
+        <h2>Crear Empresa </h2>
 
         <form action="crearEmpresa" method="post">
             <br>

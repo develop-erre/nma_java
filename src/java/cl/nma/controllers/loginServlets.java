@@ -121,54 +121,8 @@ public class loginServlets extends HttpServlet {
                 request.setAttribute("error1", error1);
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
             }
-
-//
-//            for (Usuario var : usuarios) {
-//
-//                if (var.getRut().equals(run) && var.getPassword().equals(pass)) {
-//
-//                    if (var.getEstado() == 0) {
-//
-//                        //Usuario us = usuarioDAOsession.verificarUserSession(run, pass);
-//                        HttpSession session = request.getSession();
-//                        session.setAttribute("run", var.getRut());
-//                        // session.setAttribute("pass", us.getPassword());
-//                        session.setAttribute("nombre", var.getNombre());
-//                        session.setAttribute("id_usuario", var.getId_usuario());
-//                        session.setAttribute("id_rol", var.getId_rol_fk());
-//                        session.setAttribute("id_empresa", var.getId_empresa_fk());
-//                        session.setAttribute("estado", var.getEstado());
-//                        System.out.println("Conexion correcta");
-//
-//                        bandera1 = true;
-//                        break;
-//
-//                    } else {
-//                        bandera2 = true;
-//                        break;
-//                    }
-//                } else {
-//                    bandera3 = true;
-//                    break;
-//                }
-//
-////            }// termino for
-//
-//            if (bandera1) {
-//                request.getRequestDispatcher("/home.jsp").forward(request, response);
-//            }
-//
-//            if (bandera2) {
-//                String error2 = "Bloqueo de usuario - contactar con Administrador";
-//                request.setAttribute("error2", error2);
-//                request.getRequestDispatcher("/index.jsp").forward(request, response);
-//            }
-//
-//            if (bandera3) {
-//                String error1 = "Usuario y/o contraseña inválida";
-//                request.setAttribute("error1", error1);
-//                request.getRequestDispatcher("/index.jsp").forward(request, response);
-//            }
+            
+            
         } catch (SQLException ex) {
             Logger.getLogger(loginServlets.class.getName()).log(Level.SEVERE, null, ex);
         }

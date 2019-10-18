@@ -8,10 +8,16 @@
         <link rel="stylesheet" type="text/css" href="Css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="Css/Css.css">
         <title>Reportar Accidente</title>
-
-
-
-
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
+        <script lenguage="javascript" src="js/jquery-3.4.1.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+            $(function () {
+                $("#datepicker").datepicker({minDate: -10,maxDate:0});
+            });
+        </script>
     </head>
     <body>
 
@@ -26,7 +32,7 @@
         <form action="reportarAccidente" name="formReport" method="post">
             <br>
             <h4>Fecha Accidente</h4>
-            <input type="date" class="input-text" name = "txtFecha" value = "" required="" minlength="3">
+            <input type="text" id="datepicker" class="input-text" placeholder="Ingrece Fecha" name = "txtFecha"  required="">
 
             <h4>Hora</h4>
             <input type="number" class="input-text" name = "txtHora" placeholder="Ingresa hora" required=""  min="0" max="23">
@@ -35,6 +41,7 @@
             <input type="number" class="input-text" name = "txtMinutos" placeholder="Ingresa minuto"  required=""  min="0" max="59">
 
             <h4>Tipo Accidente</h4>
+            <c:out value="${mensajeTipo}"></c:out>
             <select name="selectTipoAccidente" class="input-text" required="">
                 <option  value="0">SELECCIONE</option>
                 <option  value="1">CAÍDAS AL MISMO NIVEL</option>
@@ -50,6 +57,7 @@
 
 
             <h4>Seleccione Lugar</h4>
+            <c:out value="${mensajeLugar}"></c:out>
             <select name="selectSucursalId" class="input-text" required="">
                 <option  value="0">SELECCIONE</option>
                 <c:forEach items="${listaSucursal}" var="variable">
@@ -63,6 +71,7 @@
 
             <input type = "submit" class="input-login"  value = "REPORTAR ACCIDENTE">
             <br>
+            <c:out value="${mensaje}"></c:out>
             <br>
         </form>
 
