@@ -6,12 +6,14 @@
 package cl.nma.dao;
 
 import cl.nma.database.DBUtil;
+import cl.nma.dominio.EmpresaLista;
 import cl.nma.dominio.Sucursal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -80,8 +82,51 @@ public class SucursalDAOImpl implements SucursalDAO {
     }
 
     @Override
-    public Sucursal obtenerSucursalPorId(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Sucursal> obtenerSucursalPorId(Integer id) {
+        
+        List<Sucursal> sucList = new ArrayList<>();
+        String sql = "SELECT * FROM SUCURSAL WHERE ID_EMPRESA_FK = "+id ;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            pst = conexion.prepareStatement(sql);
+            rs = pst.executeQuery();
+            Sucursal suc;
+            while (rs.next()) {
+                suc = new Sucursal();
+                suc.setId_sucursal(Integer.parseInt(rs.getString(1)));
+                suc.setNombre(rs.getString(2));
+                sucList.add(suc);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //siempre cerrar la conexion, rs y el pst
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return sucList;
+        
     }
     
     

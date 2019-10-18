@@ -7,12 +7,14 @@ package cl.nma.controllers;
 
 import cl.nma.dao.ReporteAccidenteDAOImpl;
 import cl.nma.dominio.ReporteAccidente;
+import cl.nma.util.ValidarParametros;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -20,6 +22,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -80,26 +83,48 @@ public class reportarAccidenteServlets extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        HttpSession sesion = (HttpSession) request.getSession();
+        String id = String.valueOf(sesion.getAttribute("id_empresa")) ;
+        int idEmpresa = Integer.parseInt(id);
 
         String hr = request.getParameter("txtHora");
         String min = request.getParameter("txtMinutos");
         String hora = hr + ":" + min + ":00";
+        String horaMin = hr + ":" + min;
         String fecha = request.getParameter("txtFecha");
 
         String dateString = fecha+" " + hora;
         String comentario = request.getParameter("textareaDescripcion");
-        int idEmpresa = Integer.parseInt(request.getParameter("idEmpresa"));
+        int idSucursal = Integer.parseInt(request.getParameter("selectSucursalId"));
         int idTipoAccidente = Integer.parseInt(request.getParameter("selectTipoAccidente"));
 
+//        HashMap<String, Object> errores = new HashMap<>();
+//        if (!ValidarParametros.validarSeleccione(idSucursal)) {
+//            errores.put("sucursal", "Seleccione Sucursal");
+//        }
+//        
+//        if (!ValidarParametros.validarSeleccione(idTipoAccidente)) {
+//            errores.put("tipo", "Seleccione Tipo Accidente");
+//        }
+//        
+//        if (!errores.isEmpty()) {
+//            request.setAttribute("errores", errores);
+//            request.getRequestDispatcher("listasucursal").forward(request, response);
+//            return;
+//        }
+        
+        
+        
         try {
             //SE CREA REPORTE ACCIDENTE
             ReporteAccidenteDAOImpl raDAO = new ReporteAccidenteDAOImpl();
             System.out.println(dateString);
             ReporteAccidente ra = new ReporteAccidente();
             //ate f = ra.castDate(dateString);
-            //ra.setHora(hora);
+            ra.setHora(horaMin);
             ra.setComentario(comentario);
-            ra.setId_empresa_fk(idEmpresa);
+            ra.setId_sucursal_fk(idSucursal);
             ra.setId_tipo_accidente_fk(idTipoAccidente);
             ra.setFecha((java.util.Date) castDate(dateString));
 

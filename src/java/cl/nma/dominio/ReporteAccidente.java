@@ -13,18 +13,18 @@ public class ReporteAccidente {
     private Date fecha;
     private String hora;
     private String comentario;
-    private int id_empresa_fk;
+    private int id_sucursal_fk;
     private int id_tipo_accidente_fk;
 
     public ReporteAccidente() {
     }
 
-    public ReporteAccidente(int id_reporte_accidente, Date fecha, String hora, String comentario, int id_empresa_fk, int id_tipo_accidente_fk) {
+    public ReporteAccidente(int id_reporte_accidente, Date fecha, String hora, String comentario, int id_sucursal_fk, int id_tipo_accidente_fk) {
         this.id_reporte_accidente = id_reporte_accidente;
         this.fecha = fecha;
         this.hora = hora;
         this.comentario = comentario;
-        this.id_empresa_fk = id_empresa_fk;
+        this.id_sucursal_fk = id_sucursal_fk;
         this.id_tipo_accidente_fk = id_tipo_accidente_fk;
     }
 
@@ -60,12 +60,12 @@ public class ReporteAccidente {
         this.comentario = comentario;
     }
 
-    public int getId_empresa_fk() {
-        return id_empresa_fk;
+    public int getId_sucursal_fk() {
+        return id_sucursal_fk;
     }
 
-    public void setId_empresa_fk(int id_empresa_fk) {
-        this.id_empresa_fk = id_empresa_fk;
+    public void setId_sucursal_fk(int id_sucursal_fk) {
+        this.id_sucursal_fk = id_sucursal_fk;
     }
 
     public int getId_tipo_accidente_fk() {
@@ -78,7 +78,7 @@ public class ReporteAccidente {
 
     @Override
     public String toString() {
-        return "ReporteAccidente{" + "id_reporte_accidente=" + id_reporte_accidente + ", fecha=" + fecha + ", hora=" + hora + ", comentario=" + comentario + ", id_empresa_fk=" + id_empresa_fk + ", id_tipo_accidente_fk=" + id_tipo_accidente_fk + '}';
+        return "ReporteAccidente{" + "id_reporte_accidente=" + id_reporte_accidente + ", fecha=" + fecha + ", hora=" + hora + ", comentario=" + comentario + ", id_sucursal_fk=" + id_sucursal_fk + ", id_tipo_accidente_fk=" + id_tipo_accidente_fk + '}';
     }
 
     

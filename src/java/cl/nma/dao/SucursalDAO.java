@@ -22,6 +22,6 @@ public interface SucursalDAO {
 
     List<Sucursal> listarEmpresa();
     
-    Sucursal obtenerSucursalPorId(Integer id);
+    List<Sucursal> obtenerSucursalPorId(Integer id);
     
 }

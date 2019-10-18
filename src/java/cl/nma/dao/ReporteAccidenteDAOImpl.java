@@ -42,17 +42,17 @@ public class ReporteAccidenteDAOImpl implements ReporteAccidenteDAO {
     public int agregar(ReporteAccidente ra) {
 
         int id = 0;
-        String sql = "INSERT INTO REPORTE_ACCIDENTE(FECHA,COMENTARIO,ID_EMPRESA_FK,ID_TIPO_ACCIDENTE_FK)"
-                + "VALUES(?,?,?,?)";
+        String sql = "INSERT INTO REPORTE_ACCIDENTE(FECHA,HORA,COMENTARIO,ID_TIPO_ACCIDENTE_FK,ID_SUCURSAL_FK)"
+                + "VALUES(?,?,?,?,?)";
 
         PreparedStatement pst;
         try {
             pst = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pst.setDate(1, castDateDAOImpl(ra.getFecha()));
-            //pst.setString(2, ra.getHora());
-            pst.setString(2, ra.getComentario());
-            pst.setInt(3, ra.getId_empresa_fk());
+            pst.setString(2, ra.getHora());
+            pst.setString(3, ra.getComentario());
             pst.setInt(4, ra.getId_tipo_accidente_fk());
+            pst.setInt(5, ra.getId_sucursal_fk());
             int result = pst.executeUpdate();
 
             if (result == 0) {

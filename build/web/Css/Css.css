@@ -1,0 +1,163 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 25-11-2017, 13:11:20
+    Author     : Richard Foncea
+*/
+.boxLogin{
+            margin:60px auto;
+            Width:600px; 
+            border-radius:10px;
+            box-shadow: 20px 20px 10px rgba(31, 31, 20,0.3);
+            background-color: #333333;
+            text-align:center;
+            color:white;
+        }
+        
+
+        
+table {
+    border-collapse:collapse;
+    width: 80%;
+    margin:30px auto;
+    
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+    color: black;
+}
+
+tr:nth-child(even){background-color: #b3b3b3;}
+
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.boxTable{
+            margin:30px auto;
+            Width:1000px; 
+            border-radius:10px;
+            box-shadow: 20px 20px 10px rgba(31, 31, 20,0.3);
+            background-color: rgba(52, 73, 94, 0.85);
+            text-align:center;
+            color:white;
+}
+
+
+.boxAgregarExpansion{
+            margin:30px auto;
+            Width:600px; 
+            border-radius:10px;
+            box-shadow: 20px 20px 10px rgba(31, 31, 20,0.3);
+            background-color: #333333;
+            text-align:center;
+            color:white;
+}
+.boxAgregarCarta{
+            margin:30px auto;
+            Width:600px; 
+            border-radius:10px;
+            box-shadow: 20px 20px 10px rgba(31, 31, 20,0.3);
+            background-color: #333333;
+            text-align:center;
+            color:white;
+}
+.boxOption{
+            margin:10px auto;
+            Width:600px; 
+            border-radius:10px;
+            box-shadow: 20px 20px 10px rgba(31, 31, 20,0.3);
+            background-color: rgba(52, 73, 94, 0.85);
+            text-align:center;
+            color:white;
+}
+.input-login{
+    color: white;
+    background-color:  #1a1a1a;
+    border-radius: 5px;
+    font-size: 20px;
+    width: 80%;
+    text-align: center;
+    padding: 20px 40px 20px 40px;
+    margin-bottom: 10px;
+}
+.input-option{
+    color: white;
+    background-color: #008080;
+    border-radius: 5px;
+    font-size: 15px;
+    width: 150px;
+    height: 30px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.input-agregar{
+    color: white;
+    background-color: #1a1a1a;
+    border-radius: 5px;
+    font-size: 20px;
+    width: 80%;
+    height: 60px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.input-text{
+  background: rgba(255,255,255,0.1);
+  color: black;
+  border-radius: 5px;
+  height: 30px;
+  font-size: 16px;
+  margin: 0;
+  outline: 0;
+  width: 80%;
+  background-color: #e8eeef;
+}
+
+
+.form-control-ddl {
+  
+  background: rgba(255,255,255,0.1);
+  color: black;
+  border-radius: 5px;
+  height: 30px;
+  font-size: 16px;
+  margin: 0;
+  outline: 0;
+  width: 80%;
+  background-color: #e8eeef;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+       -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.boxLogin img{
+
+            width:120px;
+            height:120px;
+            margin-top:-40px;
+        }
+        
+        
+        .boxAgregarExpansion img{
+
+            width:65px;
+            height:65px;
+            margin-top:-20px;
+        }
+        
+        .boxAgregarCarta img{
+
+            width:65px;
+            height:65px;
+            margin-top:-20px;
+        }
