@@ -20,6 +20,18 @@
         </script>
     </head>
     <body>
+        
+           <% String rs = String.valueOf(sesion.getAttribute("id_rol"));%>
+        <c:set var="id_rol" value="<%=rs%>" />
+
+        <c:choose>
+            <c:when test="${id_rol == 3}">
+
+            </c:when>    
+            <c:otherwise>
+                <%response.sendRedirect("http://localhost:8080/nma/home.jsp");%>
+            </c:otherwise>
+        </c:choose>
 
         <!-- Errores -->
         <c:forEach items="${errores}" var="error">

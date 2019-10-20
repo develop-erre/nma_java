@@ -8,22 +8,22 @@ and open the template in the editor.
     Author     : Richard Foncea
 */
 .boxLogin{
-            margin:60px auto;
-            Width:600px; 
-            border-radius:10px;
-            box-shadow: 20px 20px 10px rgba(31, 31, 20,0.3);
-            background-color: #333333;
-            text-align:center;
-            color:white;
-        }
-        
+    margin:60px auto;
+    Width:600px; 
+    border-radius:10px;
+    box-shadow: 20px 20px 10px rgba(31, 31, 20,0.3);
+    background-color: #333333;
+    text-align:center;
+    color:white;
+}
 
-        
+
+
 table {
     border-collapse:collapse;
     width: 80%;
     margin:30px auto;
-    
+
 }
 
 th, td {
@@ -41,42 +41,42 @@ th {
 }
 
 .boxTable{
-            margin:30px auto;
-            Width:1000px; 
-            border-radius:10px;
-            box-shadow: 20px 20px 10px rgba(31, 31, 20,0.3);
-            background-color: rgba(52, 73, 94, 0.85);
-            text-align:center;
-            color:white;
+    margin:30px auto;
+    Width:1000px; 
+    border-radius:10px;
+    box-shadow: 20px 20px 10px rgba(31, 31, 20,0.3);
+    background-color: rgba(52, 73, 94, 0.85);
+    text-align:center;
+    color:white;
 }
 
 
 .boxAgregarExpansion{
-            margin:30px auto;
-            Width:600px; 
-            border-radius:10px;
-            box-shadow: 20px 20px 10px rgba(31, 31, 20,0.3);
-            background-color: #333333;
-            text-align:center;
-            color:white;
+    margin:30px auto;
+    Width:600px; 
+    border-radius:10px;
+    box-shadow: 20px 20px 10px rgba(31, 31, 20,0.3);
+    background-color: #333333;
+    text-align:center;
+    color:white;
 }
 .boxAgregarCarta{
-            margin:30px auto;
-            Width:600px; 
-            border-radius:10px;
-            box-shadow: 20px 20px 10px rgba(31, 31, 20,0.3);
-            background-color: #333333;
-            text-align:center;
-            color:white;
+    margin:30px auto;
+    Width:600px; 
+    border-radius:10px;
+    box-shadow: 20px 20px 10px rgba(31, 31, 20,0.3);
+    background-color: #333333;
+    text-align:center;
+    color:white;
 }
 .boxOption{
-            margin:10px auto;
-            Width:600px; 
-            border-radius:10px;
-            box-shadow: 20px 20px 10px rgba(31, 31, 20,0.3);
-            background-color: rgba(52, 73, 94, 0.85);
-            text-align:center;
-            color:white;
+    margin:10px auto;
+    Width:600px; 
+    border-radius:10px;
+    box-shadow: 20px 20px 10px rgba(31, 31, 20,0.3);
+    background-color: rgba(52, 73, 94, 0.85);
+    text-align:center;
+    color:white;
 }
 .input-login{
     color: white;
@@ -110,54 +110,66 @@ th {
 }
 
 .input-text{
-  background: rgba(255,255,255,0.1);
-  color: black;
-  border-radius: 5px;
-  height: 30px;
-  font-size: 16px;
-  margin: 0;
-  outline: 0;
-  width: 80%;
-  background-color: #e8eeef;
+    background: rgba(255,255,255,0.1);
+    color: black;
+    border-radius: 5px;
+    height: 30px;
+    font-size: 16px;
+    margin: 0;
+    outline: 0;
+    width: 80%;
+    background-color: #e8eeef;
+}
+
+.input-horas{
+    background: rgba(255,255,255,0.1);
+    color: black;
+    border-radius: 3px;
+    height: 30px;
+    font-size: 16px;
+    margin: 0;
+    outline: 0;
+    width: 50px;
+    background-color: #e8eeef;
 }
 
 
 .form-control-ddl {
-  
-  background: rgba(255,255,255,0.1);
-  color: black;
-  border-radius: 5px;
-  height: 30px;
-  font-size: 16px;
-  margin: 0;
-  outline: 0;
-  width: 80%;
-  background-color: #e8eeef;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
-       -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+
+    background: rgba(255,255,255,0.1);
+    color: black;
+    border-radius: 5px;
+    height: 30px;
+    font-size: 16px;
+    margin: 0;
+    outline: 0;
+    width: 80%;
+    background-color: #e8eeef;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
 .boxLogin img{
 
-            width:120px;
-            height:120px;
-            margin-top:-40px;
-        }
-        
-        
-        .boxAgregarExpansion img{
+    width:120px;
+    height:120px;
+    margin-top:-40px;
+}
 
-            width:65px;
-            height:65px;
-            margin-top:-20px;
-        }
-        
-        .boxAgregarCarta img{
 
-            width:65px;
-            height:65px;
-            margin-top:-20px;
-        }
+.boxAgregarExpansion img{
+
+    width:65px;
+    height:65px;
+    margin-top:-20px;
+}
+
+.boxAgregarCarta img{
+
+    width:65px;
+    height:65px;
+    margin-top:-20px;
+}

@@ -1,16 +1,20 @@
+<%@page import="java.lang.String"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% HttpSession sesion = request.getSession(); %>
+<% HttpSession sesion = request.getSession();%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <link rel="stylesheet" type="text/css" href="Css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="Css/Css.css">
+        <title>Home Principal</title>
     </head>
     <body>
+          <% String rs = String.valueOf(sesion.getAttribute("id_rol"));%>
+        <c:set var="id_rol" value="<%=rs%>" />
+
         <h1>Hello Home!</h1>
-        
-        <% String rs = String.valueOf(sesion.getAttribute("id_rol")) ;%>
         <h1>id rol rescatado </h1>
         <h1><%=rs%></h1>
         
@@ -48,6 +52,9 @@
                <a href="http://localhost:8080/nma/crearempresa.jsp">crear empresa</a>
                <br>
                <a href="listasucursal">reportar Accidente empresas</a>
+               <br>
+               
+               <a href="http://localhost:8080/nma/actividades.jsp">Crear Actividad</a>
                <br>
                <a href="login">Cerrar Sesion</a>
            
