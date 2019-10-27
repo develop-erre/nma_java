@@ -106,7 +106,26 @@ public class listaSucursalServlets extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        int id = Integer.parseInt(request.getParameter("id_emp"));
+        System.out.println(id);
+        
+        List<Sucursal> lista = new ArrayList();
+        try {
+            SucursalDAOImpl sucDAO = new SucursalDAOImpl();
+            //OBTIENE SUCURSALES POR EL ID DE EMPRESA
+            lista = sucDAO.obtenerSucursalPorId(id);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(listaEmpresaListServlets.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//
+//        for (Sucursal var :lista) {
+//            var.getId_sucursal();
+//        }
+        request.setAttribute("listaSucursal", lista);
+        request.getRequestDispatcher("listaSucursales.jsp").forward(request, response);
+        
 
     }
 

@@ -15,8 +15,8 @@
         <title>Lista de Empresas</title>
     </head>
     <body>
-        
-          <% String rs = String.valueOf(sesion.getAttribute("id_rol"));%>
+
+        <% String rs = String.valueOf(sesion.getAttribute("id_rol"));%>
         <c:set var="id_rol" value="<%=rs%>" />
 
         <c:choose>
@@ -36,7 +36,7 @@
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>Rut</th>
-                    <th>Nombre sucursal</th>
+                    <th>Casa Matriz</th>
                     <th>Dirección</th>
                     <th>Acciones</th>
                 </tr>
@@ -50,6 +50,12 @@
                         <td>${empresa.nombre_suc}</td>
                         <td>${empresa.direccion}</td>
                         <td>
+                            <form action="listasucursal" method="POST">
+                                <input type="submit" value="Sucursal" name="btnSucursal" />
+                                <input type="hidden" name="id_emp" value="${empresa.id_empresa}" />
+                            </form>
+
+                            <a href="eliminar.do?id_usuario=${empresa.rut}">Sucursal</a>
                             <a href="eliminar.do?id_usuario=${empresa.rut}">Eliminar</a>
                             <a href="actualizar.do?id_usuario=${empresa.rut}">Actualizar</a>
                         </td>

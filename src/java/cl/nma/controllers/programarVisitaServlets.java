@@ -6,9 +6,9 @@
 package cl.nma.controllers;
 
 import cl.nma.dao.ActividadDAOImpl;
-import cl.nma.dao.ReporteAccidenteDAOImpl;
+import cl.nma.dao.VisitaDAOImpl;
 import cl.nma.dominio.Actividad;
-import cl.nma.dominio.ReporteAccidente;
+import cl.nma.dominio.Visita;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -27,8 +27,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Richard Foncea
  */
-@WebServlet(name = "crearCapacitacionServlets", urlPatterns = {"/capacitacion"})
-public class crearCapacitacionServlets extends HttpServlet {
+@WebServlet(name = "programarVisitaServlets", urlPatterns = {"/programarvisita"})
+public class programarVisitaServlets extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,10 +47,10 @@ public class crearCapacitacionServlets extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet crearCapacitacionServlets</title>");            
+            out.println("<title>Servlet programarVisitaServlets</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet crearCapacitacionServlets at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet programarVisitaServlets at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -82,29 +82,18 @@ public class crearCapacitacionServlets extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    
         
         boolean banderaError=true;
 
-        String fecha = request.getParameter("txtFechaCap");
-        String hr = request.getParameter("txtHoraCap");
-        String min = request.getParameter("txtMinutosCap");
+        String fecha = request.getParameter("txtFechaVis");
+        String hr = request.getParameter("txtHoraVis");
+        String min = request.getParameter("txtMinutosVis");
         String horaMin = hr + ":" + min;
-        int numerosAsistentes = Integer.parseInt(request.getParameter("txtNumerosCap"));
-        int idTipoAccidente = Integer.parseInt(request.getParameter("selectTipoCapacitacion"));
-        int idProfesionaCap = Integer.parseInt(request.getParameter("selectProfesionalId"));
+        int idTipoVisita = Integer.parseInt(request.getParameter("selectTipoVisita"));
+        int idProfesionaVis = Integer.parseInt(request.getParameter("selectProfesionalId"));
         int idSucIdCap = Integer.parseInt(request.getParameter("selectSucursalId"));
-        
 
-////        HashMap<String, Object> errores = new HashMap<>();
-//        if (idSucursal == 0) {
-//            banderaError = false;
-//            request.setAttribute("mensajeLugar", "Seleccione Lugar");
-//        }
-//        
-//        if (idTipoAccidente == 0) {
-//            banderaError = false;
-//            request.setAttribute("mensajeTipo", "Seleccione Tipo Accidente");
-//        }
 
         if (banderaError) {
             try {
@@ -115,22 +104,33 @@ public class crearCapacitacionServlets extends HttpServlet {
                 act.setFecha_act(castDate(fecha));
                 act.setHora_act(horaMin);
                 act.setEstado_act(0);
-                act.setId_usuario_fk(idProfesionaCap);
+                act.setId_usuario_fk(idProfesionaVis);
                 act.setId_sucursal_empresa_fk(idSucIdCap);
 
-                actDAO.agregar(act);
+                int idActividad = actDAO.agregar(act);
+                
+                //CREAR VISITA
+                VisitaDAOImpl visDAO = new VisitaDAOImpl();
+                Visita vis  = new Visita();
+                //SETEAR DATOS 
+                vis.setId_tipo_visita_fk(idTipoVisita);
+                vis.setId_actividad_fk_v(idActividad);
+                visDAO.agregar(vis);
 
-                request.setAttribute("mensaje", "Actividad Creada!");
-                request.getRequestDispatcher("/capacitacion.jsp").forward(request, response);
+                request.setAttribute("mensaje", "Visita Programada!");
+                request.getRequestDispatcher("/visita.jsp").forward(request, response);
 
-            } catch (ParseException | SQLException ex) {
+            } catch (SQLException ex) {
                 Logger.getLogger(reportarAccidenteServlets.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(programarVisitaServlets.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         } else {
             request.getRequestDispatcher("/reportaraccidente.jsp").forward(request, response);
            // request.getRequestDispatcher("/listasucursal").forward(request, response);
         }
+        
     }
 
     /**
@@ -143,7 +143,7 @@ public class crearCapacitacionServlets extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    public Date castDate(String date) throws ParseException {
+     public Date castDate(String date) throws ParseException {
 
         String mes = date.substring(0, 2);
         String dia = date.substring(3, 5);

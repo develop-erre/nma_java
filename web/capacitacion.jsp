@@ -70,11 +70,22 @@
 
             <h4>Seleccione Profesional  para la capacitación</h4>
                 <select name="selectProfesionalId" class="input-text" required="">
-                    <option  value="0">SELECCIONE</option>
+                    <option  value="4">PROFE 4</option>
+                    <option  value="5">PROFE 5</option>
+                    <option  value="6">PROFE 6</option>
+            </select>
+            
+            <h4>Seleccione lugar para la capacitación</h4>
+                <select name="selectSucursalId" class="input-text" required="">
+                    <option  value="3">SUC 3</option>
+                    <option  value="5">SUC 5</option>
+                    <option  value="6">SUC 6</option>
+                    
             </select>
 
             <input type = "submit" class="input-login"  value = "CREAR CAPACITACIÓN">
             <br>
+            <c:out value="${mensaje}"></c:out>
             <br>
         </form>
 

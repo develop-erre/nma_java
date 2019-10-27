@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <title>Lista de Empresas</title>
+        <title>Lista de Sucursal</title>
     </head>
     <body>
 
@@ -33,31 +33,20 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Rut</th>
-                    <th>Casa Matriz</th>
-                    <th>Dirección</th>
+                    <th>Id Sucursal</th>
+                    <th>Nombre Sucursal</th>
+                    <th>Direccion</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                <c:forEach items="${listaEmp}" var="empresa">
+                <c:forEach items="${listaSucursal}" var="sucursal">
                     <tr>
-                        <td>${empresa.id_empresa}</td>
-                        <td>${empresa.nombre}</td>
-                        <td>${empresa.rut}</td>
-                        <td>${empresa.nombre_suc}</td>
-                        <td>${empresa.direccion}</td>
+                        <td>${sucursal.id_sucursal}</td>
+                        <td>${sucursal.nombre}</td>
+                        <td>${sucursal.direccion}</td>
                         <td>
-                            <form action="listasucursal" method="POST">
-                                <input type="submit" value="Sucursal" name="btnSucursal" />
-                                <input type="hidden" name="id_emp" value="${empresa.id_empresa}" />
-                            </form>
-
-                            <a href="eliminar.do?id_usuario=${empresa.rut}">Sucursal</a>
-                            <a href="eliminar.do?id_usuario=${empresa.rut}">Eliminar</a>
-                            <a href="actualizar.do?id_usuario=${empresa.rut}">Actualizar</a>
+                            <a href="eliminar.do?id_usuario=">Programar Visita</a>
                         </td>
                     </tr>
                 </c:forEach>

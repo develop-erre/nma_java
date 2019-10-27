@@ -96,6 +96,7 @@ public class SucursalDAOImpl implements SucursalDAO {
                 suc = new Sucursal();
                 suc.setId_sucursal(Integer.parseInt(rs.getString(1)));
                 suc.setNombre(rs.getString(2));
+                suc.setDireccion(rs.getString(3));
                 sucList.add(suc);
             }
         } catch (SQLException ex) {
