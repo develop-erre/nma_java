@@ -8,6 +8,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="Css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="Css/Css.css">
+        <script lenguage="javascript" src="js/validar.js"></script>
         <title>Crear Empresa</title>
     </head>
     <body>
@@ -25,22 +26,22 @@
 
         <h2>Crear Empresa </h2>
 
-        <form action="crearEmpresa" method="post">
+        <form action="crearEmpresa" method="post" onsubmit="return validarCrearEmpresa();">
             <br>
             <h4>Nombre Empresa</h4>
-            <input type="text" class="input-text" name = "txtNombre" placeholder="Ingresa Nombre Empesa" value = "" required="" minlength="3">
+            <input type="text" class="input-text" name = "txtNombre" placeholder="Ingresa Nombre Empesa" value = "" required="" minlength="3" maxlength="44">
 
             <h4>Rut</h4>
-            <input type="text" class="input-text" name = "txtRut" placeholder="Ingresa Rut Empresa" value = "" required="" minlength="3">
+            <input type="text" class="input-text" name = "txtRut" placeholder="Ingresa Rut Empresa" value = "" required="" minlength="3" maxlength="19">
 
             <h4>Sitio Web </h4>
-            <input type="text" class="input-text" name = "txtSitioWeb" placeholder="Ingresa Sitio WEB" value = "" required="" minlength="3">
+            <input type="text" class="input-text" name = "txtSitioWeb" placeholder="Ingresa Sitio WEB" value = "" required="" minlength="3" maxlength="44">
 
             <h4>telefono</h4>
-            <input type="number" class="input-text" name = "txtTelefono" placeholder="Ingresa Telefono" value = "" required="" minlength="3">
+            <input type="number" class="input-text" id="telefonoJs" name="txtTelefono" placeholder="Ingresa Telefono" value = "" required="" minlength="3" maxlength="10">
 
             <h4>Rubro de la Empresa</h4>
-            <select name="selectRubro" class="input-text" required="">
+            <select name="selectRubro" id="selectRubroJs" class="input-text" required="">
                 <option value="0">Seleccione</option>
                 <option value="1">AGRICULTURA, GANADERÍA, CAZA Y SILVICULTURA</option>
                 <option value="2">PESCA</option>
@@ -69,8 +70,8 @@
             <h2>Sucursal Empresa</h2>
 
             <h4>Direccion</h4>
-            <input type="text" class="input-text" name = "txtDireccion" placeholder="Ingresa direccion de la Empesa" value = "" required="" minlength="3">
-            <input type="number" class="input-text" name = "txtNumero" placeholder="Ingresa numero" value = "" required="">
+            <input type="text" class="input-text"  name = "txtDireccion" placeholder="Ingresa direccion de la Empesa" value = "" required="" minlength="3" max="44">
+            <input type="number" class="input-text"  id="numeroDireccionJs" name = "txtNumero" placeholder="Ingresa numero" value = "" required="">
             <h4>Region</h4>
             <select name="selectRegion" class="input-text" required="">
 

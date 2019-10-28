@@ -22,6 +22,8 @@ public interface ProfesionalDAO {
 
     List<Profesional> listarProfesional();
     
+    List<Profesional> listarProfesionalHabilitados();
+    
     Profesional obtenerProfesionalPorId(Integer id);
     
 }

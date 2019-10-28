@@ -9,6 +9,15 @@
         <link rel="stylesheet" type="text/css" href="Css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="Css/Css.css">
         <title>Crear Profesional</title>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+            $(function () {
+                $("#datepicker").datepicker({maxDate: "-18Y"});
+            });
+        </script>
     </head>
     <body>
 
@@ -40,7 +49,7 @@
             <h4>direccion</h4>
             <input type="text" class="input-text" name = "txtDireccion" placeholder="Ingresa Run" value = "" required="" minlength="3">
             <h4>fecha de nacimiento</h4> 
-            <input type="date" class="input-text"  name = "txtFechaNac" placeholder="Ingresa Password" value = "" required="" minlength="3">
+            <input type="text" id="datepicker" class="input-text" placeholder="Ingrece Fecha" name = "txtFechaNac"  required="">
             <br>
             <h4>email</h4> 
             <input type="email" class="input-text"  name = "txtEmail" placeholder="Ingresa Password" value = "" required="" minlength="3">

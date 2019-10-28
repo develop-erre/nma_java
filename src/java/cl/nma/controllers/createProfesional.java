@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -86,7 +88,7 @@ public class createProfesional extends HttpServlet {
         String run = request.getParameter("txtRun");
         String pass = request.getParameter("txtPass");
         String direccion = request.getParameter("txtDireccion");
-        Date fechaNac = Date.valueOf(request.getParameter("txtFechaNac"));
+        String fechaNac = request.getParameter("txtFechaNac");
         String email = request.getParameter("txtEmail");
         String telefono = request.getParameter("txtTelefono");
         int estado = 0;
@@ -97,13 +99,13 @@ public class createProfesional extends HttpServlet {
             ProfesionalDAOImpl profDAO = new ProfesionalDAOImpl();
 
             Profesional prof = new Profesional();
-            prof.setNombre(nombre);
-            prof.setApellidos(apellidos);
+            prof.setNombre(nombre.toUpperCase());
+            prof.setApellidos(apellidos.toUpperCase());
             prof.setRut(run);
             prof.setPassword(pass);
-            prof.setDireccion(direccion);
-            prof.setFecha_nac(fechaNac);
-            prof.setEmail(email);
+            prof.setDireccion(direccion.toUpperCase());
+            prof.setFecha_nac(castDate(fechaNac));
+            prof.setEmail(email.toUpperCase());
             prof.setTelefono(telefono);
             prof.setEstado(estado);
             prof.setId_comuna_us_fk(comunaId);
@@ -111,12 +113,12 @@ public class createProfesional extends HttpServlet {
 
             profDAO.agregar(prof);
 
-            RequestDispatcher rd;
-            rd = getServletContext().getRequestDispatcher("/home_1.jsp");
-            rd.include(request, response);
+            request.getRequestDispatcher("home.jsp").forward(request, response);
 
         } catch (SQLException ex) {
             Logger.getLogger(loginServlets.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(createProfesional.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         processRequest(request, response);
@@ -132,4 +134,18 @@ public class createProfesional extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+     public java.util.Date castDate(String date) throws ParseException {
+
+        String mes = date.substring(0, 2);
+        String dia = date.substring(3, 5);
+        String anio = date.substring(6, 10);
+
+        String fechaCast = anio + "-" + mes + "-" + dia;
+        System.out.println(fechaCast);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        java.util.Date fech = (java.util.Date) simpleDateFormat.parse(fechaCast);
+
+        return fech;
+    }
 }

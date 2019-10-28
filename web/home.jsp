@@ -56,6 +56,12 @@
                
                <a href="http://localhost:8080/nma/actividades.jsp">Crear Actividad</a>
                <br>
+               <br>
+               <br>
+               <a href="actividadesProfesional">Ver Actividades del profesional</a>
+               <br>
+               <br>
+               <br>
                <a href="login">Cerrar Sesion</a>
            
     </body>

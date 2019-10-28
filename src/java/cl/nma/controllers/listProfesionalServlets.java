@@ -84,7 +84,7 @@ public class listProfesionalServlets extends HttpServlet {
         List<Profesional> lista = new ArrayList();
         try {
             ProfesionalDAOImpl profDAO = new ProfesionalDAOImpl();
-            lista = profDAO.listarProfesional();
+            lista = profDAO.listarProfesionalHabilitados();
 
         } catch (SQLException ex) {
             Logger.getLogger(listProfesionalServlets.class.getName()).log(Level.SEVERE, null, ex);

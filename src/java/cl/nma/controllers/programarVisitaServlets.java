@@ -87,13 +87,22 @@ public class programarVisitaServlets extends HttpServlet {
         boolean banderaError=true;
 
         String fecha = request.getParameter("txtFechaVis");
-        String hr = request.getParameter("txtHoraVis");
-        String min = request.getParameter("txtMinutosVis");
-        String horaMin = hr + ":" + min;
+        String horaMin = request.getParameter("selectHora");
         int idTipoVisita = Integer.parseInt(request.getParameter("selectTipoVisita"));
         int idProfesionaVis = Integer.parseInt(request.getParameter("selectProfesionalId"));
-        int idSucIdCap = Integer.parseInt(request.getParameter("selectSucursalId"));
+        int idSucIdCap = Integer.parseInt(request.getParameter("SucursalId"));
 
+//        if (idTipoVisita==0) {
+//            banderaError=false;
+//        }
+//        
+//        if (idProfesionaVis==0) {
+//            banderaError=false;
+//        }
+//        
+//        if (idSucIdCap==0) {
+//            banderaError=false;
+//        }
 
         if (banderaError) {
             try {
@@ -118,7 +127,7 @@ public class programarVisitaServlets extends HttpServlet {
                 visDAO.agregar(vis);
 
                 request.setAttribute("mensaje", "Visita Programada!");
-                request.getRequestDispatcher("/visita.jsp").forward(request, response);
+                request.getRequestDispatcher("/listaEmpresa").forward(request, response);
 
             } catch (SQLException ex) {
                 Logger.getLogger(reportarAccidenteServlets.class.getName()).log(Level.SEVERE, null, ex);
@@ -127,7 +136,7 @@ public class programarVisitaServlets extends HttpServlet {
             }
 
         } else {
-            request.getRequestDispatcher("/reportaraccidente.jsp").forward(request, response);
+            request.getRequestDispatcher("/programarVisita").forward(request, response);
            // request.getRequestDispatcher("/listasucursal").forward(request, response);
         }
         

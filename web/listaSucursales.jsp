@@ -46,7 +46,10 @@
                         <td>${sucursal.nombre}</td>
                         <td>${sucursal.direccion}</td>
                         <td>
-                            <a href="eliminar.do?id_usuario=">Programar Visita</a>
+                            <form action="programarVisita" method="POST">
+                                <input type="submit" value="Programar Visita" />
+                                <input type="hidden" name="txtIdSucursal" value="${sucursal.id_sucursal}" />
+                            </form>
                         </td>
                     </tr>
                 </c:forEach>

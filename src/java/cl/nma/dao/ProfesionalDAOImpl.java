@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -53,7 +54,7 @@ public class ProfesionalDAOImpl implements ProfesionalDAO {
             pst.setString(3, prof.getRut());
             pst.setString(4, prof.getPassword());
             pst.setString(5, prof.getDireccion());
-            pst.setDate(6, prof.getFecha_nac());
+            pst.setDate(6, castDateDAOImpl(prof.getFecha_nac()));
             pst.setString(7, prof.getEmail());
             pst.setString(8, prof.getTelefono());
             pst.setInt(9, prof.getEstado());
@@ -73,13 +74,45 @@ public class ProfesionalDAOImpl implements ProfesionalDAO {
 
         } catch (SQLException ex) {
             Logger.getLogger(ProfesionalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(ProfesionalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return id;
     }
 
     @Override
     public int eliminar(Integer idprof) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+       int result = 0;
+        String sql = "UPDATE USUARIO SET ESTADO = 1 WHERE id_usuario = ?";
+        PreparedStatement pst = null;
+        try {
+            pst = conexion.prepareStatement(sql);
+            pst.setInt(1, idprof);
+            result = pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProfesionalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //siempre cerrar la conexion y el pst
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return result;
+        
     }
 
     @Override
@@ -115,4 +148,40 @@ public class ProfesionalDAOImpl implements ProfesionalDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public List<Profesional> listarProfesionalHabilitados() {
+        
+        List<Profesional> lista = new ArrayList<>();
+
+        String sql = "SELECT * FROM USUARIO WHERE ID_ROL_FK = 2 AND ESTADO=0";
+        try {
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+
+            Profesional profesional = null;
+
+            while (rs.next()) {
+                profesional = new Profesional();
+                profesional.setId_usuario(rs.getInt(1));
+                profesional.setNombre(rs.getString(2));
+                profesional.setApellidos(rs.getString(3));
+                profesional.setRut(rs.getString(4));
+                profesional.setEmail(rs.getString(8));
+                profesional.setTelefono(rs.getString(9));
+                lista.add(profesional);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProfesionalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
+        
+    }
+
+    public java.sql.Date castDateDAOImpl(java.util.Date date) throws ParseException {
+
+        java.util.Date fech = date;
+        java.sql.Date sDate = new java.sql.Date(fech.getTime());
+        return sDate;
+    }
 }
