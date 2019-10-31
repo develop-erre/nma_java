@@ -86,8 +86,8 @@ public class createProfesional extends HttpServlet {
         String nombre = request.getParameter("txtNombre");
         String apellidos = request.getParameter("txtApellidos");
         String run = request.getParameter("txtRun");
-        String pass = request.getParameter("txtPass");
-        String direccion = request.getParameter("txtDireccion");
+        String pass = request.getParameter("txtPassword");
+        String direccion = request.getParameter("txtDireccion")+" #"+request.getParameter("txtNumero");
         String fechaNac = request.getParameter("txtFechaNac");
         String email = request.getParameter("txtEmail");
         String telefono = request.getParameter("txtTelefono");
@@ -120,8 +120,6 @@ public class createProfesional extends HttpServlet {
         } catch (ParseException ex) {
             Logger.getLogger(createProfesional.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        processRequest(request, response);
     }
 
     /**

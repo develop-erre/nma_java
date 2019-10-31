@@ -5,17 +5,45 @@ function validarSelectOption() {
     var selectPro = document.getElementById("selectProfVisitaJs").value;
     var selectHora = document.getElementById("selectHoraJS").value;
 
-    if (selectHora === 0) {
+    if (selectHora == 0) {
         alert("Debe seleccionar hora de visita");
         return false;
     }
 
-    if (selectTipo === 0) {
+    if (selectTipo == 0) {
         alert(" debe seleccionar el tipo de visita");
         return false;
     }
 
-    if (selectPro === 0) {
+    if (selectPro == 0) {
+        alert("Debe seleccionar un Profesional");
+        return false;
+    }
+    
+}
+
+function validarProgramarCapacitacion() {
+
+    var selectTipoCapacitacion = document.getElementById("selectTipoCapacitacionJs").value;
+    var selectPro = document.getElementById("selectProfcapacitacionJs").value;
+    var selectHora = document.getElementById("selectHoraJS").value;
+    var numeroAsistentes = document.getElementById("numeroAsisJS");
+
+    if (selectHora == 0) {
+        alert("Debe seleccionar hora de Capacitación");
+        return false;
+    }
+
+    if (numeroAsistentes > 40) {
+         alert("Asistentes deben ser mayor a 0 y hasta 40 personas");
+        return false;
+    }
+    if (selectTipoCapacitacion == 0) {
+        alert(" debe seleccionar el tipo de capacitación");
+        return false;
+    }
+
+    if (selectPro == 0) {
         alert("Debe seleccionar un Profesional");
         return false;
     }

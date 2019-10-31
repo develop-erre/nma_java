@@ -73,8 +73,7 @@
             <input type="text" class="input-text"  name = "txtDireccion" placeholder="Ingresa direccion de la Empesa" value = "" required="" minlength="3" max="44">
             <input type="number" class="input-text"  id="numeroDireccionJs" name = "txtNumero" placeholder="Ingresa numero" value = "" required="">
             <h4>Region</h4>
-            <select name="selectRegion" class="input-text" required="">
-
+            <select name="selectRegionpRrof" class="input-text" required="">
                 <option value="0">SELECCIONE</option>
                 <option value="1">ARICA Y PARINACOTA</option>
                 <option value="2">TARAPACÁ</option>

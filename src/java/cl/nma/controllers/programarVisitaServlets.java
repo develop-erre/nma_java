@@ -92,18 +92,6 @@ public class programarVisitaServlets extends HttpServlet {
         int idProfesionaVis = Integer.parseInt(request.getParameter("selectProfesionalId"));
         int idSucIdCap = Integer.parseInt(request.getParameter("SucursalId"));
 
-//        if (idTipoVisita==0) {
-//            banderaError=false;
-//        }
-//        
-//        if (idProfesionaVis==0) {
-//            banderaError=false;
-//        }
-//        
-//        if (idSucIdCap==0) {
-//            banderaError=false;
-//        }
-
         if (banderaError) {
             try {
                 //SE CREA ACTIVIDAD CREAR CAPACITACION

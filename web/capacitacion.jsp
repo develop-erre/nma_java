@@ -5,8 +5,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="Css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="Css/Css.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="fonts/css/all.min.css">
+        <script lenguage="javascript" src="js/validar.js"></script>
         <title>Capacitación</title>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <link rel="stylesheet" href="/resources/demos/style.css">
@@ -21,7 +22,6 @@
         </script>
     </head>
     <body>
-        <h1>Hello CAPACITACION!</h1>
 
         <% String rs = String.valueOf(sesion.getAttribute("id_rol"));%>
         <c:set var="id_rol" value="<%=rs%>" />
@@ -35,59 +35,85 @@
             </c:otherwise>
         </c:choose>
 
-        <form action="capacitacion" name="formCrearCapacitacion" method="POST">
-            <br>
-            <h4>Fecha Capacitacion</h4>
-            <input type="text" id="datepicker" class="input-text" placeholder="Ingrece Fecha" name = "txtFechaCap"  required="">
+        <c:choose>
+            <c:when test="${id_rol == 1}">
+                <jsp:include page="menuAdmin.jsp"/>
+            </c:when>    
+            <c:when test="${id_rol == 2}">
+                <jsp:include page="menuProfesional.jsp"/>
+            </c:when>  
+            <c:otherwise>
+                <jsp:include page="menuCliente.jsp"/>
+            </c:otherwise>
+        </c:choose>
 
-            <h4>Hora</h4>
-            <select name="selectHoraCap" id="selectHoraJS" class="input-text" required="">
-                <option value="0">SELECCIONE</option>
-                <option value="08:00">09:00</option>
-                <option value="10:00">10:00</option>
-                <option value="12:00">12:00</option>
-                <option value="14:00">14:00</option>
-                <option value="16:00">16:00</option>
-                <option value="17:00">17:00</option>
-            </select>
+        <br>
+        <div class="container-fluid">
+            <h3>Programación de Capacitación</h3>
+            <form action="capacitacion" name="formCrearCapacitacion" method="POST" onsubmit="return validarProgramarCapacitacion();">
+                <br>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="inputFechaNac4">Fecha Capacitación</label>
+                        <input type="text" class="form-control" id="datepicker" name="txtFechaCap" placeholder="Ingrece fecha" required="">
+                    </div>
 
-            <h4>Números Asistentes</h4>
-            <input type="number" class="input-text" name = "txtNumerosCap" placeholder="Ingresa Capacidad de asistentes"  required=""  min="0" max="50">
+                    <div class="form-group col-md-2">
+                        <label for="inputNombre4">Hora</label>
+                        <select name="selectHoraCap" id="selectHoraJS" class="form-control" required="" required="">
+                            <option value="0">SELECCIONE</option>
+                            <option value="08:00">09:00</option>
+                            <option value="10:00">10:00</option>
+                            <option value="12:00">12:00</option>
+                            <option value="14:00">14:00</option>
+                            <option value="16:00">16:00</option>
+                            <option value="17:00">17:00</option>
+                        </select>
+                    </div>
 
-            <h4>Tipo Capacitación</h4>
-            <select name="selectTipoCapacitacion" class="input-text" required="">
-                <option value="0">SELECCIONE</option>
-                <option value="1">ADMINISTRACIÓN DE RIESGOS Y COMPETITIVIDAD</option>
-                <option value="2">APRENDIENDO SOBRE COMITÉS PARITARIOS</option>
-                <option value="3">CÓMO IMPLEMENTAR PROTOCOLO PLANESI EN MI EMPRESA</option>
-                <option value="4">CONOCIENDO LOS RIESGOS LABORALES EN NUESTRO TRABAJO</option>
-                <option value="5">MANEJO DE SUSTANCIAS Y RESIDUOS PELIGROSOS</option>
-                <option value="6">MANEJO MANUAL DE CARGAS</option>
-                <option value="7">MONITORES DE EMERGENCIA</option>
-                <option value="8">MONITORES EN SEGURIDAD Y SALUD OCUPACIONAL PARA EMPRESAS PYME</option>
-                <option value="9">MUTUAL OHSAS 18001</option>
-                <option value="10">ORIENTACIÓN EN PREVENCIÓN DE RIESGOS</option>
-                <option value="11">PREVENCIÓN DE RIESGO EN LA CONDUCCIÓN</option>
-                <option value="12">PROTOCOLO DE VIGILANCIA DE RIESGOS PSICOSOCIALES EN EL TRABAJO</option>
-                <option value="13">TRASTORNOS MUSCULO ESQUELÉTICOS DE EXTREMIDADES SUPERIORES EN EL TRABAJO</option>
-                <option value="14">USO Y MANEJO DE EXTINTORES PORTÁTILES</option>
-            </select>
+                    <div class="form-group col-md-2">
+                        <label for="numeroAsisJS4">Número Asistentes</label>
+                        <input type="text" class="form-control" id="numeroAsisJS" name="txtNumerosCap" placeholder="Ingrece Números" required="">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputCity">Tipo de Capacitación</label>
+                        <select name="selectTipoCapacitacion" id="selectTipoCapacitacionJs" class="form-control" required="">
+                            <option value="0">SELECCIONE</option>
+                            <option value="1">ADMINISTRACIÓN DE RIESGOS Y COMPETITIVIDAD</option>
+                            <option value="2">APRENDIENDO SOBRE COMITÉS PARITARIOS</option>
+                            <option value="3">CÓMO IMPLEMENTAR PROTOCOLO PLANESI EN MI EMPRESA</option>
+                            <option value="4">CONOCIENDO LOS RIESGOS LABORALES EN NUESTRO TRABAJO</option>
+                            <option value="5">MANEJO DE SUSTANCIAS Y RESIDUOS PELIGROSOS</option>
+                            <option value="6">MANEJO MANUAL DE CARGAS</option>
+                            <option value="7">MONITORES DE EMERGENCIA</option>
+                            <option value="8">MONITORES EN SEGURIDAD Y SALUD OCUPACIONAL PARA EMPRESAS PYME</option>
+                            <option value="9">MUTUAL OHSAS 18001</option>
+                            <option value="10">ORIENTACIÓN EN PREVENCIÓN DE RIESGOS</option>
+                            <option value="11">PREVENCIÓN DE RIESGO EN LA CONDUCCIÓN</option>
+                            <option value="12">PROTOCOLO DE VIGILANCIA DE RIESGOS PSICOSOCIALES EN EL TRABAJO</option>
+                            <option value="13">TRASTORNOS MUSCULO ESQUELÉTICOS DE EXTREMIDADES SUPERIORES EN EL TRABAJO</option>
+                            <option value="14">USO Y MANEJO DE EXTINTORES PORTÁTILES</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputCity">Profesional</label>
+                        <select name="selectProfesionalIdCap" id="selectProfcapacitacionJs" class="form-control" required="">
+                            <option value="0">SELECCIONE</option>
+                            <c:forEach items="${listaProfesional}" var="prof">
+                                <option value="${prof.id_usuario}">${prof.nombre}  ${prof.apellidos} </option>
+                            </c:forEach>}
+                        </select>
+                    </div>
+                </div>
+                <input type="hidden" name="SucursalId" value="${idSucursal}" />
+                <input type = "submit" class="btn btn-primary"  value = "Programar Capacitación">
+            </form>
 
-            <h4>Seleccione Profesional  para la capacitación</h4>
-            <select name="selectProfesionalIdCap" class="input-text" required="">
-                <option  value="0">SELECCIONE</option>
-                <c:forEach items="${listaProfesional}" var="prof">
-                    <option value="${prof.id_usuario}">${prof.nombre}  ${prof.apellidos} </option>
-                </c:forEach>}
-            </select>
-            
-            <input type="hidden" name="SucursalId" value="${idSucursal}" />
-            <input type = "submit" class="input-login"  value = "CREAR CAPACITACIÓN">
-            <br>
-            <c:out value="${mensaje}"></c:out>
-            <br>
-        </form>
-
-
+            <script lenguage="javascript" src="js/validar.js"></script>
+            <script src="js/bootstrap.min.js"></script>
     </body>
 </html>

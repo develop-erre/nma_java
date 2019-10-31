@@ -12,21 +12,15 @@
             <li class="nav-item active">
                 <a class="nav-link" href="home.jsp">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Crear
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="listarProfesional">Profesionales</a>
-                    <a class="dropdown-item" href="listaEmpresa">Empresas</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                    <a class="dropdown-item" href="http://localhost:8080/nma/crearprofesional.jsp">Profesionales</a>
+                    <a class="dropdown-item" href="crearusuarioempresa">Empresas</a>
                 </div>
             </li> 
-            
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Ver
@@ -34,12 +28,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="listarProfesional">Profesionales</a>
                     <a class="dropdown-item" href="listaEmpresa">Empresas</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
                 </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" action="login" method="GET">
