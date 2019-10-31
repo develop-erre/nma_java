@@ -12,7 +12,21 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script lenguage="javascript">
+            function confirmarDeleteEmpresa() {
+
+                var respuesta = confirm("Estas seguro que deseas Deshabilitar la Empresa?");
+
+                if (respuesta === true) {
+                    return true;
+                } else {
+                    return false;
+
+                }
+            }
+        </script>
         <title>Lista de Empresas</title>
+        
     </head>
     <body>
 
@@ -38,7 +52,9 @@
                     <th>Rut</th>
                     <th>Casa Matriz</th>
                     <th>Dirección</th>
-                    <th>Acciones</th>
+                    <th>Sucursal</th>
+                    <th>Ver</th>
+                    <th>Eliminar</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,15 +65,24 @@
                         <td>${empresa.rut}</td>
                         <td>${empresa.nombre_suc}</td>
                         <td>${empresa.direccion}</td>
-                        <td>
+                         <td>
                             <form action="listasucursal" method="POST">
-                                <input type="submit" value="Sucursal" name="btnSucursal" />
+                                <input type="submit" value="Añadir Sucursal" class="btn btn-success" name="btnSucursal" />
                                 <input type="hidden" name="id_emp" value="${empresa.id_empresa}" />
                             </form>
-
-                            <a href="eliminar.do?id_usuario=${empresa.rut}">Sucursal</a>
-                            <a href="eliminar.do?id_usuario=${empresa.rut}">Eliminar</a>
-                            <a href="actualizar.do?id_usuario=${empresa.rut}">Actualizar</a>
+                        </td>
+                        <td>
+                            <form action="listasucursal" method="POST">
+                                <input type="submit" value="Sucursal" class="btn btn-primary" name="btnSucursal" />
+                                <input type="hidden" name="id_emp" value="${empresa.id_empresa}" />
+                            </form>
+                        </td>
+                        
+                        <td>
+                            <form action="eliminarEmpresa" method="POST" onclick="return confirmarDeleteEmpresa();">
+                                <input type="submit" value="Deshabilitar" class="btn btn-danger" name="btnSucursal" />
+                                <input type="hidden" name="id_emp" value="${empresa.id_empresa}" />
+                            </form>
                         </td>
                     </tr>
                 </c:forEach>

@@ -34,7 +34,7 @@
         </c:choose>
 
         <h2>Crear Profesional </h2>
-        <form action="crearProfesional" method="post">
+        <form action="crearProfesional" method="post" >
             <br>
             <h4>nombre</h4>
             <input type="text" class="input-text" name = "txtNombre" placeholder="Ingresa Run" value = "" required="" minlength="3">

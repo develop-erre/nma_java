@@ -66,7 +66,18 @@ public class listProfesionalServlets extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        List<Profesional> lista = new ArrayList();
+        try {
+            ProfesionalDAOImpl profDAO = new ProfesionalDAOImpl();
+            lista = profDAO.listarProfesionalHabilitados();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(listProfesionalServlets.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        request.setAttribute("listaProfesional", lista);
+        request.getRequestDispatcher("listaProfesionales.jsp").forward(request, response);
     }
 
     /**

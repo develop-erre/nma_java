@@ -7,8 +7,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="Css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="Css/Css.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -21,7 +20,7 @@
                     return true;
                 } else {
                     return false;
-                    
+
                 }
             }
         </script>
@@ -52,7 +51,8 @@
                     <th>Rut</th>
                     <th>Correo</th>
                     <th>Telefono</th>
-                    <th>Acciones</th>
+                    <th>Eliminar</th>
+                    <th>Actualizar</th>
                 </tr>
             </thead>
             <tbody>
@@ -69,17 +69,20 @@
                                 <input type="submit" class="btn btn-danger" value="Eliminar" />
                                 <input type="hidden" name="id_prof_eliminar" value="${profesional.id_usuario}" />
                             </form>
-
-                            <form method="POST">
+                        </td>
+                        <td>
+                            <form action="eliminarUsuario" method="POST" onclick="return confirmarDelete();">
                                 <input type="submit" class="btn btn-success" value="Actualizar" />
-                                <input type="hidden" name="" value="${profesional.id_usuario}" />
+                                <input type="hidden" name="id_prof_eliminar" value="${profesional.id_usuario}" />
                             </form>
-
                         </td>
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
 
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
     </body>
 </html>

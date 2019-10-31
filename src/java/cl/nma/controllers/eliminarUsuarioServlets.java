@@ -42,7 +42,7 @@ public class eliminarUsuarioServlets extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet eliminarUsuarioServlets</title>");            
+            out.println("<title>Servlet eliminarUsuarioServlets</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet eliminarUsuarioServlets at " + request.getContextPath() + "</h1>");
@@ -77,18 +77,19 @@ public class eliminarUsuarioServlets extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-          Integer id = Integer.parseInt(request.getParameter("id_prof_eliminar"));
+
+        Integer id = Integer.parseInt(request.getParameter("id_prof_eliminar"));
+
         try {
             ProfesionalDAO proDAO = new ProfesionalDAOImpl();
             proDAO.eliminar(id);
-            
+
             request.getRequestDispatcher("listarProfesional").forward(request, response);
-       // response.sendRedirect("listarProfesional");
-            request.setAttribute("success","Alumno eliminado.");
+            // response.sendRedirect("listarProfesional");
+            request.setAttribute("success", "Alumno eliminado.");
         } catch (SQLException ex) {
             Logger.getLogger(eliminarUsuarioServlets.class.getName()).log(Level.SEVERE, null, ex);
-            request.setAttribute("error","Ocurrio un error al eliminar el usuario! revisar logs");
+            request.setAttribute("error", "Ocurrio un error al eliminar el usuario! revisar logs");
         }
     }
 

@@ -28,7 +28,7 @@
             </c:otherwise>
         </c:choose>
 
-        <h2>Lista de Empresas</h2>
+        <h2>Lista de Sucursal</h2>
 
         <table class="table table-striped">
             <thead>
@@ -36,7 +36,8 @@
                     <th>Id Sucursal</th>
                     <th>Nombre Sucursal</th>
                     <th>Direccion</th>
-                    <th>Acciones</th>
+                    <th>visita</th>
+                    <th>Capacitación</th>
                 </tr>
             </thead>
             <tbody>
@@ -47,12 +48,13 @@
                         <td>${sucursal.direccion}</td>
                         <td>
                             <form action="programarVisita" method="POST">
-                                <input type="submit" value="Programar Visita" />
+                                <input type="submit" value="Programar Visita" class="btn btn-default" />
                                 <input type="hidden" name="txtIdSucursal" value="${sucursal.id_sucursal}" />
                             </form>
-                            
+                        </td>
+                        <td>
                             <form action="cargarCapacitacion" method="POST">
-                                <input type="submit" value="Crear Capacitación" />
+                                <input type="submit" value="Crear Capacitación" class="btn btn-default"/>
                                 <input type="hidden" name="txtIdSucursal" value="${sucursal.id_sucursal}" />
                             </form>
                         </td>

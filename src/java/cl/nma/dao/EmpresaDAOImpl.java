@@ -77,7 +77,37 @@ public class EmpresaDAOImpl implements EmpresaDAO{
 
     @Override
     public int eliminar(Integer idem) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        int result = 0;
+        String sql = "UPDATE EMPRESA SET ESTADO = 1 WHERE ID_EMPRESA = ?";
+        PreparedStatement pst = null;
+        try {
+            pst = conexion.prepareStatement(sql);
+            pst.setInt(1, idem);
+            result = pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(EmpresaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //siempre cerrar la conexion y el pst
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return result;
+        
     }
 
     @Override

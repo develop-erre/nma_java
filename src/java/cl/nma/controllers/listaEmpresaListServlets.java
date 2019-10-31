@@ -65,7 +65,19 @@ public class listaEmpresaListServlets extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        List<EmpresaLista> lista = new ArrayList();
+        try {
+            EmpresaDAOImpl empDAO = new EmpresaDAOImpl();
+            lista = empDAO.listarEmpresaLista();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(listaEmpresaListServlets.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        request.setAttribute("listaEmp", lista);
+        request.getRequestDispatcher("listaEmpresas.jsp").forward(request, response);
+        
     }
 
     /**
