@@ -50,6 +50,11 @@
                                 <input type="submit" value="Programar Visita" />
                                 <input type="hidden" name="txtIdSucursal" value="${sucursal.id_sucursal}" />
                             </form>
+                            
+                            <form action="cargarCapacitacion" method="POST">
+                                <input type="submit" value="Crear Capacitación" />
+                                <input type="hidden" name="txtIdSucursal" value="${sucursal.id_sucursal}" />
+                            </form>
                         </td>
                     </tr>
                 </c:forEach>

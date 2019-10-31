@@ -41,13 +41,18 @@
             <input type="text" id="datepicker" class="input-text" placeholder="Ingrece Fecha" name = "txtFechaCap"  required="">
 
             <h4>Hora</h4>
-            <input type="number" class="input-text" name = "txtHoraCap" placeholder="Ingresa hora" required=""  min="0" max="23">
-
-            <h4>minutos</h4>
-            <input type="number" class="input-text" name = "txtMinutosCap" placeholder="Ingresa minuto"  required=""  min="0" max="59">
+            <select name="selectHoraCap" id="selectHoraJS" class="input-text" required="">
+                <option value="0">SELECCIONE</option>
+                <option value="08:00">09:00</option>
+                <option value="10:00">10:00</option>
+                <option value="12:00">12:00</option>
+                <option value="14:00">14:00</option>
+                <option value="16:00">16:00</option>
+                <option value="17:00">17:00</option>
+            </select>
 
             <h4>Números Asistentes</h4>
-            <input type="number" class="input-text" name = "txtNumerosCap" placeholder="Ingresa Capacidad de asistentes"  required=""  min="0" max="30">
+            <input type="number" class="input-text" name = "txtNumerosCap" placeholder="Ingresa Capacidad de asistentes"  required=""  min="0" max="50">
 
             <h4>Tipo Capacitación</h4>
             <select name="selectTipoCapacitacion" class="input-text" required="">
@@ -69,20 +74,14 @@
             </select>
 
             <h4>Seleccione Profesional  para la capacitación</h4>
-                <select name="selectProfesionalId" class="input-text" required="">
-                    <option  value="4">PROFE 4</option>
-                    <option  value="5">PROFE 5</option>
-                    <option  value="6">PROFE 6</option>
+            <select name="selectProfesionalIdCap" class="input-text" required="">
+                <option  value="0">SELECCIONE</option>
+                <c:forEach items="${listaProfesional}" var="prof">
+                    <option value="${prof.id_usuario}">${prof.nombre}  ${prof.apellidos} </option>
+                </c:forEach>}
             </select>
             
-            <h4>Seleccione lugar para la capacitación</h4>
-                <select name="selectSucursalId" class="input-text" required="">
-                    <option  value="3">SUC 3</option>
-                    <option  value="5">SUC 5</option>
-                    <option  value="6">SUC 6</option>
-                    
-            </select>
-
+            <input type="hidden" name="SucursalId" value="${idSucursal}" />
             <input type = "submit" class="input-login"  value = "CREAR CAPACITACIÓN">
             <br>
             <c:out value="${mensaje}"></c:out>

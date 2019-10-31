@@ -5,14 +5,32 @@
  */
 package cl.nma.dao;
 
+import cl.nma.database.DBUtil;
 import cl.nma.dominio.Capacitacion;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.ParseException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Richard Foncea
  */
 public class CapacitacionDAOImpl implements CapacitacionDAO{
+    
+     
+    Connection conexion;
+
+    public CapacitacionDAOImpl() throws SQLException {
+        DBUtil db = new DBUtil();    
+        conexion = db.obtenerConexion();
+
+    }
 
     @Override
     public int actualizar(Capacitacion cap) {
@@ -21,7 +39,35 @@ public class CapacitacionDAOImpl implements CapacitacionDAO{
 
     @Override
     public int agregar(Capacitacion cap) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+         int id = 0;
+        String sql = "INSERT INTO CAPACITACION(NUMERO_ASISTENTE,ID_TIPO_CAPACITACION_FK,ID_ACTIVIDAD_FK_C)"
+                + "VALUES(?,?,?)";
+        
+        PreparedStatement pst;
+        try {
+            pst = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            pst.setInt(1, cap.getNumero_asistente());
+            pst.setInt(2, cap.getId_tipo_capacitacion_fk());
+            pst.setInt(3, cap.getId_actividad_fk_tc());
+            int result = pst.executeUpdate();
+
+            if (result == 0) {
+                throw new SQLException("No fue posible insertar el registro");
+            }
+
+            ResultSet rs = pst.getGeneratedKeys();
+            while (rs.next()) {
+                id = rs.getInt(1); //devuelve la clave autogenerada por la BD
+                System.out.println("ID GENERADO:" + id);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProfesionalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return id;
+        
     }
 
     @Override

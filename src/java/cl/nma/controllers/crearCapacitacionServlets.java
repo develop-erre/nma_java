@@ -6,8 +6,10 @@
 package cl.nma.controllers;
 
 import cl.nma.dao.ActividadDAOImpl;
+import cl.nma.dao.CapacitacionDAOImpl;
 import cl.nma.dao.ReporteAccidenteDAOImpl;
 import cl.nma.dominio.Actividad;
+import cl.nma.dominio.Capacitacion;
 import cl.nma.dominio.ReporteAccidente;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -86,25 +88,11 @@ public class crearCapacitacionServlets extends HttpServlet {
         boolean banderaError=true;
 
         String fecha = request.getParameter("txtFechaCap");
-        String hr = request.getParameter("txtHoraCap");
-        String min = request.getParameter("txtMinutosCap");
-        String horaMin = hr + ":" + min;
+        String hora = request.getParameter("selectHoraCap");
         int numerosAsistentes = Integer.parseInt(request.getParameter("txtNumerosCap"));
-        int idTipoAccidente = Integer.parseInt(request.getParameter("selectTipoCapacitacion"));
-        int idProfesionaCap = Integer.parseInt(request.getParameter("selectProfesionalId"));
-        int idSucIdCap = Integer.parseInt(request.getParameter("selectSucursalId"));
-        
-
-////        HashMap<String, Object> errores = new HashMap<>();
-//        if (idSucursal == 0) {
-//            banderaError = false;
-//            request.setAttribute("mensajeLugar", "Seleccione Lugar");
-//        }
-//        
-//        if (idTipoAccidente == 0) {
-//            banderaError = false;
-//            request.setAttribute("mensajeTipo", "Seleccione Tipo Accidente");
-//        }
+        int idTipoCapacitacion = Integer.parseInt(request.getParameter("selectTipoCapacitacion"));
+        int idProfesionaCap = Integer.parseInt(request.getParameter("selectProfesionalIdCap"));
+        int idSucIdCap = Integer.parseInt(request.getParameter("SucursalId"));
 
         if (banderaError) {
             try {
@@ -113,13 +101,21 @@ public class crearCapacitacionServlets extends HttpServlet {
                 Actividad act = new Actividad();
                 //SE SETEA VALOR DE JSP
                 act.setFecha_act(castDate(fecha));
-                act.setHora_act(horaMin);
+                act.setHora_act(hora);
                 act.setEstado_act(0);
                 act.setId_usuario_fk(idProfesionaCap);
-                act.setId_sucursal_empresa_fk(idSucIdCap);
+                act.setId_sucursal_empresa_fk(idSucIdCap);  
 
-                actDAO.agregar(act);
-
+                int idAct = actDAO.agregar(act);
+                
+                CapacitacionDAOImpl capDAO = new  CapacitacionDAOImpl();
+                Capacitacion cap = new Capacitacion();
+                cap.setNumero_asistente(numerosAsistentes);
+                cap.setId_tipo_capacitacion_fk(idTipoCapacitacion);
+                cap.setId_actividad_fk_tc(idAct);
+                
+                capDAO.agregar(cap);
+                
                 request.setAttribute("mensaje", "Actividad Creada!");
                 request.getRequestDispatcher("/capacitacion.jsp").forward(request, response);
 

@@ -119,7 +119,7 @@ public class ProfesionalDAOImpl implements ProfesionalDAO {
     public List<Profesional> listarProfesional() {
         List<Profesional> lista = new ArrayList<>();
 
-        String sql = "SELECT * FROM USUARIO WHERE ID_ROL_FK = 2";
+        String sql = "SELECT * FROM USUARIO WHERE ID_ROL_FK = 2 AND ESTADO = 0";
         try {
             PreparedStatement pst = conexion.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
