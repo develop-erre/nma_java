@@ -7,11 +7,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="Css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="Css/Css.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="fonts/css/all.min.css">
         <title>Lista de Sucursal</title>
     </head>
     <body>
@@ -28,40 +25,57 @@
             </c:otherwise>
         </c:choose>
 
-        <h2>Lista de Sucursal</h2>
+        <c:choose>
+            <c:when test="${id_rol == 1}">
+                <jsp:include page="menuAdmin.jsp"/>
+            </c:when>    
+            <c:when test="${id_rol == 2}">
+                <jsp:include page="menuProfesional.jsp"/>
+            </c:when>  
+            <c:otherwise>
+                <jsp:include page="menuCliente.jsp"/>
+            </c:otherwise>
+        </c:choose>
 
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Id Sucursal</th>
-                    <th>Nombre Sucursal</th>
-                    <th>Direccion</th>
-                    <th>visita</th>
-                    <th>Capacitación</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach items="${listaSucursal}" var="sucursal">
+        <br>
+        <div class="container-fluid">
+            <h3>Lista de Sucursales</h3>
+            <table class="table table-striped">
+                <thead>
                     <tr>
-                        <td>${sucursal.id_sucursal}</td>
-                        <td>${sucursal.nombre}</td>
-                        <td>${sucursal.direccion}</td>
-                        <td>
-                            <form action="programarVisita" method="POST">
-                                <input type="submit" value="Programar Visita" class="btn btn-default" />
-                                <input type="hidden" name="txtIdSucursal" value="${sucursal.id_sucursal}" />
-                            </form>
-                        </td>
-                        <td>
-                            <form action="cargarCapacitacion" method="POST">
-                                <input type="submit" value="Crear Capacitación" class="btn btn-default"/>
-                                <input type="hidden" name="txtIdSucursal" value="${sucursal.id_sucursal}" />
-                            </form>
-                        </td>
+                        <th>Id Sucursal</th>
+                        <th>Nombre Sucursal</th>
+                        <th>Direccion</th>
+                        <th>visita</th>
+                        <th>Capacitación</th>
                     </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <c:forEach items="${listaSucursal}" var="sucursal">
+                        <tr>
+                            <td>${sucursal.id_sucursal}</td>
+                            <td>${sucursal.nombre}</td>
+                            <td>${sucursal.direccion}</td>
+                            <td>
+                                <form action="programarVisita" method="POST">
+                                    <input type="submit" value="Programar Visita" class="btn btn-success" />
+                                    <input type="hidden" name="txtIdSucursal" value="${sucursal.id_sucursal}" />
+                                </form>
+                            </td>
+                            <td>
+                                <form action="cargarCapacitacion" method="POST">
+                                    <input type="submit" value="Crear Capacitación" class="btn btn-success"/>
+                                    <input type="hidden" name="txtIdSucursal" value="${sucursal.id_sucursal}" />
+                                </form>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
 
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
     </body>
 </html>

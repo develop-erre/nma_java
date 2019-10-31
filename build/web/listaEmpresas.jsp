@@ -7,11 +7,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="Css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="Css/Css.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="fonts/css/all.min.css">
         <script lenguage="javascript">
             function confirmarDeleteEmpresa() {
 
@@ -26,7 +23,7 @@
             }
         </script>
         <title>Lista de Empresas</title>
-        
+
     </head>
     <body>
 
@@ -42,52 +39,69 @@
             </c:otherwise>
         </c:choose>
 
-        <h2>Lista de Empresas</h2>
+        <c:choose>
+            <c:when test="${id_rol == 1}">
+                <jsp:include page="menuAdmin.jsp"/>
+            </c:when>    
+            <c:when test="${id_rol == 2}">
+                <jsp:include page="menuProfesional.jsp"/>
+            </c:when>  
+            <c:otherwise>
+                <jsp:include page="menuCliente.jsp"/>
+            </c:otherwise>
+        </c:choose>
 
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Rut</th>
-                    <th>Casa Matriz</th>
-                    <th>Dirección</th>
-                    <th>Sucursal</th>
-                    <th>Ver</th>
-                    <th>Eliminar</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach items="${listaEmp}" var="empresa">
+        <br>
+        <div class="container-fluid">
+            <h3>Lista de Empresas</h3>
+            <table class="table table-striped">
+                <thead>
                     <tr>
-                        <td>${empresa.id_empresa}</td>
-                        <td>${empresa.nombre}</td>
-                        <td>${empresa.rut}</td>
-                        <td>${empresa.nombre_suc}</td>
-                        <td>${empresa.direccion}</td>
-                         <td>
-                            <form action="listasucursal" method="POST">
-                                <input type="submit" value="Añadir Sucursal" class="btn btn-success" name="btnSucursal" />
-                                <input type="hidden" name="id_emp" value="${empresa.id_empresa}" />
-                            </form>
-                        </td>
-                        <td>
-                            <form action="listasucursal" method="POST">
-                                <input type="submit" value="Sucursal" class="btn btn-primary" name="btnSucursal" />
-                                <input type="hidden" name="id_emp" value="${empresa.id_empresa}" />
-                            </form>
-                        </td>
-                        
-                        <td>
-                            <form action="eliminarEmpresa" method="POST" onclick="return confirmarDeleteEmpresa();">
-                                <input type="submit" value="Deshabilitar" class="btn btn-danger" name="btnSucursal" />
-                                <input type="hidden" name="id_emp" value="${empresa.id_empresa}" />
-                            </form>
-                        </td>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Rut</th>
+                        <th>Casa Matriz</th>
+                        <th>Dirección</th>
+                        <th>Sucursal</th>
+                        <th>Ver</th>
+                        <th>Eliminar</th>
                     </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <c:forEach items="${listaEmp}" var="empresa">
+                        <tr>
+                            <td>${empresa.id_empresa}</td>
+                            <td>${empresa.nombre}</td>
+                            <td>${empresa.rut}</td>
+                            <td>${empresa.nombre_suc}</td>
+                            <td>${empresa.direccion}</td>
+                            <td>
+                                <form action="listasucursal" method="POST">
+                                    <input type="submit" value="Añadir Sucursal" class="btn btn-success" name="btnSucursal" />
+                                    <input type="hidden" name="id_emp" value="${empresa.id_empresa}" />
+                                </form>
+                            </td>
+                            <td>
+                                <form action="listasucursal" method="POST">
+                                    <input type="submit" value="Sucursal" class="btn btn-primary" name="btnSucursal" />
+                                    <input type="hidden" name="id_emp" value="${empresa.id_empresa}" />
+                                </form>
+                            </td>
+
+                            <td>
+                                <form action="eliminarEmpresa" method="POST" onclick="return confirmarDeleteEmpresa();">
+                                    <input type="submit" value="Deshabilitar" class="btn btn-danger" name="btnSucursal" />
+                                    <input type="hidden" name="id_emp" value="${empresa.id_empresa}" />
+                                </form>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+
+            <script src="js/jquery-3.4.1.min.js"></script>
+            <script src="js/popper.min.js"></script>
+            <script src="js/bootstrap.min.js"></script>
 
     </body>
 </html>

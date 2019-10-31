@@ -7,10 +7,22 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="fonts/css/all.min.css">
         <title>Home Principal</title>
     </head>
     <body>
-        <jsp:include page="menuAdmin.jsp"/>
+        <c:choose>
+            <c:when test="${id_rol == 1}">
+                <jsp:include page="menuAdmin.jsp"/>
+            </c:when>    
+            <c:when test="${id_rol == 2}">
+                <jsp:include page="menuProfesional.jsp"/>
+            </c:when>  
+            <c:otherwise>
+                <jsp:include page="menuCliente.jsp"/>
+            </c:otherwise>
+        </c:choose>
+
 
         <% String rs = String.valueOf(sesion.getAttribute("id_rol"));%>
         <c:set var="id_rol" value="<%=rs%>" />
