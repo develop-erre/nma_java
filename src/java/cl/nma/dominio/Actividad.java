@@ -10,17 +10,19 @@ public class Actividad {
     private int estado_act;
     private int id_usuario_fk;
     private int id_sucursal_empresa_fk;
+    private int id_tipo_actividad_fk;
 
     public Actividad() {
     }
 
-    public Actividad(int id_actividad, Date fecha_act, String hora_act, int estado_act, int id_usuario_fk, int id_sucursal_empresa_fk) {
+    public Actividad(int id_actividad, Date fecha_act, String hora_act, int estado_act, int id_usuario_fk, int id_sucursal_empresa_fk, int id_tipo_actividad_fk) {
         this.id_actividad = id_actividad;
         this.fecha_act = fecha_act;
         this.hora_act = hora_act;
         this.estado_act = estado_act;
         this.id_usuario_fk = id_usuario_fk;
         this.id_sucursal_empresa_fk = id_sucursal_empresa_fk;
+        this.id_tipo_actividad_fk = id_tipo_actividad_fk;
     }
 
     public int getId_actividad() {
@@ -71,10 +73,19 @@ public class Actividad {
         this.id_sucursal_empresa_fk = id_sucursal_empresa_fk;
     }
 
+    public int getId_tipo_actividad_fk() {
+        return id_tipo_actividad_fk;
+    }
+
+    public void setId_tipo_actividad_fk(int id_tipo_actividad_fk) {
+        this.id_tipo_actividad_fk = id_tipo_actividad_fk;
+    }
+
     @Override
     public String toString() {
-        return "Actividad{" + "id_actividad=" + id_actividad + ", fecha_act=" + fecha_act + ", hora_act=" + hora_act + ", estado_act=" + estado_act + ", id_usuario_fk=" + id_usuario_fk + ", id_sucursal_empresa_fk=" + id_sucursal_empresa_fk + '}';
+        return "Actividad{" + "id_actividad=" + id_actividad + ", fecha_act=" + fecha_act + ", hora_act=" + hora_act + ", estado_act=" + estado_act + ", id_usuario_fk=" + id_usuario_fk + ", id_sucursal_empresa_fk=" + id_sucursal_empresa_fk + ", id_tipo_actividad_fk=" + id_tipo_actividad_fk + '}';
     }
+
     
     
     

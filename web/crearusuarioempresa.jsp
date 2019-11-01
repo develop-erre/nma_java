@@ -9,10 +9,10 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="fonts/css/all.min.css">
         <title>Crear Usuario Empresa</title>
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <link rel="stylesheet" href="/resources/demos/style.css">
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <link rel="stylesheet" href="js/base/jquery-ui.css">
+        <link rel="stylesheet" href="js/base/style.css">
+        <script src="js/jquery-1.12.4.js"></script>
+        <script src="js/jquery-ui.js"></script>
         <script>
             $(function () {
                 $("#datepicker").datepicker({maxDate: "-18Y"});
@@ -69,32 +69,49 @@
                     <div class="form-row">
                         <div class="form-group col-md-2">
                             <label for="inputPass4">Password</label>
-                            <input type="password" class="form-control" id="inputPassword4" name="txtPassword" placeholder="Ingrece password" required="">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                <input type="password" class="form-control" id="inputPassword4" name="txtPassword" placeholder="Ingrece password" required="">
+                            </div>
                         </div>
-
                         <div class="form-group col-md-2">
                             <label for="inputFechaNac4">Fecha Nacimiento</label>
-                            <input type="text" class="form-control" id="datepicker" name="txtFechaNac" placeholder="Ingrece fecha" required="">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                <input type="text" class="form-control" id="datepicker" name="txtFechaNac" placeholder="Ingrece fecha" required="">
+                            </div>
                         </div>
-
                         <div class="form-group col-md-4">
                             <label for="inputEmail4">E-mail</label>
-                            <input type="Email" class="form-control" id="inputEmail4" name = "txtEmail" placeholder="Ingrece E-mail abc12@dominio.com" required="">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-at"></i></span>
+                                <input type="Email" class="form-control" id="inputEmail4" name = "txtEmail" placeholder="Ingrece E-mail abc12@dominio.com" required="">
+                            </div>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="inputRun4">Teléfono</label>
-                            <input type="number" class="form-control" id="inputRun4" name = "txtTelefono" placeholder="Ingrece teléfono, solo números " required="">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
+                                <input type="number" class="form-control" id="inputRun4" name = "txtTelefono" placeholder="Ingrece teléfono, solo números " required="">
+                            </div>
                         </div>
                     </div>
-
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="inputAddress">Dirección</label>
-                            <input type="text" class="form-control" id="inputDireccion4" name = "txtDireccion" placeholder="Ingrece Dirección">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                <input type="text" class="form-control" id="inputDireccion4" name = "txtDireccion" placeholder="Ingrece Dirección">
+                            </div>
+
                         </div>
                         <div class="form-group col-md-2">
                             <label for="inputAddress">Número</label>
-                            <input type="text" class="form-control" id="inputNumero4" name = "txtNumero" placeholder="Ingrece número">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-home"></i></span>
+                                <input type="text" class="form-control" id="inputNumero4" name = "txtNumero" placeholder="Ingrece número">
+                            </div>
+
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputCity">Región</label>

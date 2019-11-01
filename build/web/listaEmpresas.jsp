@@ -76,9 +76,10 @@
                             <td>${empresa.nombre_suc}</td>
                             <td>${empresa.direccion}</td>
                             <td>
-                                <form action="listasucursal" method="POST">
+                                <form action="crearsucursal.jsp" method="POST">
                                     <input type="submit" value="Añadir Sucursal" class="btn btn-success" name="btnSucursal" />
                                     <input type="hidden" name="id_emp" value="${empresa.id_empresa}" />
+                                    <input type="hidden" name="nom_emp" value="${empresa.nombre}" />
                                 </form>
                             </td>
                             <td>
@@ -90,7 +91,7 @@
 
                             <td>
                                 <form action="eliminarEmpresa" method="POST" onclick="return confirmarDeleteEmpresa();">
-                                    <input type="submit" value="Deshabilitar" class="btn btn-danger" name="btnSucursal" />
+                                    <input type="submit" value="Deshabilitar" class="btn btn-danger" name="btnDeshabilitar" />
                                     <input type="hidden" name="id_emp" value="${empresa.id_empresa}" />
                                 </form>
                             </td>

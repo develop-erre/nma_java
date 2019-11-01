@@ -73,7 +73,7 @@
 
                     <div class="form-group col-md-2">
                         <label for="numeroAsisJS4">Número Asistentes</label>
-                        <input type="text" class="form-control" id="numeroAsisJS" name="txtNumerosCap" placeholder="Ingrece Números" required="">
+                        <input type="text" class="form-control" id="numeroAsisJS" name="txtNumerosCap" placeholder="Ingrece Número" required="">
                     </div>
                 </div>
                 <div class="form-row">

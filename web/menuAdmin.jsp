@@ -18,7 +18,8 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="http://localhost:8080/nma/crearprofesional.jsp">Profesionales</a>
-                    <a class="dropdown-item" href="crearusuarioempresa">Empresas</a>
+                    <a class="dropdown-item" href="crearusuarioempresa">Usuario Empresa</a>
+                    <a class="dropdown-item" href="crearempresa.jsp">Empresa</a>
                 </div>
             </li> 
             <li class="nav-item dropdown">

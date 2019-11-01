@@ -6,7 +6,6 @@
 package cl.nma.dao;
 
 import cl.nma.database.DBUtil;
-import cl.nma.dominio.EmpresaLista;
 import cl.nma.dominio.Sucursal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -38,7 +37,6 @@ public class SucursalDAOImpl implements SucursalDAO {
 
     @Override
     public int agregar(Sucursal suc) {
-        
         
         int id = 0;
         String sql = "INSERT INTO SUCURSAL(NOMBRE, DIRECCION,"
@@ -129,7 +127,4 @@ public class SucursalDAOImpl implements SucursalDAO {
         return sucList;
         
     }
-    
-    
-    
 }
