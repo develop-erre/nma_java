@@ -75,9 +75,6 @@ public class listaSucursalServlets extends HttpServlet {
         System.out.println(id);
         int idSucursal = Integer.parseInt(id);
         
-        //getAtribute
-       // int id_entero = Integer.parseInt(request.getParameter(id_emp));
-
         List<Sucursal> lista = new ArrayList();
         try {
             SucursalDAOImpl sucDAO = new SucursalDAOImpl();
@@ -86,10 +83,6 @@ public class listaSucursalServlets extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(listaEmpresaListServlets.class.getName()).log(Level.SEVERE, null, ex);
         }
-//
-//        for (Sucursal var :lista) {
-//            var.getId_sucursal();
-//        }
         request.setAttribute("listaSucursal", lista);
         request.getRequestDispatcher("reportaraccidente.jsp").forward(request, response);
 

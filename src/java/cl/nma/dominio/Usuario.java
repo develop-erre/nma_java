@@ -5,7 +5,7 @@
  */
 package cl.nma.dominio;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  *

@@ -5,23 +5,22 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="Css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="Css/Css.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="fonts/css/all.min.css">
         <title>Reportar Accidente</title>
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <link rel="stylesheet" href="/resources/demos/style.css">
-        <script lenguage="javascript" src="js/jquery-3.4.1.min.js"></script>
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <link rel="stylesheet" href="js/base/jquery-ui.css">
+        <link rel="stylesheet" href="js/base/style.css">
+        <script src="js/jquery-1.12.4.js"></script>
+        <script src="js/jquery-ui.js"></script>
         <script>
             $(function () {
-                $("#datepicker").datepicker({minDate: -10,maxDate:0});
+                $("#datepicker").datepicker({minDate: -10, maxDate: 0});
             });
         </script>
     </head>
     <body>
-        
-           <% String rs = String.valueOf(sesion.getAttribute("id_rol"));%>
+
+        <% String rs = String.valueOf(sesion.getAttribute("id_rol"));%>
         <c:set var="id_rol" value="<%=rs%>" />
 
         <c:choose>
@@ -33,59 +32,120 @@
             </c:otherwise>
         </c:choose>
 
-        <!-- Errores -->
-        <c:forEach items="${errores}" var="error">
-            <div class="alert alert-danger">
-                ${error.value}
-            </div>
+        <c:choose>
+            <c:when test="${id_rol == 1}">
+                <jsp:include page="menuAdmin.jsp"/>
+            </c:when>    
+            <c:when test="${id_rol == 2}">
+                <jsp:include page="menuProfesional.jsp"/>
+            </c:when>  
+            <c:otherwise>
+                <jsp:include page="menuCliente.jsp"/>
+            </c:otherwise>
+        </c:choose>
 
-        </c:forEach>
+        <br>
+        <div class="container-fluid">
+            <h3>Crear Profesional </h3>
+            <form action="reportarAccidente" name="formReport" method="post">
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="inputFechaNac4">Fecha Accidente</label>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                            <input type="text" class="form-control" id="datepicker" name="txtFecha" placeholder="Ingrece fecha" required="">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="inputCity">Hora</label>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                            <select name="txtHora" id="inputRegion4" class="form-control" required="">
+                                <option value="0">SELECCIONE</option>
+                                <option value="08">08:00 AM</option>
+                                <option value="09">09:00 AM</option>
+                                <option value="10">10:00 AM</option>
+                                <option value="11">11:00 AM</option>
+                                <option value="12">12:00 PM</option>
+                                <option value="13">13:00 PM</option>
+                                <option value="14">14:00 PM</option>
+                                <option value="15">15:00 PM</option>
+                                <option value="16">16:00 PM</option>
+                                <option value="17">17:00 PM</option>
+                                <option value="18">18:00 PM</option>
+                                <option value="19">19:00 PM</option>
+                                <option value="20">20:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="inputCity">Minutos</label>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-clock"></i></span>
+                            <select name="txtMinutos" id="inputRegion4" class="form-control" required="">
+                                <option value="0">SELECCIONE</option>
+                                <option value="00">00:00</option>
+                                <option value="05">05:00</option>
+                                <option value="10">10:00</option>
+                                <option value="15">15:00</option>
+                                <option value="20">20:00</option>
+                                <option value="25">25:00</option>
+                                <option value="30">30:00</option>
+                                <option value="35">35:00</option>
+                                <option value="40">40:00</option>
+                                <option value="45">45:00</option>
+                                <option value="50">50:00</option>
+                                <option value="55">55:00</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
 
-        <form action="reportarAccidente" name="formReport" method="post">
-            <br>
-            <h4>Fecha Accidente</h4>
-            <input type="text" id="datepicker" class="input-text" placeholder="Ingrece Fecha" name = "txtFecha"  required="">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputCity">Tipo de accidente</label>
+                        <select name="selectTipoAccidente" id="inputRegion4" class="form-control" required="">
+                            <option value="0">SELECCIONE</option>
+                            <option  value="1">CAÍDAS AL MISMO NIVEL</option>
+                            <option  value="2">CAÍDAS DE ALTURA</option>
+                            <option  value="3">CONTACTOS ELÉCTRICOS</option>
+                            <option  value="4">CORTES Y PINCHAZOS</option>
+                            <option  value="5">GOLPES CON ESTANTERÍAS O ARMARIOS</option>
+                            <option  value="6">INCENDIOS</option>
+                            <option  value="7">FATIGA POSTURAL</option>
+                            <option  value="8">OTROS ACCIDENTES</option>
+                        </select>
+                    </div>
+                </div>
 
-            <h4>Hora</h4>
-            <input type="number" class="input-text" name = "txtHora" placeholder="Ingresa hora" required=""  min="0" max="23">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputState">Lugar del accidente</label>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                            <select id="inputComuna4" class="form-control" name="selectSucursalId">
+                                <option value="0">SELECCIONE</option>
+                                <c:forEach items="${listaSucursal}" var="variable">
+                                    <option value="${variable.id_sucursal}">${variable.nombre}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputValor4">Comentario accidente</label>
+                        <div class="input-group-prepend">
+                            <textarea name="textareaDescripcion" rows="3" cols="100" placeholder="Escriba Aqui ..." required="" maxlength="99" ></textarea>
+                        </div>
+                    </div>
+                </div>
+                <input  name="idEmpresa" type="hidden" value="<%= sesion.getAttribute("id_empresa")%>">
+                <button type="submit" class="btn btn-primary">Reportar Accidente</button>
+            </form>
+                <c:out value="${mensaje}" />
+        </div>
 
-            <h4>minutos</h4>
-            <input type="number" class="input-text" name = "txtMinutos" placeholder="Ingresa minuto"  required=""  min="0" max="59">
-
-            <h4>Tipo Accidente</h4>
-            <c:out value="${mensajeTipo}"></c:out>
-            <select name="selectTipoAccidente" class="input-text" required="">
-                <option  value="0">SELECCIONE</option>
-                <option  value="1">CAÍDAS AL MISMO NIVEL</option>
-                <option  value="2">CAÍDAS DE ALTURA</option>
-                <option  value="3">CONTACTOS ELÉCTRICOS</option>
-                <option  value="4">CORTES Y PINCHAZOS</option>
-                <option  value="5">GOLPES CON ESTANTERÍAS O ARMARIOS</option>
-                <option  value="6">INCENDIOS</option>
-                <option  value="7">FATIGA POSTURAL</option>
-                <option  value="8">OTROS ACCIDENTES</option>
-            </select>
-
-
-
-            <h4>Seleccione Lugar</h4>
-            <c:out value="${mensajeLugar}"></c:out>
-            <select name="selectSucursalId" class="input-text" required="">
-                <option  value="0">SELECCIONE</option>
-                <c:forEach items="${listaSucursal}" var="variable">
-                    <option value="${variable.id_sucursal}">${variable.nombre}</option>
-                </c:forEach>
-            </select>
-
-            <h4>Comentario</h4>
-            <textarea name="textareaDescripcion" rows="10" cols="80" placeholder="Escriba Aqui ..." required="" maxlength="99" ></textarea>
-            <input  name="idEmpresa" type="hidden" value="<%= sesion.getAttribute("id_empresa")%>">
-
-            <input type = "submit" class="input-login"  value = "REPORTAR ACCIDENTE">
-            <br>
-            <c:out value="${mensaje}"></c:out>
-            <br>
-        </form>
-
+        <script src="js/bootstrap.min.js"></script>
     </body>
 </html>

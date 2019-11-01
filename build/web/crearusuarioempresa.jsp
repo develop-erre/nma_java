@@ -48,7 +48,7 @@
         <br>
         <div class="container-fluid">
             <h3>Crear Usuario Empresa </h3>
-            <form action="crearProfesional" method="post">
+            <form action="crearusuarioempresa" method="POST">
                 <br>
                 <form>
                     <div class="form-row">
@@ -148,7 +148,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             <label for="inputState">Empresa</label>
-                            <select id="inputComuna4" class="form-control" name="txtIdComuna">
+                            <select id="inputComuna4" class="form-control" name="txtIdEmpresa">
                                 <option value="0">SELECCIONE</option>
                                 <c:forEach items="${listaEmp}" var="empresa">
                                     <option value="${empresa.id_empresa}">${empresa.nombre}</option>
@@ -156,6 +156,7 @@
                             </select>
                         </div>
                     </div>
+                    
                     <button type="submit" class="btn btn-primary">Crear Usuario Empresa</button>
                 </form>
 

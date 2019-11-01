@@ -12,29 +12,14 @@
             <li class="nav-item active">
                 <a class="nav-link" href="home.jsp">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown
+                    Acciones
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="listarProfesional">Ver Profesionales</a>
-                    <a class="dropdown-item" href="listaEmpresa">Ver Empresas</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="listarProfesional">Crear Profesional</a>
-                    <a class="dropdown-item" href="listaEmpresa">Crear Uusario Empresas</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                    <a class="dropdown-item" href="listasucursal">Reportar Accidente</a>
                 </div>
             </li>  
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" action="login" method="GET">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit" value="" > <i class="fas fa-sign-out-alt"></i> </button>

@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -100,15 +102,15 @@ public class crearUsuarioEmpresa extends HttpServlet {
         String nombre = request.getParameter("txtNombre");
         String apellidos = request.getParameter("txtApellidos");
         String run = request.getParameter("txtRun");
-        String pass = request.getParameter("txtPass");
-        String direccion = request.getParameter("txtDireccion");
-        Date fechaNac = Date.valueOf(request.getParameter("txtFechaNac"));
+        String pass = request.getParameter("txtPassword");
+        String direccion = request.getParameter("txtDireccion") + " #" + request.getParameter("txtNumero");
+        String fechaNac = (request.getParameter("txtFechaNac"));
         String email = request.getParameter("txtEmail");
         String telefono = request.getParameter("txtTelefono");
         int estado = 0;
         int comunaId = Integer.parseInt(request.getParameter("txtIdComuna"));
         //int rolId = Integer.parseInt(request.getParameter("selectRol"));
-        int empresaId = Integer.parseInt(request.getParameter("selectEmpresaId"));
+        int empresaId = Integer.parseInt(request.getParameter("txtIdEmpresa"));
 
         try {
             UsuarioDAOImpl usuEmpfDAO = new UsuarioDAOImpl();
@@ -119,7 +121,7 @@ public class crearUsuarioEmpresa extends HttpServlet {
             usu.setRut(run);
             usu.setPassword(pass);
             usu.setDireccion(direccion);
-            usu.setFecha_nac(fechaNac);
+            usu.setFecha_nac(castDate(fechaNac));
             usu.setEmail(email);
             usu.setTelefono(telefono);
             usu.setEstado(estado);
@@ -127,17 +129,11 @@ public class crearUsuarioEmpresa extends HttpServlet {
             usu.setId_rol_fk(3);
             usu.setId_empresa_fk(empresaId);
 
-            int bandera = 0;
-            bandera = usuEmpfDAO.agregarUsuarioEmpresa(usu);
+            usuEmpfDAO.agregarUsuarioEmpresa(usu);
 
-            if (bandera > 0) {
-                String mensaje = "<script type=\"text/javascript\">\n"
-                        + "alert(\"¡Usuario creado correctamente!\");\n"
-                        + "</script>";
-                request.getRequestDispatcher("home.jsp").forward(request, response);
-            }
+            request.getRequestDispatcher("home.jsp").forward(request, response);
 
-        } catch (SQLException ex) {
+        } catch (SQLException | ParseException ex) {
             Logger.getLogger(crearUsuarioEmpresa.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -152,4 +148,18 @@ public class crearUsuarioEmpresa extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+     public java.util.Date castDate(String date) throws ParseException {
+
+        String mes = date.substring(0, 2);
+        String dia = date.substring(3, 5);
+        String anio = date.substring(6, 10);
+
+        String fechaCast = anio + "-" + mes + "-" + dia;
+        System.out.println(fechaCast);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        java.util.Date fech = (java.util.Date) simpleDateFormat.parse(fechaCast);
+
+        return fech;
+    }
 }

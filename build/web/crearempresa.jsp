@@ -157,24 +157,21 @@
                             <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
                             <input type="number" class="form-control" id="inputValor4" name = "txtValor" placeholder="Ingrece valor">
                         </div>
-
                     </div>
                     <div class="form-group col-md-10">
                         <label for="inputValor4">Descripción contrato</label>
                         <div class="input-group-prepend">
                             <textarea name="textareaDescripcion" rows="3" cols="80" placeholder="Escriba Aqui ..." required="" maxlength="99" ></textarea>
                         </div>
-                        
                     </div>
-                    
                     <div class="form-group col-md-8">
-                       <button type="submit" class="btn btn-primary">Crear Empresa</button>
+                        <button type="submit" class="btn btn-primary">Crear Empresa</button>
                     </div>
-                    
-                    
                 </div>
             </form>
         </div>
+        
+        
         <script src="js/bootstrap.min.js"></script>
     </body>
 </html>

@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -246,7 +247,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             pst.setString(3, usuario.getRut());
             pst.setString(4, usuario.getPassword());
             pst.setString(5, usuario.getDireccion());
-            pst.setDate(6, usuario.getFecha_nac());
+            pst.setDate(6, castDateDAOImpl(usuario.getFecha_nac()));
             pst.setString(7, usuario.getEmail());
             pst.setString(8, usuario.getTelefono());
             pst.setInt(9, usuario.getEstado());
@@ -267,6 +268,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
         } catch (SQLException ex) {
             Logger.getLogger(ProfesionalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return id;
 
@@ -326,4 +329,10 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
     }
 
+    public java.sql.Date castDateDAOImpl(java.util.Date date) throws ParseException {
+
+        java.util.Date fech = date;
+        java.sql.Date sDate = new java.sql.Date(fech.getTime());
+        return sDate;
+    }
 }
