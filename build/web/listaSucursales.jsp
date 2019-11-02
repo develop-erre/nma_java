@@ -9,7 +9,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="fonts/css/all.min.css">
-        <title>Lista de Sucursal</title>
+        <title>Lista de Sucursales</title>
     </head>
     <body>
 
@@ -51,21 +51,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items="${listaSucursal}" var="sucursal">
+                    <c:forEach items="${listaSucursal}" var="sucursales">
                         <tr>
-                            <td>${sucursal.id_sucursal}</td>
-                            <td>${sucursal.nombre}</td>
-                            <td>${sucursal.direccion}</td>
+                            <td>${sucursales.id_sucursal}</td>
+                            <td>${sucursales.nombre}</td>
+                            <td>${sucursales.direccion}</td>
                             <td>
                                 <form action="programarVisita" method="POST">
                                     <input type="submit" value="Programar Visita" class="btn btn-success" />
-                                    <input type="hidden" name="txtIdSucursal" value="${sucursal.id_sucursal}" />
+                                    <input type="hidden" name="txtIdSucursal" value="${sucursales.id_sucursal}" />
                                 </form>
                             </td>
                             <td>
                                 <form action="cargarCapacitacion" method="POST">
                                     <input type="submit" value="Crear Capacitación" class="btn btn-success"/>
-                                    <input type="hidden" name="txtIdSucursal" value="${sucursal.id_sucursal}" />
+                                    <input type="hidden" name="txtIdSucursal" value="${sucursales.id_sucursal}" />
                                 </form>
                             </td>
                         </tr>

@@ -1,6 +1,7 @@
 package cl.nma.dao;
 
 import cl.nma.dominio.Actividad;
+import cl.nma.dominio.ActividadAsesoria;
 import java.util.List;
 
 
@@ -17,4 +18,7 @@ public interface ActividadDAO {
     List<Actividad> listarActividad();
     
     Actividad obtenerActividadPorId(Integer id);
+    
+    List<ActividadAsesoria> listarSolicitudAsesoria();
+    
 }

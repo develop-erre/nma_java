@@ -9,7 +9,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="fonts/css/all.min.css">
-        <title>Lista de Sucursales</title>
+        <title>Lista de Solicitud Asesoria</title>
     </head>
     <body>
 
@@ -39,33 +39,30 @@
 
         <br>
         <div class="container-fluid">
-            <h3>Lista de Sucursales</h3>
+            <h3>Lista de Solicitud Asesoria</h3>
             <table class="table table-striped">
                 <thead>
                     <tr>
+                        <th>Id Actividad</th>
+                        <th>Id Asesoria</th>
                         <th>Id Sucursal</th>
                         <th>Nombre Sucursal</th>
-                        <th>Direccion</th>
-                        <th>visita</th>
-                        <th>Capacitación</th>
+                        <th>Tipo Asesoria</th>
+                        <th>Acción</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items="${listaSucursal}" var="sucursales">
+                    <c:forEach items="${listaSolicitud}" var="solicitud">
                         <tr>
-                            <td>${sucursales.id_sucursal}</td>
-                            <td>${sucursales.nombre}</td>
-                            <td>${sucursales.direccion}</td>
+                            <td>${solicitud.id_actividad}</td>
+                            <td>${solicitud.id_asesoria}</td>
+                            <td>${solicitud.id_sucursal}</td>
+                            <td>${solicitud.nombre}</td>
+                            <td>${solicitud.descripcion}</td>
                             <td>
                                 <form action="programarVisita" method="POST">
-                                    <input type="submit" value="Programar Visita" class="btn btn-success" />
-                                    <input type="hidden" name="txtIdSucursal" value="${sucursales.id_sucursal}" />
-                                </form>
-                            </td>
-                            <td>
-                                <form action="cargarCapacitacion" method="POST">
-                                    <input type="submit" value="Crear Capacitación" class="btn btn-success"/>
-                                    <input type="hidden" name="txtIdSucursal" value="${sucursales.id_sucursal}" />
+                                    <input type="submit" value="Asignar Profesional" class="btn btn-success" />
+                                    <input type="hidden" name="txtIdSucursal" value="${solicitud.id_sucursal}" />
                                 </form>
                             </td>
                         </tr>

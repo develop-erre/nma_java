@@ -3,6 +3,8 @@ package cl.nma.dao;
 
 import cl.nma.database.DBUtil;
 import cl.nma.dominio.Actividad;
+import cl.nma.dominio.ActividadAsesoria;
+import cl.nma.dominio.EmpresaLista;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -10,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -120,6 +123,57 @@ public class ActividadDAOImpl implements ActividadDAO {
         java.util.Date fech = date;
         java.sql.Date sDate = new java.sql.Date(fech.getTime());
         return sDate;
+    }
+
+    @Override
+    public List<ActividadAsesoria> listarSolicitudAsesoria() {
+        
+        List<ActividadAsesoria> solicitudList = new ArrayList<>();
+        String sql = "SELECT * FROM VISTA_SOLICITUD_ASESORIAS";
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            pst = conexion.prepareStatement(sql);
+            rs = pst.executeQuery();
+            ActividadAsesoria actAs;
+            while (rs.next()) {
+                actAs = new ActividadAsesoria();
+                actAs.setId_actividad(rs.getInt(1));
+                actAs.setId_asesoria(rs.getInt(2));
+                actAs.setId_sucursal(rs.getInt(3));
+                actAs.setNombre(rs.getString(4));
+                actAs.setDescripcion(rs.getString(5));
+                solicitudList.add(actAs);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //siempre cerrar la conexion, rs y el pst
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return solicitudList;
+        
     }
 
    

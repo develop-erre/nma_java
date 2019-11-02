@@ -34,6 +34,14 @@
                     <a class="dropdown-item" href="listaEmpresa">Empresas Deshabilitadas</a>
                 </div>
             </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Solicitudes
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="listaSolicitudAsesorias">Asesorias</a>
+                </div>
+            </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" action="login" method="GET">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit" value="" > <i class="fas fa-sign-out-alt"></i> </button>
