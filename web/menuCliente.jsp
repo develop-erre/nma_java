@@ -18,6 +18,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="listasucursal">Reportar Accidente</a>
+                    <a class="dropdown-item" href="listaSucursalAsesoria">Solicitar Asesoria</a>
                 </div>
             </li>  
         </ul>

@@ -9,6 +9,8 @@ public interface ActividadDAO {
     int actualizar(Actividad act);
     
     int agregar(Actividad act);
+    
+    int agregarAsesoria(Actividad act);
 
     int eliminar(Integer act);
 

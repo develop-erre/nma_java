@@ -30,6 +30,40 @@ public class ActividadDAOImpl implements ActividadDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+     @Override
+    public int agregarAsesoria(Actividad act) {
+        
+         int id = 0;
+        String sql = "INSERT INTO ACTIVIDAD(ESTADO_ACT,ID_SUCURSAL_EMPRESA_FK,ID_TIPO_ACTIVIDAD_FK)"
+                + "VALUES(?,?,?)";
+        
+        PreparedStatement pst;
+        try {
+            pst = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            pst.setInt(1, act.getEstado_act());
+            pst.setInt(2, act.getId_sucursal_empresa_fk());
+            pst.setInt(3, act.getId_tipo_actividad_fk());
+            int result = pst.executeUpdate();
+
+            if (result == 0) {
+                throw new SQLException("No fue posible insertar el registro");
+            }
+
+            ResultSet rs = pst.getGeneratedKeys();
+            while (rs.next()) {
+                id = rs.getInt(1); //devuelve la clave autogenerada por la BD
+                System.out.println("ID GENERADO:" + id);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProfesionalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return id;
+        
+    }
+    
+    
     @Override
     public int agregar(Actividad act) {
     
@@ -87,5 +121,7 @@ public class ActividadDAOImpl implements ActividadDAO {
         java.sql.Date sDate = new java.sql.Date(fech.getTime());
         return sDate;
     }
+
+   
     
 }
