@@ -85,8 +85,6 @@ public class eliminarUsuarioServlets extends HttpServlet {
             proDAO.eliminar(id);
 
             request.getRequestDispatcher("listarProfesional").forward(request, response);
-            // response.sendRedirect("listarProfesional");
-            request.setAttribute("success", "Alumno eliminado.");
         } catch (SQLException ex) {
             Logger.getLogger(eliminarUsuarioServlets.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("error", "Ocurrio un error al eliminar el usuario! revisar logs");

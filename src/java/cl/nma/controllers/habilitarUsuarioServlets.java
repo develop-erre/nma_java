@@ -5,16 +5,11 @@
  */
 package cl.nma.controllers;
 
-import cl.nma.dao.ActividadDAOImpl;
-import cl.nma.dao.CapacitacionDAOImpl;
-import cl.nma.dominio.Actividad;
-import cl.nma.dominio.Capacitacion;
+import cl.nma.dao.ProfesionalDAO;
+import cl.nma.dao.ProfesionalDAOImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -27,8 +22,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Richard Foncea
  */
-@WebServlet(name = "crearCapacitacionServlets", urlPatterns = {"/capacitacion"})
-public class crearCapacitacionServlets extends HttpServlet {
+@WebServlet(name = "habilitarUsuarioServlets", urlPatterns = {"/habilitarUsuario"})
+public class habilitarUsuarioServlets extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,10 +42,10 @@ public class crearCapacitacionServlets extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet crearCapacitacionServlets</title>");            
+            out.println("<title>Servlet habilitarUsuarioServlets</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet crearCapacitacionServlets at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet habilitarUsuarioServlets at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -83,40 +78,19 @@ public class crearCapacitacionServlets extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String fecha = request.getParameter("txtFechaCap");
-        String hora = request.getParameter("selectHoraCap");
-        int numerosAsistentes = Integer.parseInt(request.getParameter("txtNumerosCap"));
-        int idTipoCapacitacion = Integer.parseInt(request.getParameter("selectTipoCapacitacion"));
-        int idProfesionaCap = Integer.parseInt(request.getParameter("selectProfesionalIdCap"));
-        int idSucIdCap = Integer.parseInt(request.getParameter("SucursalId"));
+        Integer idHab = Integer.parseInt(request.getParameter("id_prof_hab"));
 
         try {
-                //SE CREA ACTIVIDAD CREAR CAPACITACION
-                ActividadDAOImpl actDAO = new ActividadDAOImpl();
-                Actividad act = new Actividad();
-                //SE SETEA VALOR DE JSP
-                act.setFecha_act(castDate(fecha));
-                act.setHora_act(hora);
-                act.setEstado_act(0);
-                act.setId_usuario_fk(idProfesionaCap);
-                act.setId_sucursal_empresa_fk(idSucIdCap);
-                act.setId_tipo_actividad_fk(1);
+            ProfesionalDAO proDAO = new ProfesionalDAOImpl();
+            proDAO.habilitar(idHab);
 
-                int idAct = actDAO.agregar(act);
-                
-                CapacitacionDAOImpl capDAO = new  CapacitacionDAOImpl();
-                Capacitacion cap = new Capacitacion();
-                cap.setNumero_asistente(numerosAsistentes);
-                cap.setId_tipo_capacitacion_fk(idTipoCapacitacion);
-                cap.setId_actividad_fk_tc(idAct);
-                
-                capDAO.agregar(cap);
-                
-                request.getRequestDispatcher("/listaEmpresa").forward(request, response);
-
-            } catch (ParseException | SQLException ex) {
-                Logger.getLogger(reportarAccidenteServlets.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            request.getRequestDispatcher("listaProfesionalDes").forward(request, response); 
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(habilitarUsuarioServlets.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("error", "Ocurrio un error al eliminar el usuario! revisar logs");
+        }
+        
     }
 
     /**
@@ -129,18 +103,4 @@ public class crearCapacitacionServlets extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    public Date castDate(String date) throws ParseException {
-
-        String mes = date.substring(0, 2);
-        String dia = date.substring(3, 5);
-        String anio = date.substring(6, 10);
-
-        String fechaCast = anio + "-" + mes + "-" + dia;
-        System.out.println(fechaCast);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-        Date fech = (Date) simpleDateFormat.parse(fechaCast);
-
-        return fech;
-    }
 }

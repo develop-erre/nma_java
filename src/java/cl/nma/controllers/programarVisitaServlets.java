@@ -47,7 +47,7 @@ public class programarVisitaServlets extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet programarVisitaServlets</title>");            
+            out.println("<title>Servlet programarVisitaServlets</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet programarVisitaServlets at " + request.getContextPath() + "</h1>");
@@ -82,52 +82,43 @@ public class programarVisitaServlets extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    
-        
-        boolean banderaError=true;
 
         String fecha = request.getParameter("txtFechaVis");
         String horaMin = request.getParameter("selectHora");
-        int idTipoVisita = Integer.parseInt(request.getParameter("selectTipoVisita"));
         int idProfesionaVis = Integer.parseInt(request.getParameter("selectProfesionalId"));
         int idSucIdCap = Integer.parseInt(request.getParameter("SucursalId"));
+        int idTipoVisita = Integer.parseInt(request.getParameter("selectTipoVisita"));
 
-        if (banderaError) {
-            try {
-                //SE CREA ACTIVIDAD CREAR CAPACITACION
-                ActividadDAOImpl actDAO = new ActividadDAOImpl();
-                Actividad act = new Actividad();
-                //SE SETEA VALOR DE JSP
-                act.setFecha_act(castDate(fecha));
-                act.setHora_act(horaMin);
-                act.setEstado_act(0);
-                act.setId_usuario_fk(idProfesionaVis);
-                act.setId_sucursal_empresa_fk(idSucIdCap);
+        try {
+            //SE CREA ACTIVIDAD CREAR CAPACITACION
+            ActividadDAOImpl actDAO = new ActividadDAOImpl();
+            Actividad act = new Actividad();
+            //SE SETEA VALOR DE JSP
+            act.setFecha_act(castDate(fecha));
+            act.setHora_act(horaMin);
+            act.setEstado_act(0);
+            act.setId_usuario_fk(idProfesionaVis);
+            act.setId_sucursal_empresa_fk(idSucIdCap);
+            act.setId_tipo_actividad_fk(2);
 
-                int idActividad = actDAO.agregar(act);
-                
-                //CREAR VISITA
-                VisitaDAOImpl visDAO = new VisitaDAOImpl();
-                Visita vis  = new Visita();
-                //SETEAR DATOS 
-                vis.setId_tipo_visita_fk(idTipoVisita);
-                vis.setId_actividad_fk_v(idActividad);
-                visDAO.agregar(vis);
+            int idActividad = actDAO.agregar(act);
 
-                request.setAttribute("mensaje", "Visita Programada!");
-                request.getRequestDispatcher("/listaEmpresa").forward(request, response);
+            //CREAR VISITA
+            VisitaDAOImpl visDAO = new VisitaDAOImpl();
+            Visita vis = new Visita();
+            //SETEAR DATOS 
+            vis.setId_tipo_visita_fk(idTipoVisita);
+            vis.setId_actividad_fk_v(idActividad);
+            visDAO.agregar(vis);
 
-            } catch (SQLException ex) {
-                Logger.getLogger(reportarAccidenteServlets.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ParseException ex) {
-                Logger.getLogger(programarVisitaServlets.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            request.getRequestDispatcher("/listaEmpresa").forward(request, response);
 
-        } else {
-            request.getRequestDispatcher("/programarVisita").forward(request, response);
-           // request.getRequestDispatcher("/listasucursal").forward(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(reportarAccidenteServlets.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(programarVisitaServlets.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     /**
@@ -140,7 +131,7 @@ public class programarVisitaServlets extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-     public Date castDate(String date) throws ParseException {
+    public Date castDate(String date) throws ParseException {
 
         String mes = date.substring(0, 2);
         String dia = date.substring(3, 5);

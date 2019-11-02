@@ -34,8 +34,8 @@ public class ActividadDAOImpl implements ActividadDAO {
     public int agregar(Actividad act) {
     
         int id = 0;
-        String sql = "INSERT INTO ACTIVIDAD(FECHA_ACT,HORA_ACT,ESTADO_ACT,ID_USUARIO_FK,ID_SUCURSAL_EMPRESA_FK)"
-                + "VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO ACTIVIDAD(FECHA_ACT,HORA_ACT,ESTADO_ACT,ID_USUARIO_FK,ID_SUCURSAL_EMPRESA_FK,ID_TIPO_ACTIVIDAD_FK)"
+                + "VALUES(?,?,?,?,?,?)";
         
         PreparedStatement pst;
         try {
@@ -45,6 +45,7 @@ public class ActividadDAOImpl implements ActividadDAO {
             pst.setInt(3, act.getEstado_act());
             pst.setInt(4, act.getId_usuario_fk());
             pst.setInt(5, act.getId_sucursal_empresa_fk());
+            pst.setInt(6, act.getId_tipo_actividad_fk());
             int result = pst.executeUpdate();
 
             if (result == 0) {

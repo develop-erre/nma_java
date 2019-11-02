@@ -160,8 +160,8 @@
                     </div>
                     <div class="form-group col-md-10">
                         <label for="inputValor4">Descripción contrato</label>
-                        <div class="input-group-prepend">
-                            <textarea name="textareaDescripcion" rows="3" cols="80" placeholder="Escriba Aqui ..." required="" maxlength="99" ></textarea>
+                        <div class="form-group">
+                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Escriba Aqui ..." name="textareaDescripcion" rows="3" required="" maxlength="99"></textarea>
                         </div>
                     </div>
                     <div class="form-group col-md-8">
@@ -170,8 +170,8 @@
                 </div>
             </form>
         </div>
-        
-        
+
+
         <script src="js/bootstrap.min.js"></script>
     </body>
 </html>

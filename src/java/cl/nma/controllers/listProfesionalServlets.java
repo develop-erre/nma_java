@@ -72,12 +72,13 @@ public class listProfesionalServlets extends HttpServlet {
             ProfesionalDAOImpl profDAO = new ProfesionalDAOImpl();
             lista = profDAO.listarProfesionalHabilitados();
 
+            request.setAttribute("listaProfesional", lista);
+            request.getRequestDispatcher("listaProfesionales.jsp").forward(request, response);
+
         } catch (SQLException ex) {
             Logger.getLogger(listProfesionalServlets.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        request.setAttribute("listaProfesional", lista);
-        request.getRequestDispatcher("listaProfesionales.jsp").forward(request, response);
     }
 
     /**

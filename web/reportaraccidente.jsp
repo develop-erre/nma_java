@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="js/base/style.css">
         <script src="js/jquery-1.12.4.js"></script>
         <script src="js/jquery-ui.js"></script>
+        <script lenguage="javascript" src="js/validarReporte.js"></script>
         <script>
             $(function () {
                 $("#datepicker").datepicker({minDate: -10, maxDate: 0});
@@ -47,7 +48,7 @@
         <br>
         <div class="container-fluid">
             <h3>Crear Profesional </h3>
-            <form action="reportarAccidente" name="formReport" method="post">
+            <form action="reportarAccidente" name="formReport" method="post" onsubmit="return validarReporteAccidente();">
                 <div class="form-row">
                     <div class="form-group col-md-2">
                         <label for="inputFechaNac4">Fecha Accidente</label>
@@ -57,10 +58,10 @@
                         </div>
                     </div>
                     <div class="form-group col-md-2">
-                        <label for="inputCity">Hora</label>
+                        <label for="inputHora4">Hora</label>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-clock"></i></span>
-                            <select name="txtHora" id="inputRegion4" class="form-control" required="">
+                            <select name="txtHora" id="inputHora4" class="form-control" required="">
                                 <option value="0">SELECCIONE</option>
                                 <option value="08">08:00 AM</option>
                                 <option value="09">09:00 AM</option>
@@ -79,11 +80,11 @@
                         </div>
                     </div>
                     <div class="form-group col-md-2">
-                        <label for="inputCity">Minutos</label>
+                        <label for="inputMinuto4">Minutos</label>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="far fa-clock"></i></span>
-                            <select name="txtMinutos" id="inputRegion4" class="form-control" required="">
-                                <option value="0">SELECCIONE</option>
+                            <select name="txtMinutos" id="inputMinuto4" class="form-control" required="">
+                                <option value="SELECCIONE">SELECCIONE</option>
                                 <option value="00">00:00</option>
                                 <option value="05">05:00</option>
                                 <option value="10">10:00</option>
@@ -103,8 +104,8 @@
 
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="inputCity">Tipo de accidente</label>
-                        <select name="selectTipoAccidente" id="inputRegion4" class="form-control" required="">
+                        <label for="inputTipoAccidente4">Tipo de accidente</label>
+                        <select name="selectTipoAccidente" id="inputTipoAccidente4" class="form-control" required="">
                             <option value="0">SELECCIONE</option>
                             <option  value="1">CAÍDAS AL MISMO NIVEL</option>
                             <option  value="2">CAÍDAS DE ALTURA</option>
@@ -120,10 +121,10 @@
 
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="inputState">Lugar del accidente</label>
+                        <label for="inputSucursal4">Lugar del accidente</label>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                            <select id="inputComuna4" class="form-control" name="selectSucursalId">
+                            <select id="inputSucursal4" class="form-control" name="selectSucursalId">
                                 <option value="0">SELECCIONE</option>
                                 <c:forEach items="${listaSucursal}" var="variable">
                                     <option value="${variable.id_sucursal}">${variable.nombre}</option>
@@ -136,16 +137,17 @@
                     <div class="form-group col-md-6">
                         <label for="inputValor4">Comentario accidente</label>
                         <div class="input-group-prepend">
-                            <textarea name="textareaDescripcion" rows="3" cols="100" placeholder="Escriba Aqui ..." required="" maxlength="99" ></textarea>
+                            <textarea class="form-control" name="textareaDescripcion" rows="3" cols="100" placeholder="Escriba Aqui ..." required="" minlength="10" maxlength="99" ></textarea>
                         </div>
                     </div>
                 </div>
                 <input  name="idEmpresa" type="hidden" value="<%= sesion.getAttribute("id_empresa")%>">
                 <button type="submit" class="btn btn-primary">Reportar Accidente</button>
             </form>
-                <c:out value="${mensaje}" />
+            <c:out value="${mensaje}" />
         </div>
-
+        
+        <script lenguage="javascript" src="js/validarReporte.js"></script>
         <script src="js/bootstrap.min.js"></script>
     </body>
 </html>

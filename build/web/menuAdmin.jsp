@@ -29,6 +29,9 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="listarProfesional">Profesionales</a>
                     <a class="dropdown-item" href="listaEmpresa">Empresas</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="listaProfesionalDes">Profesionales Deshabilitados</a>
+                    <a class="dropdown-item" href="listaEmpresa">Empresas Deshabilitadas</a>
                 </div>
             </li>
         </ul>

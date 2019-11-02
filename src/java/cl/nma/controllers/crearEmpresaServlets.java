@@ -142,7 +142,7 @@ public class crearEmpresaServlets extends HttpServlet {
             conDAO.agregar(con);
             
             RequestDispatcher rd;
-            rd = getServletContext().getRequestDispatcher("/home_1.jsp");
+            rd = getServletContext().getRequestDispatcher("/listaEmpresa");
             rd.include(request, response);
 
         } catch (SQLException ex) {

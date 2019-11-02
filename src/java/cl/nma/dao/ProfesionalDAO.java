@@ -19,10 +19,13 @@ public interface ProfesionalDAO {
     int agregar(Profesional prof);
 
     int eliminar(Integer idprof);
+    
+    int habilitar(Integer idprof);
 
     List<Profesional> listarProfesional();
     
     List<Profesional> listarProfesionalHabilitados();
+    List<Profesional> listarProfesionalDesabilitados();
     
     Profesional obtenerProfesionalPorId(Integer id);
     

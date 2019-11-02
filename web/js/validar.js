@@ -19,7 +19,7 @@ function validarSelectOption() {
         alert("Debe seleccionar un Profesional");
         return false;
     }
-    
+
 }
 
 function validarProgramarCapacitacion() {
@@ -35,7 +35,7 @@ function validarProgramarCapacitacion() {
     }
 
     if (numeroAsistentes > 40) {
-         alert("Asistentes deben ser mayor a 0 y hasta 40 personas");
+        alert("Asistentes deben ser mayor a 0 y hasta 40 personas");
         return false;
     }
     if (selectTipoCapacitacion == 0) {
@@ -47,7 +47,7 @@ function validarProgramarCapacitacion() {
         alert("Debe seleccionar un Profesional");
         return false;
     }
-    
+
 }
 
 function validarCrearEmpresa() {
@@ -74,21 +74,47 @@ function validarCrearEmpresa() {
         alert("Debe seleccionar Rubro");
         return false;
     }
-//
-//    if (numeroDir > 5) {
-//        alert("Campo numero direccion Debe ser maximo 5 caracteres y ser numero");
-//        return  false;
-//    }
-    
+
     function confirmarDelete() {
-        
+
         var respuesta = confirm("Estas seguro que deseas eliminar el usuario?");
-        
+
         if (respuesta === true) {
             return true;
-        }else{
+        } else {
             return false;
         }
+    }
+
+    function validarReporteAccidente() {
+
+        var hora, minuto, tipoAccidente, sucursal;
+        hora = document.getElementById("inputHora4").value;
+        minuto = document.getElementById("inputMinuto4").value;
+        tipoAccidente = document.getElementById("inputTipoAccidente4").value;
+        sucursal = document.getElementById("inputSucursal4").value;
+
+
+        if (hora == 0) {
+            alert("Debe seleccionar hora de reporte");
+            return false;
+        }
+
+        if (minuto == 0) {
+            alert("Debe seleccionar minutos de accidente");
+            return false;
+        }
+
+        if (tipoAccidente == 0) {
+            alert("Debe seleccionar Tipo de accidente");
+            return false;
+        }
+        
+        if (sucursal == 0) {
+            alert("Debe seleccionar Sucursal");
+            return false;
+        }
+
     }
 
 }

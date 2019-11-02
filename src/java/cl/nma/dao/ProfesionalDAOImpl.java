@@ -82,8 +82,8 @@ public class ProfesionalDAOImpl implements ProfesionalDAO {
 
     @Override
     public int eliminar(Integer idprof) {
-        
-       int result = 0;
+
+        int result = 0;
         String sql = "UPDATE USUARIO SET ESTADO = 1 WHERE id_usuario = ?";
         PreparedStatement pst = null;
         try {
@@ -112,7 +112,7 @@ public class ProfesionalDAOImpl implements ProfesionalDAO {
         }
 
         return result;
-        
+
     }
 
     @Override
@@ -150,7 +150,7 @@ public class ProfesionalDAOImpl implements ProfesionalDAO {
 
     @Override
     public List<Profesional> listarProfesionalHabilitados() {
-        
+
         List<Profesional> lista = new ArrayList<>();
 
         String sql = "SELECT * FROM USUARIO WHERE ID_ROL_FK = 2 AND ESTADO=0";
@@ -175,7 +175,70 @@ public class ProfesionalDAOImpl implements ProfesionalDAO {
             Logger.getLogger(ProfesionalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lista;
-        
+
+    }
+
+    @Override
+    public List<Profesional> listarProfesionalDesabilitados() {
+
+        List<Profesional> lista = new ArrayList<>();
+
+        String sql = "SELECT * FROM USUARIO WHERE ID_ROL_FK = 2 AND ESTADO=1";
+        try {
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+
+            Profesional profesional = null;
+
+            while (rs.next()) {
+                profesional = new Profesional();
+                profesional.setId_usuario(rs.getInt(1));
+                profesional.setNombre(rs.getString(2));
+                profesional.setApellidos(rs.getString(3));
+                profesional.setRut(rs.getString(4));
+                profesional.setEmail(rs.getString(8));
+                profesional.setTelefono(rs.getString(9));
+                lista.add(profesional);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProfesionalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
+
+    }
+
+    @Override
+    public int habilitar(Integer idprof) {
+        int result = 0;
+        String sql = "UPDATE USUARIO SET ESTADO = 0 WHERE ID_USUARIO = ?";
+        PreparedStatement pst = null;
+        try {
+            pst = conexion.prepareStatement(sql);
+            pst.setInt(1, idprof);
+            result = pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProfesionalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //siempre cerrar la conexion y el pst
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return result;
     }
 
     public java.sql.Date castDateDAOImpl(java.util.Date date) throws ParseException {
