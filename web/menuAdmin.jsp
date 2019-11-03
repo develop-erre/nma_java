@@ -17,7 +17,7 @@
                     Crear
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="http://localhost:8080/nma/crearprofesional.jsp">Profesionales</a>
+                    <a class="dropdown-item" href="crearProfesional">Profesionales</a>
                     <a class="dropdown-item" href="crearusuarioempresa">Usuario Empresa</a>
                     <a class="dropdown-item" href="crearempresa.jsp">Empresa</a>
                 </div>

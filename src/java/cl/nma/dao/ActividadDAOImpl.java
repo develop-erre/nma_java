@@ -310,4 +310,60 @@ public class ActividadDAOImpl implements ActividadDAO {
         return result;
     }
 
+    @Override
+    public List<ActividadAsesoriaGetAll> listarAsesoriasFinalizadasGetAll(int idEmpresa) {
+        
+        List<ActividadAsesoriaGetAll> solicitudList = new ArrayList<>();
+        String sql = "CALL GetAllAsesoriasFinalizadas(" + idEmpresa + ");";
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            pst = conexion.prepareStatement(sql);
+            rs = pst.executeQuery();
+            ActividadAsesoriaGetAll actAs;
+            while (rs.next()) {
+                actAs = new ActividadAsesoriaGetAll();
+                actAs.setId_usuario(rs.getInt(1));
+                actAs.setNombre_apellido(rs.getString(2));
+                actAs.setId_actividad(rs.getInt(3));
+                actAs.setFecha_act(rs.getDate(4));
+                actAs.setHora_act(rs.getString(5));
+                actAs.setId_asesoria(rs.getInt(6));
+                actAs.setComentarios_detectados(rs.getString(7));
+                actAs.setComentarios_propuesta(rs.getString(8));
+                actAs.setNombre_sucursal(rs.getString(9));
+                actAs.setTipo_asesoria(rs.getString(10));
+                solicitudList.add(actAs);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //siempre cerrar la conexion, rs y el pst
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return solicitudList;
+        
+    }
+
 }

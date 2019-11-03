@@ -113,34 +113,13 @@
                             </div>
 
                         </div>
-                        <div class="form-group col-md-3">
-                            <label for="inputCity">Región</label>
-                            <select name="selectRegion" id="inputRegion4" class="form-control" required="">
+                        <div class="form-group col-md-6">
+                            <label for="inputRegion4">Región - Comuna</label>
+                            <select name="selectComunaId" id="inputRegion4" class="form-control" required="">
                                 <option value="0">SELECCIONE</option>
-                                <option value="1">ARICA Y PARINACOTA</option>
-                                <option value="2">TARAPACÁ</option>
-                                <option value="3">ANTOFAGASTA</option>
-                                <option value="4">ATACAMA</option>
-                                <option value="5">COQUIMBO</option>
-                                <option value="6">VALPARAÍSO</option>
-                                <option value="7">LIBERTADOR B. O'HIGGINS</option>
-                                <option value="8">MAULE</option>
-                                <option value="9">BÍOBÍO</option>
-                                <option value="10">LA ARAUCANÍA</option>
-                                <option value="11">LOS RÍOS</option>
-                                <option value="12">LOS LAGOS</option>
-                                <option value="13">AISÉN DEL GRAL. C. IBÁÑEZ DEL CAMPO</option>
-                                <option value="14">MAGALLANES Y DE LA ANTÁRTICA CHILENA</option>
-                                <option value="15">REGIÓN METROPOLITANA</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="inputState">Comuna</label>
-                            <select id="inputComuna4" class="form-control" name="txtIdComuna">
-                                <option value="0">SELECCIONE</option>
-                                <option value="1">ARICA Y PARINACOTA</option>
-                                <option value="2">TARAPACÁ</option>
-                                <option value="3">ANTOFAGASTA</option>
+                                <c:forEach items="${listaReg}" var="comuna">
+                                    <option value="${comuna.id_comuna}">${comuna.nombre_comuna}</option>
+                                </c:forEach>
                             </select>
                         </div>
                     </div>

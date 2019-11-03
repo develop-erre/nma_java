@@ -7,9 +7,11 @@ package cl.nma.controllers;
 
 import cl.nma.dao.EmpresaDAOImpl;
 import cl.nma.dao.ProfesionalDAOImpl;
+import cl.nma.dao.RegionComunaDAOImpl;
 import cl.nma.dao.UsuarioDAOImpl;
 import cl.nma.dominio.EmpresaLista;
 import cl.nma.dominio.Profesional;
+import cl.nma.dominio.RegionComuna;
 import cl.nma.dominio.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -75,15 +77,20 @@ public class crearUsuarioEmpresa extends HttpServlet {
             throws ServletException, IOException {
 
         List<EmpresaLista> lista = new ArrayList();
+        List<RegionComuna> listaComuna = new ArrayList();
         try {
             EmpresaDAOImpl empDAO = new EmpresaDAOImpl();
             lista = empDAO.listarEmpresaLista();
+            
+            RegionComunaDAOImpl rcDAO = new RegionComunaDAOImpl();
+            listaComuna = rcDAO.listar();
 
         } catch (SQLException ex) {
             Logger.getLogger(listaEmpresaListServlets.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         request.setAttribute("listaEmp", lista);
+        request.setAttribute("listaReg", listaComuna);
         request.getRequestDispatcher("crearusuarioempresa.jsp").forward(request, response);
     }
 
@@ -108,21 +115,20 @@ public class crearUsuarioEmpresa extends HttpServlet {
         String email = request.getParameter("txtEmail");
         String telefono = request.getParameter("txtTelefono");
         int estado = 0;
-        int comunaId = Integer.parseInt(request.getParameter("txtIdComuna"));
-        //int rolId = Integer.parseInt(request.getParameter("selectRol"));
+        int comunaId = Integer.parseInt(request.getParameter("selectComunaId"));
         int empresaId = Integer.parseInt(request.getParameter("txtIdEmpresa"));
 
         try {
             UsuarioDAOImpl usuEmpfDAO = new UsuarioDAOImpl();
 
             Usuario usu = new Usuario();
-            usu.setNombre(nombre);
-            usu.setApellidos(apellidos);
+            usu.setNombre(nombre.toUpperCase());
+            usu.setApellidos(apellidos.toUpperCase());
             usu.setRut(run);
             usu.setPassword(pass);
-            usu.setDireccion(direccion);
+            usu.setDireccion(direccion.toUpperCase());
             usu.setFecha_nac(castDate(fechaNac));
-            usu.setEmail(email);
+            usu.setEmail(email.toUpperCase());
             usu.setTelefono(telefono);
             usu.setEstado(estado);
             usu.setId_comuna_us_fk(comunaId);

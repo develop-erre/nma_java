@@ -67,3 +67,46 @@ BEGIN
 END //
  
 DELIMITER ;
+
+
+/*
+PROCEDURE TRAER LISTA DE REPORTE ASESORIA 
+DE UNA EMPRESA EN ESPECIFICO
+
+*/
+
+DELIMITER //
+
+CREATE PROCEDURE GetAllAsesoriasFinalizadas(IN idEmp INT)
+BEGIN
+SELECT usuario.id_usuario
+		,CONCAT(usuario.nombre, " ", usuario.apellidos) AS nombre_apellido
+		,actividad.id_actividad
+		,actividad.fecha_act
+		,actividad.hora_act
+		,asesoria.id_asesoria
+		,asesoria.comentarios_detectados
+		,asesoria.comentarios_propuesta
+		,sucursal.nombre as nombre_sucursal
+		,tipo_asesoria.descripcion as tipo_asesoria
+		FROM USUARIO
+		JOIN ACTIVIDAD on actividad.id_usuario_fk = usuario.id_usuario
+		JOIN asesoria ON asesoria.id_actividad_fk_as = actividad.id_actividad
+		JOIN sucursal ON sucursal.id_sucursal = actividad.id_sucursal_empresa_fk
+		JOIN tipo_asesoria ON tipo_asesoria.id_tipo_asesoria = asesoria.id_tipo_asesoria_fk
+		WHERE actividad.id_tipo_actividad_fk = 3 and actividad.estado_act=1 and sucursal.id_empresa_fk = idEmp;
+END //
+ 
+DELIMITER ;
+
+/*
+VISTA TRAE REGION Y COMUNA CONCATENADA
+*/
+
+CREATE VIEW 
+vista_region_comuna AS
+SELECT comuna.id_comuna
+,CONCAT(region.nombre_region, " - ",comuna.nombre_comuna) AS nombre_comuna
+FROM comuna
+JOIN region ON comuna.id_region_fk = region.id_region
+ORDER BY 1 DESC

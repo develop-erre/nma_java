@@ -5,15 +5,21 @@
  */
 package cl.nma.controllers;
 
+import cl.nma.dao.EmpresaDAOImpl;
 import cl.nma.dao.ProfesionalDAOImpl;
+import cl.nma.dao.RegionComunaDAOImpl;
 import cl.nma.dao.UsuarioDAOImpl;
+import cl.nma.dominio.EmpresaLista;
 import cl.nma.dominio.Profesional;
+import cl.nma.dominio.RegionComuna;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -68,7 +74,20 @@ public class createProfesional extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        List<RegionComuna> listaComuna = new ArrayList();
+        try {
+            
+            RegionComunaDAOImpl rcDAO = new RegionComunaDAOImpl();
+            listaComuna = rcDAO.listar();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(listaEmpresaListServlets.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        request.setAttribute("listaReg", listaComuna);
+        request.getRequestDispatcher("crearprofesional.jsp").forward(request, response);
+        
     }
 
     /**
@@ -92,8 +111,7 @@ public class createProfesional extends HttpServlet {
         String email = request.getParameter("txtEmail");
         String telefono = request.getParameter("txtTelefono");
         int estado = 0;
-        int comunaId = Integer.parseInt(request.getParameter("txtIdComuna"));
-        //int rolId = Integer.parseInt(request.getParameter("selectRol"));
+        int comunaId = Integer.parseInt(request.getParameter("selectComunaId"));
 
         try {
             ProfesionalDAOImpl profDAO = new ProfesionalDAOImpl();
