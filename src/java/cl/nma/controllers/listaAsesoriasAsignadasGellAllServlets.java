@@ -6,9 +6,9 @@
 package cl.nma.controllers;
 
 import cl.nma.dao.ActividadDAOImpl;
-import cl.nma.dao.EmpresaDAOImpl;
-import cl.nma.dominio.ActividadAsesoria;
-import cl.nma.dominio.EmpresaLista;
+import cl.nma.dao.SucursalDAOImpl;
+import cl.nma.dominio.ActividadAsesoriaGetAll;
+import cl.nma.dominio.Sucursal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -21,13 +21,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Richard Foncea
  */
-@WebServlet(name = "cargarListaSolicitudAsesoriasServlets", urlPatterns = {"/listaSolicitudAsesorias"})
-public class cargarListaSolicitudAsesoriasServlets extends HttpServlet {
+@WebServlet(name = "listaAsesoriasAsignadasGellAllServlets", urlPatterns = {"/listaAsesoriasAsignadas"})
+public class listaAsesoriasAsignadasGellAllServlets extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,10 +47,10 @@ public class cargarListaSolicitudAsesoriasServlets extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet cargarListaSolicitudAsesoriasServlets</title>");
+            out.println("<title>Servlet listaAsesoriasAsignadasGellAllServlets</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet cargarListaSolicitudAsesoriasServlets at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet listaAsesoriasAsignadasGellAllServlets at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -67,19 +68,24 @@ public class cargarListaSolicitudAsesoriasServlets extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        List<ActividadAsesoria> lista = new ArrayList();
+        
+        HttpSession sesion = (HttpSession) request.getSession();
+        System.out.println(sesion.getAttribute("nombre"));
+        String idUsuario = String.valueOf(sesion.getAttribute("id_usuario")) ;
+        System.out.println(idUsuario);
+        int idUsu = Integer.parseInt(idUsuario);
+        
+        List<ActividadAsesoriaGetAll> lista = new ArrayList();
         try {
-            ActividadDAOImpl saDAO = new ActividadDAOImpl();
-            lista = saDAO.listarSolicitudAsesoria();
-
-            request.setAttribute("listaSolicitud", lista);
-            request.getRequestDispatcher("listaSolicitudAsesorias.jsp").forward(request, response);
+            ActividadDAOImpl acDAO = new ActividadDAOImpl();
+            lista = acDAO.listarSolicitudAsesoriaGetAll(idUsu);
 
         } catch (SQLException ex) {
             Logger.getLogger(listaEmpresaListServlets.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        request.setAttribute("listaGetAllAsesoria", lista);
+        request.getRequestDispatcher("listaSolicitudAsesoriasProfesional.jsp").forward(request, response);
+        
     }
 
     /**
@@ -93,18 +99,7 @@ public class cargarListaSolicitudAsesoriasServlets extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        List<ActividadAsesoria> lista = new ArrayList();
-        try {
-            ActividadDAOImpl saDAO = new ActividadDAOImpl();
-            lista = saDAO.listarSolicitudAsesoria();
-
-            request.setAttribute("listaSolicitud", lista);
-            request.getRequestDispatcher("listaSolicitudAsesorias.jsp").forward(request, response);
-
-        } catch (SQLException ex) {
-            Logger.getLogger(listaEmpresaListServlets.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

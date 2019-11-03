@@ -17,7 +17,7 @@
         <c:set var="id_rol" value="<%=rs%>" />
 
         <c:choose>
-            <c:when test="${id_rol == 1}">
+            <c:when test="${id_rol == 2}">
 
             </c:when>    
             <c:otherwise>
@@ -45,26 +45,29 @@
                     <tr>
                         <th>Id Actividad</th>
                         <th>Id Asesoria</th>
-                        <th>Id Sucursal</th>
+                        <th>Fecha Asesoria</th>
+                        <th>Hora Asesoria</th>
                         <th>Nombre Sucursal</th>
                         <th>Tipo Asesoria</th>
                         <th>Acción</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items="${listaSolicitud}" var="solicitud">
+                    <c:forEach items="${listaGetAllAsesoria}" var="getallasesoria">
                         <tr>
-                            <td>${solicitud.id_actividad}</td>
-                            <td>${solicitud.id_asesoria}</td>
-                            <td>${solicitud.id_sucursal}</td>
-                            <td>${solicitud.nombre}</td>
-                            <td>${solicitud.descripcion}</td>
+                            <td>${getallasesoria.id_actividad}</td>
+                            <td>${getallasesoria.id_asesoria}</td>
+                            <td>${getallasesoria.fecha_act}</td>
+                            <td>${getallasesoria.hora_act}</td>
+                            <td>${getallasesoria.nombre_sucursal}</td>
+                            <td>${getallasesoria.tipo_asesoria}</td>
                             <td>
-                                <form action="listaProfesionalAsignacion" method="POST">
-                                    <input type="hidden" name="txtIdAsesoria" value="${solicitud.id_asesoria}" />
-                                    <input type="hidden" name="txtIdActividad" value="${solicitud.id_actividad}" />
-                                    <input type="hidden" name="txtTipoAsesoria" value="${solicitud.descripcion}" />
-                                    <input type="submit" value="Asignar Profesional" class="btn btn-success" />
+                                <form action="ejecutarAsesoria.jsp" method="POST">
+                                    <input type="hidden" name="txtIdAsesoria" value="${getallasesoria.id_asesoria}" />
+                                    <input type="hidden" name="txtIdActividad" value="${getallasesoria.id_actividad}" />
+                                    <input type="hidden" name="txtTipoAsesoria" value="${getallasesoria.tipo_asesoria}" />
+                                    <input type="hidden" name="txtNombreSucursal" value="${getallasesoria.nombre_sucursal}" />
+                                    <input type="submit" value="Ejecutar" class="btn btn-primary" />
                                 </form>
                             </td>
                         </tr>

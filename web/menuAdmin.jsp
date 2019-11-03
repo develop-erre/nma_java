@@ -31,15 +31,16 @@
                     <a class="dropdown-item" href="listaEmpresa">Empresas</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="listaProfesionalDes">Profesionales Deshabilitados</a>
-                    <a class="dropdown-item" href="listaEmpresa">Empresas Deshabilitadas</a>
+                    <a class="dropdown-item disabled" href="listaEmpresa">Empresas Deshabilitadas</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Solicitudes
+                    Acciones
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="listaSolicitudAsesorias">Asesorias</a>
+                    <a class="dropdown-item" href="listaSolicitudAsesorias">Ver solicitudes de asesorias</a>
+                    <a class="dropdown-item disabled" href="#">Ver reporte de accidentes</a>
                 </div>
             </li>
         </ul>

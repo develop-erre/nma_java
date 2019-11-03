@@ -5,10 +5,8 @@
  */
 package cl.nma.controllers;
 
-import cl.nma.dao.ActividadDAOImpl;
-import cl.nma.dao.EmpresaDAOImpl;
-import cl.nma.dominio.ActividadAsesoria;
-import cl.nma.dominio.EmpresaLista;
+import cl.nma.dao.ProfesionalDAOImpl;
+import cl.nma.dominio.Profesional;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -26,8 +24,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Richard Foncea
  */
-@WebServlet(name = "cargarListaSolicitudAsesoriasServlets", urlPatterns = {"/listaSolicitudAsesorias"})
-public class cargarListaSolicitudAsesoriasServlets extends HttpServlet {
+@WebServlet(name = "listaProfesionalAsignacionAsesoriaServlets", urlPatterns = {"/listaProfesionalAsignacion"})
+public class listaProfesionalAsignacionAsesoriaServlets extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,10 +44,10 @@ public class cargarListaSolicitudAsesoriasServlets extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet cargarListaSolicitudAsesoriasServlets</title>");
+            out.println("<title>Servlet listaProfesionalAsignacionAsesoriaServlets</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet cargarListaSolicitudAsesoriasServlets at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet listaProfesionalAsignacionAsesoriaServlets at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -67,19 +65,7 @@ public class cargarListaSolicitudAsesoriasServlets extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        List<ActividadAsesoria> lista = new ArrayList();
-        try {
-            ActividadDAOImpl saDAO = new ActividadDAOImpl();
-            lista = saDAO.listarSolicitudAsesoria();
-
-            request.setAttribute("listaSolicitud", lista);
-            request.getRequestDispatcher("listaSolicitudAsesorias.jsp").forward(request, response);
-
-        } catch (SQLException ex) {
-            Logger.getLogger(listaEmpresaListServlets.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        processRequest(request, response);
     }
 
     /**
@@ -94,17 +80,27 @@ public class cargarListaSolicitudAsesoriasServlets extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        List<ActividadAsesoria> lista = new ArrayList();
-        try {
-            ActividadDAOImpl saDAO = new ActividadDAOImpl();
-            lista = saDAO.listarSolicitudAsesoria();
+        String idActividad = request.getParameter("txtIdActividad");
+        String idAsesoria = request.getParameter("txtIdAsesoria");
+        String tipoAsesoria = request.getParameter("txtTipoAsesoria");
+        
 
-            request.setAttribute("listaSolicitud", lista);
-            request.getRequestDispatcher("listaSolicitudAsesorias.jsp").forward(request, response);
+        List<Profesional> lista = new ArrayList();
+        try {
+            ProfesionalDAOImpl profDAO = new ProfesionalDAOImpl();
+            lista = profDAO.listarProfesionalHabilitados();
+            
+            request.setAttribute("idAct", idActividad);
+            request.setAttribute("idAse", idAsesoria);
+            request.setAttribute("tipoAs", tipoAsesoria);
+
+            request.setAttribute("listaProfesionalAsesoria", lista);
+            request.getRequestDispatcher("asignarAsesoria.jsp").forward(request, response);
 
         } catch (SQLException ex) {
-            Logger.getLogger(listaEmpresaListServlets.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(listProfesionalServlets.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
     /**

@@ -65,7 +65,7 @@
                         <label for="inputSitioWeb4">Sitio Web</label>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-globe"></i></span>
-                            <input type="text" class="form-control" id="inputSitioWeb4" name = "txtSitioWeb" placeholder="Ingrece teléfono " required="">
+                            <input type="text" class="form-control" id="inputSitioWeb4" name = "txtSitioWeb" placeholder="Ingrece teléfono ">
                         </div>
                     </div>
                 </div>

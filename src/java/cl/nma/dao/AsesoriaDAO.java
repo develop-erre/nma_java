@@ -6,6 +6,8 @@ import java.util.List;
 public interface AsesoriaDAO {
 
     int actualizar(Asesoria as);
+    
+    int finalizarAsesoria(Asesoria as);
 
     int agregar(Asesoria as);
 

@@ -6,14 +6,12 @@
 package cl.nma.controllers;
 
 import cl.nma.dao.ActividadDAOImpl;
-import cl.nma.dao.EmpresaDAOImpl;
-import cl.nma.dominio.ActividadAsesoria;
-import cl.nma.dominio.EmpresaLista;
+import cl.nma.dao.AsesoriaDAOImpl;
+import cl.nma.dominio.Actividad;
+import cl.nma.dominio.Asesoria;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -26,8 +24,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Richard Foncea
  */
-@WebServlet(name = "cargarListaSolicitudAsesoriasServlets", urlPatterns = {"/listaSolicitudAsesorias"})
-public class cargarListaSolicitudAsesoriasServlets extends HttpServlet {
+@WebServlet(name = "finalizarAsesoriaServlets", urlPatterns = {"/finalizarAsesoria"})
+public class finalizarAsesoriaServlets extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,10 +44,10 @@ public class cargarListaSolicitudAsesoriasServlets extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet cargarListaSolicitudAsesoriasServlets</title>");
+            out.println("<title>Servlet finalizarAsesoriaServlets</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet cargarListaSolicitudAsesoriasServlets at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet finalizarAsesoriaServlets at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -67,19 +65,7 @@ public class cargarListaSolicitudAsesoriasServlets extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        List<ActividadAsesoria> lista = new ArrayList();
-        try {
-            ActividadDAOImpl saDAO = new ActividadDAOImpl();
-            lista = saDAO.listarSolicitudAsesoria();
-
-            request.setAttribute("listaSolicitud", lista);
-            request.getRequestDispatcher("listaSolicitudAsesorias.jsp").forward(request, response);
-
-        } catch (SQLException ex) {
-            Logger.getLogger(listaEmpresaListServlets.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        processRequest(request, response);
     }
 
     /**
@@ -94,16 +80,30 @@ public class cargarListaSolicitudAsesoriasServlets extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        List<ActividadAsesoria> lista = new ArrayList();
+        int idAct = Integer.parseInt(request.getParameter("idACT"));
+        int idAse = Integer.parseInt(request.getParameter("idASE"));
+        String detectado =  request.getParameter("textareaProblemasDetectados");
+        String propuesta =  request.getParameter("textareaSolucionPropuesta");
+        
         try {
-            ActividadDAOImpl saDAO = new ActividadDAOImpl();
-            lista = saDAO.listarSolicitudAsesoria();
-
-            request.setAttribute("listaSolicitud", lista);
-            request.getRequestDispatcher("listaSolicitudAsesorias.jsp").forward(request, response);
-
+            AsesoriaDAOImpl asDAO = new AsesoriaDAOImpl();
+            Asesoria as = new Asesoria();
+            as.setId_asesoria(idAse);
+            as.setComentarios_detectados(detectado);
+            as.setComentarios_propuesta(propuesta);
+            //SE ACTUALIZA DATOS EN ASESORIA FINALIZANDO EL PROCESO
+            asDAO.finalizarAsesoria(as);
+            
+            ActividadDAOImpl actDAO = new ActividadDAOImpl();
+            Actividad act = new Actividad();
+            act.setId_actividad(idAct);
+            //SE ACTUALIZA DATOS EN ACTIVIDAD FINALIZANDO EL ESTADO EN 1
+            actDAO.finalizarActividad(act);
+            
+            request.getRequestDispatcher("home.jsp").forward(request, response);
+            
         } catch (SQLException ex) {
-            Logger.getLogger(listaEmpresaListServlets.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(finalizarAsesoriaServlets.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

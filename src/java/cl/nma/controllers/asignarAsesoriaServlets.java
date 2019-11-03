@@ -6,14 +6,15 @@
 package cl.nma.controllers;
 
 import cl.nma.dao.ActividadDAOImpl;
-import cl.nma.dao.EmpresaDAOImpl;
-import cl.nma.dominio.ActividadAsesoria;
-import cl.nma.dominio.EmpresaLista;
+import cl.nma.dao.CapacitacionDAOImpl;
+import cl.nma.dominio.Actividad;
+import cl.nma.dominio.Capacitacion;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -26,8 +27,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Richard Foncea
  */
-@WebServlet(name = "cargarListaSolicitudAsesoriasServlets", urlPatterns = {"/listaSolicitudAsesorias"})
-public class cargarListaSolicitudAsesoriasServlets extends HttpServlet {
+@WebServlet(name = "asignarAsesoriaServlets", urlPatterns = {"/asignarAsesoria"})
+public class asignarAsesoriaServlets extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,10 +47,10 @@ public class cargarListaSolicitudAsesoriasServlets extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet cargarListaSolicitudAsesoriasServlets</title>");
+            out.println("<title>Servlet asignarAsesoriaServlets</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet cargarListaSolicitudAsesoriasServlets at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet asignarAsesoriaServlets at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -67,19 +68,7 @@ public class cargarListaSolicitudAsesoriasServlets extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        List<ActividadAsesoria> lista = new ArrayList();
-        try {
-            ActividadDAOImpl saDAO = new ActividadDAOImpl();
-            lista = saDAO.listarSolicitudAsesoria();
-
-            request.setAttribute("listaSolicitud", lista);
-            request.getRequestDispatcher("listaSolicitudAsesorias.jsp").forward(request, response);
-
-        } catch (SQLException ex) {
-            Logger.getLogger(listaEmpresaListServlets.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        processRequest(request, response);
     }
 
     /**
@@ -93,17 +82,31 @@ public class cargarListaSolicitudAsesoriasServlets extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        List<ActividadAsesoria> lista = new ArrayList();
+        
+        String fecha = request.getParameter("txtFechaAs");
+        String hora = request.getParameter("selectHora");
+        int idProfesionaCap = Integer.parseInt(request.getParameter("selectProfesionalId"));
+        int idActividad = Integer.parseInt(request.getParameter("txtIdActividad"));
+        //int idAsesoria = Integer.parseInt(request.getParameter("txtIdAsesoria"));
+        
         try {
-            ActividadDAOImpl saDAO = new ActividadDAOImpl();
-            lista = saDAO.listarSolicitudAsesoria();
-
-            request.setAttribute("listaSolicitud", lista);
-            request.getRequestDispatcher("listaSolicitudAsesorias.jsp").forward(request, response);
-
+            //SE CREA ACTIVIDAD CREAR CAPACITACION
+            ActividadDAOImpl actDAO = new ActividadDAOImpl();
+            Actividad act = new Actividad();
+            //SE SETEA VALOR DE JSP
+            act.setFecha_act(castDate(fecha));
+            act.setHora_act(hora);
+            act.setId_usuario_fk(idProfesionaCap);
+            act.setId_actividad(idActividad);
+            
+            actDAO.asignarAsesoria(act);
+            
+            request.getRequestDispatcher("listaSolicitudAsesorias").forward(request, response);
+            
         } catch (SQLException ex) {
-            Logger.getLogger(listaEmpresaListServlets.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(reportarAccidenteServlets.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(asignarAsesoriaServlets.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -117,4 +120,30 @@ public class cargarListaSolicitudAsesoriasServlets extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    public Date castDate(String date) throws ParseException {
+        
+        String mes = date.substring(0, 2);
+        String dia = date.substring(3, 5);
+        String anio = date.substring(6, 10);
+        
+        String fechaCast = anio + "-" + mes + "-" + dia;
+        System.out.println(fechaCast);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        
+        Date fech = (Date) simpleDateFormat.parse(fechaCast);
+        
+        return fech;
+    }
+    
+    public String castDateString(String date) throws ParseException {
+        
+        String mes = date.substring(0, 2);
+        String dia = date.substring(3, 5);
+        String anio = date.substring(6, 10);
+        
+        String fechaCast = anio + "-" + mes + "-" + dia;
+        System.out.println(fechaCast);
+        
+        return fechaCast;
+    }
 }

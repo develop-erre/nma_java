@@ -60,9 +60,11 @@
                             <td>${solicitud.nombre}</td>
                             <td>${solicitud.descripcion}</td>
                             <td>
-                                <form action="programarVisita" method="POST">
+                                <form action="listaProfesionalAsignacion" method="POST">
+                                    <input type="hidden" name="txtIdAsesoria" value="${solicitud.id_asesoria}" />
+                                    <input type="hidden" name="txtIdActividad" value="${solicitud.id_actividad}" />
+                                    <input type="hidden" name="txtTipoAsesoria" value="${solicitud.descripcion}" />
                                     <input type="submit" value="Asignar Profesional" class="btn btn-success" />
-                                    <input type="hidden" name="txtIdSucursal" value="${solicitud.id_sucursal}" />
                                 </form>
                             </td>
                         </tr>

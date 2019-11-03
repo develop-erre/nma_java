@@ -73,4 +73,41 @@ public class AsesoriaDAOImpl implements AsesoriaDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public int finalizarAsesoria(Asesoria as) {
+        
+        int result = 0;
+        String sql = "UPDATE ASESORIA SET COMENTARIOS_DETECTADOS = ? ,COMENTARIOS_PROPUESTA = ?  WHERE ID_ASESORIA = ?";
+        PreparedStatement pst = null;
+        try {
+            pst = conexion.prepareStatement(sql);
+            pst.setString(1, as.getComentarios_detectados());
+            pst.setString(2, as.getComentarios_propuesta());
+            pst.setInt(3, as.getId_asesoria());
+            result = pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProfesionalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //siempre cerrar la conexion y el pst
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return result;
+        
+    }
+
 }
