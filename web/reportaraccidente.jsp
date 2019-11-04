@@ -7,12 +7,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="fonts/css/all.min.css">
+        <script lenguage="javascript" src="js/validarReporte.js"></script>
         <title>Reportar Accidente</title>
         <link rel="stylesheet" href="js/base/jquery-ui.css">
         <link rel="stylesheet" href="js/base/style.css">
         <script src="js/jquery-1.12.4.js"></script>
         <script src="js/jquery-ui.js"></script>
-        <script lenguage="javascript" src="js/validarReporte.js"></script>
         <script>
             $(function () {
                 $("#datepicker").datepicker({minDate: -10, maxDate: 0});

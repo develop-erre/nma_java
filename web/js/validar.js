@@ -22,6 +22,40 @@ function validarSelectOption() {
 
 }
 
+function validarSolicitarAsesoria() {
+
+    var selectTipo = document.getElementById("inputTipoAsesoria4").value;
+    var selectSucursal = document.getElementById("inputSucursal4").value;
+
+    if (selectTipo == 0) {
+        alert("Debe seleccionar tipo asesoria");
+        return false;
+    }
+
+    if (selectSucursal == 0) {
+        alert(" debe seleccionar sucursal");
+        return false;
+    }
+
+}
+
+function validarAsignarAsesoria() {
+
+    var hora = document.getElementById("selectHoraJS").value;
+    var pro = document.getElementById("selectProfAseJs").value;
+
+    if (hora == 0) {
+        alert("Debe seleccionar Hora");
+        return false;
+    }
+
+    if (pro == 0) {
+        alert(" Debe seleccionar Profesional");
+        return false;
+    }
+
+}
+
 function validarProgramarCapacitacion() {
 
     var selectTipoCapacitacion = document.getElementById("selectTipoCapacitacionJs").value;

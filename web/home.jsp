@@ -41,41 +41,6 @@
 
         <h3>Pass <%= sesion.getId()%> </h3><br>
 
-        <form action="listarProfesional" method="post">
-            <br>
-            <input type = "submit" class="input-login"  value = "VER PROFESIONALES">
-        </form>
-
-        <form action="listaEmpresa" method="post">
-            <br>
-            <input type = "submit" class="input-login"  value = "VER EMPRESAS">
-        </form>
-
-        <br>
-        <a href="http://localhost:8080/nma/crearprofesional.jsp">crear profesional</a>
-        <br>
-
-        <form action="listasucursal" method="post">
-            <input type = "submit" class="input-login"  value = "reportar Accidente empresas">
-            <input type ="hidden" name="idEmpresa"  value = "<%= sesion.getAttribute("id_empresa")%>">
-        </form>
-
-        <a href="crearusuarioempresa">crear usuario empresa</a>
-        <br>
-        <a href="http://localhost:8080/nma/crearempresa.jsp">crear empresa</a>
-        <br>
-        <a href="listasucursal">reportar Accidente empresas</a>
-        <br>
-
-        <a href="http://localhost:8080/nma/actividades.jsp">Crear Actividad</a>
-        <br>
-        <br>
-        <br>
-        <a href="actividadesProfesional">Ver Actividades del profesional</a>
-        <br>
-        <br>
-        <br>
-        <a href="login">Cerrar Sesion</a>
 
         <script src="js/jquery-3.4.1.min.js"></script>
         <script src="js/popper.min.js"></script>

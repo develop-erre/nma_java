@@ -67,10 +67,12 @@
                             <span class="input-group-text"><i class="fas fa-clock"></i></span>
                             <select name="selectHoraCap" id="selectHoraJS" class="form-control" required="" required="">
                                 <option value="0">SELECCIONE</option>
-                                <option value="08:00">09:00</option>
+                                <option value="09:00">09:00</option>
                                 <option value="10:00">10:00</option>
+                                <option value="11:00">11:00</option>
                                 <option value="12:00">12:00</option>
                                 <option value="14:00">14:00</option>
+                                <option value="15:00">15:00</option>
                                 <option value="16:00">16:00</option>
                                 <option value="17:00">17:00</option>
                             </select>

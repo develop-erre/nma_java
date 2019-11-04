@@ -2,7 +2,7 @@
 <!-- MENU -->
 
 <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Menu Profesional</a>
+    <a class="navbar-brand" href="#">Profesional</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -23,7 +23,7 @@
             </li> 
         </ul>
         <form class="form-inline my-2 my-lg-0" action="login" method="GET">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" value="" > <i class="fas fa-sign-out-alt"></i> </button>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" value="" > <i class="fas fa-sign-out-alt"></i> Salir</button>
         </form>
     </div>
 </nav>

@@ -45,7 +45,7 @@
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" action="login" method="GET">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" value="" > <i class="fas fa-sign-out-alt"></i> </button>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" value="" > <i class="fas fa-sign-out-alt"></i> Salir</button>
         </form>
     </div>
 </nav>

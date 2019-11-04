@@ -8,7 +8,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="fonts/css/all.min.css">
-        <script lenguage="javascript" src="js/validarCrearEmpresa.js"></script>
+        <script lenguage="javascript" src="js/validar.js"></script>
         <title>Crear Empresa</title>
         <link rel="stylesheet" href="js/base/jquery-ui.css">
         <link rel="stylesheet" href="js/base/style.css">
@@ -152,7 +152,7 @@
         </div>
 
 
-        <script lenguage="javascript" src="js/validarCrearEmpresa.js"></script>
+        <script lenguage="javascript" src="js/validar.js"></script>
         <script src="js/bootstrap.min.js"></script>
     </body>
 </html>
