@@ -3,11 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Richard%20Foncea/Documents/NetBeansProjects/nma/web/listaSolicitudAsesoriasProfesional.jsp</file>
-            <file>file:/C:/Users/Richard%20Foncea/Documents/NetBeansProjects/nma/web/database/03_ejecutar_script_procedure_view_functions.sql</file>
-            <file>file:/C:/Users/Richard%20Foncea/Documents/NetBeansProjects/nma/src/java/cl/nma/controllers/finalizarAsesoriaServlets.java</file>
-            <file>file:/C:/Users/Richard%20Foncea/Documents/NetBeansProjects/nma/web/ejecutarAsesoria.jsp</file>
-            <file>file:/C:/Users/Richard%20Foncea/Documents/NetBeansProjects/nma/src/java/cl/nma/dao/ActividadDAOImpl.java</file>
+            <file>file:/C:/Users/Richard%20Foncea/Documents/NetBeansProjects/nma/src/java/cl/nma/controllers/listaEmpresaListServlets.java</file>
+            <file>file:/C:/Users/Richard%20Foncea/Documents/NetBeansProjects/nma/web/crearempresa.jsp</file>
+            <file>file:/C:/Users/Richard%20Foncea/Documents/NetBeansProjects/nma/src/java/cl/nma/dao/EmpresaDAOImpl.java</file>
+            <file>file:/C:/Users/Richard%20Foncea/Documents/NetBeansProjects/nma/web/menuAdmin.jsp</file>
         </group>
     </open-files>
 </project-private>

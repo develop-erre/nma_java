@@ -8,6 +8,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="fonts/css/all.min.css">
+        <script lenguage="javascript" src="js/validar.js"></script>
         <title>Crear Usuario Empresa</title>
         <link rel="stylesheet" href="js/base/jquery-ui.css">
         <link rel="stylesheet" href="js/base/style.css">
@@ -48,97 +49,98 @@
         <br>
         <div class="container-fluid">
             <h3>Crear Usuario Empresa </h3>
-            <form action="crearusuarioempresa" method="POST">
+            <form action="crearusuarioempresa" method="POST" onsubmit="return validarCrearUsuarioEmpresa();">
                 <br>
-                <form>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="inputNombre4">Nombre</label>
-                            <input type="text" class="form-control" id="inputNombre4" name="txtNombre" placeholder="Ingrece Nombre" required="">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="inputApellidos4">Apellidos</label>
-                            <input type="text" class="form-control" id="inputApellidos4" name = "txtApellidos" placeholder="Ingrece Apellidos" required="">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="inputRun4">Run</label>
-                            <input type="text" class="form-control" id="inputRun4" name = "txtRun" placeholder="Ingrece Run " required="">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="inputNombre4">Nombre</label>
+                        <input type="text" class="form-control" id="inputNombre4" name="txtNombre" placeholder="Ingrece Nombre" required="">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputApellidos4">Apellidos</label>
+                        <input type="text" class="form-control" id="inputApellidos4" name = "txtApellidos" placeholder="Ingrece Apellidos" required="">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputRun4">Run</label>
+                        <input type="text" class="form-control" id="inputRun4" name = "txtRun" placeholder="Ingrece Run " required="">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="inputPass4">Password</label>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                            <input type="password" class="form-control" id="inputPassword4" name="txtPassword" placeholder="Ingrece password" required="">
                         </div>
                     </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-md-2">
-                            <label for="inputPass4">Password</label>
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-key"></i></span>
-                                <input type="password" class="form-control" id="inputPassword4" name="txtPassword" placeholder="Ingrece password" required="">
-                            </div>
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="inputFechaNac4">Fecha Nacimiento</label>
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                                <input type="text" class="form-control" id="datepicker" name="txtFechaNac" placeholder="Ingrece fecha" required="">
-                            </div>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="inputEmail4">E-mail</label>
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-at"></i></span>
-                                <input type="Email" class="form-control" id="inputEmail4" name = "txtEmail" placeholder="Ingrece E-mail abc12@dominio.com" required="">
-                            </div>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="inputRun4">Teléfono</label>
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
-                                <input type="number" class="form-control" id="inputRun4" name = "txtTelefono" placeholder="Ingrece teléfono, solo números " required="">
-                            </div>
+                    <div class="form-group col-md-2">
+                        <label for="inputFechaNac4">Fecha Nacimiento</label>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                            <input type="text" class="form-control" id="datepicker" name="txtFechaNac" placeholder="Ingrece fecha" required="">
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="inputAddress">Dirección</label>
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                                <input type="text" class="form-control" id="inputDireccion4" name = "txtDireccion" placeholder="Ingrece Dirección">
-                            </div>
-
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="inputAddress">Número</label>
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-home"></i></span>
-                                <input type="text" class="form-control" id="inputNumero4" name = "txtNumero" placeholder="Ingrece número">
-                            </div>
-
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputRegion4">Región - Comuna</label>
-                            <select name="selectComunaId" id="inputRegion4" class="form-control" required="">
-                                <option value="0">SELECCIONE</option>
-                                <c:forEach items="${listaReg}" var="comuna">
-                                    <option value="${comuna.id_comuna}">${comuna.nombre_comuna}</option>
-                                </c:forEach>
-                            </select>
+                    <div class="form-group col-md-4">
+                        <label for="inputEmail4">E-mail</label>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-at"></i></span>
+                            <input type="Email" class="form-control" id="inputEmail4" name = "txtEmail" placeholder="Ingrece E-mail abc12@dominio.com" required="">
                         </div>
                     </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-md-12">
-                            <label for="inputState">Empresa</label>
-                            <select id="inputComuna4" class="form-control" name="txtIdEmpresa">
-                                <option value="0">SELECCIONE</option>
-                                <c:forEach items="${listaEmp}" var="empresa">
-                                    <option value="${empresa.id_empresa}">${empresa.nombre}</option>
-                                </c:forEach>
-                            </select>
+                    <div class="form-group col-md-4">
+                        <label for="inputRun4">Teléfono</label>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
+                            <input type="number" class="form-control" id="inputRun4" name = "txtTelefono" placeholder="Ingrece teléfono, solo números " required="" min="11111" max="99999999999">
                         </div>
                     </div>
-                    
-                    <button type="submit" class="btn btn-primary">Crear Usuario Empresa</button>
-                </form>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="inputAddress">Dirección</label>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                            <input type="text" class="form-control" id="inputDireccion4" name = "txtDireccion" placeholder="Ingrece Dirección" required="">
+                        </div>
 
-                <script src="js/bootstrap.min.js"></script>
-                </body>
-                </html>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="inputAddress">Número</label>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-home"></i></span>
+                            <input type="number" class="form-control" id="inputNumero4" name = "txtNumero" placeholder="Ingrece número" required="" min="1" max="99999">
+                        </div>
+
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputRegion4">Región - Comuna</label>
+                        <select name="selectComunaId" id="inputRegion4" class="form-control" required="">
+                            <option value="0">SELECCIONE</option>
+                            <c:forEach items="${listaReg}" var="comuna">
+                                <option value="${comuna.id_comuna}">${comuna.nombre_comuna}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="inputState">Empresa</label>
+                        <select name="txtIdEmpresa" id="empresaIdSelect" class="form-control" required="">
+                            <option value="0">SELECCIONE</option>
+                            <c:forEach items="${listaEmp}" var="empresa">
+                                <option value="${empresa.id_empresa}">${empresa.nombre}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Crear Usuario Empresa</button>
+            </form>
+
+
+            <script lenguage="javascript" src="js/validar.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+    </body>
+</html>

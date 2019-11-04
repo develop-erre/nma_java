@@ -19,7 +19,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="crearProfesional">Profesionales</a>
                     <a class="dropdown-item" href="crearusuarioempresa">Usuario Empresa</a>
-                    <a class="dropdown-item" href="crearempresa.jsp">Empresa</a>
+                    <a class="dropdown-item" href="crearEmpresa">Empresa</a>
                 </div>
             </li> 
             <li class="nav-item dropdown">

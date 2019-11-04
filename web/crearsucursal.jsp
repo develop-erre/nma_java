@@ -9,11 +9,10 @@
         <link rel="stylesheet" href="fonts/css/all.min.css">
         <title>Añadir Sucursal</title>
         <script lenguage="javascript" src="js/validar.js"></script>
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <link rel="stylesheet" href="/resources/demos/style.css">
-        <script lenguage="javascript" src="js/jquery-3.4.1.min.js"></script>
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <link rel="stylesheet" href="js/base/jquery-ui.css">
+        <link rel="stylesheet" href="js/base/style.css">
+        <script src="js/jquery-1.12.4.js"></script>
+        <script src="js/jquery-ui.js"></script>
 
         <script>
             $(function () {
@@ -67,46 +66,32 @@
                 <div class="form-row">
                     <div class="form-group col-md-3">
                         <label for="inputAddress">Dirección</label>
-                        <input type="text" class="form-control" id="inputDireccion4" name = "txtDireccion" placeholder="Ingrece Dirección">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                            <input type="text" class="form-control" id="inputDireccion4" name = "txtDireccion" placeholder="Ingrece Dirección" required="">
+                        </div>
                     </div>
                     <div class="form-group col-md-2">
                         <label for="inputAddress">Número</label>
-                        <input type="text" class="form-control" id="inputNumero4" name = "txtNumero" placeholder="Ingrece número">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-home"></i></span>
+                            <input type="number" class="form-control" id="inputNumero4" name = "txtNumero" placeholder="Ingrece número" required="" min="1" max="99999">
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group col-md-3">
-                        <label for="inputCity">Región</label>
-                        <select name="selectRegion" id="inputRegion4" class="form-control" required="">
+                    <div class="form-group col-md-5">
+                        <label for="inputRegion4">Región - Comuna</label>
+                        <select name="selectComunaId" id="inputRegion4" class="form-control" required="">
                             <option value="0">SELECCIONE</option>
-                            <option value="1">ARICA Y PARINACOTA</option>
-                            <option value="2">TARAPACÁ</option>
-                            <option value="3">ANTOFAGASTA</option>
-                            <option value="4">ATACAMA</option>
-                            <option value="5">COQUIMBO</option>
-                            <option value="6">VALPARAÍSO</option>
-                            <option value="7">LIBERTADOR B. O'HIGGINS</option>
-                            <option value="8">MAULE</option>
-                            <option value="9">BÍOBÍO</option>
-                            <option value="10">LA ARAUCANÍA</option>
-                            <option value="11">LOS RÍOS</option>
-                            <option value="12">LOS LAGOS</option>
-                            <option value="13">AISÉN DEL GRAL. C. IBÁÑEZ DEL CAMPO</option>
-                            <option value="14">MAGALLANES Y DE LA ANTÁRTICA CHILENA</option>
-                            <option value="15">REGIÓN METROPOLITANA</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="inputState">Comuna</label>
-                        <select id="inputComuna4" class="form-control" name="txtIdComuna">
-                            <option value="0">SELECCIONE</option>
-                            <option value="1">ARICA Y PARINACOTA</option>
-                            <option value="2">TARAPACÁ</option>
-                            <option value="3">ANTOFAGASTA</option>
+                            <c:forEach items="${listaReg}" var="comuna">
+                                <option value="${comuna.id_comuna}">${comuna.nombre_comuna}</option>
+                            </c:forEach>
                         </select>
                     </div>
                 </div>
+
                 <input type="hidden" name="idEmpresa" value="<%= idEmpresa%>" />
                 <input type = "submit" class="btn btn-primary"  value = "Añadir Sucursal">
                 <br>

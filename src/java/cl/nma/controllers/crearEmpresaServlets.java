@@ -8,15 +8,19 @@ package cl.nma.controllers;
 import cl.nma.dao.ContratoDAOImpl;
 import cl.nma.dao.EmpresaDAOImpl;
 import cl.nma.dao.ProfesionalDAOImpl;
+import cl.nma.dao.RegionComunaDAOImpl;
 import cl.nma.dao.SucursalDAOImpl;
 import cl.nma.dominio.Contrato;
 import cl.nma.dominio.Empresa;
 import cl.nma.dominio.Profesional;
+import cl.nma.dominio.RegionComuna;
 import cl.nma.dominio.Sucursal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -71,7 +75,19 @@ public class crearEmpresaServlets extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        List<RegionComuna> listaComuna = new ArrayList();
+        try {
+            
+            RegionComunaDAOImpl rcDAO = new RegionComunaDAOImpl();
+            listaComuna = rcDAO.listar();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(listaEmpresaListServlets.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        request.setAttribute("listaReg", listaComuna);
+        request.getRequestDispatcher("crearempresa.jsp").forward(request, response);
     }
 
     /**
@@ -98,7 +114,7 @@ public class crearEmpresaServlets extends HttpServlet {
         String nombreSuc = "";
         String numeroDir = request.getParameter("txtNumero");
         String direccion = request.getParameter("txtDireccion").toUpperCase()+" #"+numeroDir;
-        int comunaId = Integer.parseInt(request.getParameter("selectComuna"));
+        int comunaId = Integer.parseInt(request.getParameter("selectComunaId"));
         
         //CONTRATO
         int valorContrato = Integer.parseInt(request.getParameter("txtValor"));

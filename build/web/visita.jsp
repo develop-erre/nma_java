@@ -9,11 +9,10 @@
         <link rel="stylesheet" href="fonts/css/all.min.css">
         <title>Programar Visita</title>
         <script lenguage="javascript" src="js/validar.js"></script>
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <link rel="stylesheet" href="/resources/demos/style.css">
-        <script lenguage="javascript" src="js/jquery-3.4.1.min.js"></script>
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <link rel="stylesheet" href="js/base/jquery-ui.css">
+        <link rel="stylesheet" href="js/base/style.css">
+        <script src="js/jquery-1.12.4.js"></script>
+        <script src="js/jquery-ui.js"></script>
 
         <script>
             $(function () {
@@ -57,20 +56,27 @@
                 <div class="form-row">
                     <div class="form-group col-md-3">
                         <label for="inputFechaNac4">Fecha Visita</label>
-                        <input type="text" class="form-control" id="datepicker" name="txtFechaVis" placeholder="Ingrece fecha" required="">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                            <input type="text" class="form-control" id="datepicker" name="txtFechaVis" placeholder="Ingrece fecha" required="">
+                        </div>
                     </div>
-
                     <div class="form-group col-md-2">
                         <label for="inputNombre4">Hora</label>
-                        <select name="selectHora" id="selectHoraJS" class="form-control" required="" required="">
-                            <option value="0">SELECCIONE</option>
-                            <option value="08:00">09:00</option>
-                            <option value="10:00">10:00</option>
-                            <option value="12:00">12:00</option>
-                            <option value="14:00">14:00</option>
-                            <option value="16:00">16:00</option>
-                            <option value="17:00">17:00</option>
-                        </select>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                            <select name="selectHora" id="selectHoraJS" class="form-control" required="" required="">
+                                <option value="0">SELECCIONE</option>
+                                <option value="09:00">09:00</option>
+                                <option value="10:00">10:00</option>
+                                <option value="11:00">11:00</option>
+                                <option value="12:00">12:00</option>
+                                <option value="14:00">14:00</option>
+                                <option value="15:00">15:00</option>
+                                <option value="16:00">16:00</option>
+                                <option value="17:00">17:00</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="form-row">
@@ -85,13 +91,16 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-5">
-                        <label for="inputCity">Profesional</label>
-                        <select name="selectProfesionalId" id="selectProfVisitaJs" class="form-control" required="">
-                            <option value="0">SELECCIONE</option>
-                            <c:forEach items="${listaProfesional}" var="prof">
-                                <option value="${prof.id_usuario}">${prof.nombre}  ${prof.apellidos} </option>
-                            </c:forEach>}
-                        </select>
+                        <label for="inputCity">Asignar Profesional</label>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-user-plus"></i></span>
+                            <select name="selectProfesionalId" id="selectProfVisitaJs" class="form-control" required="">
+                                <option value="0">SELECCIONE</option>
+                                <c:forEach items="${listaProfesional}" var="prof">
+                                    <option value="${prof.id_usuario}">${prof.nombre}  ${prof.apellidos} </option>
+                                </c:forEach>}
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <input type="hidden" name="SucursalId" value="${idSucursal}" />

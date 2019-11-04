@@ -8,7 +8,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="fonts/css/all.min.css">
-        <script lenguage="javascript" src="js/validar.js"></script>
+        <script lenguage="javascript" src="js/validarCrearEmpresa.js"></script>
         <title>Crear Empresa</title>
         <link rel="stylesheet" href="js/base/jquery-ui.css">
         <link rel="stylesheet" href="js/base/style.css">
@@ -57,15 +57,15 @@
                         <label for="inputTelefono4">Teléfono</label>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
-                            <input type="number" class="form-control" id="inputTelefono4" name = "txtTelefono" placeholder="Ingrece teléfono " required="" minlength="7">
+                            <input type="number" class="form-control" id="inputTelefono4" name = "txtTelefono" placeholder="Ej: 226655889 " required="" min="11111" max="99999999999">
                         </div>
                     </div>
 
                     <div class="form-group col-md-4">
-                        <label for="inputSitioWeb4">Sitio Web</label>
+                        <label for="inputSitioWeb4">Sitio Web *(opcional)</label>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-globe"></i></span>
-                            <input type="text" class="form-control" id="inputSitioWeb4" name = "txtSitioWeb" placeholder="Ingrece teléfono ">
+                            <input type="text" class="form-control" id="inputSitioWeb4" name = "txtSitioWeb" placeholder="Ingrece sitio web ">
                         </div>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <label for="inputRubro4">Rubro</label>
-                        <select name="selectRubro" id="inputRubro4" class="form-control" required="">
+                        <select name="selectRubro" id="selectRubro4" class="form-control" required="">
                             <option value="0">SELECCIONE</option>
                             <option value="1">AGRICULTURA, GANADERÍA, CAZA Y SILVICULTURA</option>
                             <option value="2">PESCA</option>
@@ -106,7 +106,7 @@
                         <label for="inputDireccionEmp4">Dirección</label>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                            <input type="text" class="form-control" id="inputDireccionEmp4" name = "txtDireccion" placeholder="Ingrece Dirección">
+                            <input type="text" class="form-control" id="inputDireccionEmp4" name = "txtDireccion" placeholder="Ingrece Dirección" required="">
                         </div>
 
                     </div>
@@ -114,38 +114,17 @@
                         <label for="inputNumeroEmp4">Número</label>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-home"></i></span>
-                            <input type="text" class="form-control" id="inputNumeroEmp4" name = "txtNumero" placeholder="Ingrece número">
+                            <input type="number" class="form-control" id="inputNumeroEmp4" name = "txtNumero" placeholder="Ingrece número" min="1" max="99999" required="">
                         </div>
 
                     </div>
-                    <div class="form-group col-md-3">
-                        <label for="inputCity">Región</label>
-                        <select name="selectRegion" id="inputRegion4" class="form-control" required="">
+                    <div class="form-group col-md-6">
+                        <label for="inputCity">Región - Comuna</label>
+                        <select name="selectComunaId" id="selectComunaId4" class="form-control" required="">
                             <option value="0">SELECCIONE</option>
-                            <option value="1">ARICA Y PARINACOTA</option>
-                            <option value="2">TARAPACÁ</option>
-                            <option value="3">ANTOFAGASTA</option>
-                            <option value="4">ATACAMA</option>
-                            <option value="5">COQUIMBO</option>
-                            <option value="6">VALPARAÍSO</option>
-                            <option value="7">LIBERTADOR B. O'HIGGINS</option>
-                            <option value="8">MAULE</option>
-                            <option value="9">BÍOBÍO</option>
-                            <option value="10">LA ARAUCANÍA</option>
-                            <option value="11">LOS RÍOS</option>
-                            <option value="12">LOS LAGOS</option>
-                            <option value="13">AISÉN DEL GRAL. C. IBÁÑEZ DEL CAMPO</option>
-                            <option value="14">MAGALLANES Y DE LA ANTÁRTICA CHILENA</option>
-                            <option value="15">REGIÓN METROPOLITANA</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label for="inputselectComuna">Comuna</label>
-                        <select id="inputComuna4" class="form-control" name="selectComuna">
-                            <option value="0">SELECCIONE</option>
-                            <option value="1">ARICA Y PARINACOTA</option>
-                            <option value="2">TARAPACÁ</option>
-                            <option value="3">ANTOFAGASTA</option>
+                            <c:forEach items="${listaReg}" var="comuna">
+                                <option value="${comuna.id_comuna}">${comuna.nombre_comuna}</option>
+                            </c:forEach>
                         </select>
                     </div>
                 </div>
@@ -156,7 +135,7 @@
                         <label for="inputValor4">Valor</label>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
-                            <input type="number" class="form-control" id="inputValor4" name = "txtValor" placeholder="Ingrece valor">
+                            <input type="number" class="form-control" id="inputValor4" name = "txtValor" placeholder="Ingrece valor" min="10000" max="100000000" required=""> 
                         </div>
                     </div>
                     <div class="form-group col-md-10">
@@ -173,6 +152,7 @@
         </div>
 
 
+        <script lenguage="javascript" src="js/validarCrearEmpresa.js"></script>
         <script src="js/bootstrap.min.js"></script>
     </body>
 </html>

@@ -8,6 +8,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="fonts/css/all.min.css">
+        <script lenguage="javascript" src="js/validar.js"></script>
         <title>Crear Profesional</title>
         <link rel="stylesheet" href="js/base/jquery-ui.css">
         <link rel="stylesheet" href="js/base/style.css">
@@ -48,7 +49,7 @@
         <br>
         <div class="container-fluid">
             <h3>Crear Profesional </h3>
-            <form action="crearProfesional" method="post">
+            <form action="crearProfesional" method="post" onsubmit="return validarCrearProfesional();">
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="inputNombre4">Nombre</label>
@@ -92,7 +93,7 @@
                         <label for="inputTelefono4">Teléfono</label>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
-                            <input type="number" class="form-control" id="inputTelefono4" name = "txtTelefono" placeholder="Ingrece teléfono, solo números " required="" maxlength="7">
+                            <input type="number" class="form-control" id="inputTelefono4" name = "txtTelefono" placeholder="Ingrece teléfono, solo números " required="" min="11111" max="99999999999">
                         </div>
 
                     </div>
@@ -103,7 +104,7 @@
                         <label for="inputAddress">Dirección</label>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                            <input type="text" class="form-control" id="inputDireccion4" name = "txtDireccion" placeholder="Ingrece Dirección">
+                            <input type="text" class="form-control" id="inputDireccion4" name = "txtDireccion" placeholder="Ingrece Dirección" required="">
                         </div>
 
                     </div>
@@ -111,24 +112,26 @@
                         <label for="inputAddress">Número</label>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-home"></i></span>
-                            <input type="text" class="form-control" id="inputNumero4" name = "txtNumero" placeholder="Ingrece número">
+                            <input type="number" class="form-control" id="inputNumero4" name = "txtNumero" placeholder="Ingrece número" min="1" max="99999" required="">
                         </div>
 
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputCity">Región - Comuna</label>
-                        <select name="selectComunaId" id="inputRegion4" class="form-control" required="">
-                                <option value="0">SELECCIONE</option>
-                                <c:forEach items="${listaReg}" var="comuna">
-                                    <option value="${comuna.id_comuna}">${comuna.nombre_comuna}</option>
-                                </c:forEach>
-                            </select>
+                        <select name="selectComunaId" id="inputComuna4" class="form-control" required="">
+                            <option value="0">SELECCIONE</option>
+                            <c:forEach items="${listaReg}" var="comuna">
+                                <option value="${comuna.id_comuna}">${comuna.nombre_comuna}</option>
+                            </c:forEach>
+                        </select>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Crear Profesional</button>
             </form>
         </div>
-
+        
+        
+        <script lenguage="javascript" src="js/validar.js"></script>
         <script src="js/bootstrap.min.js"></script>
     </body>
 </html>
