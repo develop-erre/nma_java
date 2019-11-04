@@ -8,9 +8,7 @@
         <link rel="stylesheet" href="css/style/signin.css" >
         <title>Capacitación</title>
         <script lenguage="javascript" src="js/jquery-3.4.1.min.js"></script>
-
     </head>
-
     <body class="text-center">
         <form class="form-signin" action="login" method="POST">
             <img class="mb-4" src="imagen/icon-login.png" alt="" width="85" height="85">
@@ -31,6 +29,5 @@
         <script src="js/jquery-3.3.1.slim.min.js" ></script>
         <script src="js/popper.min.js" ></script>
         <script src="js/bootstrap.min.js" ></script>
-
     </body>
 </html>
