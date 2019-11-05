@@ -62,7 +62,8 @@ public class reporteAsesoriaServlets extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
+        request.setCharacterEncoding("UTF-8");
         response.setContentType("application/pdf");
 
         OutputStream out = response.getOutputStream();
@@ -108,7 +109,7 @@ public class reporteAsesoriaServlets extends HttpServlet {
 
                 //TIPO ASESORIA
                 Paragraph tipoAse = new Paragraph();
-                Font fontTipo = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD, BaseColor.BLACK);
+                Font fontTipo = new Font(Font.FontFamily.HELVETICA, 8, Font.NORMAL, BaseColor.BLACK);
                 tipoAse.add(new Phrase("TIPO ASESORIA: " + tipoAsesoria, fontTipo));
                 tipoAse.setAlignment(Element.ALIGN_LEFT);
                 tipoAse.add(new Phrase(Chunk.NEWLINE));

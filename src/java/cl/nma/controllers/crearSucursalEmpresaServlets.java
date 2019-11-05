@@ -83,6 +83,8 @@ public class crearSucursalEmpresaServlets extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        request.setCharacterEncoding("UTF-8");
+        
         String nombreSucursal = request.getParameter("txtNombreSucursal");
         String direccion = request.getParameter("txtDireccion")+" #"+request.getParameter("txtNumero");
         int idEmpresa = Integer.parseInt(request.getParameter("idEmpresa"));

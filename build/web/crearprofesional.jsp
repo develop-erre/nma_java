@@ -5,9 +5,10 @@
 <!DOCTYPE html>
 <html>
     <head>    
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset=UTF-8">
         <meta name="viewport" content="width=device-width"/>
         <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/style/footer.css">
         <link rel="stylesheet" href="fonts/css/all.min.css">
         <script lenguage="javascript" src="js/validar.js"></script>
         <title>Crear Profesional</title>
@@ -22,6 +23,7 @@
         </script>
     </head>
     <body>
+        
 
         <% String rs = String.valueOf(sesion.getAttribute("id_rol"));%>
         <c:set var="id_rol" value="<%=rs%>" />
@@ -128,10 +130,11 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Crear Profesional</button>
+                
             </form>
         </div>
-        
-        
+
+
         <script lenguage="javascript" src="js/validar.js"></script>
         <script src="js/bootstrap.min.js"></script>
     </body>

@@ -79,6 +79,8 @@ public class listaProfesionalAsignacionAsesoriaServlets extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        request.setCharacterEncoding("UTF-8");
 
         String idActividad = request.getParameter("txtIdActividad");
         String idAsesoria = request.getParameter("txtIdAsesoria");

@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="fonts/css/all.min.css">
         <script lenguage="javascript" src="js/validar.js"></script>
-        <title>Capacitación</title>
+        <title>Solicitar Asesoria</title>
         <link rel="stylesheet" href="js/base/jquery-ui.css">
         <link rel="stylesheet" href="js/base/style.css">
         <script src="js/jquery-1.12.4.js"></script>

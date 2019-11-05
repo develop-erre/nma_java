@@ -8,6 +8,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width"/>
         <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/style/footer.css">
         <link rel="stylesheet" href="fonts/css/all.min.css">
         <meta name="viewport" content="width=device-width"/>
         <title>Home Principal</title>
@@ -43,6 +44,11 @@
 
         <h5>Pass <%= sesion.getId()%> </h5><br>
 
+        <footer class="py-4 text-center footer" style="background: #454545">
+            <div class="container">
+                <h6>Previriesgos &copy; 2018</h6>
+            </div>
+        </footer>
 
         <script src="js/jquery-3.4.1.min.js"></script>
         <script src="js/popper.min.js"></script>

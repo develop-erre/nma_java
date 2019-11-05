@@ -83,6 +83,8 @@ public class solicitarAsesoriaServlets extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        request.setCharacterEncoding("UTF-8");
+        
         int idTipoAsesoria = Integer.parseInt(request.getParameter("selectTipoAsesoria"));
         int idSucursalAsesoria = Integer.parseInt(request.getParameter("selectSucursalId"));
 

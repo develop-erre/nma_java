@@ -83,6 +83,8 @@ public class asignarAsesoriaServlets extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        request.setCharacterEncoding("UTF-8");
+        
         String fecha = request.getParameter("txtFechaAs");
         String hora = request.getParameter("selectHora");
         int idProfesionaCap = Integer.parseInt(request.getParameter("selectProfesionalId"));

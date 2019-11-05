@@ -5,16 +5,12 @@
  */
 package cl.nma.controllers;
 
-import cl.nma.dao.EmpresaDAOImpl;
 import cl.nma.dao.ProfesionalDAOImpl;
 import cl.nma.dao.RegionComunaDAOImpl;
-import cl.nma.dao.UsuarioDAOImpl;
-import cl.nma.dominio.EmpresaLista;
 import cl.nma.dominio.Profesional;
 import cl.nma.dominio.RegionComuna;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -102,6 +97,7 @@ public class createProfesional extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        request.setCharacterEncoding("UTF-8");
         String nombre = request.getParameter("txtNombre");
         String apellidos = request.getParameter("txtApellidos");
         String run = request.getParameter("txtRun");

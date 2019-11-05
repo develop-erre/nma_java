@@ -78,7 +78,6 @@
                 <input  name="idASE" type="hidden" value="<%=idAsesoria%>">
                 <button type="submit" class="btn btn-danger">Finalizar Asesoria</button>
             </form>
-            <c:out value="${mensaje}" />
         </div>
 
         

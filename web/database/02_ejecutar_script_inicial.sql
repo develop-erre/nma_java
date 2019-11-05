@@ -447,3 +447,5 @@ INSERT INTO COMUNA (NOMBRE_COMUNA,ID_REGION_FK) VALUES ("PADRE HURTADO","15");
 INSERT INTO COMUNA (NOMBRE_COMUNA,ID_REGION_FK) VALUES ("PEÑAFLOR","15");
 
 
+--INSERT ADMIN
+INSERT INTO `usuario` (`nombre`, `apellidos`, `rut`, `password`, `direccion`, `fecha_nacimiento`, `email`, `telefono`, `estado`, `id_comuna_us_fk`, `id_rol_fk`, `id_empresa_fk`) VALUES ('JUAN ANDRÉS', 'MARCUS GUTIERREZ', '11111', '11111', 'AVENIDA PEDRO MONTT #350', '1980-08-05', NULL, '988775566', '0', '295', '1', NULL);

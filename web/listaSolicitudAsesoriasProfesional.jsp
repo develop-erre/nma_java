@@ -62,7 +62,7 @@
                             <td>${getallasesoria.nombre_sucursal}</td>
                             <td>${getallasesoria.tipo_asesoria}</td>
                             <td>
-                                <form action="ejecutarAsesoria.jsp" method="POST">
+                                <form action="ejecutarAsesoria" method="POST">
                                     <input type="hidden" name="txtIdAsesoria" value="${getallasesoria.id_asesoria}" />
                                     <input type="hidden" name="txtIdActividad" value="${getallasesoria.id_actividad}" />
                                     <input type="hidden" name="txtTipoAsesoria" value="${getallasesoria.tipo_asesoria}" />

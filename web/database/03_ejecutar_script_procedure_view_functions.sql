@@ -33,7 +33,7 @@ JOIN sucursal ON sucursal.id_sucursal = actividad.id_sucursal_empresa_fk
 JOIN asesoria ON asesoria.id_actividad_fk_as = actividad.id_actividad
 JOIN tipo_asesoria on asesoria.id_tipo_asesoria_fk = tipo_asesoria.id_tipo_asesoria
 WHERE actividad.id_tipo_actividad_fk = 3 AND actividad.estado_act=0
-ORDER BY 1
+ORDER BY 1;
 
 
 
@@ -109,4 +109,33 @@ SELECT comuna.id_comuna
 ,CONCAT(region.nombre_region, " - ",comuna.nombre_comuna) AS nombre_comuna
 FROM comuna
 JOIN region ON comuna.id_region_fk = region.id_region
-ORDER BY 1 DESC
+ORDER BY 1 DESC;
+
+
+
+/*
+PROCEDURE TRAE TODOS LOS REPORTES DE ACCIDENTE PARA QUE LOS 
+VEA EL ADMINISTRADOR
+*/
+
+DELIMITER //
+
+CREATE PROCEDURE GetAllReporteAccidente(IN idEmpresa INT)
+BEGIN
+    select reporte_accidente.id_reporte_accidente
+,sucursal.id_sucursal
+,empresa.id_empresa
+,reporte_accidente.fecha as fecha_accidente
+,reporte_accidente.hora as hora_accidente
+,reporte_accidente.comentario
+,tipo_accidente.descripcion
+,sucursal.nombre as nombre_sucursal
+FROM reporte_accidente
+JOIN tipo_accidente ON reporte_accidente.id_tipo_accidente_fk = tipo_accidente.id_tipo_accidente
+JOIN sucursal ON reporte_accidente.id_sucursal_fk = sucursal.id_sucursal
+join empresa ON empresa.id_empresa = sucursal.id_empresa_fk
+where empresa.id_empresa =idEmpresa
+ORDER BY 4 DESC;
+END //
+ 
+DELIMITER ;

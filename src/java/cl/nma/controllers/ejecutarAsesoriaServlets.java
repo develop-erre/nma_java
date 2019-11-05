@@ -5,15 +5,8 @@
  */
 package cl.nma.controllers;
 
-import cl.nma.dao.RegionComunaDAOImpl;
-import cl.nma.dominio.RegionComuna;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Richard Foncea
  */
-@WebServlet(name = "cargarRegionAnadirSucursalServlets", urlPatterns = {"/cargarAnadirSucursal"})
-public class cargarRegionAnadirSucursalServlets extends HttpServlet {
+@WebServlet(name = "ejecutarAsesoriaServlets", urlPatterns = {"/ejecutarAsesoria"})
+public class ejecutarAsesoriaServlets extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +37,10 @@ public class cargarRegionAnadirSucursalServlets extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet cargarRegionAnadirSucursalServlets</title>");            
+            out.println("<title>Servlet ejecutarAsesoriaServlets</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet cargarRegionAnadirSucursalServlets at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ejecutarAsesoriaServlets at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -79,22 +72,21 @@ public class cargarRegionAnadirSucursalServlets extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         request.setCharacterEncoding("UTF-8");
-        
-        List<RegionComuna> listaComuna = new ArrayList();
-        try {
-            
-            RegionComunaDAOImpl rcDAO = new RegionComunaDAOImpl();
-            listaComuna = rcDAO.listar();
 
-        } catch (SQLException ex) {
-            Logger.getLogger(listaEmpresaListServlets.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        String idAsesoria = request.getParameter("txtIdAsesoria");
+        String idActividad = request.getParameter("txtIdActividad");
+        String tipoAsesoria = request.getParameter("txtTipoAsesoria");
+        String nombreSucursal = request.getParameter("txtNombreSucursal");
 
-        request.setAttribute("listaReg", listaComuna);
-        request.getRequestDispatcher("crearsucursal.jsp").forward(request, response);
+        request.setAttribute("idAsesoria", idAsesoria);
+        request.setAttribute("idActividad", idActividad);
+        request.setAttribute("tipoAsesoria", tipoAsesoria);
+        request.setAttribute("nombreSucursal", nombreSucursal);
         
+        request.getRequestDispatcher("/ejecutarAsesoria.jsp").forward(request, response);
+
     }
 
     /**

@@ -82,6 +82,8 @@ public class programarVisitaServlets extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        request.setCharacterEncoding("UTF-8");
 
         String fecha = request.getParameter("txtFechaVis");
         String horaMin = request.getParameter("selectHora");
