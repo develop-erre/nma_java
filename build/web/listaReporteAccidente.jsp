@@ -7,6 +7,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width"/>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="fonts/css/all.min.css">
         <title>Lista de Reportes accidentes</title>
@@ -41,9 +42,10 @@
 
         <br>
         <div class="container-fluid">
-            <h3>Lista de Reportes accidentes <%=nameEmpresa%></h3>
-            <table class="table table-striped">
-                <thead>
+            <h3>Reportes accidentes <%=nameEmpresa%></h3>
+            <br>
+            <table class="table table-sm table-responsive-md table-striped">
+                <thead class="thead-light">
                     <tr>
                         <th>Id reporte</th>
                         <th>Nombre Sucursal</th>
@@ -64,13 +66,13 @@
                             <td>${listaReport.hora_accidente}</td>
                             <td>
                                 <form action="programarVisita" method="POST">
-                                    <input type="submit" value="Programar Visita" class="btn btn-success" />
+                                    <input type="submit" value="Programar Visita" class="btn btn-primary" />
                                     <input type="hidden" name="txtIdSucursal" value="${listaReport.id_sucursal}" />
                                 </form>
                             </td>
                             <td>
                                 <form action="cargarCapacitacion" method="POST">
-                                    <input type="submit" value="Crear Capacitación" class="btn btn-success"/>
+                                    <input type="submit" value="Crear Capacitación" class="btn btn-primary"/>
                                     <input type="hidden" name="txtIdSucursal" value="${listaReport.id_sucursal}" />
                                 </form>
                             </td>

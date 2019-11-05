@@ -41,11 +41,11 @@
         
         <br>
         <div class="container-fluid">
-            <h3>Lista de Sucursales <%=nameEmpresa%></h3>
-            <table class="table table-striped">
-                <thead>
+            <h3>Sucursales <%=nameEmpresa%></h3>
+            <br>
+            <table class="table table-sm table-responsive-md table-striped">
+                <thead class="thead-light">
                     <tr>
-                        <th>Id Sucursal</th>
                         <th>Nombre Sucursal</th>
                         <th>Direccion</th>
                         <th>visita</th>
@@ -55,18 +55,17 @@
                 <tbody>
                     <c:forEach items="${listaSucursal}" var="sucursales">
                         <tr>
-                            <td>${sucursales.id_sucursal}</td>
                             <td>${sucursales.nombre}</td>
                             <td>${sucursales.direccion}</td>
                             <td>
                                 <form action="programarVisita" method="POST">
-                                    <input type="submit" value="Programar Visita" class="btn btn-success" />
+                                    <input type="submit" value="Programar Visita" class="btn btn-primary" />
                                     <input type="hidden" name="txtIdSucursal" value="${sucursales.id_sucursal}" />
                                 </form>
                             </td>
                             <td>
                                 <form action="cargarCapacitacion" method="POST">
-                                    <input type="submit" value="Crear Capacitación" class="btn btn-success"/>
+                                    <input type="submit" value="Crear Capacitación" class="btn btn-primary"/>
                                     <input type="hidden" name="txtIdSucursal" value="${sucursales.id_sucursal}" />
                                 </form>
                             </td>

@@ -39,13 +39,11 @@
 
         <br>
         <div class="container-fluid">
-            <h3>Lista de Solicitud Asesoria</h3>
-            <table class="table table-striped">
-                <thead>
+            <h3>Solicitud de Asesoria</h3>
+            <br>
+            <table class="table table-sm table-responsive-md table-striped">
+                <thead class="thead-light">
                     <tr>
-                        <th>Id Actividad</th>
-                        <th>Id Asesoria</th>
-                        <th>Id Sucursal</th>
                         <th>Nombre Sucursal</th>
                         <th>Tipo Asesoria</th>
                         <th>Acción</th>
@@ -54,9 +52,6 @@
                 <tbody>
                     <c:forEach items="${listaSolicitud}" var="solicitud">
                         <tr>
-                            <td>${solicitud.id_actividad}</td>
-                            <td>${solicitud.id_asesoria}</td>
-                            <td>${solicitud.id_sucursal}</td>
                             <td>${solicitud.nombre}</td>
                             <td>${solicitud.descripcion}</td>
                             <td>

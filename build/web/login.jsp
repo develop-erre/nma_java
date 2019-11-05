@@ -20,6 +20,7 @@
             <input type="password" id="inputPassword" class="form-control" name="txtPass" placeholder="Password" required>
 
             <button class="btn btn-lg btn-primary btn-block" type="submit">Registrarse</button>
+
             <c:out value="${error1}"></c:out>
             <c:out value="${error2}"></c:out>
             <br>

@@ -67,6 +67,8 @@ public class listaSucursalServlets extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        request.setCharacterEncoding("UTF-8");
+
         HttpSession sesion = (HttpSession) request.getSession();
         System.out.println(sesion.getAttribute("nombre"));
         String id = String.valueOf(sesion.getAttribute("id_empresa"));
@@ -97,6 +99,8 @@ public class listaSucursalServlets extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        request.setCharacterEncoding("UTF-8");
 
         int id = Integer.parseInt(request.getParameter("id_emp"));
         System.out.println(id);

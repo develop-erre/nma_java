@@ -52,11 +52,11 @@
 
         <br>
         <div class="container-fluid">
-            <h3>Lista de Profesionales Deshabilitado</h3>
-            <table class="table table-striped">
-                <thead>
+            <h3>Profesionales Deshabilitado</h3>
+            <br>
+            <table class="table table-sm table-responsive-md table-striped">
+                <thead class="thead-light">
                     <tr>
-                        <th>ID</th>
                         <th>Nombre</th>
                         <th>Rut</th>
                         <th>Correo</th>
@@ -67,7 +67,6 @@
                 <tbody>
                     <c:forEach items="${listaProfesional}" var="profesional">
                         <tr>
-                            <td>${profesional.id_usuario}</td>
                             <td>${profesional.nombre} ${profesional.apellidos}</td>
                             <td>${profesional.rut}</td>
                             <td>${profesional.email}</td>

@@ -39,28 +39,25 @@
 
         <br>
         <div class="container-fluid">
-            <h3>Lista de Asesorias finalizadas</h3>
-            <table class="table table-striped">
-                <thead>
+            <h3>Asesorias finalizadas</h3>
+            <br>
+            <table class="table table-sm table-responsive-md table-striped">
+                <thead class="thead-light">
                     <tr>
-                        <th>Id Actividad</th>
-                        <th>Id Asesoria</th>
-                        <th>Fecha Asesoria</th>
-                        <th>Hora Asesoria</th>
                         <th>Nombre Sucursal</th>
                         <th>Tipo Asesoria</th>
+                        <th>Fecha Asesoria</th>
+                        <th>Hora Asesoria</th>
                         <th>Reporte</th>
                     </tr>
                 </thead>
                 <tbody>
                     <c:forEach items="${listaGetAllAsesoria}" var="getallasesoria">
                         <tr>
-                            <td>${getallasesoria.id_actividad}</td>
-                            <td>${getallasesoria.id_asesoria}</td>
-                            <td>${getallasesoria.fecha_act}</td>
-                            <td>${getallasesoria.hora_act}</td>
                             <td>${getallasesoria.nombre_sucursal}</td>
                             <td>${getallasesoria.tipo_asesoria}</td>
+                            <td>${getallasesoria.fecha_act}</td>
+                            <td>${getallasesoria.hora_act}</td>
                             <td>
                                 <form action="pdfAsesoria" method="POST" target="_blank">
                                     <input type="hidden" name="txtNombreProf" value="${getallasesoria.nombre_apellido}" />

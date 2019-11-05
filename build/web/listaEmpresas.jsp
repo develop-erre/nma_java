@@ -7,6 +7,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width"/>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="fonts/css/all.min.css">
         <script lenguage="javascript">
@@ -53,11 +54,11 @@
 
         <br>
         <div class="container-fluid">
-            <h3>Lista de Empresas</h3>
-            <table class="table table-striped">
-                <thead>
+            <h3>Empresas</h3>
+            <br>
+            <table class="table table-sm table-responsive-md table-striped">
+                <thead class="thead-light">
                     <tr>
-                        <th>ID</th>
                         <th>Nombre Empresa</th>
                         <th>Rut</th>
                         <th>Casa Matriz</th>
@@ -71,7 +72,6 @@
                 <tbody>
                     <c:forEach items="${listaEmp}" var="empresa">
                         <tr>
-                            <td>${empresa.id_empresa}</td>
                             <td>${empresa.nombre}</td>
                             <td>${empresa.rut}</td>
                             <td>${empresa.nombre_suc}</td>
@@ -100,9 +100,9 @@
                                 </form>
                             </td>
 
-                            <td class="text-center">
+                            <td>
                                 <form action="eliminarEmpresa" method="POST" onclick="return confirmarDeleteEmpresa();">
-                                    <button type="submit" class="btn btn-danger" name="btnDeshabilitar" ><i class="fas fa-trash-alt"></i></button>
+                                    <button type="submit" class="btn btn-danger" name="btnDeshabilitar" ><i class="fas fa-trash-alt"></i> Deshabilitar</button>
                                     <input type="hidden" name="id_emp" value="${empresa.id_empresa}" />
                                 </form>
                             </td>

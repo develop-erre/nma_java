@@ -79,6 +79,8 @@ public class listaReportesAccidentesEmpresaServlets extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        request.setCharacterEncoding("UTF-8");
 
         int idEmpresa = Integer.parseInt(request.getParameter("id_emp"));
         String nombreEmpresa = request.getParameter("nom_emp");

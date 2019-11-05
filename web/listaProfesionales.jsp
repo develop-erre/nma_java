@@ -7,6 +7,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width"/>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="fonts/css/all.min.css">
         <script lenguage="javascript">
@@ -52,11 +53,11 @@
 
         <br>
         <div class="container-fluid">
-            <h3>Lista de Profesionales</h3>
-            <table class="table table-striped">
-                <thead>
+            <h3>Profesionales</h3>
+            <br>
+            <table class="table table-sm table-responsive-md table-striped">
+                <thead class="thead-light">
                     <tr>
-                        <th>ID</th>
                         <th>Nombre</th>
                         <th>Rut</th>
                         <th>Correo</th>
@@ -68,7 +69,6 @@
                 <tbody>
                     <c:forEach items="${listaProfesional}" var="profesional">
                         <tr>
-                            <td>${profesional.id_usuario}</td>
                             <td>${profesional.nombre} ${profesional.apellidos}</td>
                             <td>${profesional.rut}</td>
                             <td>${profesional.email}</td>

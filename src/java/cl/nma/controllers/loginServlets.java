@@ -116,6 +116,8 @@ public class loginServlets extends HttpServlet {
                     
                 } else {
                     String error2 = "Usuario bloqueado - contactar con Administrador";
+                    
+                    
                     request.setAttribute("error2", error2);
                     request.getRequestDispatcher("/login.jsp").forward(request, response);
                 }

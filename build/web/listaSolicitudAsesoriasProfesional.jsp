@@ -9,7 +9,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="fonts/css/all.min.css">
-        <title>Lista de Solicitud Asesoria</title>
+        <title>Asesorias Asignadas</title>
     </head>
     <body>
 
@@ -39,28 +39,25 @@
 
         <br>
         <div class="container-fluid">
-            <h3>Lista de Solicitud Asesoria</h3>
-            <table class="table table-striped">
-                <thead>
+            <h3>Asesorias Asignadas</h3>
+            <br>
+            <table class="table table-sm table-responsive-md table-striped">
+                <thead class="thead-light">
                     <tr>
-                        <th>Id Actividad</th>
-                        <th>Id Asesoria</th>
-                        <th>Fecha Asesoria</th>
-                        <th>Hora Asesoria</th>
                         <th>Nombre Sucursal</th>
                         <th>Tipo Asesoria</th>
+                        <th>Fecha Asesoria</th>
+                        <th>Hora Asesoria</th>
                         <th>Acción</th>
                     </tr>
                 </thead>
                 <tbody>
                     <c:forEach items="${listaGetAllAsesoria}" var="getallasesoria">
                         <tr>
-                            <td>${getallasesoria.id_actividad}</td>
-                            <td>${getallasesoria.id_asesoria}</td>
-                            <td>${getallasesoria.fecha_act}</td>
-                            <td>${getallasesoria.hora_act}</td>
                             <td>${getallasesoria.nombre_sucursal}</td>
                             <td>${getallasesoria.tipo_asesoria}</td>
+                            <td>${getallasesoria.fecha_act}</td>
+                            <td>${getallasesoria.hora_act}</td>
                             <td>
                                 <form action="ejecutarAsesoria" method="POST">
                                     <input type="hidden" name="txtIdAsesoria" value="${getallasesoria.id_asesoria}" />
