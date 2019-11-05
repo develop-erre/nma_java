@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="fonts/css/all.min.css">
         <script lenguage="javascript" src="js/validar.js"></script>
+        <meta name="viewport" content="width=device-width"/>
         <title>Asignar Asesoria</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="js/base/jquery-ui.css">

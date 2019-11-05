@@ -37,9 +37,11 @@
             </c:otherwise>
         </c:choose>
 
+        <% String nameEmpresa = (String)request.getAttribute("nombreEmpresa"); %>
+        
         <br>
         <div class="container-fluid">
-            <h3>Lista de Sucursales</h3>
+            <h3>Lista de Sucursales <%=nameEmpresa%></h3>
             <table class="table table-striped">
                 <thead>
                     <tr>

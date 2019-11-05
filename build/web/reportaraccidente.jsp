@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="fonts/css/all.min.css">
         <script lenguage="javascript" src="js/validarReporte.js"></script>
+        <meta name="viewport" content="width=device-width"/>
         <title>Reportar Accidente</title>
         <link rel="stylesheet" href="js/base/jquery-ui.css">
         <link rel="stylesheet" href="js/base/style.css">
@@ -47,7 +48,7 @@
 
         <br>
         <div class="container-fluid">
-            <h3>Crear Profesional </h3>
+            <h3>Reportar Accidente </h3>
             <form action="reportarAccidente" name="formReport" method="post" onsubmit="return validarReporteAccidente();">
                 <div class="form-row">
                     <div class="form-group col-md-2">

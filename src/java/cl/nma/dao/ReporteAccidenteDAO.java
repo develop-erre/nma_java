@@ -5,6 +5,7 @@
  */
 package cl.nma.dao;
 
+import cl.nma.dominio.ListaReporteAccidente;
 import cl.nma.dominio.ReporteAccidente;
 import java.util.List;
 
@@ -21,6 +22,8 @@ public interface ReporteAccidenteDAO {
     int eliminar(Integer ra);
 
     List<ReporteAccidente> listarReporteAccidentes();
+    
+    List<ListaReporteAccidente> listarReporteAccidentesVerAdmin(int idEmpresa);
     
     ReporteAccidente obtenerReporteAccidentePorId(Integer id);
     

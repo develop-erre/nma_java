@@ -6,8 +6,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width"/>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="fonts/css/all.min.css">
+        <meta name="viewport" content="width=device-width"/>
         <title>Home Principal</title>
     </head>
     <body>
@@ -39,7 +41,7 @@
         <h3>estado <%= sesion.getAttribute("estado")%> </h3><br>
 
 
-        <h3>Pass <%= sesion.getId()%> </h3><br>
+        <h5>Pass <%= sesion.getId()%> </h5><br>
 
 
         <script src="js/jquery-3.4.1.min.js"></script>

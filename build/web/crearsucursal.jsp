@@ -5,6 +5,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width"/>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="fonts/css/all.min.css">
         <title>Añadir Sucursal</title>
@@ -54,7 +55,7 @@
         <br>
         <div class="container-fluid">
             <h3>Añadir Sucursal <%= nombreEmpresa%></h3>  <%= idEmpresa%>
-            <form action="crearSucursal" name="formProgramarVisita" method="POST" onsubmit="return validarSelectOption();">
+            <form action="crearSucursal" name="formProgramarVisita" method="POST" onsubmit="return validarCrearSucursal();">
                 <br>
                 <div class="form-row">
                     <div class="form-group col-md-5">
@@ -82,8 +83,8 @@
 
                 <div class="form-row">
                     <div class="form-group col-md-5">
-                        <label for="inputRegion4">Región - Comuna</label>
-                        <select name="selectComunaId" id="inputRegion4" class="form-control" required="">
+                        <label for="inputComunaSuc4">Región - Comuna</label>
+                        <select name="selectComunaId" id="inputComunaSuc4" class="form-control" required="">
                             <option value="0">SELECCIONE</option>
                             <c:forEach items="${listaReg}" var="comuna">
                                 <option value="${comuna.id_comuna}">${comuna.nombre_comuna}</option>

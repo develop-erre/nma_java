@@ -22,6 +22,16 @@ function validarSelectOption() {
 
 }
 
+function validarCrearSucursal() {
+
+    var idComuna = document.getElementById("inputComunaSuc4").value;
+
+    if (idComuna == 0) {
+        alert("Debe seleccionar Comuna");
+        return false;
+    }
+}
+
 function validarSolicitarAsesoria() {
 
     var selectTipo = document.getElementById("inputTipoAsesoria4").value;

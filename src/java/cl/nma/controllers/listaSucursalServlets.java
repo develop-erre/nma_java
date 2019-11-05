@@ -5,9 +5,7 @@
  */
 package cl.nma.controllers;
 
-import cl.nma.dao.EmpresaDAOImpl;
 import cl.nma.dao.SucursalDAOImpl;
-import cl.nma.dominio.EmpresaLista;
 import cl.nma.dominio.Sucursal;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -71,10 +69,10 @@ public class listaSucursalServlets extends HttpServlet {
 
         HttpSession sesion = (HttpSession) request.getSession();
         System.out.println(sesion.getAttribute("nombre"));
-        String id = String.valueOf(sesion.getAttribute("id_empresa")) ;
+        String id = String.valueOf(sesion.getAttribute("id_empresa"));
         System.out.println(id);
         int idSucursal = Integer.parseInt(id);
-        
+
         List<Sucursal> lista = new ArrayList();
         try {
             SucursalDAOImpl sucDAO = new SucursalDAOImpl();
@@ -99,26 +97,24 @@ public class listaSucursalServlets extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         int id = Integer.parseInt(request.getParameter("id_emp"));
         System.out.println(id);
-        
+        String nombreEmpresa = request.getParameter("nom_emp");
+
         List<Sucursal> lista = new ArrayList();
         try {
             SucursalDAOImpl sucDAO = new SucursalDAOImpl();
             //OBTIENE SUCURSALES POR EL ID DE EMPRESA
             lista = sucDAO.obtenerSucursalPorId(id);
 
+            request.setAttribute("nombreEmpresa", nombreEmpresa);
+            request.setAttribute("listaSucursal", lista);
+            request.getRequestDispatcher("listaSucursales.jsp").forward(request, response);
+
         } catch (SQLException ex) {
             Logger.getLogger(listaEmpresaListServlets.class.getName()).log(Level.SEVERE, null, ex);
         }
-//
-//        for (Sucursal var :lista) {
-//            var.getId_sucursal();
-//        }
-        request.setAttribute("listaSucursal", lista);
-        request.getRequestDispatcher("listaSucursales.jsp").forward(request, response);
-        
 
     }
 

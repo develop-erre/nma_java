@@ -58,13 +58,14 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Nombre</th>
+                        <th>Nombre Empresa</th>
                         <th>Rut</th>
                         <th>Casa Matriz</th>
                         <th>Dirección</th>
-                        <th>Sucursal</th>
                         <th>Ver</th>
-                        <th>Eliminar</th>
+                        <th>Añadir</th>
+                        <th>Ver</th>
+                        <th>Deshabilitar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -76,8 +77,17 @@
                             <td>${empresa.nombre_suc}</td>
                             <td>${empresa.direccion}</td>
                             <td>
-                                <form action="crearsucursal.jsp" method="POST">
-                                    <input type="submit" value="Añadir Sucursal" class="btn btn-success" name="btnSucursal" />
+                                
+                                <form action="listaReportesAccidentes" method="POST">
+                                    <input type="submit" value="Accidentes" class="btn btn-warning" name="btnAnadirSucursal" />
+                                    <input type="hidden" name="id_emp" value="${empresa.id_empresa}" />
+                                    <input type="hidden" name="nom_emp" value="${empresa.nombre}" />
+                                </form>
+                            </td>
+                            <td>
+                                
+                                <form action="cargarAnadirSucursal" method="POST">
+                                    <button type="submit"  class="btn btn-success" name="btnAnadirSucursal">Sucursal</button>
                                     <input type="hidden" name="id_emp" value="${empresa.id_empresa}" />
                                     <input type="hidden" name="nom_emp" value="${empresa.nombre}" />
                                 </form>
@@ -86,12 +96,13 @@
                                 <form action="listasucursal" method="POST">
                                     <input type="submit" value="Sucursal" class="btn btn-primary" name="btnSucursal" />
                                     <input type="hidden" name="id_emp" value="${empresa.id_empresa}" />
+                                    <input type="hidden" name="nom_emp" value="${empresa.nombre}" />
                                 </form>
                             </td>
 
-                            <td>
+                            <td class="text-center">
                                 <form action="eliminarEmpresa" method="POST" onclick="return confirmarDeleteEmpresa();">
-                                    <input type="submit" value="Deshabilitar" class="btn btn-danger" name="btnDeshabilitar" />
+                                    <button type="submit" class="btn btn-danger" name="btnDeshabilitar" ><i class="fas fa-trash-alt"></i></button>
                                     <input type="hidden" name="id_emp" value="${empresa.id_empresa}" />
                                 </form>
                             </td>

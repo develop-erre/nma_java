@@ -6,9 +6,7 @@
 package cl.nma.controllers;
 
 import cl.nma.dao.RegionComunaDAOImpl;
-import cl.nma.dao.SucursalDAOImpl;
 import cl.nma.dominio.RegionComuna;
-import cl.nma.dominio.Sucursal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -26,8 +24,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Richard Foncea
  */
-@WebServlet(name = "crearSucursalEmpresaServlets", urlPatterns = {"/crearSucursal"})
-public class crearSucursalEmpresaServlets extends HttpServlet {
+@WebServlet(name = "cargarRegionAnadirSucursalServlets", urlPatterns = {"/cargarAnadirSucursal"})
+public class cargarRegionAnadirSucursalServlets extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,10 +44,10 @@ public class crearSucursalEmpresaServlets extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet crearSucursalEmpresaServlets</title>");            
+            out.println("<title>Servlet cargarRegionAnadirSucursalServlets</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet crearSucursalEmpresaServlets at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet cargarRegionAnadirSucursalServlets at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -67,8 +65,7 @@ public class crearSucursalEmpresaServlets extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-         
+        processRequest(request, response);
     }
 
     /**
@@ -83,26 +80,18 @@ public class crearSucursalEmpresaServlets extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String nombreSucursal = request.getParameter("txtNombreSucursal");
-        String direccion = request.getParameter("txtDireccion")+" #"+request.getParameter("txtNumero");
-        int idEmpresa = Integer.parseInt(request.getParameter("idEmpresa"));
-        int idComuna = Integer.parseInt(request.getParameter("selectComunaId"));
-        
+        List<RegionComuna> listaComuna = new ArrayList();
         try {
             
-            SucursalDAOImpl sucDAO = new SucursalDAOImpl();
-            Sucursal suc = new Sucursal();
-            suc.setNombre(nombreSucursal.toUpperCase());
-            suc.setDireccion(direccion.toUpperCase());
-            suc.setId_comuna_suc_fk(idComuna);
-            suc.setId_empresa_fk(idEmpresa);
-            
-            sucDAO.agregar(suc);
-            
-            request.getRequestDispatcher("listaEmpresa").forward(request, response);
-            
-        } catch (Exception e) {
+            RegionComunaDAOImpl rcDAO = new RegionComunaDAOImpl();
+            listaComuna = rcDAO.listar();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(listaEmpresaListServlets.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        request.setAttribute("listaReg", listaComuna);
+        request.getRequestDispatcher("crearsucursal.jsp").forward(request, response);
         
     }
 

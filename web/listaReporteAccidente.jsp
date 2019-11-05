@@ -9,7 +9,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="fonts/css/all.min.css">
-        <title>Lista de Sucursales</title>
+        <title>Lista de Reportes accidentes</title>
     </head>
     <body>
 
@@ -36,38 +36,42 @@
                 <jsp:include page="menuCliente.jsp"/>
             </c:otherwise>
         </c:choose>
-
-        <% String nameEmpresa = (String)request.getAttribute("nombreEmpresa"); %>
         
+        <% String nameEmpresa = (String)request.getAttribute("nombreEmpresa"); %>
+
         <br>
         <div class="container-fluid">
-            <h3>Lista de Sucursales <%=nameEmpresa%></h3>
+            <h3>Lista de Reportes accidentes <%=nameEmpresa%></h3>
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Id Sucursal</th>
+                        <th>Id reporte</th>
                         <th>Nombre Sucursal</th>
-                        <th>Direccion</th>
-                        <th>visita</th>
+                        <th>Tipo Accidente</th>
+                        <th>Fecha Accidente</th>
+                        <th>Hora Accidente</th>
+                        <th>Visita</th>
                         <th>Capacitación</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items="${listaSucursal}" var="sucursales">
+                    <c:forEach items="${listaReporteAccidente}" var="listaReport">
                         <tr>
-                            <td>${sucursales.id_sucursal}</td>
-                            <td>${sucursales.nombre}</td>
-                            <td>${sucursales.direccion}</td>
+                            <td>${listaReport.id_reporte_accidente}</td>
+                            <td>${listaReport.nombre_sucursal}</td>
+                            <td>${listaReport.descripcion}</td>
+                            <td>${listaReport.fecha_accidente}</td>
+                            <td>${listaReport.hora_accidente}</td>
                             <td>
                                 <form action="programarVisita" method="POST">
                                     <input type="submit" value="Programar Visita" class="btn btn-success" />
-                                    <input type="hidden" name="txtIdSucursal" value="${sucursales.id_sucursal}" />
+                                    <input type="hidden" name="txtIdSucursal" value="${listaReport.id_sucursal}" />
                                 </form>
                             </td>
                             <td>
                                 <form action="cargarCapacitacion" method="POST">
                                     <input type="submit" value="Crear Capacitación" class="btn btn-success"/>
-                                    <input type="hidden" name="txtIdSucursal" value="${sucursales.id_sucursal}" />
+                                    <input type="hidden" name="txtIdSucursal" value="${listaReport.id_sucursal}" />
                                 </form>
                             </td>
                         </tr>

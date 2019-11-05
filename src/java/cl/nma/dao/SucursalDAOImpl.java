@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  * @author Richard Foncea
  */
 public class SucursalDAOImpl implements SucursalDAO {
-    
+
     Connection conexion;
 
     public SucursalDAOImpl() throws SQLException {
@@ -37,13 +37,13 @@ public class SucursalDAOImpl implements SucursalDAO {
 
     @Override
     public int agregar(Sucursal suc) {
-        
+
         int id = 0;
         String sql = "INSERT INTO SUCURSAL(NOMBRE, DIRECCION,"
                 + "ID_EMPRESA_FK,ID_COMUNA_SUC_FK)"
                 + "VALUES("
                 + "?,?,?,?)";
-        
+
         PreparedStatement pst;
         try {
             pst = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -81,9 +81,14 @@ public class SucursalDAOImpl implements SucursalDAO {
 
     @Override
     public List<Sucursal> obtenerSucursalPorId(Integer id) {
-        
+
         List<Sucursal> sucList = new ArrayList<>();
-        String sql = "SELECT * FROM SUCURSAL WHERE ID_EMPRESA_FK = "+id ;
+        String sql = "SELECT sucursal.id_sucursal\n"
+                + ",sucursal.nombre\n"
+                + ",CONCAT( sucursal.direccion,\" - \",comuna.nombre_comuna ) AS direccion\n"
+                + "FROM SUCURSAL \n"
+                + "JOIN comuna ON sucursal.id_comuna_suc_fk = comuna.id_comuna\n"
+                + "WHERE ID_EMPRESA_FK =" + id;
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
@@ -125,6 +130,6 @@ public class SucursalDAOImpl implements SucursalDAO {
             }
         }
         return sucList;
-        
+
     }
 }
