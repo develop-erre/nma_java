@@ -19,7 +19,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item disabled" href="#">Visitas Asignadas</a>
                     <a class="dropdown-item" href="listaAsesoriasAsignadas">Asesorias Asignadas</a>
-                    <a class="dropdown-item disabled" href="#">Capacitaciones Asignadas</a>
+                    <a class="dropdown-item" href="listaCapacitacionAsignada">Capacitaciones Asignadas</a>
                 </div>
             </li> 
         </ul>

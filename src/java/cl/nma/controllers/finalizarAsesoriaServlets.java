@@ -97,10 +97,8 @@ public class finalizarAsesoriaServlets extends HttpServlet {
             asDAO.finalizarAsesoria(as);
             
             ActividadDAOImpl actDAO = new ActividadDAOImpl();
-            Actividad act = new Actividad();
-            act.setId_actividad(idAct);
             //SE ACTUALIZA DATOS EN ACTIVIDAD FINALIZANDO EL ESTADO EN 1
-            actDAO.finalizarActividad(act);
+            actDAO.finalizarActividad(idAct);
             
             request.getRequestDispatcher("home.jsp").forward(request, response);
             

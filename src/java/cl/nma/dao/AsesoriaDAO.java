@@ -7,6 +7,8 @@ public interface AsesoriaDAO {
 
     int actualizar(Asesoria as);
     
+    int EstadoAsesoriaAsignado(int idAsesoria);
+    
     int finalizarAsesoria(Asesoria as);
 
     int agregar(Asesoria as);

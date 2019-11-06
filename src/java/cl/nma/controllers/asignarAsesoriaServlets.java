@@ -6,6 +6,7 @@
 package cl.nma.controllers;
 
 import cl.nma.dao.ActividadDAOImpl;
+import cl.nma.dao.AsesoriaDAOImpl;
 import cl.nma.dao.CapacitacionDAOImpl;
 import cl.nma.dominio.Actividad;
 import cl.nma.dominio.Capacitacion;
@@ -89,7 +90,7 @@ public class asignarAsesoriaServlets extends HttpServlet {
         String hora = request.getParameter("selectHora");
         int idProfesionaCap = Integer.parseInt(request.getParameter("selectProfesionalId"));
         int idActividad = Integer.parseInt(request.getParameter("txtIdActividad"));
-        //int idAsesoria = Integer.parseInt(request.getParameter("txtIdAsesoria"));
+        int idAsesoria = Integer.parseInt(request.getParameter("txtIdAsesoria"));
         
         try {
             //SE CREA ACTIVIDAD CREAR CAPACITACION
@@ -102,6 +103,10 @@ public class asignarAsesoriaServlets extends HttpServlet {
             act.setId_actividad(idActividad);
             
             actDAO.asignarAsesoria(act);
+            
+            //MODIFICAR ESTADO DE LA ASESORIA A ASIGNADO        
+            AsesoriaDAOImpl asDAO = new AsesoriaDAOImpl();
+            asDAO.EstadoAsesoriaAsignado(idAsesoria);
             
             request.getRequestDispatcher("listaSolicitudAsesorias").forward(request, response);
             

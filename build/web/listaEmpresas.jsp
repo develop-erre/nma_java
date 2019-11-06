@@ -63,9 +63,9 @@
                         <th>Rut</th>
                         <th>Casa Matriz</th>
                         <th>Dirección</th>
-                        <th>Ver</th>
+                        <th>Ver reportes</th>
                         <th>Añadir</th>
-                        <th>Ver</th>
+                        <th>Ver </th>
                         <th>Deshabilitar</th>
                     </tr>
                 </thead>
@@ -102,7 +102,7 @@
 
                             <td>
                                 <form action="eliminarEmpresa" method="POST" onclick="return confirmarDeleteEmpresa();">
-                                    <button type="submit" class="btn btn-danger" name="btnDeshabilitar" ><i class="fas fa-trash-alt"></i> Deshabilitar</button>
+                                    <button type="submit" class="btn btn-danger" name="btnDeshabilitar" >Deshabilitar</button>
                                     <input type="hidden" name="id_emp" value="${empresa.id_empresa}" />
                                 </form>
                             </td>

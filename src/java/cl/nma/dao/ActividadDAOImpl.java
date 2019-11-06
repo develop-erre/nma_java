@@ -4,6 +4,7 @@ import cl.nma.database.DBUtil;
 import cl.nma.dominio.Actividad;
 import cl.nma.dominio.ActividadAsesoria;
 import cl.nma.dominio.ActividadAsesoriaGetAll;
+import cl.nma.dominio.ActividadCapacitacionGettAll;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -278,13 +279,12 @@ public class ActividadDAOImpl implements ActividadDAO {
     }
 
     @Override
-    public int finalizarActividad(Actividad act) {
+    public int finalizarActividad(int idActividad) {
         int result = 0;
-        String sql = "UPDATE ACTIVIDAD SET ESTADO_ACT = 1 WHERE ID_ACTIVIDAD = ?";
+        String sql = "UPDATE ACTIVIDAD SET ESTADO_ACT = 1 WHERE ID_ACTIVIDAD = "+idActividad;
         PreparedStatement pst = null;
         try {
             pst = conexion.prepareStatement(sql);
-            pst.setInt(1, act.getId_actividad());
             result = pst.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ProfesionalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -365,5 +365,62 @@ public class ActividadDAOImpl implements ActividadDAO {
         return solicitudList;
         
     }
+
+    @Override
+    public List<ActividadCapacitacionGettAll> listarCapacitacionGetAll(int idUsuario) {
+        
+        List<ActividadCapacitacionGettAll> capList = new ArrayList<>();
+        String sql = "CALL GetAllCapacitacion(" + idUsuario + ");";
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            pst = conexion.prepareStatement(sql);
+            rs = pst.executeQuery();
+            ActividadCapacitacionGettAll actCap;
+            while (rs.next()) {
+                actCap = new ActividadCapacitacionGettAll();
+                actCap.setId_actividad(rs.getInt(1));
+                actCap.setId_capacitacion(rs.getInt(2));
+                actCap.setId_usuario(rs.getInt(3));
+                actCap.setNombre_apellido(rs.getString(4));
+                actCap.setFecha_act(rs.getDate(5));
+                actCap.setHora_act(rs.getString(6));
+                actCap.setNumero_asistente(rs.getInt(7));
+                actCap.setNombre_sucursal(rs.getString(8));
+                actCap.setDescripcion(rs.getString(9));
+                capList.add(actCap);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //siempre cerrar la conexion, rs y el pst
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return capList;
+        
+    }
+
+   
 
 }

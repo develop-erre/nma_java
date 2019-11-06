@@ -32,16 +32,28 @@ FROM ACTIVIDAD
 JOIN sucursal ON sucursal.id_sucursal = actividad.id_sucursal_empresa_fk
 JOIN asesoria ON asesoria.id_actividad_fk_as = actividad.id_actividad
 JOIN tipo_asesoria on asesoria.id_tipo_asesoria_fk = tipo_asesoria.id_tipo_asesoria
-WHERE actividad.id_tipo_actividad_fk = 3 AND actividad.estado_act=0
+JOIN tipo_estado ON asesoria.id_tipo_estado_fk = tipo_estado.id_tipo_estado
+WHERE actividad.id_tipo_actividad_fk = 3 AND actividad.estado_act=0 AND tipo_estado.id_tipo_estado = 1
 ORDER BY 1;
 
 
 
+/*
+VISTA TRAE REGION Y COMUNA CONCATENADA
+*/
+
+CREATE VIEW 
+vista_region_comuna AS
+SELECT comuna.id_comuna
+,CONCAT(region.nombre_region, " - ",comuna.nombre_comuna) AS nombre_comuna
+FROM comuna
+JOIN region ON comuna.id_region_fk = region.id_region
+ORDER BY 1 DESC;
 
 
 /*CREATE PROCEDURE
  OBTENER TODAS LAS ASESORIAS ASIGNADAS DE UN PROFESIONAL
-CON EL ESTADO DE LA ACTIVIDAD EN 0
+CON EL ESTADO DE LA ACTIVIDAD EN 0 
 */
 
 DELIMITER //
@@ -63,7 +75,8 @@ BEGIN
 		JOIN asesoria ON asesoria.id_actividad_fk_as = actividad.id_actividad
 		JOIN sucursal ON sucursal.id_sucursal = actividad.id_sucursal_empresa_fk
 		JOIN tipo_asesoria ON tipo_asesoria.id_tipo_asesoria = asesoria.id_tipo_asesoria_fk
-		WHERE id_rol_fk = 2 and actividad.estado_act=0 and id_usuario= idUsu ;
+		WHERE id_rol_fk = 2 and actividad.estado_act=0 and id_usuario= idUsu 
+		ORDER BY 4 ASC;
 END //
  
 DELIMITER ;
@@ -99,19 +112,6 @@ END //
  
 DELIMITER ;
 
-/*
-VISTA TRAE REGION Y COMUNA CONCATENADA
-*/
-
-CREATE VIEW 
-vista_region_comuna AS
-SELECT comuna.id_comuna
-,CONCAT(region.nombre_region, " - ",comuna.nombre_comuna) AS nombre_comuna
-FROM comuna
-JOIN region ON comuna.id_region_fk = region.id_region
-ORDER BY 1 DESC;
-
-
 
 /*
 PROCEDURE TRAE TODOS LOS REPORTES DE ACCIDENTE PARA QUE LOS 
@@ -136,6 +136,37 @@ JOIN sucursal ON reporte_accidente.id_sucursal_fk = sucursal.id_sucursal
 join empresa ON empresa.id_empresa = sucursal.id_empresa_fk
 where empresa.id_empresa =idEmpresa
 ORDER BY 4 DESC;
+END //
+ 
+DELIMITER ;
+
+
+/*
+lista las capacitaciones asignadas a un profesional
+
+*/
+
+DELIMITER //
+
+CREATE PROCEDURE GetAllCapacitacion(IN idUsuario INT)
+BEGIN
+SELECT
+	actividad.id_actividad
+	,capacitacion.id_capacitacion
+	,usuario.id_usuario
+	,CONCAT(usuario.nombre, " ", usuario.apellidos) AS nombre_apellido
+	,actividad.fecha_act 
+	,actividad.hora_act
+	,capacitacion.numero_asistente
+	,sucursal.nombre as nombre_sucursal
+	,tipo_capacitacion.descripcion
+FROM USUARIO
+	JOIN ACTIVIDAD on actividad.id_usuario_fk = usuario.id_usuario
+	JOIN capacitacion ON capacitacion.id_actividad_fk_c = actividad.id_actividad
+	JOIN sucursal ON sucursal.id_sucursal = actividad.id_sucursal_empresa_fk
+	JOIN tipo_capacitacion ON tipo_capacitacion.id_tipo_capacitacion = capacitacion.id_tipo_capacitacion_fk
+	WHERE usuario.id_rol_fk = 2 and actividad.estado_act=0 and usuario.id_usuario= idUsuario
+	ORDER BY 5 ASC;
 END //
  
 DELIMITER ;

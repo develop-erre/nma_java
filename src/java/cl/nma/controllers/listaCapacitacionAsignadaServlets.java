@@ -6,12 +6,12 @@
 package cl.nma.controllers;
 
 import cl.nma.dao.ActividadDAOImpl;
-import cl.nma.dao.AsesoriaDAOImpl;
-import cl.nma.dominio.Actividad;
-import cl.nma.dominio.Asesoria;
+import cl.nma.dominio.ActividadCapacitacionGettAll;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -19,13 +19,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Richard Foncea
  */
-@WebServlet(name = "solicitarAsesoriaServlets", urlPatterns = {"/solicitarAsesoria"})
-public class solicitarAsesoriaServlets extends HttpServlet {
+@WebServlet(name = "listaCapacitacionAsignadaServlets", urlPatterns = {"/listaCapacitacionAsignada"})
+public class listaCapacitacionAsignadaServlets extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +45,10 @@ public class solicitarAsesoriaServlets extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet solicitarAsesoriaServlets</title>");            
+            out.println("<title>Servlet listaCapacitacionAsignadaServlets</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet solicitarAsesoriaServlets at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet listaCapacitacionAsignadaServlets at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,7 +66,24 @@ public class solicitarAsesoriaServlets extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        HttpSession sesion = (HttpSession) request.getSession();
+        System.out.println(sesion.getAttribute("nombre"));
+        String idUsuario = String.valueOf(sesion.getAttribute("id_usuario")) ;
+        System.out.println(idUsuario);
+        int idUsu = Integer.parseInt(idUsuario);
+        
+        List<ActividadCapacitacionGettAll> lista = new ArrayList();
+        try {
+            ActividadDAOImpl acDAO = new ActividadDAOImpl();
+            lista = acDAO.listarCapacitacionGetAll(idUsu);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(listaEmpresaListServlets.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        request.setAttribute("listaGetAllCapacitacion", lista);
+        request.getRequestDispatcher("listaCapacitacionAsignada.jsp").forward(request, response);
+        
     }
 
     /**
@@ -80,36 +98,23 @@ public class solicitarAsesoriaServlets extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        request.setCharacterEncoding("UTF-8");
+         HttpSession sesion = (HttpSession) request.getSession();
+        System.out.println(sesion.getAttribute("nombre"));
+        String idUsuario = String.valueOf(sesion.getAttribute("id_usuario")) ;
+        System.out.println(idUsuario);
+        int idUsu = Integer.parseInt(idUsuario);
         
-        int idTipoAsesoria = Integer.parseInt(request.getParameter("selectTipoAsesoria"));
-        int idSucursalAsesoria = Integer.parseInt(request.getParameter("selectSucursalId"));
-
+        List<ActividadCapacitacionGettAll> lista = new ArrayList();
         try {
-                //SE CREA ACTIVIDAD CREAR CAPACITACION
-                ActividadDAOImpl actDAO = new ActividadDAOImpl();
-                Actividad act = new Actividad();
-                //SE SETEA VALOR DE JSP
-                act.setEstado_act(0);
-                act.setId_sucursal_empresa_fk(idSucursalAsesoria);
-                act.setId_tipo_actividad_fk(3);
+            ActividadDAOImpl acDAO = new ActividadDAOImpl();
+            lista = acDAO.listarCapacitacionGetAll(idUsu);
 
-                int idAct = actDAO.agregarAsesoria(act);
-                
-                AsesoriaDAOImpl asDAO = new AsesoriaDAOImpl();
-                Asesoria as = new Asesoria();
-                as.setId_tipo_asesoria_fk(idTipoAsesoria);
-                as.setId_actividades_fk_as(idAct);
-                
-                asDAO.agregar(as);
-                
-                request.getRequestDispatcher("/home.jsp").forward(request, response);
-
-            } catch (SQLException ex) {
-                Logger.getLogger(reportarAccidenteServlets.class.getName()).log(Level.SEVERE, null, ex);
-            }
-                
-                
+        } catch (SQLException ex) {
+            Logger.getLogger(listaEmpresaListServlets.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        request.setAttribute("listaGetAllCapacitacion", lista);
+        request.getRequestDispatcher("listaCapacitacionAsignada.jsp").forward(request, response);
+        
     }
 
     /**

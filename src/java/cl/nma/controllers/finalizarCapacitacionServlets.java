@@ -7,7 +7,6 @@ package cl.nma.controllers;
 
 import cl.nma.dao.ActividadDAOImpl;
 import cl.nma.dao.AsesoriaDAOImpl;
-import cl.nma.dominio.Actividad;
 import cl.nma.dominio.Asesoria;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,8 +23,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Richard Foncea
  */
-@WebServlet(name = "solicitarAsesoriaServlets", urlPatterns = {"/solicitarAsesoria"})
-public class solicitarAsesoriaServlets extends HttpServlet {
+@WebServlet(name = "finalizarCapacitacionServlets", urlPatterns = {"/finalizarCapacitacion"})
+public class finalizarCapacitacionServlets extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +43,10 @@ public class solicitarAsesoriaServlets extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet solicitarAsesoriaServlets</title>");            
+            out.println("<title>Servlet finalizarCapacitacionServlets</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet solicitarAsesoriaServlets at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet finalizarCapacitacionServlets at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -82,34 +81,19 @@ public class solicitarAsesoriaServlets extends HttpServlet {
         
         request.setCharacterEncoding("UTF-8");
         
-        int idTipoAsesoria = Integer.parseInt(request.getParameter("selectTipoAsesoria"));
-        int idSucursalAsesoria = Integer.parseInt(request.getParameter("selectSucursalId"));
-
+        int idAct = Integer.parseInt(request.getParameter("txtIdActividad"));
+        
         try {
-                //SE CREA ACTIVIDAD CREAR CAPACITACION
-                ActividadDAOImpl actDAO = new ActividadDAOImpl();
-                Actividad act = new Actividad();
-                //SE SETEA VALOR DE JSP
-                act.setEstado_act(0);
-                act.setId_sucursal_empresa_fk(idSucursalAsesoria);
-                act.setId_tipo_actividad_fk(3);
-
-                int idAct = actDAO.agregarAsesoria(act);
-                
-                AsesoriaDAOImpl asDAO = new AsesoriaDAOImpl();
-                Asesoria as = new Asesoria();
-                as.setId_tipo_asesoria_fk(idTipoAsesoria);
-                as.setId_actividades_fk_as(idAct);
-                
-                asDAO.agregar(as);
-                
-                request.getRequestDispatcher("/home.jsp").forward(request, response);
-
-            } catch (SQLException ex) {
-                Logger.getLogger(reportarAccidenteServlets.class.getName()).log(Level.SEVERE, null, ex);
-            }
-                
-                
+            
+            ActividadDAOImpl actDAO = new ActividadDAOImpl();
+            //SE ACTUALIZA DATOS EN ACTIVIDAD FINALIZANDO EL ESTADO EN 1
+            actDAO.finalizarActividad(idAct);
+            
+            request.getRequestDispatcher("listaCapacitacionAsignada").forward(request, response);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(finalizarAsesoriaServlets.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

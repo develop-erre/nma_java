@@ -5,16 +5,18 @@ public class Asesoria {
     private int id_asesoria;
     private String comentarios_detectados; 
     private String comentarios_propuesta; 
+    private int id_estado_fk;
     private int id_tipo_asesoria_fk;
     private int id_actividades_fk_as;
 
     public Asesoria() {
     }
 
-    public Asesoria(int id_asesoria, String comentarios_detectados, String comentarios_propuesta, int id_tipo_asesoria_fk, int id_actividades_fk_as) {
+    public Asesoria(int id_asesoria, String comentarios_detectados, String comentarios_propuesta, int id_estado_fk, int id_tipo_asesoria_fk, int id_actividades_fk_as) {
         this.id_asesoria = id_asesoria;
         this.comentarios_detectados = comentarios_detectados;
         this.comentarios_propuesta = comentarios_propuesta;
+        this.id_estado_fk = id_estado_fk;
         this.id_tipo_asesoria_fk = id_tipo_asesoria_fk;
         this.id_actividades_fk_as = id_actividades_fk_as;
     }
@@ -62,6 +64,14 @@ public class Asesoria {
     @Override
     public String toString() {
         return "Asesoria{" + "id_asesoria=" + id_asesoria + ", comentarios_detectados=" + comentarios_detectados + ", comentarios_propuesta=" + comentarios_propuesta + ", id_tipo_asesoria_fk=" + id_tipo_asesoria_fk + ", id_actividades_fk_as=" + id_actividades_fk_as + '}';
+    }
+
+    public int getId_estado_fk() {
+        return id_estado_fk;
+    }
+
+    public void setId_estado_fk(int id_estado_fk) {
+        this.id_estado_fk = id_estado_fk;
     }
     
     

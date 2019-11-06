@@ -3,6 +3,7 @@ package cl.nma.dao;
 import cl.nma.dominio.Actividad;
 import cl.nma.dominio.ActividadAsesoria;
 import cl.nma.dominio.ActividadAsesoriaGetAll;
+import cl.nma.dominio.ActividadCapacitacionGettAll;
 import java.util.List;
 
 
@@ -10,7 +11,7 @@ public interface ActividadDAO {
     
     int actualizar(Actividad act);
     
-    int finalizarActividad(Actividad act);
+    int finalizarActividad(int idActividad);
     
     int agregar(Actividad act);
     
@@ -29,5 +30,7 @@ public interface ActividadDAO {
     List<ActividadAsesoriaGetAll> listarSolicitudAsesoriaGetAll(int idProfesional);
     
     List<ActividadAsesoriaGetAll> listarAsesoriasFinalizadasGetAll(int idEmpresa);
+    
+    List<ActividadCapacitacionGettAll> listarCapacitacionGetAll(int idUsuario);
     
 }
