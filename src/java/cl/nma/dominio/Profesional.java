@@ -170,7 +170,17 @@ public class Profesional {
         return "Usuario{" + "_id_usuario=" + _id_usuario + ", _nombre=" + _nombre + ", _apellidos=" + _apellidos + ", _rut=" + _rut + ", _password=" + _password + ", _direccion=" + _direccion + ", _fecha_nac=" + _fecha_nac + ", _email=" + _email + ", _telefono=" + _telefono + ", _estado=" + _estado + ", _id_comuna_us_fk=" + _id_comuna_us_fk + ", _id_rol_fk=" + _id_rol_fk + ", id_empresa_fk=" + id_empresa_fk + '}';
     }
 
-    
-    
+    public String createPassword (String date){
+        
+        String pass;
+        
+        String var01 = getNombre().substring(0,3);
+        String var02 = ".";
+        String var03 = getApellidos().substring(0,3);
+        String var04 = date.substring(0,5);
+        
+        pass = var01+var02+var03+var04;
+        return pass;
+    }
     
 }

@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -84,40 +85,39 @@ public class loginServlets extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         request.setCharacterEncoding("UTF-8");
 
         String run = request.getParameter("txtRun");
         String pass = request.getParameter("txtPass");
 
+        //SE CODIFICA CONTRASEÑA 
+        String originalInput = pass;
+        String encodedString = Base64.getEncoder().encodeToString(originalInput.getBytes());
+
         try {
             UsuarioDAOImpl usuarioVerificarDAO = new UsuarioDAOImpl();
             UsuarioDAOImpl usuarioObtenerDAO = new UsuarioDAOImpl();
-//            List<Usuario> usuarios = new ArrayList<>();
-//            usuarios = usuarioDAO.listarUsuario();
-            boolean verificar = usuarioVerificarDAO.verificarUserSession(run, pass);
+            boolean verificar = usuarioVerificarDAO.verificarUserSession(run, encodedString);
 
             if (verificar) {
 
-                Usuario usuario = usuarioObtenerDAO.obtenerUsuario(run, pass);
+                Usuario usuario = usuarioObtenerDAO.obtenerUsuario(run, encodedString);
 
                 if (usuario.getEstado() == 0) {
 
                     HttpSession session = request.getSession();
                     session.setAttribute("run", usuario.getRut());
-                    // session.setAttribute("pass", us.getPassword());
                     session.setAttribute("nombre", usuario.getNombre());
                     session.setAttribute("id_usuario", usuario.getId_usuario());
                     session.setAttribute("id_rol", usuario.getId_rol_fk());
                     session.setAttribute("id_empresa", usuario.getId_empresa_fk());
                     session.setAttribute("estado", usuario.getEstado());
-                    //System.out.println("Conexion correcta");
                     request.getRequestDispatcher("/home.jsp").forward(request, response);
-                    
+
                 } else {
                     String error2 = "Usuario bloqueado - contactar con Administrador";
-                    
-                    
+
                     request.setAttribute("error2", error2);
                     request.getRequestDispatcher("/login.jsp").forward(request, response);
                 }
@@ -126,13 +126,10 @@ public class loginServlets extends HttpServlet {
                 request.setAttribute("error1", error1);
                 request.getRequestDispatcher("/login.jsp").forward(request, response);
             }
-            
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(loginServlets.class.getName()).log(Level.SEVERE, null, ex);
         }
-        // response.sendRedirect("index.jsp");
-        //  System.out.println("No se pudo");
 
     }
 

@@ -6,24 +6,29 @@
 package cl.nma.controllers;
 
 import cl.nma.dao.EmpresaDAOImpl;
-import cl.nma.dao.ProfesionalDAOImpl;
 import cl.nma.dao.RegionComunaDAOImpl;
 import cl.nma.dao.UsuarioDAOImpl;
 import cl.nma.dominio.EmpresaLista;
-import cl.nma.dominio.Profesional;
 import cl.nma.dominio.RegionComuna;
 import cl.nma.dominio.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -111,7 +116,7 @@ public class crearUsuarioEmpresa extends HttpServlet {
         String nombre = request.getParameter("txtNombre");
         String apellidos = request.getParameter("txtApellidos");
         String run = request.getParameter("txtRun");
-        String pass = request.getParameter("txtPassword");
+        //String pass = request.getParameter("txtPassword");
         String direccion = request.getParameter("txtDireccion") + " #" + request.getParameter("txtNumero");
         String fechaNac = (request.getParameter("txtFechaNac"));
         String email = request.getParameter("txtEmail");
@@ -127,7 +132,6 @@ public class crearUsuarioEmpresa extends HttpServlet {
             usu.setNombre(nombre.toUpperCase());
             usu.setApellidos(apellidos.toUpperCase());
             usu.setRut(run);
-            usu.setPassword(pass);
             usu.setDireccion(direccion.toUpperCase());
             usu.setFecha_nac(castDate(fechaNac));
             usu.setEmail(email.toUpperCase());
@@ -136,12 +140,70 @@ public class crearUsuarioEmpresa extends HttpServlet {
             usu.setId_comuna_us_fk(comunaId);
             usu.setId_rol_fk(3);
             usu.setId_empresa_fk(empresaId);
+            
+            //METODO CREAR CRONTRASEÑA ENTRE NOMBRE, APELLIDO Y FECHA DE NACIMIENTO
+            String pass = usu.createPassword(fechaNac);
 
-            usuEmpfDAO.agregarUsuarioEmpresa(usu);
+            //SE CODIFICA CONTRASEÑA 
+            String originalInput = pass;
+            String encodedString = Base64.getEncoder().encodeToString(originalInput.getBytes());
+
+            // SE DECODIFICA
+            byte[] decodedBytes = Base64.getDecoder().decode(encodedString);
+            String decodedString = new String(decodedBytes);
+            System.out.println("decodificado "+decodedString);
+            
+            usu.setPassword(encodedString);
+            
+            //SE INSERTA EN BASE DE DATOS
+
+            int idCl = usuEmpfDAO.agregarUsuarioEmpresa(usu);
+            
+            if (idCl > 0) {
+
+                Properties props = new Properties();
+                props.setProperty("mail.smtp.host", "smtp.gmail.com");
+                props.setProperty("mail.smtp.starttls.enable", "true");
+                props.setProperty("mail.smtp.port", "587");
+                props.setProperty("mail.smtp.auth", "true");
+
+                Session ses = Session.getDefaultInstance(props);
+
+                String correoRemitente = "previriesgosduoc@gmail.com";
+                String passRemitente = "previriesgosduoc12345";
+                String CorreoReceptor = email;
+                String asunto = "Envío de Credenciales";
+                String mensaje = "-------------------------------------------------------------------\n"
+                                + "                       PREVIRIESGOS   SPA                          \n"
+                                + "-------------------------------------------------------------------\n"
+                                + "Don: " + nombre + " " + apellidos + " , ha sido registrado en nuestra plataforma como Usuario Cliente\n"
+                                + "Sus credenciales son:\n"
+                                + "RUN :" + run + "\n"
+                                + "CONTRASEÑA :" + pass;
+
+                MimeMessage message = new MimeMessage(ses);
+                message.setFrom(new InternetAddress(correoRemitente));
+
+                message.addRecipient(Message.RecipientType.TO, new InternetAddress(CorreoReceptor));
+                message.setSubject(asunto);
+                message.setText(mensaje);
+
+                Transport t = ses.getTransport("smtp");
+                t.connect(correoRemitente, passRemitente);
+                t.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
+                t.close();
+
+                System.out.println("Correo electronico enviado");
+
+            }
 
             request.getRequestDispatcher("home.jsp").forward(request, response);
 
         } catch (SQLException | ParseException ex) {
+            Logger.getLogger(crearUsuarioEmpresa.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (AddressException ex) {
+            Logger.getLogger(crearUsuarioEmpresa.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MessagingException ex) {
             Logger.getLogger(crearUsuarioEmpresa.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

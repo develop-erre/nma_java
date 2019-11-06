@@ -69,14 +69,7 @@
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group col-md-2">
-                        <label for="inputPass4">Password</label>
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-key"></i></span>
-                            <input type="password" class="form-control" id="inputPassword4" name="txtPassword" placeholder="Ingrece password" required="">
-                        </div>
-                    </div>
-                    <div class="form-group col-md-2">
+                    <div class="form-group col-md-4">
                         <label for="inputFechaNac4">Fecha Nacimiento</label>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
