@@ -86,7 +86,7 @@ public class crearUsuarioEmpresa extends HttpServlet {
         try {
             EmpresaDAOImpl empDAO = new EmpresaDAOImpl();
             lista = empDAO.listarEmpresaLista();
-            
+
             RegionComunaDAOImpl rcDAO = new RegionComunaDAOImpl();
             listaComuna = rcDAO.listar();
 
@@ -112,7 +112,7 @@ public class crearUsuarioEmpresa extends HttpServlet {
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-        
+
         String nombre = request.getParameter("txtNombre");
         String apellidos = request.getParameter("txtApellidos");
         String run = request.getParameter("txtRun");
@@ -140,7 +140,7 @@ public class crearUsuarioEmpresa extends HttpServlet {
             usu.setId_comuna_us_fk(comunaId);
             usu.setId_rol_fk(3);
             usu.setId_empresa_fk(empresaId);
-            
+
             //METODO CREAR CRONTRASEÑA ENTRE NOMBRE, APELLIDO Y FECHA DE NACIMIENTO
             String pass = usu.createPassword(fechaNac);
 
@@ -151,74 +151,72 @@ public class crearUsuarioEmpresa extends HttpServlet {
             // SE DECODIFICA
             byte[] decodedBytes = Base64.getDecoder().decode(encodedString);
             String decodedString = new String(decodedBytes);
-            System.out.println("decodificado "+decodedString);
-            
+            System.out.println("Credenciales ");
+            System.out.println("rut :   " + run);
+            System.out.println("contraseña  :  " + decodedString);
+
             usu.setPassword(encodedString);
-            
+
             //SE INSERTA EN BASE DE DATOS
-
-            int idCl = usuEmpfDAO.agregarUsuarioEmpresa(usu);
+            usuEmpfDAO.agregarUsuarioEmpresa(usu);
             
-            if (idCl > 0) {
-
-                Properties props = new Properties();
-                props.setProperty("mail.smtp.host", "smtp.gmail.com");
-                props.setProperty("mail.smtp.starttls.enable", "true");
-                props.setProperty("mail.smtp.port", "587");
-                props.setProperty("mail.smtp.auth", "true");
-
-                Session ses = Session.getDefaultInstance(props);
-
-                String correoRemitente = "previriesgosduoc@gmail.com";
-                String passRemitente = "previriesgosduoc12345";
-                String CorreoReceptor = email;
-                String asunto = "Envío de Credenciales";
-                String mensaje = "-------------------------------------------------------------------\n"
-                                + "                       PREVIRIESGOS   SPA                          \n"
-                                + "-------------------------------------------------------------------\n"
-                                + "Don: " + nombre.toUpperCase() + " " + apellidos.toUpperCase() + " , ha sido registrado en nuestra plataforma como Usuario Cliente\n"
-                                + "Sus credenciales son:\n"
-                                + "RUN :  " + run + "\n"
-                                + "CONTRASEÑA :  " + pass;
-
-                MimeMessage message = new MimeMessage(ses);
-                message.setFrom(new InternetAddress(correoRemitente));
-
-                message.addRecipient(Message.RecipientType.TO, new InternetAddress(CorreoReceptor));
-                message.setSubject(asunto);
-                message.setText(mensaje);
-
-                Transport t = ses.getTransport("smtp");
-                t.connect(correoRemitente, passRemitente);
-                t.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
-                t.close();
-
-                System.out.println("Correo electronico enviado");
-
-            }
+//           int idCl = usuEmpfDAO.agregarUsuarioEmpresa(usu);
+//            if (idCl > 0) {
+//
+//                Properties props = new Properties();
+//                props.setProperty("mail.smtp.host", "smtp.gmail.com");
+//                props.setProperty("mail.smtp.starttls.enable", "true");
+//                props.setProperty("mail.smtp.port", "587");
+//                props.setProperty("mail.smtp.auth", "true");
+//
+//                Session ses = Session.getDefaultInstance(props);
+//
+//                String correoRemitente = "previriesgosduoc@gmail.com";
+//                String passRemitente = "previriesgosduoc12345";
+//                String CorreoReceptor = email;
+//                String asunto = "Envío de Credenciales";
+//                String mensaje = "-------------------------------------------------------------------\n"
+//                                + "                       PREVIRIESGOS   SPA                          \n"
+//                                + "-------------------------------------------------------------------\n"
+//                                + "Don: " + nombre.toUpperCase() + " " + apellidos.toUpperCase() + " , ha sido registrado en nuestra plataforma como Usuario Cliente\n"
+//                                + "Sus credenciales son:\n"
+//                                + "RUN :  " + run + "\n"
+//                                + "CONTRASEÑA :  " + pass;
+//
+//                MimeMessage message = new MimeMessage(ses);
+//                message.setFrom(new InternetAddress(correoRemitente));
+//
+//                message.addRecipient(Message.RecipientType.TO, new InternetAddress(CorreoReceptor));
+//                message.setSubject(asunto);
+//                message.setText(mensaje);
+//
+//                Transport t = ses.getTransport("smtp");
+//                t.connect(correoRemitente, passRemitente);
+//                t.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
+//                t.close();
+//
+//                System.out.println("Correo electronico enviado");
+//
+//            }
 
             request.getRequestDispatcher("home.jsp").forward(request, response);
 
         } catch (SQLException | ParseException ex) {
             Logger.getLogger(crearUsuarioEmpresa.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (AddressException ex) {
-            Logger.getLogger(crearUsuarioEmpresa.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (MessagingException ex) {
-            Logger.getLogger(crearUsuarioEmpresa.class.getName()).log(Level.SEVERE, null, ex);
         }
+//        catch (AddressException ex) {
+//            Logger.getLogger(crearUsuarioEmpresa.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (MessagingException ex) {
+//            Logger.getLogger(crearUsuarioEmpresa.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 
-     public java.util.Date castDate(String date) throws ParseException {
+    public java.util.Date castDate(String date) throws ParseException {
 
         String mes = date.substring(0, 2);
         String dia = date.substring(3, 5);
