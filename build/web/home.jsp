@@ -47,7 +47,9 @@
                         </c:otherwise>
                     </c:choose>
                     <h5 class="card-title"><%= sesion.getAttribute("nombre")%> <%= sesion.getAttribute("apellidos")%></h5>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi non quis exercitationem culpa nesciunt nihil aut nostrum explicabo reprehenderit optio amet ab temporibus asperiores quasi cupiditate. Voluptatum ducimus voluptates voluptas</p>
+                    <p class="card-text">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi, aperiam, itaque, ducimus, eum exercitationem fuga commodi rem iusto adipisci eos vero quaerat ex suscipit. Excepturi, amet nostrum laboriosam voluptas fugit quae sint ipsum eum. Expedita, laudantium, ut, excepturi reiciendis optio natus esse cupiditate reprehenderit quod voluptatum repudiandae doloremque eius sed aut aliquam odio nesciunt aperiam magnam quis autem consequuntur corporis vel totam perspiciatis iste! Facere, reprehenderit accusamus nesciunt dolorem ut fugiat dicta praesentium molestiae impedit ex. Laudantium, assumenda accusantium veritatis.
+                    </p>
                     <p class="card-text"><small class="text-muted"><%= sesion.getAttribute("fechaHoy")%></small></p>
                 </div>
             </div>

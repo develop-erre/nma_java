@@ -55,15 +55,15 @@
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="inputNombre4">Nombre</label>
-                        <input type="text" class="form-control" id="inputNombre4" name="txtNombre" placeholder="Ingrece Nombre" required="">
+                        <input type="text" class="form-control" id="inputNombre4" name="txtNombre" placeholder="Ingrece Nombre" required="" autofocus>
                     </div>
                     <div class="form-group col-md-4">
                         <label for="inputApellidos4">Apellidos</label>
-                        <input type="text" class="form-control" id="inputApellidos4" name = "txtApellidos" placeholder="Ingrece Apellidos" required="">
+                        <input type="text" class="form-control" id="inputApellidos4" name = "txtApellidos" placeholder="Ingrece Apellidos" required maxlength="90">
                     </div>
                     <div class="form-group col-md-4">
                         <label for="inputRun4">Run</label>
-                        <input type="text" class="form-control" id="inputRun4" name = "txtRun" placeholder="Ingrece Run " required="">
+                        <input type="text" class="form-control" id="inputRun4" name = "txtRun" placeholder="Ingrece Run Ej: 20123456k " required="" minlength="8" maxlength="9">
                     </div>
                 </div>
 
@@ -79,14 +79,14 @@
                         <label for="inputEmail4">E-mail</label>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-at"></i></span>
-                            <input type="Email" class="form-control" id="inputEmail4" name = "txtEmail" placeholder="Ingrece E-mail abc12@dominio.com" required="">
+                            <input type="Email" class="form-control" id="inputEmail4" name = "txtEmail" placeholder="Ingrece E-mail abc12@dominio.com" required="" maxlength="45">
                         </div>
                     </div>
                     <div class="form-group col-md-4">
                         <label for="inputRun4">Teléfono</label>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
-                            <input type="number" class="form-control" id="inputRun4" name = "txtTelefono" placeholder="Ingrece teléfono, solo números " required="" min="11111" max="99999999999">
+                            <input type="number" class="form-control" id="inputRun4" name = "txtTelefono" placeholder="Ingrece teléfono, Ej: 88225544 " required="" minlength="8"  maxlength="8" max="99999999">
                         </div>
                     </div>
                 </div>
@@ -95,7 +95,7 @@
                         <label for="inputAddress">Dirección</label>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                            <input type="text" class="form-control" id="inputDireccion4" name = "txtDireccion" placeholder="Ingrece Dirección" required="">
+                            <input type="text" class="form-control" id="inputDireccion4" name = "txtDireccion" placeholder="Ingrece Dirección" required="" maxlength="80">
                         </div>
 
                     </div>

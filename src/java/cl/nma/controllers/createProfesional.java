@@ -152,7 +152,7 @@ public class createProfesional extends HttpServlet {
             profDAO.agregar(prof);
             
 //            int idProf = profDAO.agregar(prof);
-
+//
 //            if (idProf > 0) {
 //
 //                Properties props = new Properties();
@@ -194,9 +194,15 @@ public class createProfesional extends HttpServlet {
 
         } catch (SQLException ex) {
             Logger.getLogger(loginServlets.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
+        }catch (ParseException ex) {
             Logger.getLogger(createProfesional.class.getName()).log(Level.SEVERE, null, ex);
         }
+//          catch (AddressException ex) {
+//            Logger.getLogger(createProfesional.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (MessagingException ex) {
+//            Logger.getLogger(createProfesional.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        
 //          catch (AddressException ex) {
 //            Logger.getLogger(createProfesional.class.getName()).log(Level.SEVERE, null, ex);
 //        } catch (MessagingException ex) {

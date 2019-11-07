@@ -3,10 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Richard%20Foncea/Documents/NetBeansProjects/nma/src/java/cl/nma/controllers/crearUsuarioEmpresa.java</file>
-            <file>file:/C:/Users/Richard%20Foncea/Documents/NetBeansProjects/nma/src/java/cl/nma/controllers/createProfesional.java</file>
-            <file>file:/C:/Users/Richard%20Foncea/Documents/NetBeansProjects/nma/src/java/cl/nma/controllers/loginServlets.java</file>
-            <file>file:/C:/Users/Richard%20Foncea/Documents/NetBeansProjects/nma/src/java/cl/nma/dominio/Usuario.java</file>
+            <file>file:/C:/Users/Richard%20Foncea/Documents/NetBeansProjects/nma/web/login.jsp</file>
+            <file>file:/C:/Users/Richard%20Foncea/Documents/NetBeansProjects/nma/web/index.jsp</file>
+            <file>file:/C:/Users/Richard%20Foncea/Documents/NetBeansProjects/nma/web/crearprofesional.jsp</file>
             <file>file:/C:/Users/Richard%20Foncea/Documents/NetBeansProjects/nma/web/crearusuarioempresa.jsp</file>
         </group>
     </open-files>

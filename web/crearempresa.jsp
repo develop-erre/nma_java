@@ -48,17 +48,17 @@
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="inputNombreEmp4">Nombre Empresa</label>
-                        <input type="text" class="form-control" id="inputNombreEmp4" name="txtNombre" placeholder="Ingrece Nombre de la empresa" required="" maxlength="44">
+                        <input type="text" class="form-control" id="inputNombreEmp4" name="txtNombre" placeholder="Ingrece Nombre de la empresa" required="" maxlength="90" autofocus> 
                     </div>
                     <div class="form-group col-md-2">
                         <label for="inputRutEmp4">Rut Empresa</label>
-                        <input type="text" class="form-control" id="inputRutEmp4" name = "txtRut" placeholder="Ingrece rut empresa" required="">
+                        <input type="text" class="form-control" id="inputRutEmp4" name = "txtRut" placeholder="Ingrece Run Ej: 998887775 " required="" minlength="8" maxlength="10">
                     </div>
                     <div class="form-group col-md-2">
                         <label for="inputTelefono4">Teléfono</label>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
-                            <input type="number" class="form-control" id="inputTelefono4" name = "txtTelefono" placeholder="Ej: 226655889 " required="" min="11111" max="99999999999">
+                            <input type="number" class="form-control" id="inputTelefono4" name = "txtTelefono" placeholder="Ej: 226655889 " required="" min="11111" max="999999999" minlength="7"  maxlength="9">
                         </div>
                     </div>
 
@@ -66,7 +66,7 @@
                         <label for="inputSitioWeb4">Sitio Web *(opcional)</label>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-globe"></i></span>
-                            <input type="text" class="form-control" id="inputSitioWeb4" name = "txtSitioWeb" placeholder="Ingrece sitio web ">
+                            <input type="text" class="form-control" id="inputSitioWeb4" name = "txtSitioWeb" placeholder="Ingrece sitio web " maxlength="80">
                         </div>
                     </div>
                 </div>
@@ -107,7 +107,7 @@
                         <label for="inputDireccionEmp4">Dirección</label>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                            <input type="text" class="form-control" id="inputDireccionEmp4" name = "txtDireccion" placeholder="Ingrece Dirección" required="">
+                            <input type="text" class="form-control" id="inputDireccionEmp4" name = "txtDireccion" placeholder="Ingrece Dirección" required="" maxlength="80">
                         </div>
 
                     </div>
@@ -142,7 +142,7 @@
                     <div class="form-group col-md-10">
                         <label for="inputValor4">Descripción contrato</label>
                         <div class="form-group">
-                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Escriba Aqui ..." name="textareaDescripcion" rows="3" required="" maxlength="99"></textarea>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Escriba Aqui ..." name="textareaDescripcion" rows="3" required="" maxlength="450"></textarea>
                         </div>
                     </div>
                     <div class="form-group col-md-8">

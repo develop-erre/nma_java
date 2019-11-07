@@ -60,7 +60,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-5">
                         <label for="txtNombreSucursalJs4">Nombre Sucursal</label>
-                        <input type="text" class="form-control" id="txtNombreSucursalJs" name="txtNombreSucursal" placeholder="Ingrece nombre sucursal" required="">
+                        <input type="text" class="form-control" id="txtNombreSucursalJs" name="txtNombreSucursal" placeholder="Ingrece nombre sucursal" required="" maxlength="90">
                     </div>
                 </div>
 
@@ -69,7 +69,7 @@
                         <label for="inputAddress">Dirección</label>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                            <input type="text" class="form-control" id="inputDireccion4" name = "txtDireccion" placeholder="Ingrece Dirección" required="">
+                            <input type="text" class="form-control" id="inputDireccion4" name = "txtDireccion" placeholder="Ingrece Dirección" required="" maxlength="49">
                         </div>
                     </div>
                     <div class="form-group col-md-2">
