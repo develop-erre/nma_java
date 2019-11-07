@@ -69,7 +69,7 @@
                 <tbody>
                     <c:forEach items="${listaProfesional}" var="profesional">
                         <tr>
-                            <td>${profesional.nombre} ${profesional.apellidos}</td>
+                            <td>${profesional.apellidos} ${profesional.nombre}</td>
                             <td>${profesional.rut}</td>
                             <td>${profesional.email}</td>
                             <td>${profesional.telefono}</td>

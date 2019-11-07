@@ -51,7 +51,7 @@
         <div class="container-fluid">
             <h3>Crear Usuario Empresa </h3>
             <form action="crearusuarioempresa" method="POST" onsubmit="return validarCrearUsuarioEmpresa();">
-                <br>
+                
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="inputNombre4">Nombre</label>

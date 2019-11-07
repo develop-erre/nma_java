@@ -13,7 +13,8 @@ from empresa
 JOIN sucursal ON id_empresa_fk = empresa.id_empresa
 JOIN comuna ON sucursal.id_comuna_suc_fk = comuna.id_comuna
 JOIN region ON comuna.id_region_fk = region.id_region
-WHERE sucursal.nombre LIKE 'CASA MATRIZ%' AND empresa.estado = 0;
+WHERE sucursal.nombre LIKE 'CASA MATRIZ%' AND empresa.estado = 0
+ORDER BY 2 ASC;
 
  
 /*

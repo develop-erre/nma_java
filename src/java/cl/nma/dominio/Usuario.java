@@ -144,7 +144,7 @@ public class Usuario {
         String var03 = getApellidos().substring(0,3);
         String var04 = date.substring(0,5);
         
-        pass = var01+var02+var03+var04;
+        pass = var01.toLowerCase()+var02+var03.toLowerCase()+"#"+var04;
         return pass;
     }
     

@@ -23,7 +23,7 @@
         </script>
     </head>
     <body>
-        
+
 
         <% String rs = String.valueOf(sesion.getAttribute("id_rol"));%>
         <c:set var="id_rol" value="<%=rs%>" />
@@ -123,9 +123,16 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Crear Profesional</button>
-                
+                <br>
+                <br>
             </form>
         </div>
+
+        <footer class="py-4 text-center footer" style="background: #454545">
+            <div class="container">
+                <h6>Previriesgos &copy; 2019</h6>
+            </div>
+        </footer>
 
 
         <script lenguage="javascript" src="js/validar.js"></script>

@@ -30,23 +30,32 @@
         <% String rs = String.valueOf(sesion.getAttribute("id_rol"));%>
         <c:set var="id_rol" value="<%=rs%>" />
 
-        <h1>Hello Home!</h1>
-        <h1>id rol rescatado </h1>
-        <h1><%=rs%></h1>
-
-        <h3>rut <%= sesion.getAttribute("run")%> </h3><br>
-        <h3>Nombre <%= sesion.getAttribute("nombre")%> </h3><br>
-        <h3>id usuario  <%= sesion.getAttribute("id_usuario")%> </h3><br>
-        <h3>id rol <%= sesion.getAttribute("id_rol")%> </h3><br>
-        <h3>id empresa <%= sesion.getAttribute("id_empresa")%> </h3><br>
-        <h3>estado <%= sesion.getAttribute("estado")%> </h3><br>
-
-
-        <h5>Pass <%= sesion.getId()%> </h5><br>
+        <div class="container-fluid">
+            <br>
+            <div class="card mb-3">
+                <img class="card-img-top" src="imagen/background_index.png" alt="Card image cap">
+                <div class="card-body">
+                    <c:choose>
+                        <c:when test="${id_rol == 1}">
+                            <h5 class="card-title">Administrador</h5>
+                        </c:when>    
+                        <c:when test="${id_rol == 2}">
+                            <h5 class="card-title">Profesional</h5>
+                        </c:when>  
+                        <c:otherwise>
+                            <h5 class="card-title">Cliente</h5>
+                        </c:otherwise>
+                    </c:choose>
+                    <h5 class="card-title"><%= sesion.getAttribute("nombre")%> <%= sesion.getAttribute("apellidos")%></h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi non quis exercitationem culpa nesciunt nihil aut nostrum explicabo reprehenderit optio amet ab temporibus asperiores quasi cupiditate. Voluptatum ducimus voluptates voluptas</p>
+                    <p class="card-text"><small class="text-muted"><%= sesion.getAttribute("fechaHoy")%></small></p>
+                </div>
+            </div>
+        </div>
 
         <footer class="py-4 text-center footer" style="background: #454545">
             <div class="container">
-                <h6>Previriesgos &copy; 2018</h6>
+                <h6>Previriesgos &copy; 2019</h6>
             </div>
         </footer>
 

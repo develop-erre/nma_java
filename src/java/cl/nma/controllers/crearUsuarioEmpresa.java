@@ -176,10 +176,10 @@ public class crearUsuarioEmpresa extends HttpServlet {
                 String mensaje = "-------------------------------------------------------------------\n"
                                 + "                       PREVIRIESGOS   SPA                          \n"
                                 + "-------------------------------------------------------------------\n"
-                                + "Don: " + nombre + " " + apellidos + " , ha sido registrado en nuestra plataforma como Usuario Cliente\n"
+                                + "Don: " + nombre.toUpperCase() + " " + apellidos.toUpperCase() + " , ha sido registrado en nuestra plataforma como Usuario Cliente\n"
                                 + "Sus credenciales son:\n"
-                                + "RUN :" + run + "\n"
-                                + "CONTRASEÑA :" + pass;
+                                + "RUN :  " + run + "\n"
+                                + "CONTRASEÑA :  " + pass;
 
                 MimeMessage message = new MimeMessage(ses);
                 message.setFrom(new InternetAddress(correoRemitente));

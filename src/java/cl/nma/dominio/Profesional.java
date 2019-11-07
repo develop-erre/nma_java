@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cl.nma.dominio;
 
 import java.util.Date;
 
-/**
- *
- * @author Richard Foncea
- */
 public class Profesional {
     
     private int _id_usuario;
@@ -179,7 +170,7 @@ public class Profesional {
         String var03 = getApellidos().substring(0,3);
         String var04 = date.substring(0,5);
         
-        pass = var01+var02+var03+var04;
+        pass = var01.toLowerCase()+var02+var03.toLowerCase()+"#"+var04;
         return pass;
     }
     

@@ -11,8 +11,10 @@ import cl.nma.dominio.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -106,13 +108,20 @@ public class loginServlets extends HttpServlet {
 
                 if (usuario.getEstado() == 0) {
 
+                    Date objDate = new Date();
+                    System.out.println(objDate);
+                    String strDateFormat = "dd-MMM-yyyy";
+                    SimpleDateFormat objSDF = new SimpleDateFormat(strDateFormat);
+
                     HttpSession session = request.getSession();
                     session.setAttribute("run", usuario.getRut());
                     session.setAttribute("nombre", usuario.getNombre());
+                    session.setAttribute("apellidos", usuario.getApellidos());
                     session.setAttribute("id_usuario", usuario.getId_usuario());
                     session.setAttribute("id_rol", usuario.getId_rol_fk());
                     session.setAttribute("id_empresa", usuario.getId_empresa_fk());
                     session.setAttribute("estado", usuario.getEstado());
+                    session.setAttribute("fechaHoy", objSDF.format(objDate));
                     request.getRequestDispatcher("/home.jsp").forward(request, response);
 
                 } else {

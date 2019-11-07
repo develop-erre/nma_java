@@ -119,7 +119,8 @@ public class ProfesionalDAOImpl implements ProfesionalDAO {
     public List<Profesional> listarProfesional() {
         List<Profesional> lista = new ArrayList<>();
 
-        String sql = "SELECT * FROM USUARIO WHERE ID_ROL_FK = 2 AND ESTADO = 0";
+        String sql = "SELECT * FROM USUARIO WHERE ID_ROL_FK = 2 AND ESTADO = 0"
+                + " ORDER by 3 ASC;";
         try {
             PreparedStatement pst = conexion.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
@@ -153,7 +154,8 @@ public class ProfesionalDAOImpl implements ProfesionalDAO {
 
         List<Profesional> lista = new ArrayList<>();
 
-        String sql = "SELECT * FROM USUARIO WHERE ID_ROL_FK = 2 AND ESTADO=0";
+        String sql = "SELECT * FROM USUARIO WHERE ID_ROL_FK = 2 AND ESTADO=0"
+                 + " ORDER by 3 ASC;";
         try {
             PreparedStatement pst = conexion.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
@@ -183,7 +185,8 @@ public class ProfesionalDAOImpl implements ProfesionalDAO {
 
         List<Profesional> lista = new ArrayList<>();
 
-        String sql = "SELECT * FROM USUARIO WHERE ID_ROL_FK = 2 AND ESTADO=1";
+        String sql = "SELECT * FROM USUARIO WHERE ID_ROL_FK = 2 AND ESTADO=1"
+                + " ORDER by 3 ASC;";
         try {
             PreparedStatement pst = conexion.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
