@@ -59,7 +59,7 @@
                                     <input type="hidden" name="txtIdAsesoria" value="${solicitud.id_asesoria}" />
                                     <input type="hidden" name="txtIdActividad" value="${solicitud.id_actividad}" />
                                     <input type="hidden" name="txtTipoAsesoria" value="${solicitud.descripcion}" />
-                                    <input type="submit" value="Asignar Profesional" class="btn btn-success" />
+                                    <button type="submit"class="btn btn-success" ><i class="fas fa-user-check"></i> Asignar Profesional</button>
                                 </form>
                             </td>
                         </tr>

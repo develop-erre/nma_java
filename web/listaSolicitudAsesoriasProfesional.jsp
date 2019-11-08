@@ -64,7 +64,7 @@
                                     <input type="hidden" name="txtIdActividad" value="${getallasesoria.id_actividad}" />
                                     <input type="hidden" name="txtTipoAsesoria" value="${getallasesoria.tipo_asesoria}" />
                                     <input type="hidden" name="txtNombreSucursal" value="${getallasesoria.nombre_sucursal}" />
-                                    <input type="submit" value="Ejecutar" class="btn btn-primary" />
+                                    <button type="submit" class="btn btn-info" ><i class="far fa-calendar-check"></i> Ejecutar</button>
                                 </form>
                             </td>
                         </tr>

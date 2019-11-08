@@ -76,7 +76,7 @@
                             <td>
                                 <form action="finalizarCapacitacion" method="POST" onsubmit="return confirmarFinalizar();">
                                     <input type="hidden" name="txtIdActividad" value="${getallCapacitacion.id_actividad}" />
-                                    <input type="submit" value="Finalizar" class="btn btn-danger" />
+                                    <button type="submit" class="btn btn-danger" ><i class="far fa-calendar-times"></i> Finalizar</button>
                                 </form>
                             </td>
                         </tr>

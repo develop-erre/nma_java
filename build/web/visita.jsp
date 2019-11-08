@@ -18,7 +18,7 @@
         <script>
             $(function () {
                 $("#datepicker").datepicker({
-                    minDate: 0, 
+                    minDate: 0,
                     maxDate: 30,
                     changeMonth: true,
                     changeYear: true,
@@ -111,7 +111,6 @@
                 <input type = "submit" class="btn btn-primary"  value = "Programar Visita">
                 <br>
             </form>
-
 
             <script lenguage="javascript" src="js/validar.js"></script>
             <script src="js/bootstrap.min.js"></script>

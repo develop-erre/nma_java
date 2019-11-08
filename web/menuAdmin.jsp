@@ -40,7 +40,6 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="listaSolicitudAsesorias">Ver solicitudes de asesorias</a>
-                    <a class="dropdown-item disabled" href="#">Ver reporte de accidentes</a>
                 </div>
             </li>
         </ul>

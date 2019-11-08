@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="fonts/css/all.min.css">
         <link rel="stylesheet" href="css/style/signin.css" >
         <meta name="viewport" content="width=device-width"/>
-        <title>Capacitación</title>
+        <title>Autenticación Previriesgos</title>
         <script lenguage="javascript" src="js/jquery-3.4.1.min.js"></script>
     </head>
     <body class="text-center">

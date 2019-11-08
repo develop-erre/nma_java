@@ -9,6 +9,19 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="fonts/css/all.min.css">
         <title>Ejecutar Asesoria</title>
+        <script lenguage="javascript">
+            function confirmarFinalizar() {
+
+                var respuesta = confirm("Estas seguro que deseas finalizar la asesoria?");
+
+                if (respuesta === true) {
+                    return true;
+                } else {
+                    return false;
+
+                }
+            }
+        </script>
     </head>
     <body>
 
@@ -76,7 +89,7 @@
                 </div>
                 <input  name="idACT" type="hidden" value="<%=idActividad%>">
                 <input  name="idASE" type="hidden" value="<%=idAsesoria%>">
-                <button type="submit" class="btn btn-danger">Finalizar Asesoria</button>
+                <button type="submit" class="btn btn-danger" onclick="return confirmarFinalizar();">Finalizar Asesoria</button>
             </form>
         </div>
 

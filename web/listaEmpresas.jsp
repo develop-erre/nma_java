@@ -63,10 +63,10 @@
                         <th>Rut</th>
                         <th>Casa Matriz</th>
                         <th>Dirección</th>
-                        <th>Ver reportes</th>
-                        <th>Añadir</th>
-                        <th>Ver </th>
-                        <th>Deshabilitar</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -79,7 +79,8 @@
                             <td>
                                 
                                 <form action="listaReportesAccidentes" method="POST">
-                                    <input type="submit" value="Accidentes" class="btn btn-warning" name="btnAnadirSucursal" />
+                                    <button type="submit" value="Accidentes" class="btn btn-warning" name="btnAnadirSucursal" title="Ver Reportes Accidentes"><i class="fas fa-search"></i> <i class="fas fa-exclamation-triangle"></i></button>
+                                    
                                     <input type="hidden" name="id_emp" value="${empresa.id_empresa}" />
                                     <input type="hidden" name="nom_emp" value="${empresa.nombre}" />
                                 </form>
@@ -87,14 +88,14 @@
                             <td>
                                 
                                 <form action="cargarAnadirSucursal" method="POST">
-                                    <button type="submit"  class="btn btn-success" name="btnAnadirSucursal">Sucursal</button>
+                                    <button type="submit"  class="btn btn-success" name="btnAnadirSucursal" title="Agregar Sucursal"><i class="fas fa-plus"></i> <i class="fas fa-building"></i></button>
                                     <input type="hidden" name="id_emp" value="${empresa.id_empresa}" />
                                     <input type="hidden" name="nom_emp" value="${empresa.nombre}" />
                                 </form>
                             </td>
                             <td>
                                 <form action="listasucursal" method="POST">
-                                    <input type="submit" value="Sucursal" class="btn btn-primary" name="btnSucursal" />
+                                    <button type="submit" value="Sucursal" class="btn btn-primary" name="btnSucursal" title="Ver Sucursales"><i class="fas fa-search"></i> <i class="fas fa-building"></i></button>
                                     <input type="hidden" name="id_emp" value="${empresa.id_empresa}" />
                                     <input type="hidden" name="nom_emp" value="${empresa.nombre}" />
                                 </form>
@@ -102,7 +103,7 @@
 
                             <td>
                                 <form action="eliminarEmpresa" method="POST" onclick="return confirmarDeleteEmpresa();">
-                                    <button type="submit" class="btn btn-danger" name="btnDeshabilitar" >Deshabilitar</button>
+                                    <button type="submit" class="btn btn-danger" name="btnDeshabilitar" title="Deshabilitar"><i class="far fa-trash-alt"></i></button>
                                     <input type="hidden" name="id_emp" value="${empresa.id_empresa}" />
                                 </form>
                             </td>

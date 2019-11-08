@@ -73,19 +73,22 @@
                             <td>${profesional.rut}</td>
                             <td>${profesional.email}</td>
                             <td>${profesional.telefono}</td>
+                            
                             <td>
                                 <form action="eliminarUsuario" method="POST" onclick="return confirmarDelete();">
-                                    <input type="submit" class="btn btn-danger" value="Eliminar" />
+                                    <button type="submit" class="btn btn-danger" title="Deshabilitar" ><i class="far fa-trash-alt"></i> Deshabilitar</button>
                                     <input type="hidden" name="id_prof_eliminar" value="${profesional.id_usuario}" />
                                 </form>
                             </td>
+                            
                             <td>
                                 <form action="cargarDatosActualizar" method="POST">
-                                    <input type="submit" class="btn btn-success" value="Actualizar" />
+                                    <button type="submit" class="btn btn-success" title="Actualizar" ><i class="fas fa-user-edit"></i> Actualizar</button>
                                     <input type="hidden" name="id_prof_actualizar" value="${profesional.id_usuario}" />
                                     <input type="hidden" name="id_rol" value="${profesional.id_rol_fk}" />
                                 </form>
                             </td>
+
                         </tr>
                     </c:forEach>
                 </tbody>

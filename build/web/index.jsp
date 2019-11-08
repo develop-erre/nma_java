@@ -10,7 +10,17 @@
         <link rel="stylesheet" href="fonts/css/all.min.css">
         <link rel="stylesheet" href="css/style/signin.css" >
         <link href="css/style/cover.css" rel="stylesheet">
-        <title>NMA App</title>
+        <title>Previriesgos Web</title>
+         <script> 
+             
+             window.onload = function (){
+                 document.getElementById("btnGoogle").onmouseover= function (){
+                     document.localName();
+                 };
+             };
+             
+             
+        </script> 
         
     </head>
 
@@ -63,7 +73,7 @@
                                     </a>
                                 </li>
                                 <li class="list-inline-item">
-                                    <a href="#" class="btn btn-danger">
+                                    <a href="#" class="btn btn-danger" id="btnGoogle" >
                                         <i class="fab fa-google"></i>
                                         <span class="network-name">Google+</span>
                                     </a>

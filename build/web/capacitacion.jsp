@@ -18,8 +18,8 @@
         <script>
              $(function () {
                 $("#datepicker").datepicker({
-                    minDate: 0, 
-                    maxDate: 30,
+                    minDate: +15, 
+                    maxDate: 45,
                     changeMonth: true,
                     changeYear: true,
                     dateFormat: "yy-mm-dd"}).val();
