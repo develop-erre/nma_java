@@ -218,15 +218,9 @@ public class createProfesional extends HttpServlet {
 
     public java.util.Date castDate(String date) throws ParseException {
 
-        String mes = date.substring(0, 2);
-        String dia = date.substring(3, 5);
-        String anio = date.substring(6, 10);
-
-        String fechaCast = anio + "-" + mes + "-" + dia;
-        System.out.println(fechaCast);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-        java.util.Date fech = (java.util.Date) simpleDateFormat.parse(fechaCast);
+        java.util.Date fech = (java.util.Date) simpleDateFormat.parse(date);
 
         return fech;
     }

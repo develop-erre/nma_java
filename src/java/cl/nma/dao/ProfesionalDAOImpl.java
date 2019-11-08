@@ -170,6 +170,7 @@ public class ProfesionalDAOImpl implements ProfesionalDAO {
                 profesional.setRut(rs.getString(4));
                 profesional.setEmail(rs.getString(8));
                 profesional.setTelefono(rs.getString(9));
+                profesional.setId_rol_fk(rs.getInt(12));
                 lista.add(profesional);
             }
 

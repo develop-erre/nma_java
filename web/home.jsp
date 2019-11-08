@@ -14,6 +14,9 @@
         <title>Home Principal</title>
     </head>
     <body>
+        <% String rs = String.valueOf(sesion.getAttribute("id_rol"));%>
+        <c:set var="id_rol" value="<%=rs%>" />
+        
         <c:choose>
             <c:when test="${id_rol == 1}">
                 <jsp:include page="menuAdmin.jsp"/>
@@ -27,8 +30,7 @@
         </c:choose>
 
 
-        <% String rs = String.valueOf(sesion.getAttribute("id_rol"));%>
-        <c:set var="id_rol" value="<%=rs%>" />
+        
 
         <div class="container-fluid">
             <br>

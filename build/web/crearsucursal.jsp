@@ -14,14 +14,6 @@
         <link rel="stylesheet" href="js/base/style.css">
         <script src="js/jquery-1.12.4.js"></script>
         <script src="js/jquery-ui.js"></script>
-
-        <script>
-            $(function () {
-                $("#datepicker").datepicker({minDate: 0, maxDate: 30});
-            });
-        </script>
-
-
     </head>
     <body>
 
@@ -54,7 +46,7 @@
 
         <br>
         <div class="container-fluid">
-            <h3>Añadir Sucursal <%= nombreEmpresa%></h3>  <%= idEmpresa%>
+            <h3>Añadir Sucursal <%= nombreEmpresa%></h3>
             <form action="crearSucursal" name="formProgramarVisita" method="POST" onsubmit="return validarCrearSucursal();">
                 <br>
                 <div class="form-row">

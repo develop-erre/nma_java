@@ -16,6 +16,8 @@ public interface UsuarioDAO {
     
     int actualizar(Usuario usuario);
     
+    Usuario buscarUsuarioPorId(int id);
+    
     int agregar(Usuario usuario);
     
     int agregarUsuarioEmpresa(Usuario usuario);
@@ -23,10 +25,6 @@ public interface UsuarioDAO {
     int eliminar(Integer idusuario);
 
     List<Usuario> listarUsuario();
-
-    List<Usuario> buscarAlumnoPorApellido(String apellido);
-    
-    Usuario obtenerAlumnoPorId(Integer id);
     
     Boolean verificarUser(String us, String pass);
     

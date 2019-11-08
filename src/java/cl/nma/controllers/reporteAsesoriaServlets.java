@@ -77,8 +77,6 @@ public class reporteAsesoriaServlets extends HttpServlet {
                 String tipoAsesoria = request.getParameter("txtTipoAsesoria");
                 String descProblema = request.getParameter("txtDescProblem");
                 String descPropuesta = request.getParameter("txtDescPropuesta");
-                System.out.println(descProblema);
-                System.out.println(tipoAsesoria);
 
                 Document documento = new Document();
                 PdfWriter.getInstance(documento, out);
@@ -175,11 +173,6 @@ public class reporteAsesoriaServlets extends HttpServlet {
                 descripcionPropuesta.setAlignment(Element.ALIGN_JUSTIFIED);
                 descripcionPropuesta.add(new Phrase(Chunk.NEWLINE));
                 documento.add(descripcionPropuesta);
-
-                
-                
-                
-                
                 
                 documento.close();
 

@@ -8,6 +8,7 @@ package cl.nma.dao;
 import cl.nma.database.DBUtil;
 import cl.nma.dominio.Usuario;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,17 +33,65 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     }
 
     @Override
-    public int actualizar(Usuario alumno) {
+    public int actualizar(Usuario us) {
+
+        int result = 0;
+        String sql = "UPDATE USUARIO \n"
+                + "SET NOMBRE = ? \n"
+                + ",APELLIDOS = ? \n"
+                + ",RUT= ? \n"
+                + ",DIRECCION= ? \n"
+                + ",FECHA_NACIMIENTO= ? \n"
+                + ",EMAIL= ?\n"
+                + ",TELEFONO= ?\n"
+                + ",ID_COMUNA_US_FK= ? WHERE ID_USUARIO= ?";
+        PreparedStatement pst = null;
+        try {
+            pst = conexion.prepareStatement(sql);
+            pst.setString(1, us.getNombre());
+            pst.setString(2, us.getApellidos());
+            pst.setString(3, us.getRut());
+            pst.setString(4, us.getDireccion());
+            pst.setDate(5, castDateDAOImpl(us.getFecha_nac()));
+            pst.setString(6, us.getEmail());
+            pst.setString(7, us.getTelefono());
+            pst.setInt(8, us.getId_comuna_us_fk());
+            pst.setInt(9, us.getId_usuario());
+            result = pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProfesionalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //siempre cerrar la conexion y el pst
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return result;
+
+    }
+
+    @Override
+    public int agregar(Usuario us) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public int agregar(Usuario alumno) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int eliminar(Integer idAlumno) {
+    public int eliminar(Integer idus) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -103,16 +152,6 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             }
         }
         return usuarios;
-    }
-
-    @Override
-    public List<Usuario> buscarAlumnoPorApellido(String apellido) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Usuario obtenerAlumnoPorId(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public boolean verificarUserSession(String us, String pass) {
@@ -334,5 +373,59 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         java.util.Date fech = date;
         java.sql.Date sDate = new java.sql.Date(fech.getTime());
         return sDate;
+    }
+
+    @Override
+    public Usuario buscarUsuarioPorId(int id) {
+
+        Usuario usuario = new Usuario();
+        String sql = "SELECT * FROM USUARIO WHERE ID_USUARIO =" + id;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            pst = conexion.prepareStatement(sql);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                usuario.setId_usuario(rs.getInt(1));
+                usuario.setNombre(rs.getString(2));
+                usuario.setApellidos(rs.getString(3));
+                usuario.setRut(rs.getString(4));
+                usuario.setDireccion(rs.getString(6));
+                usuario.setFecha_nac(rs.getDate(7));
+                usuario.setEmail(rs.getString(8));
+                usuario.setTelefono(rs.getString(9));
+                usuario.setId_comuna_us_fk(rs.getInt(11));
+                usuario.setId_rol_fk(rs.getInt(12));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //siempre cerrar la conexion, rs y el pst
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return usuario;
     }
 }

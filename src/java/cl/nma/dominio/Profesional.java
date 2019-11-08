@@ -168,7 +168,7 @@ public class Profesional {
         String var01 = getNombre().substring(0,3);
         String var02 = ".";
         String var03 = getApellidos().substring(0,3);
-        String var04 = date.substring(0,5);
+        String var04 = date.substring(2,7);
         
         pass = var01.toLowerCase()+var02+var03.toLowerCase()+"#"+var04;
         return pass;

@@ -17,7 +17,10 @@
         <script src="js/jquery-ui.js"></script>
         <script>
             $(function () {
-                $("#datepicker").datepicker({maxDate: "-18Y"});
+                $("#datepicker").datepicker({maxDate: "-18Y",
+                    changeMonth: true,
+                    changeYear: true,
+                    dateFormat: "yy-mm-dd"}).val();
             });
         </script>
     </head>

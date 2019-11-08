@@ -80,9 +80,10 @@
                                 </form>
                             </td>
                             <td>
-                                <form action="eliminarUsuario" method="POST" onclick="return confirmarDelete();">
+                                <form action="cargarDatosActualizar" method="POST">
                                     <input type="submit" class="btn btn-success" value="Actualizar" />
-                                    <input type="hidden" name="id_prof_eliminar" value="${profesional.id_usuario}" />
+                                    <input type="hidden" name="id_prof_actualizar" value="${profesional.id_usuario}" />
+                                    <input type="hidden" name="id_rol" value="${profesional.id_rol_fk}" />
                                 </form>
                             </td>
                         </tr>

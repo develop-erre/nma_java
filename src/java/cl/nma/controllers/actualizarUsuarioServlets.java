@@ -5,16 +5,16 @@
  */
 package cl.nma.controllers;
 
-import cl.nma.dao.ActividadDAOImpl;
-import cl.nma.dao.CapacitacionDAOImpl;
-import cl.nma.dominio.Actividad;
-import cl.nma.dominio.Capacitacion;
+import cl.nma.dao.ProfesionalDAOImpl;
+import cl.nma.dao.UsuarioDAOImpl;
+import cl.nma.dominio.Profesional;
+import cl.nma.dominio.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -25,10 +25,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Richard Foncea
+ * @author Sammy Guergachi <sguergachi at gmail.com>
  */
-@WebServlet(name = "crearCapacitacionServlets", urlPatterns = {"/capacitacion"})
-public class crearCapacitacionServlets extends HttpServlet {
+@WebServlet(name = "actualizarUsuarioServlets", urlPatterns = {"/actualizar"})
+public class actualizarUsuarioServlets extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,10 +47,10 @@ public class crearCapacitacionServlets extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet crearCapacitacionServlets</title>");            
+            out.println("<title>Servlet actualizarUsuarioServlets</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet crearCapacitacionServlets at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet actualizarUsuarioServlets at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -83,40 +83,49 @@ public class crearCapacitacionServlets extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String fecha = request.getParameter("txtFechaCap");
-        String hora = request.getParameter("selectHoraCap");
-        int numerosAsistentes = Integer.parseInt(request.getParameter("txtNumerosCap"));
-        int idTipoCapacitacion = Integer.parseInt(request.getParameter("selectTipoCapacitacion"));
-        int idProfesionaCap = Integer.parseInt(request.getParameter("selectProfesionalIdCap"));
-        int idSucIdCap = Integer.parseInt(request.getParameter("SucursalId"));
+        
+        
+        request.setCharacterEncoding("UTF-8");
+        String nombre = request.getParameter("txtNombre");
+        String apellidos = request.getParameter("txtApellidos");
+        String run = request.getParameter("txtRun");
+        String fechaNac = request.getParameter("txtFechaNac");
+        String email = request.getParameter("txtEmail");
+        String telefono = request.getParameter("txtTelefono");
+        String direccion = request.getParameter("txtDireccion") + " #" + request.getParameter("txtNumero");
+        int comunaId = Integer.parseInt(request.getParameter("selectComunaId"));
+        int idUsuario = Integer.parseInt(request.getParameter("txtIdUsuario"));
+        
 
         try {
-                //SE CREA ACTIVIDAD CREAR CAPACITACION
-                ActividadDAOImpl actDAO = new ActividadDAOImpl();
-                Actividad act = new Actividad();
-                //SE SETEA VALOR DE JSP
-                act.setFecha_act(castDate(fecha));
-                act.setHora_act(hora);
-                act.setEstado_act(0);
-                act.setId_usuario_fk(idProfesionaCap);
-                act.setId_sucursal_empresa_fk(idSucIdCap);
-                act.setId_tipo_actividad_fk(1);
+            
+            UsuarioDAOImpl usDAO = new UsuarioDAOImpl();
 
-                int idAct = actDAO.agregar(act);
-                
-                CapacitacionDAOImpl capDAO = new  CapacitacionDAOImpl();
-                Capacitacion cap = new Capacitacion();
-                cap.setNumero_asistente(numerosAsistentes);
-                cap.setId_tipo_capacitacion_fk(idTipoCapacitacion);
-                cap.setId_actividad_fk_tc(idAct);
-                
-                capDAO.agregar(cap);
-                
-                request.getRequestDispatcher("/listaEmpresa").forward(request, response);
+            Usuario us = new Usuario();
+            us.setNombre(nombre.toUpperCase());
+            us.setApellidos(apellidos.toUpperCase());
+            us.setRut(run);
+            us.setDireccion(direccion.toUpperCase());
+            us.setFecha_nac(castDate(fechaNac));
+            us.setEmail(email.toUpperCase());
+            us.setTelefono(telefono);
+            us.setId_comuna_us_fk(comunaId);
+            us.setId_usuario(idUsuario);
+            
+            usDAO.actualizar(us);
 
-            } catch (ParseException | SQLException ex) {
-                Logger.getLogger(reportarAccidenteServlets.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
+            //SE INSERTA EN BASE DE DATOS
+           // profDAO.agregar(prof);
+
+            request.getRequestDispatcher("home.jsp").forward(request, response);
+
+        }catch (SQLException ex) {
+            Logger.getLogger(loginServlets.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(actualizarUsuarioServlets.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     /**
@@ -129,12 +138,13 @@ public class crearCapacitacionServlets extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    public Date castDate(String date) throws ParseException {
- 
+    public java.util.Date castDate(String date) throws ParseException {
+
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-        Date fech = (Date) simpleDateFormat.parse(date);
+        java.util.Date fech = (java.util.Date) simpleDateFormat.parse(date);
 
         return fech;
     }
+    
 }

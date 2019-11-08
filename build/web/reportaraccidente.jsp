@@ -15,8 +15,13 @@
         <script src="js/jquery-1.12.4.js"></script>
         <script src="js/jquery-ui.js"></script>
         <script>
-            $(function () {
-                $("#datepicker").datepicker({minDate: -10, maxDate: 0});
+           $(function () {
+                $("#datepicker").datepicker({
+                    minDate: -10, 
+                    maxDate: 0,
+                    changeMonth: true,
+                    changeYear: true,
+                    dateFormat: "yy-mm-dd"}).val();
             });
         </script>
     </head>
