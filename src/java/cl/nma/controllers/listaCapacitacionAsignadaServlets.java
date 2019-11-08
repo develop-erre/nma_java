@@ -45,7 +45,7 @@ public class listaCapacitacionAsignadaServlets extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet listaCapacitacionAsignadaServlets</title>");            
+            out.println("<title>Servlet listaCapacitacionAsignadaServlets</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet listaCapacitacionAsignadaServlets at " + request.getContextPath() + "</h1>");
@@ -66,24 +66,24 @@ public class listaCapacitacionAsignadaServlets extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         HttpSession sesion = (HttpSession) request.getSession();
         System.out.println(sesion.getAttribute("nombre"));
-        String idUsuario = String.valueOf(sesion.getAttribute("id_usuario")) ;
+        String idUsuario = String.valueOf(sesion.getAttribute("id_usuario"));
         System.out.println(idUsuario);
         int idUsu = Integer.parseInt(idUsuario);
-        
+
         List<ActividadCapacitacionGettAll> lista = new ArrayList();
         try {
             ActividadDAOImpl acDAO = new ActividadDAOImpl();
             lista = acDAO.listarCapacitacionGetAll(idUsu);
 
         } catch (SQLException ex) {
-            Logger.getLogger(listaEmpresaListServlets.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(listaCapacitacionAsignadaServlets.class.getName()).log(Level.SEVERE, null, ex);
         }
         request.setAttribute("listaGetAllCapacitacion", lista);
         request.getRequestDispatcher("listaCapacitacionAsignada.jsp").forward(request, response);
-        
+
     }
 
     /**
@@ -97,13 +97,13 @@ public class listaCapacitacionAsignadaServlets extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-         HttpSession sesion = (HttpSession) request.getSession();
+
+        HttpSession sesion = (HttpSession) request.getSession();
         System.out.println(sesion.getAttribute("nombre"));
-        String idUsuario = String.valueOf(sesion.getAttribute("id_usuario")) ;
+        String idUsuario = String.valueOf(sesion.getAttribute("id_usuario"));
         System.out.println(idUsuario);
         int idUsu = Integer.parseInt(idUsuario);
-        
+
         List<ActividadCapacitacionGettAll> lista = new ArrayList();
         try {
             ActividadDAOImpl acDAO = new ActividadDAOImpl();
@@ -114,7 +114,7 @@ public class listaCapacitacionAsignadaServlets extends HttpServlet {
         }
         request.setAttribute("listaGetAllCapacitacion", lista);
         request.getRequestDispatcher("listaCapacitacionAsignada.jsp").forward(request, response);
-        
+
     }
 
     /**

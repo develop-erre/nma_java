@@ -7,17 +7,14 @@ package cl.nma.controllers;
 
 import cl.nma.dao.ContratoDAOImpl;
 import cl.nma.dao.EmpresaDAOImpl;
-import cl.nma.dao.ProfesionalDAOImpl;
 import cl.nma.dao.RegionComunaDAOImpl;
 import cl.nma.dao.SucursalDAOImpl;
 import cl.nma.dominio.Contrato;
 import cl.nma.dominio.Empresa;
-import cl.nma.dominio.Profesional;
 import cl.nma.dominio.RegionComuna;
 import cl.nma.dominio.Sucursal;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,8 +79,8 @@ public class crearEmpresaServlets extends HttpServlet {
             RegionComunaDAOImpl rcDAO = new RegionComunaDAOImpl();
             listaComuna = rcDAO.listar();
 
-        } catch (SQLException ex) {
-            Logger.getLogger(listaEmpresaListServlets.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) { 
+            Logger.getLogger(crearEmpresaServlets.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         request.setAttribute("listaReg", listaComuna);

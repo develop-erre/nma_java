@@ -11,16 +11,16 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class VisitaDAOImpl implements VisitaDAO{
-    
-     Connection conexion;
+public class VisitaDAOImpl implements VisitaDAO {
+
+    Connection conexion;
 
     public VisitaDAOImpl() throws SQLException {
-        DBUtil db = new DBUtil();    
+        DBUtil db = new DBUtil();
         conexion = db.obtenerConexion();
 
     }
-    
+
     @Override
     public int actualizar(Visita vis) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -28,12 +28,13 @@ public class VisitaDAOImpl implements VisitaDAO{
 
     @Override
     public int agregar(Visita vis) {
-        
+
         int id = 0;
         String sql = "INSERT INTO VISITA(ID_TIPO_VISITA_FK,ID_ACTIVIDAD_FK_V)"
                 + "VALUES(?,?)";
-        
-        PreparedStatement pst;
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
         try {
             pst = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pst.setInt(1, vis.getId_tipo_visita_fk());
@@ -44,15 +45,40 @@ public class VisitaDAOImpl implements VisitaDAO{
                 throw new SQLException("No fue posible insertar el registro");
             }
 
-            ResultSet rs = pst.getGeneratedKeys();
+            rs = pst.getGeneratedKeys();
             while (rs.next()) {
                 id = rs.getInt(1); //devuelve la clave autogenerada por la BD
                 System.out.println("ID GENERADO:" + id);
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(ProfesionalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VisitaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //siempre cerrar la conexion, rs y el pst
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
         return id;
     }
 

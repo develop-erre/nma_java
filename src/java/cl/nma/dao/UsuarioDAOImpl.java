@@ -8,7 +8,6 @@ package cl.nma.dao;
 import cl.nma.database.DBUtil;
 import cl.nma.dominio.Usuario;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -58,9 +57,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             pst.setInt(8, us.getId_comuna_us_fk());
             pst.setInt(9, us.getId_usuario());
             result = pst.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(ProfesionalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
+        } catch (SQLException | ParseException ex) {
             Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             //siempre cerrar la conexion y el pst
@@ -235,7 +232,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
             for (Usuario var : usuarios) {
 
-                if (var.getRut().toString().equals(us) && var.getPassword().toString().equals(pass) && var.getEstado() == 0) {
+                if (var.getRut().equals(us) && var.getPassword().equals(pass) && var.getEstado() == 0) {
                     bandera = true;
                 }
             }
@@ -278,7 +275,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
                 + "ID_COMUNA_US_FK, ID_ROL_FK,ID_EMPRESA_FK) VALUES("
                 + "?,?,?,?,?,?,?,?,?,?,?,?)";
 
-        PreparedStatement pst;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
         try {
             pst = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pst.setString(1, usuario.getNombre());
@@ -299,17 +297,40 @@ public class UsuarioDAOImpl implements UsuarioDAO {
                 throw new SQLException("No fue posible insertar el registro");
             }
 
-            ResultSet rs = pst.getGeneratedKeys();
+            rs = pst.getGeneratedKeys();
             while (rs.next()) {
                 id = rs.getInt(1); //devuelve la clave autogenerada por la BD
                 System.out.println("ID GENERADO:" + id);
             }
 
-        } catch (SQLException ex) {
-            Logger.getLogger(ProfesionalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
+        } catch (SQLException | ParseException ex) {
             Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //siempre cerrar la conexion, rs y el pst
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
         return id;
 
     }
@@ -427,5 +448,263 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             }
         }
         return usuario;
+    }
+
+    @Override
+    public int agregarProfesional(Usuario usuario) {
+
+        int id = 0;
+        String sql = "INSERT INTO USUARIO(NOMBRE, APELLIDOS,"
+                + "RUT,PASSWORD, DIRECCION,FECHA_NACIMIENTO,EMAIL,TELEFONO,ESTADO,"
+                + "ID_COMUNA_US_FK, ID_ROL_FK) VALUES("
+                + "?,?,?,?,?,?,?,?,?,?,?)";
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            pst = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            pst.setString(1, usuario.getNombre());
+            pst.setString(2, usuario.getApellidos());
+            pst.setString(3, usuario.getRut());
+            pst.setString(4, usuario.getPassword());
+            pst.setString(5, usuario.getDireccion());
+            pst.setDate(6, castDateDAOImpl(usuario.getFecha_nac()));
+            pst.setString(7, usuario.getEmail());
+            pst.setString(8, usuario.getTelefono());
+            pst.setInt(9, usuario.getEstado());
+            pst.setInt(10, usuario.getId_comuna_us_fk());
+            pst.setInt(11, usuario.getId_rol_fk());
+            int result = pst.executeUpdate();
+
+            if (result == 0) {
+                throw new SQLException("No fue posible insertar el registro");
+            }
+
+            rs = pst.getGeneratedKeys();
+            while (rs.next()) {
+                id = rs.getInt(1); //devuelve la clave autogenerada por la BD
+                System.out.println("ID GENERADO:" + id);
+            }
+
+        } catch (SQLException | ParseException ex) {
+            Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //siempre cerrar la conexion, rs y el pst
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return id;
+
+    }
+
+    @Override
+    public int deshabilitarProfesional(int id) {
+
+        int result = 0;
+        String sql = "UPDATE USUARIO SET ESTADO = 1 WHERE id_usuario = ?";
+        PreparedStatement pst = null;
+        try {
+            pst = conexion.prepareStatement(sql);
+            pst.setInt(1, id);
+            result = pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //siempre cerrar la conexion y el pst
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return result;
+
+    }
+
+    @Override
+    public List<Usuario> listarProfesionalHabilitado() {
+
+        List<Usuario> lista = new ArrayList<>();
+
+        String sql = "SELECT * FROM USUARIO WHERE ID_ROL_FK = 2 AND ESTADO = 0"
+                + " ORDER by 3 ASC;";
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        try {
+            pst = conexion.prepareStatement(sql);
+            rs = pst.executeQuery();
+
+            Usuario profesional = null;
+
+            while (rs.next()) {
+                profesional = new Usuario();
+                profesional.setId_usuario(rs.getInt(1));
+                profesional.setNombre(rs.getString(2));
+                profesional.setApellidos(rs.getString(3));
+                profesional.setRut(rs.getString(4));
+                profesional.setEmail(rs.getString(8));
+                profesional.setTelefono(rs.getString(9));
+                profesional.setId_rol_fk(rs.getInt(12));
+                lista.add(profesional);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //siempre cerrar la conexion, rs y el pst
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return lista;
+    }
+
+    @Override
+    public List<Usuario> listarProfesionalDeshabilitado() {
+
+        List<Usuario> lista = new ArrayList<>();
+
+        String sql = "SELECT * FROM USUARIO WHERE ID_ROL_FK = 2 AND ESTADO=1"
+                + " ORDER by 3 ASC;";
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        try {
+            pst = conexion.prepareStatement(sql);
+            rs = pst.executeQuery();
+
+            Usuario user;
+
+            while (rs.next()) {
+                user = new Usuario();
+                user.setId_usuario(rs.getInt(1));
+                user.setNombre(rs.getString(2));
+                user.setApellidos(rs.getString(3));
+                user.setRut(rs.getString(4));
+                user.setEmail(rs.getString(8));
+                user.setTelefono(rs.getString(9));
+                user.setId_rol_fk(rs.getInt(12));
+                lista.add(user);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //siempre cerrar la conexion, rs y el pst
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return lista;
+
+    }
+
+    @Override
+    public int habilitar(Integer idusuario) {
+
+        int result = 0;
+        String sql = "UPDATE USUARIO SET ESTADO = 0 WHERE ID_USUARIO = ?";
+        PreparedStatement pst = null;
+        try {
+            pst = conexion.prepareStatement(sql);
+            pst.setInt(1, idusuario);
+            result = pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //siempre cerrar la conexion y el pst
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return result;
+
     }
 }

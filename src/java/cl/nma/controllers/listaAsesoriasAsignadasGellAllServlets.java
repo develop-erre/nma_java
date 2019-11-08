@@ -80,8 +80,8 @@ public class listaAsesoriasAsignadasGellAllServlets extends HttpServlet {
             ActividadDAOImpl acDAO = new ActividadDAOImpl();
             lista = acDAO.listarSolicitudAsesoriaGetAll(idUsu);
 
-        } catch (SQLException ex) {
-            Logger.getLogger(listaEmpresaListServlets.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) { 
+            Logger.getLogger(listaAsesoriasAsignadasGellAllServlets.class.getName()).log(Level.SEVERE, null, ex);
         }
         request.setAttribute("listaGetAllAsesoria", lista);
         request.getRequestDispatcher("listaSolicitudAsesoriasProfesional.jsp").forward(request, response);

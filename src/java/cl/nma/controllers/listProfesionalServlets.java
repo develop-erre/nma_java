@@ -5,11 +5,10 @@
  */
 package cl.nma.controllers;
 
-import cl.nma.dao.ProfesionalDAOImpl;
-import cl.nma.dominio.Profesional;
+import cl.nma.dao.UsuarioDAOImpl;
+import cl.nma.dominio.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,10 +66,10 @@ public class listProfesionalServlets extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        List<Profesional> lista = new ArrayList();
+        List<Usuario> lista = new ArrayList();
         try {
-            ProfesionalDAOImpl profDAO = new ProfesionalDAOImpl();
-            lista = profDAO.listarProfesionalHabilitados();
+            UsuarioDAOImpl profDAO = new UsuarioDAOImpl();
+            lista = profDAO.listarProfesionalHabilitado();
 
             request.setAttribute("listaProfesional", lista);
             request.getRequestDispatcher("listaProfesionales.jsp").forward(request, response);
@@ -93,18 +92,17 @@ public class listProfesionalServlets extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        List<Profesional> lista = new ArrayList();
+        List<Usuario> lista = new ArrayList();
         try {
-            ProfesionalDAOImpl profDAO = new ProfesionalDAOImpl();
-            lista = profDAO.listarProfesionalHabilitados();
+            UsuarioDAOImpl profDAO = new UsuarioDAOImpl();
+            lista = profDAO.listarProfesionalHabilitado();
+
+            request.setAttribute("listaProfesional", lista);
+            request.getRequestDispatcher("listaProfesionales.jsp").forward(request, response);
 
         } catch (SQLException ex) {
             Logger.getLogger(listProfesionalServlets.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        request.setAttribute("listaProfesional", lista);
-        request.getRequestDispatcher("listaProfesionales.jsp").forward(request, response);
-
     }
 
     /**

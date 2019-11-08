@@ -2,7 +2,6 @@
 package cl.nma.dao;
 
 import cl.nma.database.DBUtil;
-import cl.nma.dominio.ActividadAsesoria;
 import cl.nma.dominio.RegionComuna;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -41,7 +40,7 @@ public class RegionComunaDAOImpl implements RegionComunaDAO{
                 listaComunas.add(reg_com);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RegionComunaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             //siempre cerrar la conexion, rs y el pst
             try {

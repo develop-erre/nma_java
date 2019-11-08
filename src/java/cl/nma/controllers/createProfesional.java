@@ -5,10 +5,10 @@
  */
 package cl.nma.controllers;
 
-import cl.nma.dao.ProfesionalDAOImpl;
 import cl.nma.dao.RegionComunaDAOImpl;
-import cl.nma.dominio.Profesional;
+import cl.nma.dao.UsuarioDAOImpl;
 import cl.nma.dominio.RegionComuna;
+import cl.nma.dominio.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -85,8 +85,8 @@ public class createProfesional extends HttpServlet {
             RegionComunaDAOImpl rcDAO = new RegionComunaDAOImpl();
             listaComuna = rcDAO.listar();
 
-        } catch (SQLException ex) {
-            Logger.getLogger(listaEmpresaListServlets.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) { 
+            Logger.getLogger(createProfesional.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         request.setAttribute("listaReg", listaComuna);
@@ -119,21 +119,21 @@ public class createProfesional extends HttpServlet {
         int comunaId = Integer.parseInt(request.getParameter("selectComunaId"));
 
         try {
-            ProfesionalDAOImpl profDAO = new ProfesionalDAOImpl();
+            UsuarioDAOImpl profDAO = new UsuarioDAOImpl();
 
-            Profesional prof = new Profesional();
-            prof.setNombre(nombre.toUpperCase());
-            prof.setApellidos(apellidos.toUpperCase());
-            prof.setRut(run);
-            prof.setDireccion(direccion.toUpperCase());
-            prof.setFecha_nac(castDate(fechaNac));
-            prof.setEmail(email.toUpperCase());
-            prof.setTelefono(telefono);
-            prof.setEstado(estado);
-            prof.setId_comuna_us_fk(comunaId);
-            prof.setId_rol_fk(2);
+            Usuario user = new Usuario();
+            user.setNombre(nombre.toUpperCase());
+            user.setApellidos(apellidos.toUpperCase());
+            user.setRut(run);
+            user.setDireccion(direccion.toUpperCase());
+            user.setFecha_nac(castDate(fechaNac));
+            user.setEmail(email.toUpperCase());
+            user.setTelefono(telefono);
+            user.setEstado(estado);
+            user.setId_comuna_us_fk(comunaId);
+            user.setId_rol_fk(2);
             //METODO CREAR CRONTRASEÑA ENTRE NOMBRE, APELLIDO Y FECHA DE NACIMIENTO
-            String pass = prof.createPassword(fechaNac);
+            String pass = user.createPassword(fechaNac);
 
             //SE CODIFICA CONTRASEÑA 
             String originalInput = pass;
@@ -146,10 +146,10 @@ public class createProfesional extends HttpServlet {
             System.out.println("rut :   " + run);
             System.out.println("contraseña  :  " + decodedString);
 
-            prof.setPassword(encodedString);
+            user.setPassword(encodedString);
 
             //SE INSERTA EN BASE DE DATOS
-            profDAO.agregar(prof);
+            profDAO.agregarProfesional(user);
             
 //            int idProf = profDAO.agregar(prof);
 //
@@ -192,11 +192,20 @@ public class createProfesional extends HttpServlet {
 //            }
             request.getRequestDispatcher("home.jsp").forward(request, response);
 
-        } catch (SQLException ex) {
-            Logger.getLogger(loginServlets.class.getName()).log(Level.SEVERE, null, ex);
-        }catch (ParseException ex) {
+        } catch (SQLException | ParseException ex) {
             Logger.getLogger(createProfesional.class.getName()).log(Level.SEVERE, null, ex);
         }
+//          catch (AddressException ex) {
+//            Logger.getLogger(createProfesional.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (MessagingException ex) {
+//            Logger.getLogger(createProfesional.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//          catch (AddressException ex) {
+//            Logger.getLogger(createProfesional.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (MessagingException ex) {
+//            Logger.getLogger(createProfesional.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+         
 //          catch (AddressException ex) {
 //            Logger.getLogger(createProfesional.class.getName()).log(Level.SEVERE, null, ex);
 //        } catch (MessagingException ex) {

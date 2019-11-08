@@ -6,8 +6,6 @@
 package cl.nma.controllers;
 
 import cl.nma.dao.EmpresaDAOImpl;
-import cl.nma.dao.ProfesionalDAO;
-import cl.nma.dao.ProfesionalDAOImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -86,11 +84,9 @@ public class eliminarEmpresaServlets extends HttpServlet {
             emDAO.eliminar(id);
 
             request.getRequestDispatcher("listaEmpresa").forward(request, response);
-            // response.sendRedirect("listarProfesional");
-            request.setAttribute("success", "Alumno eliminado.");
+            
         } catch (SQLException ex) {
             Logger.getLogger(eliminarEmpresaServlets.class.getName()).log(Level.SEVERE, null, ex);
-            request.setAttribute("error", "Ocurrio un error al eliminar el usuario! revisar logs");
         }
         
     }

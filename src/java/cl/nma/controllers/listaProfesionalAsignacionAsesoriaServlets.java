@@ -5,8 +5,8 @@
  */
 package cl.nma.controllers;
 
-import cl.nma.dao.ProfesionalDAOImpl;
-import cl.nma.dominio.Profesional;
+import cl.nma.dao.UsuarioDAOImpl;
+import cl.nma.dominio.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -87,10 +87,10 @@ public class listaProfesionalAsignacionAsesoriaServlets extends HttpServlet {
         String tipoAsesoria = request.getParameter("txtTipoAsesoria");
         
 
-        List<Profesional> lista = new ArrayList();
+        List<Usuario> lista = new ArrayList();
         try {
-            ProfesionalDAOImpl profDAO = new ProfesionalDAOImpl();
-            lista = profDAO.listarProfesionalHabilitados();
+            UsuarioDAOImpl profDAO = new UsuarioDAOImpl();
+            lista = profDAO.listarProfesionalHabilitado();
             
             request.setAttribute("idAct", idActividad);
             request.setAttribute("idAse", idAsesoria);
@@ -100,8 +100,8 @@ public class listaProfesionalAsignacionAsesoriaServlets extends HttpServlet {
             request.getRequestDispatcher("asignarAsesoria.jsp").forward(request, response);
 
         } catch (SQLException ex) {
-            Logger.getLogger(listProfesionalServlets.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            Logger.getLogger(listaProfesionalAsignacionAsesoriaServlets.class.getName()).log(Level.SEVERE, null, ex);
+        } 
 
     }
 

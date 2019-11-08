@@ -5,10 +5,9 @@
  */
 package cl.nma.controllers;
 
-import cl.nma.dao.ProfesionalDAOImpl;
+
 import cl.nma.dao.RegionComunaDAOImpl;
 import cl.nma.dao.UsuarioDAOImpl;
-import cl.nma.dominio.Profesional;
 import cl.nma.dominio.RegionComuna;
 import cl.nma.dominio.Usuario;
 import java.io.IOException;

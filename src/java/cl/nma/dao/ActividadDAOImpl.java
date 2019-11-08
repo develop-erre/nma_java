@@ -39,7 +39,8 @@ public class ActividadDAOImpl implements ActividadDAO {
         String sql = "INSERT INTO ACTIVIDAD(ESTADO_ACT,ID_SUCURSAL_EMPRESA_FK,ID_TIPO_ACTIVIDAD_FK)"
                 + "VALUES(?,?,?)";
 
-        PreparedStatement pst;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
         try {
             pst = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pst.setInt(1, act.getEstado_act());
@@ -51,14 +52,38 @@ public class ActividadDAOImpl implements ActividadDAO {
                 throw new SQLException("No fue posible insertar el registro");
             }
 
-            ResultSet rs = pst.getGeneratedKeys();
+            rs = pst.getGeneratedKeys();
             while (rs.next()) {
                 id = rs.getInt(1); //devuelve la clave autogenerada por la BD
                 System.out.println("ID GENERADO:" + id);
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(ProfesionalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ActividadDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //siempre cerrar la conexion, rs y el pst
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         return id;
@@ -72,7 +97,8 @@ public class ActividadDAOImpl implements ActividadDAO {
         String sql = "INSERT INTO ACTIVIDAD(FECHA_ACT,HORA_ACT,ESTADO_ACT,ID_USUARIO_FK,ID_SUCURSAL_EMPRESA_FK,ID_TIPO_ACTIVIDAD_FK)"
                 + "VALUES(?,?,?,?,?,?)";
 
-        PreparedStatement pst;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
         try {
             pst = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pst.setDate(1, castDateDAOImpl(act.getFecha_act()));
@@ -87,17 +113,40 @@ public class ActividadDAOImpl implements ActividadDAO {
                 throw new SQLException("No fue posible insertar el registro");
             }
 
-            ResultSet rs = pst.getGeneratedKeys();
+            rs = pst.getGeneratedKeys();
             while (rs.next()) {
                 id = rs.getInt(1); //devuelve la clave autogenerada por la BD
                 System.out.println("ID GENERADO:" + id);
             }
 
-        } catch (SQLException ex) {
-            Logger.getLogger(ProfesionalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
+        } catch (SQLException | ParseException ex) {
             Logger.getLogger(ActividadDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //siempre cerrar la conexion, rs y el pst
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
         return id;
     }
 
@@ -182,7 +231,7 @@ public class ActividadDAOImpl implements ActividadDAO {
             pst.setInt(4, act.getId_actividad());
             result = pst.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(ProfesionalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ActividadDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
             Logger.getLogger(ActividadDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -281,13 +330,13 @@ public class ActividadDAOImpl implements ActividadDAO {
     @Override
     public int finalizarActividad(int idActividad) {
         int result = 0;
-        String sql = "UPDATE ACTIVIDAD SET ESTADO_ACT = 1 WHERE ID_ACTIVIDAD = "+idActividad;
+        String sql = "UPDATE ACTIVIDAD SET ESTADO_ACT = 1 WHERE ID_ACTIVIDAD = " + idActividad;
         PreparedStatement pst = null;
         try {
             pst = conexion.prepareStatement(sql);
             result = pst.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(ProfesionalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ActividadDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             //siempre cerrar la conexion y el pst
             try {
@@ -312,7 +361,7 @@ public class ActividadDAOImpl implements ActividadDAO {
 
     @Override
     public List<ActividadAsesoriaGetAll> listarAsesoriasFinalizadasGetAll(int idEmpresa) {
-        
+
         List<ActividadAsesoriaGetAll> solicitudList = new ArrayList<>();
         String sql = "CALL GetAllAsesoriasFinalizadas(" + idEmpresa + ");";
         PreparedStatement pst = null;
@@ -363,12 +412,12 @@ public class ActividadDAOImpl implements ActividadDAO {
             }
         }
         return solicitudList;
-        
+
     }
 
     @Override
     public List<ActividadCapacitacionGettAll> listarCapacitacionGetAll(int idUsuario) {
-        
+
         List<ActividadCapacitacionGettAll> capList = new ArrayList<>();
         String sql = "CALL GetAllCapacitacion(" + idUsuario + ");";
         PreparedStatement pst = null;
@@ -418,9 +467,6 @@ public class ActividadDAOImpl implements ActividadDAO {
             }
         }
         return capList;
-        
+
     }
-
-   
-
 }

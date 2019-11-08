@@ -5,8 +5,7 @@
  */
 package cl.nma.controllers;
 
-import cl.nma.dao.ProfesionalDAO;
-import cl.nma.dao.ProfesionalDAOImpl;
+import cl.nma.dao.UsuarioDAOImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -81,13 +80,12 @@ public class eliminarUsuarioServlets extends HttpServlet {
         Integer id = Integer.parseInt(request.getParameter("id_prof_eliminar"));
 
         try {
-            ProfesionalDAO proDAO = new ProfesionalDAOImpl();
-            proDAO.eliminar(id);
+            UsuarioDAOImpl proDAO = new UsuarioDAOImpl();
+            proDAO.deshabilitarProfesional(id);
 
             request.getRequestDispatcher("listarProfesional").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(eliminarUsuarioServlets.class.getName()).log(Level.SEVERE, null, ex);
-            request.setAttribute("error", "Ocurrio un error al eliminar el usuario! revisar logs");
         }
     }
 

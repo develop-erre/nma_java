@@ -5,9 +5,7 @@
  */
 package cl.nma.controllers;
 
-import cl.nma.dao.ProfesionalDAOImpl;
 import cl.nma.dao.UsuarioDAOImpl;
-import cl.nma.dominio.Profesional;
 import cl.nma.dominio.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;

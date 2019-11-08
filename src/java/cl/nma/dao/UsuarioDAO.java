@@ -21,8 +21,18 @@ public interface UsuarioDAO {
     int agregar(Usuario usuario);
     
     int agregarUsuarioEmpresa(Usuario usuario);
+    
+    int agregarProfesional(Usuario usuario);
+    
+    int deshabilitarProfesional(int id);
 
     int eliminar(Integer idusuario);
+    
+    int habilitar(Integer idusuario);
+    
+    List<Usuario> listarProfesionalHabilitado();
+    
+    List<Usuario> listarProfesionalDeshabilitado();
 
     List<Usuario> listarUsuario();
     

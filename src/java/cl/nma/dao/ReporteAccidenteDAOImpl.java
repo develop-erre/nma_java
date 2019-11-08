@@ -1,4 +1,3 @@
-
 package cl.nma.dao;
 
 import cl.nma.database.DBUtil;
@@ -14,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 
 public class ReporteAccidenteDAOImpl implements ReporteAccidenteDAO {
 
@@ -38,7 +36,8 @@ public class ReporteAccidenteDAOImpl implements ReporteAccidenteDAO {
         String sql = "INSERT INTO REPORTE_ACCIDENTE(FECHA,HORA,COMENTARIO,ID_TIPO_ACCIDENTE_FK,ID_SUCURSAL_FK)"
                 + "VALUES(?,?,?,?,?)";
 
-        PreparedStatement pst;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
         try {
             pst = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pst.setDate(1, castDateDAOImpl(ra.getFecha()));
@@ -52,17 +51,40 @@ public class ReporteAccidenteDAOImpl implements ReporteAccidenteDAO {
                 throw new SQLException("No fue posible insertar el registro");
             }
 
-            ResultSet rs = pst.getGeneratedKeys();
+            rs = pst.getGeneratedKeys();
             while (rs.next()) {
                 id = rs.getInt(1); //devuelve la clave autogenerada por la BD
                 System.out.println("ID GENERADO:" + id);
             }
 
-        } catch (SQLException ex) {
-            Logger.getLogger(ProfesionalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
+        } catch (SQLException | ParseException ex) {
             Logger.getLogger(ReporteAccidenteDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //siempre cerrar la conexion, rs y el pst
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
         return id;
 
     }
@@ -91,10 +113,9 @@ public class ReporteAccidenteDAOImpl implements ReporteAccidenteDAO {
 
     @Override
     public List<ListaReporteAccidente> listarReporteAccidentesVerAdmin(int idEmpresa) {
-        
-        
+
         List<ListaReporteAccidente> repList = new ArrayList<>();
-        String sql = "CALL GetAllReporteAccidente("+idEmpresa+");";
+        String sql = "CALL GetAllReporteAccidente(" + idEmpresa + ");";
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
@@ -114,7 +135,7 @@ public class ReporteAccidenteDAOImpl implements ReporteAccidenteDAO {
                 repList.add(lra);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReporteAccidenteDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             //siempre cerrar la conexion, rs y el pst
             try {
@@ -141,7 +162,7 @@ public class ReporteAccidenteDAOImpl implements ReporteAccidenteDAO {
             }
         }
         return repList;
-        
+
     }
 
 }

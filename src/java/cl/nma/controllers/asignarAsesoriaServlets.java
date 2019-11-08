@@ -7,9 +7,7 @@ package cl.nma.controllers;
 
 import cl.nma.dao.ActividadDAOImpl;
 import cl.nma.dao.AsesoriaDAOImpl;
-import cl.nma.dao.CapacitacionDAOImpl;
 import cl.nma.dominio.Actividad;
-import cl.nma.dominio.Capacitacion;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -110,11 +108,9 @@ public class asignarAsesoriaServlets extends HttpServlet {
             
             request.getRequestDispatcher("listaSolicitudAsesorias").forward(request, response);
             
-        } catch (SQLException ex) {
-            Logger.getLogger(reportarAccidenteServlets.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
+        } catch (SQLException | ParseException ex) {
             Logger.getLogger(asignarAsesoriaServlets.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
     }
 
     /**

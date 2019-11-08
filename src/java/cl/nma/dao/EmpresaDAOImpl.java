@@ -8,7 +8,6 @@ package cl.nma.dao;
 import cl.nma.database.DBUtil;
 import cl.nma.dominio.Empresa;
 import cl.nma.dominio.EmpresaLista;
-import cl.nma.dominio.Usuario;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -23,8 +22,8 @@ import java.util.logging.Logger;
  *
  * @author Richard Foncea
  */
-public class EmpresaDAOImpl implements EmpresaDAO{
-    
+public class EmpresaDAOImpl implements EmpresaDAO {
+
     Connection conexion;
 
     public EmpresaDAOImpl() throws SQLException {
@@ -40,14 +39,15 @@ public class EmpresaDAOImpl implements EmpresaDAO{
 
     @Override
     public int agregar(Empresa em) {
-        
+
         int id = 0;
         String sql = "INSERT INTO EMPRESA(NOMBRE, RUT,"
                 + "SITIO_WEB,TELEFONO, ESTADO,ID_RUBRO_FK)"
                 + "VALUES("
                 + "?,?,?,?,?,?)";
-        
-        PreparedStatement pst;
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
         try {
             pst = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pst.setString(1, em.getNombre());
@@ -62,22 +62,47 @@ public class EmpresaDAOImpl implements EmpresaDAO{
                 throw new SQLException("No fue posible insertar el registro");
             }
 
-            ResultSet rs = pst.getGeneratedKeys();
+            rs = pst.getGeneratedKeys();
             while (rs.next()) {
                 id = rs.getInt(1); //devuelve la clave autogenerada por la BD
                 System.out.println("ID GENERADO:" + id);
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(ProfesionalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EmpresaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //siempre cerrar la conexion, rs y el pst
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
         return id;
-        
+
     }
 
     @Override
     public int eliminar(Integer idem) {
-        
+
         int result = 0;
         String sql = "UPDATE EMPRESA SET ESTADO = 1 WHERE ID_EMPRESA = ?";
         PreparedStatement pst = null;
@@ -107,7 +132,7 @@ public class EmpresaDAOImpl implements EmpresaDAO{
         }
 
         return result;
-        
+
     }
 
     @Override
@@ -122,7 +147,7 @@ public class EmpresaDAOImpl implements EmpresaDAO{
 
     @Override
     public List<EmpresaLista> listarEmpresaLista() {
-        
+
         List<EmpresaLista> emList = new ArrayList<>();
         String sql = "SELECT * FROM VISTA_LISTA_EMPRESAS";
         PreparedStatement pst = null;
@@ -141,7 +166,7 @@ public class EmpresaDAOImpl implements EmpresaDAO{
                 emList.add(el);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EmpresaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             //siempre cerrar la conexion, rs y el pst
             try {
@@ -169,5 +194,5 @@ public class EmpresaDAOImpl implements EmpresaDAO{
         }
         return emList;
     }
-    
+
 }

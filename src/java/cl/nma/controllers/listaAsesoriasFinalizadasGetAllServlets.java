@@ -45,7 +45,7 @@ public class listaAsesoriasFinalizadasGetAllServlets extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet listaAsesoriasFinalizadasGetAllServlets</title>");            
+            out.println("<title>Servlet listaAsesoriasFinalizadasGetAllServlets</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet listaAsesoriasFinalizadasGetAllServlets at " + request.getContextPath() + "</h1>");
@@ -66,24 +66,24 @@ public class listaAsesoriasFinalizadasGetAllServlets extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-         HttpSession sesion = (HttpSession) request.getSession();
+
+        HttpSession sesion = (HttpSession) request.getSession();
         System.out.println(sesion.getAttribute("nombre"));
-        String idEmpresa = String.valueOf(sesion.getAttribute("id_empresa")) ;
+        String idEmpresa = String.valueOf(sesion.getAttribute("id_empresa"));
         System.out.println(idEmpresa);
         int idEmp = Integer.parseInt(idEmpresa);
-        
+
         List<ActividadAsesoriaGetAll> lista = new ArrayList();
         try {
             ActividadDAOImpl acDAO = new ActividadDAOImpl();
             lista = acDAO.listarAsesoriasFinalizadasGetAll(idEmp);
 
         } catch (SQLException ex) {
-            Logger.getLogger(listaEmpresaListServlets.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(listaAsesoriasFinalizadasGetAllServlets.class.getName()).log(Level.SEVERE, null, ex);
         }
         request.setAttribute("listaGetAllAsesoria", lista);
         request.getRequestDispatcher("listaAsesoriasFinalizadas.jsp").forward(request, response);
-        
+
     }
 
     /**
@@ -97,9 +97,7 @@ public class listaAsesoriasFinalizadasGetAllServlets extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-       
-        
+
     }
 
     /**

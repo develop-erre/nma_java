@@ -5,15 +5,11 @@
  */
 package cl.nma.controllers;
 
-import cl.nma.dao.RegionComunaDAOImpl;
 import cl.nma.dao.SucursalDAOImpl;
-import cl.nma.dominio.RegionComuna;
 import cl.nma.dominio.Sucursal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -103,8 +99,9 @@ public class crearSucursalEmpresaServlets extends HttpServlet {
             
             request.getRequestDispatcher("listaEmpresa").forward(request, response);
             
-        } catch (Exception e) {
-        }
+        } catch (SQLException ex) {
+            Logger.getLogger(crearSucursalEmpresaServlets.class.getName()).log(Level.SEVERE, null, ex);
+        } 
         
     }
 

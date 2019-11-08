@@ -5,8 +5,8 @@
  */
 package cl.nma.controllers;
 
-import cl.nma.dao.ProfesionalDAOImpl;
-import cl.nma.dominio.Profesional;
+import cl.nma.dao.UsuarioDAOImpl;
+import cl.nma.dominio.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -66,10 +66,10 @@ public class listaProfesionalDesServlets extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        List<Profesional> lista = new ArrayList();
+        List<Usuario> lista = new ArrayList();
         try {
-            ProfesionalDAOImpl profDAO = new ProfesionalDAOImpl();
-            lista = profDAO.listarProfesionalDesabilitados();
+            UsuarioDAOImpl useDesDAO = new UsuarioDAOImpl();
+            lista = useDesDAO.listarProfesionalDeshabilitado();
             
             request.setAttribute("listaProfesional", lista);
             request.getRequestDispatcher("listaProfesionalesDes.jsp").forward(request, response);
@@ -92,16 +92,16 @@ public class listaProfesionalDesServlets extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-         List<Profesional> lista = new ArrayList();
+         List<Usuario> lista = new ArrayList();
         try {
-            ProfesionalDAOImpl profDAO = new ProfesionalDAOImpl();
-            lista = profDAO.listarProfesionalDesabilitados();
+            UsuarioDAOImpl profDAO = new UsuarioDAOImpl();
+            lista = profDAO.listarProfesionalDeshabilitado();
             
             request.setAttribute("listaProfesional", lista);
             request.getRequestDispatcher("listaProfesionalesDes.jsp").forward(request, response);
 
         } catch (SQLException ex) {
-            Logger.getLogger(listProfesionalServlets.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(listaProfesionalDesServlets.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }

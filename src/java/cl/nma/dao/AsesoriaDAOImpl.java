@@ -28,12 +28,13 @@ public class AsesoriaDAOImpl implements AsesoriaDAO {
 
     @Override
     public int agregar(Asesoria as) {
-        
+
         int id = 0;
         String sql = "INSERT INTO ASESORIA(ID_TIPO_ASESORIA_FK,ID_ACTIVIDAD_FK_AS,ID_TIPO_ESTADO_FK)"
                 + "VALUES(?,?,1)";
-        
-        PreparedStatement pst;
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
         try {
             pst = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pst.setInt(1, as.getId_tipo_asesoria_fk());
@@ -44,18 +45,42 @@ public class AsesoriaDAOImpl implements AsesoriaDAO {
                 throw new SQLException("No fue posible insertar el registro");
             }
 
-            ResultSet rs = pst.getGeneratedKeys();
+            rs = pst.getGeneratedKeys();
             while (rs.next()) {
                 id = rs.getInt(1); //devuelve la clave autogenerada por la BD
                 System.out.println("ID GENERADO:" + id);
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(ProfesionalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AsesoriaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //siempre cerrar la conexion, rs y el pst
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        
+
         return id;
-        
+
     }
 
     @Override
@@ -75,7 +100,7 @@ public class AsesoriaDAOImpl implements AsesoriaDAO {
 
     @Override
     public int finalizarAsesoria(Asesoria as) {
-        
+
         int result = 0;
         String sql = "UPDATE ASESORIA SET COMENTARIOS_DETECTADOS = ? ,COMENTARIOS_PROPUESTA = ? , ID_TIPO_ESTADO_FK = 3  WHERE ID_ASESORIA = ?";
         PreparedStatement pst = null;
@@ -86,7 +111,7 @@ public class AsesoriaDAOImpl implements AsesoriaDAO {
             pst.setInt(3, as.getId_asesoria());
             result = pst.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(ProfesionalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AsesoriaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             //siempre cerrar la conexion y el pst
             try {
@@ -107,20 +132,20 @@ public class AsesoriaDAOImpl implements AsesoriaDAO {
         }
 
         return result;
-        
+
     }
 
     @Override
     public int EstadoAsesoriaAsignado(int idAsesoria) {
-        
+
         int result = 0;
-        String sql = "UPDATE ASESORIA SET ID_TIPO_ESTADO_FK  = 2   WHERE ID_ASESORIA ="+idAsesoria;
+        String sql = "UPDATE ASESORIA SET ID_TIPO_ESTADO_FK  = 2   WHERE ID_ASESORIA =" + idAsesoria;
         PreparedStatement pst = null;
         try {
             pst = conexion.prepareStatement(sql);
             result = pst.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(ProfesionalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AsesoriaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             //siempre cerrar la conexion y el pst
             try {
@@ -141,7 +166,7 @@ public class AsesoriaDAOImpl implements AsesoriaDAO {
         }
 
         return result;
-        
+
     }
 
 }
