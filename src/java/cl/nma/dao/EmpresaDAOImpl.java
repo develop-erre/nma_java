@@ -195,4 +195,90 @@ public class EmpresaDAOImpl implements EmpresaDAO {
         return emList;
     }
 
+    @Override
+    public List<EmpresaLista> listarEmpresaListaDes() {
+        
+        List<EmpresaLista> emList = new ArrayList<>();
+        String sql = "SELECT * FROM VISTA_LISTA_EMPRESAS_DES";
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            pst = conexion.prepareStatement(sql);
+            rs = pst.executeQuery();
+            EmpresaLista el;
+            while (rs.next()) {
+                el = new EmpresaLista();
+                el.setId_empresa(Integer.parseInt(rs.getString(1)));
+                el.setNombre(rs.getString(2));
+                el.setRut(rs.getString(3));
+                el.setNombre_suc(rs.getString(4));
+                el.setDireccion(rs.getString(5));
+                emList.add(el);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EmpresaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //siempre cerrar la conexion, rs y el pst
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return emList;
+        
+    }
+
+    @Override
+    public int habilitarEmpresa(Integer idem) {
+     
+        int result = 0;
+        String sql = "UPDATE EMPRESA SET ESTADO = 0 WHERE ID_EMPRESA = ?";
+        PreparedStatement pst = null;
+        try {
+            pst = conexion.prepareStatement(sql);
+            pst.setInt(1, idem);
+            result = pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //siempre cerrar la conexion y el pst
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return result;
+        
+    }
+
 }

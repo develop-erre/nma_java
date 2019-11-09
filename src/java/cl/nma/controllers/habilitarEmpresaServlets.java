@@ -5,6 +5,7 @@
  */
 package cl.nma.controllers;
 
+import cl.nma.dao.EmpresaDAOImpl;
 import cl.nma.dao.UsuarioDAOImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,10 +20,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Richard Foncea
+ * @author Sammy Guergachi <sguergachi at gmail.com>
  */
-@WebServlet(name = "habilitarUsuarioServlets", urlPatterns = {"/habilitarUsuario"})
-public class habilitarUsuarioServlets extends HttpServlet {
+@WebServlet(name = "habilitarEmpresaServlets", urlPatterns = {"/habilitarEmpresa"})
+public class habilitarEmpresaServlets extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +42,10 @@ public class habilitarUsuarioServlets extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet habilitarUsuarioServlets</title>");            
+            out.println("<title>Servlet habilitarEmpresaServlets</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet habilitarUsuarioServlets at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet habilitarEmpresaServlets at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -77,18 +78,18 @@ public class habilitarUsuarioServlets extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        Integer idUser = Integer.parseInt(request.getParameter("id_prof_hab"));
+        Integer idUser = Integer.parseInt(request.getParameter("id_empresa_des"));
 
         try {
-            UsuarioDAOImpl proDAO = new UsuarioDAOImpl();
-            proDAO.habilitar(idUser);
+            EmpresaDAOImpl emDAO = new EmpresaDAOImpl();
+            emDAO.habilitarEmpresa(idUser);
 
-            request.getRequestDispatcher("listaProfesionalDes").forward(request, response); 
+            response.sendRedirect("listarEmpresasDes");
+            //request.getRequestDispatcher("listarEmpresasDes").forward(request, response); 
             
         } catch (SQLException ex) {
-            Logger.getLogger(habilitarUsuarioServlets.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        
+            Logger.getLogger(habilitarEmpresaServlets.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

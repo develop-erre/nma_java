@@ -11,10 +11,14 @@ public interface EmpresaDAO {
     int agregar(Empresa em);
 
     int eliminar(Integer idem);
+    
+    int habilitarEmpresa(Integer idem);
 
     List<Empresa> listarEmpresa();
     
     List<EmpresaLista> listarEmpresaLista();
+    
+    List<EmpresaLista> listarEmpresaListaDes();
     
     Empresa obtenerEmpresaPorId(Integer id);
 }

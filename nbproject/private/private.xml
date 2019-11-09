@@ -3,7 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Richard%20Foncea/Documents/NetBeansProjects/nma/web/ejecutarAsesoria.jsp</file>
+            <file>file:/C:/Users/Richard%20Foncea/Documents/NetBeansProjects/nma/web/listaProfesionales.jsp</file>
+            <file>file:/C:/Users/Richard%20Foncea/Documents/NetBeansProjects/nma/src/java/cl/nma/controllers/listaProfesionalAsignacionAsesoriaServlets.java</file>
+            <file>file:/C:/Users/Richard%20Foncea/Documents/NetBeansProjects/nma/src/java/cl/nma/controllers/listProfesionalServlets.java</file>
+            <file>file:/C:/Users/Richard%20Foncea/Documents/NetBeansProjects/nma/web/actualizarprofesional.jsp</file>
+            <file>file:/C:/Users/Richard%20Foncea/Documents/NetBeansProjects/nma/src/java/cl/nma/dao/UsuarioDAOImpl.java</file>
+            <file>file:/C:/Users/Richard%20Foncea/Documents/NetBeansProjects/nma/src/java/cl/nma/controllers/listaProfesionalDesServlets.java</file>
+            <file>file:/C:/Users/Richard%20Foncea/Documents/NetBeansProjects/nma/web/menuAdmin.jsp</file>
         </group>
     </open-files>
 </project-private>

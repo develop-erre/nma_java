@@ -5,10 +5,13 @@
  */
 package cl.nma.controllers;
 
-import cl.nma.dao.UsuarioDAOImpl;
+import cl.nma.dao.EmpresaDAOImpl;
+import cl.nma.dominio.EmpresaLista;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -19,10 +22,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Richard Foncea
+ * @author Sammy Guergachi <sguergachi at gmail.com>
  */
-@WebServlet(name = "habilitarUsuarioServlets", urlPatterns = {"/habilitarUsuario"})
-public class habilitarUsuarioServlets extends HttpServlet {
+@WebServlet(name = "listarEmpresasDesabilitadasServlets", urlPatterns = {"/listarEmpresasDes"})
+public class listarEmpresasDesabilitadasServlets extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +44,10 @@ public class habilitarUsuarioServlets extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet habilitarUsuarioServlets</title>");            
+            out.println("<title>Servlet listarEmpresasDesabilitadasServlets</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet habilitarUsuarioServlets at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet listarEmpresasDesabilitadasServlets at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,7 +65,19 @@ public class habilitarUsuarioServlets extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        List<EmpresaLista> lista = new ArrayList();
+        try {
+            EmpresaDAOImpl emDesDAO = new EmpresaDAOImpl();
+            lista = emDesDAO.listarEmpresaListaDes();
+
+            request.setAttribute("listaEmpeDes", lista);
+            request.getRequestDispatcher("listaEmpresaDes.jsp").forward(request, response);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(listarEmpresasDesabilitadasServlets.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        
     }
 
     /**
@@ -77,18 +92,17 @@ public class habilitarUsuarioServlets extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        Integer idUser = Integer.parseInt(request.getParameter("id_prof_hab"));
-
+        List<EmpresaLista> lista = new ArrayList();
         try {
-            UsuarioDAOImpl proDAO = new UsuarioDAOImpl();
-            proDAO.habilitar(idUser);
+            EmpresaDAOImpl emDesDAO = new EmpresaDAOImpl();
+            lista = emDesDAO.listarEmpresaListaDes();
 
-            request.getRequestDispatcher("listaProfesionalDes").forward(request, response); 
-            
+            request.setAttribute("listaEmpeDes", lista);
+            request.getRequestDispatcher("listaEmpresaDes.jsp").forward(request, response);
+
         } catch (SQLException ex) {
-            Logger.getLogger(habilitarUsuarioServlets.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(listarEmpresasDesabilitadasServlets.class.getName()).log(Level.SEVERE, null, ex);
         } 
-        
     }
 
     /**
