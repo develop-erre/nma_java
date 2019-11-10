@@ -44,7 +44,7 @@ public class listaEmpresaListServlets extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet listaEmpresaListServlets</title>");            
+            out.println("<title>Servlet listaEmpresaListServlets</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet listaEmpresaListServlets at " + request.getContextPath() + "</h1>");
@@ -65,19 +65,18 @@ public class listaEmpresaListServlets extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         List<EmpresaLista> lista = new ArrayList();
         try {
             EmpresaDAOImpl empDAO = new EmpresaDAOImpl();
             lista = empDAO.listarEmpresaLista();
-            
+
+            request.setAttribute("listaEmp", lista);
+            request.getRequestDispatcher("listaEmpresas.jsp").forward(request, response);
+
         } catch (SQLException ex) {
             Logger.getLogger(listaEmpresaListServlets.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        request.setAttribute("listaEmp", lista);
-        request.getRequestDispatcher("listaEmpresas.jsp").forward(request, response);
-        
     }
 
     /**
@@ -91,12 +90,12 @@ public class listaEmpresaListServlets extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-         List<EmpresaLista> lista = new ArrayList();
+
+        List<EmpresaLista> lista = new ArrayList();
         try {
             EmpresaDAOImpl empDAO = new EmpresaDAOImpl();
             lista = empDAO.listarEmpresaLista();
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(listaEmpresaListServlets.class.getName()).log(Level.SEVERE, null, ex);
         }

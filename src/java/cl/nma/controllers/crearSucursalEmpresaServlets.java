@@ -5,7 +5,9 @@
  */
 package cl.nma.controllers;
 
+import cl.nma.dao.DireccionDAOImpl;
 import cl.nma.dao.SucursalDAOImpl;
+import cl.nma.dominio.Direccion;
 import cl.nma.dominio.Sucursal;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -81,21 +83,32 @@ public class crearSucursalEmpresaServlets extends HttpServlet {
         
         request.setCharacterEncoding("UTF-8");
         
-        String nombreSucursal = request.getParameter("txtNombreSucursal");
-        String direccion = request.getParameter("txtDireccion")+" #"+request.getParameter("txtNumero");
-        int idEmpresa = Integer.parseInt(request.getParameter("idEmpresa"));
+        String nombre_calle = request.getParameter("txtDireccion");
+        String numero = request.getParameter("txtNumero");
         int idComuna = Integer.parseInt(request.getParameter("selectComunaId"));
+        
+        String nombreSucursal = request.getParameter("txtNombreSucursal");
+        int idEmpresa = Integer.parseInt(request.getParameter("idEmpresa"));
         
         try {
             
+            //SE AGREGA DIRECCION
+            DireccionDAOImpl dicDAO = new DireccionDAOImpl();
+            Direccion dir = new Direccion();
+            dir.setNombre_calle(nombre_calle.toUpperCase());
+            dir.setNumero(numero);
+            dir.setId_comuna_fk(idComuna);
+
+            int idDireccion = dicDAO.agregar(dir);
+            
+            //SE AGREGA SUCURSAL 
             SucursalDAOImpl sucDAO = new SucursalDAOImpl();
             Sucursal suc = new Sucursal();
             suc.setNombre(nombreSucursal.toUpperCase());
-            suc.setDireccion(direccion.toUpperCase());
-            suc.setId_comuna_suc_fk(idComuna);
+            suc.setId_direccion_suc_fk(idDireccion);
             suc.setId_empresa_fk(idEmpresa);
             
-            sucDAO.agregar(suc);
+            sucDAO.agregarSucursal(suc);
             
             request.getRequestDispatcher("listaEmpresa").forward(request, response);
             

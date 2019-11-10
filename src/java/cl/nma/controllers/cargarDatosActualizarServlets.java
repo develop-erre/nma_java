@@ -111,7 +111,7 @@ public class cargarDatosActualizarServlets extends HttpServlet {
 
                 /* descomprimir direccion*/
                 // Direccion competa
-                String sTexto = us.getDireccion();
+                String sTexto = "sfsdfsd";
                 // Texto que vamos a buscar
                 String sTextoBuscado = "#";
                 //trae la posicion del caracter #
@@ -124,7 +124,6 @@ public class cargarDatosActualizarServlets extends HttpServlet {
 
                 String numero = sTexto.substring(posCaracter + 1);
                 System.out.println("el numero: " + numero.trim());
-                System.out.println("idComuna: " + us.getId_comuna_us_fk());
                 System.out.println("fecha : "+us.getFecha_nac());
 
                 request.setAttribute("getId_usuario", us.getId_usuario());
@@ -136,7 +135,6 @@ public class cargarDatosActualizarServlets extends HttpServlet {
                 request.setAttribute("getDireccion", direccion);
                 request.setAttribute("getNumero", numero);
                 request.setAttribute("getFecha_nac", us.getFecha_nac());
-                request.setAttribute("getId_comuna_us_fk", us.getId_comuna_us_fk());
                 request.setAttribute("idRol", idrol);
                 
                 

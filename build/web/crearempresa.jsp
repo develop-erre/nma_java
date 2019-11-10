@@ -117,9 +117,9 @@
                             <span class="input-group-text"><i class="fas fa-home"></i></span>
                             <input type="number" class="form-control" id="inputNumeroEmp4" name = "txtNumero" placeholder="Ingrece número" min="1" max="99999" required="">
                         </div>
-
                     </div>
-                    <div class="form-group col-md-6">
+                    
+                    <div class="form-group col-md-4">
                         <label for="inputCity">Región - Comuna</label>
                         <select name="selectComunaId" id="selectComunaId4" class="form-control" required="">
                             <option value="0">SELECCIONE</option>

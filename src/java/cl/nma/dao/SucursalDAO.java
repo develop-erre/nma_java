@@ -16,7 +16,9 @@ public interface SucursalDAO {
     
     int actualizar(Sucursal suc);
     
-    int agregar(Sucursal suc);
+    int agregarSucursalCasaMatriz(Sucursal suc);
+    
+    int agregarSucursal(Sucursal suc);
 
     int eliminar(Integer idsuc);
 

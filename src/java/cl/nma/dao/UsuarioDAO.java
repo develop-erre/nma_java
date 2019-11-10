@@ -6,6 +6,7 @@
 package cl.nma.dao;
 
 import cl.nma.dominio.Usuario;
+import cl.nma.dominio.UsuarioLista;
 import java.util.List;
 
 /**
@@ -18,7 +19,6 @@ public interface UsuarioDAO {
     
     Usuario buscarUsuarioPorId(int id);
     
-    int agregar(Usuario usuario);
     
     int agregarUsuarioEmpresa(Usuario usuario);
     
@@ -26,13 +26,11 @@ public interface UsuarioDAO {
     
     int deshabilitarProfesional(int id);
 
-    int eliminar(Integer idusuario);
-    
     int habilitar(Integer idusuario);
     
-    List<Usuario> listarProfesionalHabilitado();
+    List<UsuarioLista> listarProfesionalHabilitado();
     
-    List<Usuario> listarProfesionalDeshabilitado();
+    List<UsuarioLista> listarProfesionalDeshabilitado();
 
     List<Usuario> listarUsuario();
     

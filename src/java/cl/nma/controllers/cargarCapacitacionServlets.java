@@ -7,6 +7,7 @@ package cl.nma.controllers;
 
 import cl.nma.dao.UsuarioDAOImpl;
 import cl.nma.dominio.Usuario;
+import cl.nma.dominio.UsuarioLista;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -83,7 +84,7 @@ public class cargarCapacitacionServlets extends HttpServlet {
         String idSucursal = request.getParameter("txtIdSucursal");
 
         //CARGAR PROFESIONALES
-        List<Usuario> listaProf = new ArrayList();
+        List<UsuarioLista> listaProf = new ArrayList();
         try {
             UsuarioDAOImpl profDAO = new UsuarioDAOImpl();
             listaProf = profDAO.listarProfesionalHabilitado();

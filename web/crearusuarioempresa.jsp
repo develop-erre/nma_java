@@ -54,7 +54,7 @@
         <div class="container-fluid">
             <h3>Crear Usuario Empresa </h3>
             <form action="crearusuarioempresa" method="POST" onsubmit="return validarCrearUsuarioEmpresa();">
-                
+
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="inputNombre4">Nombre</label>
@@ -100,17 +100,25 @@
                             <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                             <input type="text" class="form-control" id="inputDireccion4" name = "txtDireccion" placeholder="Ingrece Dirección" required="" maxlength="80">
                         </div>
-
                     </div>
+                    
                     <div class="form-group col-md-2">
                         <label for="inputAddress">Número</label>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-home"></i></span>
                             <input type="number" class="form-control" id="inputNumero4" name = "txtNumero" placeholder="Ingrece número" required="" min="1" max="99999">
                         </div>
-
                     </div>
-                    <div class="form-group col-md-6">
+
+                    <div class="form-group col-md-2">
+                        <label for="inputAddress">Depto (opcional)</label>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-home"></i></span>
+                            <input type="number" class="form-control" id="inputNumero4" name = "txtDepto" placeholder="Ingrece número" min="1" max="99999">
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4">
                         <label for="inputRegion4">Región - Comuna</label>
                         <select name="selectComunaId" id="inputRegion4" class="form-control" required="">
                             <option value="0">SELECCIONE</option>
@@ -127,7 +135,7 @@
                         <select name="txtIdEmpresa" id="empresaIdSelect" class="form-control" required="">
                             <option value="0">SELECCIONE</option>
                             <c:forEach items="${listaEmp}" var="empresa">
-                                <option value="${empresa.id_empresa}">${empresa.nombre}</option>
+                                <option value="${empresa.id_empresa}">${empresa.nombre_empresa}</option>
                             </c:forEach>
                         </select>
                     </div>

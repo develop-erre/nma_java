@@ -5,9 +5,11 @@
  */
 package cl.nma.controllers;
 
+import cl.nma.dao.DireccionDAOImpl;
 import cl.nma.dao.EmpresaDAOImpl;
 import cl.nma.dao.RegionComunaDAOImpl;
 import cl.nma.dao.UsuarioDAOImpl;
+import cl.nma.dominio.Direccion;
 import cl.nma.dominio.EmpresaLista;
 import cl.nma.dominio.RegionComuna;
 import cl.nma.dominio.Usuario;
@@ -81,6 +83,8 @@ public class crearUsuarioEmpresa extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        request.setCharacterEncoding("UTF-8");
+
         List<EmpresaLista> lista = new ArrayList();
         List<RegionComuna> listaComuna = new ArrayList();
         try {
@@ -90,13 +94,14 @@ public class crearUsuarioEmpresa extends HttpServlet {
             RegionComunaDAOImpl rcDAO = new RegionComunaDAOImpl();
             listaComuna = rcDAO.listar();
 
-        } catch (SQLException ex) { 
+            request.setAttribute("listaEmp", lista);
+            request.setAttribute("listaReg", listaComuna);
+            request.getRequestDispatcher("crearusuarioempresa.jsp").forward(request, response);
+
+        } catch (SQLException ex) {
             Logger.getLogger(crearUsuarioEmpresa.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        request.setAttribute("listaEmp", lista);
-        request.setAttribute("listaReg", listaComuna);
-        request.getRequestDispatcher("crearusuarioempresa.jsp").forward(request, response);
     }
 
     /**
@@ -113,31 +118,44 @@ public class crearUsuarioEmpresa extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
+        String nombre_calle = request.getParameter("txtDireccion");
+        String numero = request.getParameter("txtNumero");
+        String depto = request.getParameter("txtDepto");
+        int comunaId = Integer.parseInt(request.getParameter("selectComunaId"));
+        
         String nombre = request.getParameter("txtNombre");
         String apellidos = request.getParameter("txtApellidos");
         String run = request.getParameter("txtRun");
-        //String pass = request.getParameter("txtPassword");
-        String direccion = request.getParameter("txtDireccion") + " #" + request.getParameter("txtNumero");
         String fechaNac = (request.getParameter("txtFechaNac"));
         String email = request.getParameter("txtEmail");
         String telefono = request.getParameter("txtTelefono");
         int estado = 0;
-        int comunaId = Integer.parseInt(request.getParameter("selectComunaId"));
+        
         int empresaId = Integer.parseInt(request.getParameter("txtIdEmpresa"));
 
         try {
+            
+            DireccionDAOImpl dicDAO = new DireccionDAOImpl();
+
+            Direccion dir = new Direccion();
+            dir.setNombre_calle(nombre_calle.toUpperCase());
+            dir.setNumero(numero);
+            dir.setDepto(depto);
+            dir.setId_comuna_fk(comunaId);
+
+            int idDireccion = dicDAO.agregar(dir);
+            
             UsuarioDAOImpl usuEmpfDAO = new UsuarioDAOImpl();
 
             Usuario usu = new Usuario();
             usu.setNombre(nombre.toUpperCase());
             usu.setApellidos(apellidos.toUpperCase());
             usu.setRut(run);
-            usu.setDireccion(direccion.toUpperCase());
+            usu.setId_direccion_fk(idDireccion);
             usu.setFecha_nac(castDate(fechaNac));
             usu.setEmail(email.toUpperCase());
             usu.setTelefono(telefono);
             usu.setEstado(estado);
-            usu.setId_comuna_us_fk(comunaId);
             usu.setId_rol_fk(3);
             usu.setId_empresa_fk(empresaId);
 
@@ -159,7 +177,7 @@ public class crearUsuarioEmpresa extends HttpServlet {
 
             //SE INSERTA EN BASE DE DATOS
             usuEmpfDAO.agregarUsuarioEmpresa(usu);
-            
+
 //           int idCl = usuEmpfDAO.agregarUsuarioEmpresa(usu);
 //            if (idCl > 0) {
 //
@@ -198,7 +216,6 @@ public class crearUsuarioEmpresa extends HttpServlet {
 //                System.out.println("Correo electronico enviado");
 //
 //            }
-
             request.getRequestDispatcher("home.jsp").forward(request, response);
 
         } catch (SQLException | ParseException ex) {

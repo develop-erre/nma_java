@@ -9,21 +9,30 @@ public class Usuario {
     private String _apellidos;
     private String _rut;
     private String _password;
-    private String _direccion;
+    private int _id_direccion_fk;
     private Date _fecha_nac;
     private String _email;
     private String _telefono;
     private int _estado;
-    private int _id_comuna_us_fk;
     private int _id_rol_fk;
     private int id_empresa_fk;
 
     public Usuario() {
     }
 
-    public Usuario(String rut, String contrasenia) {
-        this._rut = rut;
-        this._password = contrasenia;
+    public Usuario(int _id_usuario, String _nombre, String _apellidos, String _rut, String _password, int _id_direccion_fk, Date _fecha_nac, String _email, String _telefono, int _estado, int _id_rol_fk, int id_empresa_fk) {
+        this._id_usuario = _id_usuario;
+        this._nombre = _nombre;
+        this._apellidos = _apellidos;
+        this._rut = _rut;
+        this._password = _password;
+        this._id_direccion_fk = _id_direccion_fk;
+        this._fecha_nac = _fecha_nac;
+        this._email = _email;
+        this._telefono = _telefono;
+        this._estado = _estado;
+        this._id_rol_fk = _id_rol_fk;
+        this.id_empresa_fk = id_empresa_fk;
     }
 
     public int getId_usuario() {
@@ -66,12 +75,12 @@ public class Usuario {
         this._password = _password;
     }
 
-    public String getDireccion() {
-        return _direccion;
+    public int getId_direccion_fk() {
+        return _id_direccion_fk;
     }
 
-    public void setDireccion(String _direccion) {
-        this._direccion = _direccion;
+    public void setId_direccion_fk(int _id_direccion_fk) {
+        this._id_direccion_fk = _id_direccion_fk;
     }
 
     public Date getFecha_nac() {
@@ -106,14 +115,6 @@ public class Usuario {
         this._estado = _estado;
     }
 
-    public int getId_comuna_us_fk() {
-        return _id_comuna_us_fk;
-    }
-
-    public void setId_comuna_us_fk(int _id_comuna_us_fk) {
-        this._id_comuna_us_fk = _id_comuna_us_fk;
-    }
-
     public int getId_rol_fk() {
         return _id_rol_fk;
     }
@@ -129,12 +130,7 @@ public class Usuario {
     public void setId_empresa_fk(int id_empresa_fk) {
         this.id_empresa_fk = id_empresa_fk;
     }
-
-    @Override
-    public String toString() {
-        return "Usuario{" + "_id_usuario=" + _id_usuario + ", _nombre=" + _nombre + ", _apellidos=" + _apellidos + ", _rut=" + _rut + ", _password=" + _password + ", _direccion=" + _direccion + ", _fecha_nac=" + _fecha_nac + ", _email=" + _email + ", _telefono=" + _telefono + ", _estado=" + _estado + ", _id_comuna_us_fk=" + _id_comuna_us_fk + ", _id_rol_fk=" + _id_rol_fk + ", id_empresa_fk=" + id_empresa_fk + '}';
-    }
-
+    
     public String createPassword (String date){
         
         String pass;

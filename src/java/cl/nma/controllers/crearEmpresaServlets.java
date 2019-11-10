@@ -6,10 +6,12 @@
 package cl.nma.controllers;
 
 import cl.nma.dao.ContratoDAOImpl;
+import cl.nma.dao.DireccionDAOImpl;
 import cl.nma.dao.EmpresaDAOImpl;
 import cl.nma.dao.RegionComunaDAOImpl;
 import cl.nma.dao.SucursalDAOImpl;
 import cl.nma.dominio.Contrato;
+import cl.nma.dominio.Direccion;
 import cl.nma.dominio.Empresa;
 import cl.nma.dominio.RegionComuna;
 import cl.nma.dominio.Sucursal;
@@ -51,7 +53,7 @@ public class crearEmpresaServlets extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet crearEmpresaServlets</title>");            
+            out.println("<title>Servlet crearEmpresaServlets</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet crearEmpresaServlets at " + request.getContextPath() + "</h1>");
@@ -72,14 +74,14 @@ public class crearEmpresaServlets extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         List<RegionComuna> listaComuna = new ArrayList();
         try {
-            
+
             RegionComunaDAOImpl rcDAO = new RegionComunaDAOImpl();
             listaComuna = rcDAO.listar();
 
-        } catch (SQLException ex) { 
+        } catch (SQLException ex) {
             Logger.getLogger(crearEmpresaServlets.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -98,9 +100,9 @@ public class crearEmpresaServlets extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         request.setCharacterEncoding("UTF-8");
-        
+
         //EMPRESA
         String nombre = request.getParameter("txtNombre").toUpperCase();
         String rut = request.getParameter("txtRut");
@@ -108,17 +110,16 @@ public class crearEmpresaServlets extends HttpServlet {
         String telefono = request.getParameter("txtTelefono");
         int estado = 0;
         int rubroId = Integer.parseInt(request.getParameter("selectRubro"));
-        
+
         //SUCURSAL
         String nombreSuc = "";
-        String numeroDir = request.getParameter("txtNumero");
-        String direccion = request.getParameter("txtDireccion").toUpperCase()+" #"+numeroDir;
+        String nombre_calle = request.getParameter("txtDireccion");
+        String numero = request.getParameter("txtNumero");
         int comunaId = Integer.parseInt(request.getParameter("selectComunaId"));
-        
+
         //CONTRATO
         int valorContrato = Integer.parseInt(request.getParameter("txtValor"));
         String descripcion = request.getParameter("textareaDescripcion");
-        
 
         try {
             //SE CREA EMPRESA
@@ -132,32 +133,41 @@ public class crearEmpresaServlets extends HttpServlet {
             em.setEstado(estado);
             em.setId_rubro_fk(rubroId);
             nombreSuc = em.nombreSucursal(em.getNombre());
-           
+
             //SE GUARDA ID EMPRESA EN VARIABLE 
-            int IdEmpresa ;
+            int IdEmpresa;
             IdEmpresa = emDAO.agregar(em);
+
+            DireccionDAOImpl dicDAO = new DireccionDAOImpl();
+
+            Direccion dir = new Direccion();
+            dir.setNombre_calle(nombre_calle.toUpperCase());
+            dir.setNumero(numero);
+            dir.setId_comuna_fk(comunaId);
+
+            int idDireccion = dicDAO.agregar(dir);
 
             //SE CREA SUCURSAL
             SucursalDAOImpl sucDAO = new SucursalDAOImpl();
             Sucursal suc = new Sucursal();
             suc.setNombre(nombreSuc);
-            suc.setDireccion(direccion);
+            suc.setId_direccion_suc_fk(idDireccion);
             suc.setId_empresa_fk(IdEmpresa);
-            suc.setId_comuna_suc_fk(comunaId);
             
-            sucDAO.agregar(suc);
-            
+
+            sucDAO.agregarSucursalCasaMatriz(suc);
+
             //SE CREA CONTRATO
             ContratoDAOImpl conDAO = new ContratoDAOImpl();
             Contrato con = new Contrato();
             con.setValor(valorContrato);
             con.setDescripcion(descripcion);
             con.setId_empresa_fk(IdEmpresa);
-            
+
             conDAO.agregar(con);
-            
+
             request.getRequestDispatcher("listaEmpresa").forward(request, response);
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(loginServlets.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -5,8 +5,10 @@
  */
 package cl.nma.controllers;
 
+import cl.nma.dao.DireccionDAOImpl;
 import cl.nma.dao.RegionComunaDAOImpl;
 import cl.nma.dao.UsuarioDAOImpl;
+import cl.nma.dominio.Direccion;
 import cl.nma.dominio.RegionComuna;
 import cl.nma.dominio.Usuario;
 import java.io.IOException;
@@ -85,7 +87,7 @@ public class createProfesional extends HttpServlet {
             RegionComunaDAOImpl rcDAO = new RegionComunaDAOImpl();
             listaComuna = rcDAO.listar();
 
-        } catch (SQLException ex) { 
+        } catch (SQLException ex) {
             Logger.getLogger(createProfesional.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -110,8 +112,9 @@ public class createProfesional extends HttpServlet {
         String nombre = request.getParameter("txtNombre");
         String apellidos = request.getParameter("txtApellidos");
         String run = request.getParameter("txtRun");
-        //String pass = request.getParameter("txtPassword");
-        String direccion = request.getParameter("txtDireccion") + " #" + request.getParameter("txtNumero");
+        String nombre_calle = request.getParameter("txtDireccion");
+        String numero = request.getParameter("txtNumero");
+        String depto = request.getParameter("txtDepto");
         String fechaNac = request.getParameter("txtFechaNac");
         String email = request.getParameter("txtEmail");
         String telefono = request.getParameter("txtTelefono");
@@ -119,18 +122,27 @@ public class createProfesional extends HttpServlet {
         int comunaId = Integer.parseInt(request.getParameter("selectComunaId"));
 
         try {
+            DireccionDAOImpl dicDAO = new DireccionDAOImpl();
+
+            Direccion dir = new Direccion();
+            dir.setNombre_calle(nombre_calle.toUpperCase());
+            dir.setNumero(numero);
+            dir.setDepto(depto);
+            dir.setId_comuna_fk(comunaId);
+
+            int idDireccion = dicDAO.agregar(dir);
+
             UsuarioDAOImpl profDAO = new UsuarioDAOImpl();
 
             Usuario user = new Usuario();
             user.setNombre(nombre.toUpperCase());
             user.setApellidos(apellidos.toUpperCase());
             user.setRut(run);
-            user.setDireccion(direccion.toUpperCase());
+            user.setId_direccion_fk(idDireccion);
             user.setFecha_nac(castDate(fechaNac));
             user.setEmail(email.toUpperCase());
             user.setTelefono(telefono);
             user.setEstado(estado);
-            user.setId_comuna_us_fk(comunaId);
             user.setId_rol_fk(2);
             //METODO CREAR CRONTRASEÑA ENTRE NOMBRE, APELLIDO Y FECHA DE NACIMIENTO
             String pass = user.createPassword(fechaNac);
@@ -150,7 +162,7 @@ public class createProfesional extends HttpServlet {
 
             //SE INSERTA EN BASE DE DATOS
             profDAO.agregarProfesional(user);
-            
+
 //            int idProf = profDAO.agregar(prof);
 //
 //            if (idProf > 0) {
@@ -205,13 +217,12 @@ public class createProfesional extends HttpServlet {
 //        } catch (MessagingException ex) {
 //            Logger.getLogger(createProfesional.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-         
+
 //          catch (AddressException ex) {
 //            Logger.getLogger(createProfesional.class.getName()).log(Level.SEVERE, null, ex);
 //        } catch (MessagingException ex) {
 //            Logger.getLogger(createProfesional.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-        
 //          catch (AddressException ex) {
 //            Logger.getLogger(createProfesional.class.getName()).log(Level.SEVERE, null, ex);
 //        } catch (MessagingException ex) {
@@ -219,7 +230,6 @@ public class createProfesional extends HttpServlet {
 //        }
     }
 
-    
     @Override
     public String getServletInfo() {
         return "Short description";

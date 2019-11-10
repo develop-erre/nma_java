@@ -103,11 +103,10 @@ public class actualizarUsuarioServlets extends HttpServlet {
             us.setNombre(nombre.toUpperCase());
             us.setApellidos(apellidos.toUpperCase());
             us.setRut(run);
-            us.setDireccion(direccion.toUpperCase());
+        //    us.setDireccion(direccion.toUpperCase());
             us.setFecha_nac(castDate(fechaNac));
             us.setEmail(email.toUpperCase());
             us.setTelefono(telefono);
-            us.setId_comuna_us_fk(comunaId);
             us.setId_usuario(idUsuario);
             
             usDAO.actualizar(us);

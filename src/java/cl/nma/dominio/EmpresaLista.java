@@ -11,62 +11,92 @@ package cl.nma.dominio;
  */
 public class EmpresaLista {
 
-    private int _id_empresa;
-    private String _nombre;
-    private String _rut;
-    private String _nombre_suc;
-    private String _direccion;
-
+    private int id_empresa;
+    private String nombre_empresa;
+    private String rut;
+    private String nombre_sucursal;
+    private String nombre_calle;
+    private String numero;
+    private String comuna;
+    private String region;
+    
     public EmpresaLista() {
+        
     }
 
-    public EmpresaLista(int _id_empresa, String _nombre, String _rut, String _nombre_suc, String _direccion) {
-        this._id_empresa = _id_empresa;
-        this._nombre = _nombre;
-        this._rut = _rut;
-        this._nombre_suc = _nombre_suc;
-        this._direccion = _direccion;
+    public EmpresaLista(int id_empresa, String nombre_empresa, String rut, String nombre_sucursal, String nombre_calle, String numero, String comuna, String region) {
+        this.id_empresa = id_empresa;
+        this.nombre_empresa = nombre_empresa;
+        this.rut = rut;
+        this.nombre_sucursal = nombre_sucursal;
+        this.nombre_calle = nombre_calle;
+        this.numero = numero;
+        this.comuna = comuna;
+        this.region = region;
     }
 
     public int getId_empresa() {
-        return _id_empresa;
+        return id_empresa;
     }
 
-    public void setId_empresa(int _id_empresa) {
-        this._id_empresa = _id_empresa;
+    public void setId_empresa(int id_empresa) {
+        this.id_empresa = id_empresa;
     }
 
-    public String getNombre() {
-        return _nombre;
+    public String getNombre_empresa() {
+        return nombre_empresa;
     }
 
-    public void setNombre(String _nombre) {
-        this._nombre = _nombre;
+    public void setNombre_empresa(String nombre_empresa) {
+        this.nombre_empresa = nombre_empresa;
     }
 
     public String getRut() {
-        return _rut;
+        return rut;
     }
 
-    public void setRut(String _rut) {
-        this._rut = _rut;
+    public void setRut(String rut) {
+        this.rut = rut;
     }
 
-    public String getNombre_suc() {
-        return _nombre_suc;
+    public String getNombre_sucursal() {
+        return nombre_sucursal;
     }
 
-    public void setNombre_suc(String _nombre_suc) {
-        this._nombre_suc = _nombre_suc;
+    public void setNombre_sucursal(String nombre_sucursal) {
+        this.nombre_sucursal = nombre_sucursal;
     }
 
-    public String getDireccion() {
-        return _direccion;
+    public String getNombre_calle() {
+        return nombre_calle;
     }
 
-    public void setDireccion(String _direccion) {
-        this._direccion = _direccion;
+    public void setNombre_calle(String nombre_calle) {
+        this.nombre_calle = nombre_calle;
     }
-    
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public String getComuna() {
+        return comuna;
+    }
+
+    public void setComuna(String comuna) {
+        this.comuna = comuna;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
     
 }

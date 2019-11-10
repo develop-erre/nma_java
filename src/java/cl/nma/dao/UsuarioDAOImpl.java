@@ -7,6 +7,7 @@ package cl.nma.dao;
 
 import cl.nma.database.DBUtil;
 import cl.nma.dominio.Usuario;
+import cl.nma.dominio.UsuarioLista;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,7 +40,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
                 + "SET NOMBRE = ? \n"
                 + ",APELLIDOS = ? \n"
                 + ",RUT= ? \n"
-                + ",DIRECCION= ? \n"
+                + ",ID_DIRECCION_FK= ? \n"
                 + ",FECHA_NACIMIENTO= ? \n"
                 + ",EMAIL= ?\n"
                 + ",TELEFONO= ?\n"
@@ -50,11 +51,10 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             pst.setString(1, us.getNombre());
             pst.setString(2, us.getApellidos());
             pst.setString(3, us.getRut());
-            pst.setString(4, us.getDireccion());
+            pst.setInt(4, us.getId_direccion_fk());
             pst.setDate(5, castDateDAOImpl(us.getFecha_nac()));
             pst.setString(6, us.getEmail());
             pst.setString(7, us.getTelefono());
-            pst.setInt(8, us.getId_comuna_us_fk());
             pst.setInt(9, us.getId_usuario());
             result = pst.executeUpdate();
         } catch (SQLException | ParseException ex) {
@@ -83,16 +83,6 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     }
 
     @Override
-    public int agregar(Usuario us) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int eliminar(Integer idus) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public List<Usuario> listarUsuario() {
 
         List<Usuario> usuarios = new ArrayList<>();
@@ -110,14 +100,13 @@ public class UsuarioDAOImpl implements UsuarioDAO {
                 usurio.setApellidos(rs.getString(3));
                 usurio.setRut(rs.getString(4));
                 usurio.setPassword(rs.getString(5));
-                usurio.setDireccion(rs.getString(6));
+                usurio.setId_direccion_fk(rs.getInt(6));
                 usurio.setFecha_nac(rs.getDate(7));
                 usurio.setEmail(rs.getString(8));
                 usurio.setTelefono(rs.getString(9));
                 usurio.setEstado(rs.getInt(10));
-                usurio.setId_comuna_us_fk(rs.getInt(11));
-                usurio.setId_rol_fk(rs.getInt(12));
-                usurio.setId_empresa_fk(rs.getInt(13));
+                usurio.setId_rol_fk(rs.getInt(11));
+                usurio.setId_empresa_fk(rs.getInt(12));
 
                 usuarios.add(usurio);
             }
@@ -172,7 +161,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
             for (Usuario var : usuarios) {
 
-                if (var.getRut().toString().equals(us) && var.getPassword().toString().equals(pass)) {
+                if (var.getRut().equals(us) && var.getPassword().equals(pass)) {
                     bandera = true;
                 }
             }
@@ -270,10 +259,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     public int agregarUsuarioEmpresa(Usuario usuario) {
 
         int id = 0;
-        String sql = "INSERT INTO USUARIO(NOMBRE, APELLIDOS,"
-                + "RUT,PASSWORD, DIRECCION,FECHA_NACIMIENTO,EMAIL,TELEFONO,ESTADO,"
-                + "ID_COMUNA_US_FK, ID_ROL_FK,ID_EMPRESA_FK) VALUES("
-                + "?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO USUARIO(NOMBRE,APELLIDOS,RUT,PASSWORD,ID_DIRECCION_FK,FECHA_NACIMIENTO,EMAIL,TELEFONO,ESTADO,"
+                + "ID_ROL_FK,ID_EMPRESA_FK) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 
         PreparedStatement pst = null;
         ResultSet rs = null;
@@ -283,14 +270,13 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             pst.setString(2, usuario.getApellidos());
             pst.setString(3, usuario.getRut());
             pst.setString(4, usuario.getPassword());
-            pst.setString(5, usuario.getDireccion());
+            pst.setInt(5, usuario.getId_direccion_fk());
             pst.setDate(6, castDateDAOImpl(usuario.getFecha_nac()));
             pst.setString(7, usuario.getEmail());
             pst.setString(8, usuario.getTelefono());
             pst.setInt(9, usuario.getEstado());
-            pst.setInt(10, usuario.getId_comuna_us_fk());
-            pst.setInt(11, usuario.getId_rol_fk());
-            pst.setInt(12, usuario.getId_empresa_fk());
+            pst.setInt(10, usuario.getId_rol_fk());
+            pst.setInt(11, usuario.getId_empresa_fk());
             int result = pst.executeUpdate();
 
             if (result == 0) {
@@ -353,8 +339,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
                 usuario.setRut(rs.getString(4));
                 usuario.setPassword(rs.getString(5));
                 usuario.setEstado(rs.getInt(10));
-                usuario.setId_rol_fk(rs.getInt(12));
-                usuario.setId_empresa_fk(rs.getInt(13));
+                usuario.setId_rol_fk(rs.getInt(11));
+                usuario.setId_empresa_fk(rs.getInt(12));
             }
 
         } catch (SQLException ex) {
@@ -412,12 +398,13 @@ public class UsuarioDAOImpl implements UsuarioDAO {
                 usuario.setNombre(rs.getString(2));
                 usuario.setApellidos(rs.getString(3));
                 usuario.setRut(rs.getString(4));
-                usuario.setDireccion(rs.getString(6));
+                usuario.setId_direccion_fk(rs.getInt(6));
                 usuario.setFecha_nac(rs.getDate(7));
                 usuario.setEmail(rs.getString(8));
                 usuario.setTelefono(rs.getString(9));
-                usuario.setId_comuna_us_fk(rs.getInt(11));
-                usuario.setId_rol_fk(rs.getInt(12));
+                usuario.setEstado(rs.getInt(10));
+                usuario.setId_rol_fk(rs.getInt(11));
+                usuario.setId_empresa_fk(rs.getInt(12));
             }
 
         } catch (SQLException ex) {
@@ -454,10 +441,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     public int agregarProfesional(Usuario usuario) {
 
         int id = 0;
-        String sql = "INSERT INTO USUARIO(NOMBRE, APELLIDOS,"
-                + "RUT,PASSWORD, DIRECCION,FECHA_NACIMIENTO,EMAIL,TELEFONO,ESTADO,"
-                + "ID_COMUNA_US_FK, ID_ROL_FK) VALUES("
-                + "?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO USUARIO(NOMBRE, APELLIDOS,RUT,PASSWORD,ID_DIRECCION_FK,FECHA_NACIMIENTO,EMAIL,TELEFONO,ESTADO,"
+                + "ID_ROL_FK) VALUES(?,?,?,?,?,?,?,?,?,?)";
 
         PreparedStatement pst = null;
         ResultSet rs = null;
@@ -467,13 +452,12 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             pst.setString(2, usuario.getApellidos());
             pst.setString(3, usuario.getRut());
             pst.setString(4, usuario.getPassword());
-            pst.setString(5, usuario.getDireccion());
+            pst.setInt(5, usuario.getId_direccion_fk());
             pst.setDate(6, castDateDAOImpl(usuario.getFecha_nac()));
             pst.setString(7, usuario.getEmail());
             pst.setString(8, usuario.getTelefono());
             pst.setInt(9, usuario.getEstado());
-            pst.setInt(10, usuario.getId_comuna_us_fk());
-            pst.setInt(11, usuario.getId_rol_fk());
+            pst.setInt(10, usuario.getId_rol_fk());
             int result = pst.executeUpdate();
 
             if (result == 0) {
@@ -554,12 +538,11 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     }
 
     @Override
-    public List<Usuario> listarProfesionalHabilitado() {
+    public List<UsuarioLista> listarProfesionalHabilitado() {
 
-        List<Usuario> lista = new ArrayList<>();
+        List<UsuarioLista> lista = new ArrayList<>();
 
-        String sql = "SELECT * FROM USUARIO WHERE ID_ROL_FK = 2 AND ESTADO = 0"
-                + " ORDER by 3 ASC;";
+        String sql = "SELECT * FROM VISTA_LISTA_USUARIOS";
 
         PreparedStatement pst = null;
         ResultSet rs = null;
@@ -568,18 +551,25 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             pst = conexion.prepareStatement(sql);
             rs = pst.executeQuery();
 
-            Usuario profesional = null;
+            UsuarioLista pf = null;
 
             while (rs.next()) {
-                profesional = new Usuario();
-                profesional.setId_usuario(rs.getInt(1));
-                profesional.setNombre(rs.getString(2));
-                profesional.setApellidos(rs.getString(3));
-                profesional.setRut(rs.getString(4));
-                profesional.setEmail(rs.getString(8));
-                profesional.setTelefono(rs.getString(9));
-                profesional.setId_rol_fk(rs.getInt(12));
-                lista.add(profesional);
+                pf = new UsuarioLista();
+                pf.setId_usuario(rs.getString(1));
+                pf.setNombre(rs.getString(2));
+                pf.setApellidos(rs.getString(3));
+                pf.setRut(rs.getString(4));
+                pf.setFecha_nacimiento(rs.getString(5));
+                pf.setEmail(rs.getString(6));
+                pf.setTelefono(rs.getString(7));
+                pf.setNombre_calle(rs.getString(8));
+                pf.setNumero(rs.getString(9));
+                pf.setDepto(rs.getString(10));
+                pf.setComuna(rs.getString(11));
+                pf.setRegion(rs.getString(12));
+                pf.setId_rol_fk(rs.getString(13));
+                pf.setId_empresa_fk(rs.getString(14));
+                lista.add(pf);
             }
 
         } catch (SQLException ex) {
@@ -614,12 +604,11 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     }
 
     @Override
-    public List<Usuario> listarProfesionalDeshabilitado() {
+    public List<UsuarioLista> listarProfesionalDeshabilitado() {
 
-        List<Usuario> lista = new ArrayList<>();
+        List<UsuarioLista> lista = new ArrayList<>();
 
-        String sql = "SELECT * FROM USUARIO WHERE ID_ROL_FK = 2 AND ESTADO=1"
-                + " ORDER by 3 ASC;";
+        String sql = "SELECT * FROM VISTA_LISTA_USUARIOS_DESHABILITADO";
         PreparedStatement pst = null;
         ResultSet rs = null;
 
@@ -627,18 +616,25 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             pst = conexion.prepareStatement(sql);
             rs = pst.executeQuery();
 
-            Usuario user;
+            UsuarioLista pf = null;
 
             while (rs.next()) {
-                user = new Usuario();
-                user.setId_usuario(rs.getInt(1));
-                user.setNombre(rs.getString(2));
-                user.setApellidos(rs.getString(3));
-                user.setRut(rs.getString(4));
-                user.setEmail(rs.getString(8));
-                user.setTelefono(rs.getString(9));
-                user.setId_rol_fk(rs.getInt(12));
-                lista.add(user);
+                pf = new UsuarioLista();
+                pf.setId_usuario(rs.getString(1));
+                pf.setNombre(rs.getString(2));
+                pf.setApellidos(rs.getString(3));
+                pf.setRut(rs.getString(4));
+                pf.setFecha_nacimiento(rs.getString(5));
+                pf.setEmail(rs.getString(6));
+                pf.setTelefono(rs.getString(7));
+                pf.setNombre_calle(rs.getString(8));
+                pf.setNumero(rs.getString(9));
+                pf.setDepto(rs.getString(10));
+                pf.setComuna(rs.getString(11));
+                pf.setRegion(rs.getString(12));
+                pf.setId_rol_fk(rs.getString(13));
+                pf.setId_empresa_fk(rs.getString(14));
+                lista.add(pf);
             }
 
         } catch (SQLException ex) {

@@ -92,7 +92,7 @@
                         <label for="inputTelefono4">Teléfono</label>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
-                            <input type="number" class="form-control" id="inputTelefono4" name = "txtTelefono" placeholder="Ingrece teléfono, Ej: 88225544 " required="" minlength="8"  maxlength="8" max="99999999">
+                            <input type="number" class="form-control" id="inputTelefono4" name = "txtTelefono" placeholder="Ingrece teléfono, Ej: 988225544 " required="" minlength="8"  maxlength="8" max="999999999">
                         </div>
 
                     </div>
@@ -108,14 +108,22 @@
 
                     </div>
                     <div class="form-group col-md-2">
-                        <label for="inputAddress">Número</label>
+                        <label for="inputNumero4">Número</label>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-home"></i></span>
                             <input type="number" class="form-control" id="inputNumero4" name = "txtNumero" placeholder="Ingrece número" min="1" max="99999" required="">
                         </div>
-
                     </div>
-                    <div class="form-group col-md-6">
+                    
+                    <div class="form-group col-md-2">
+                        <label for="inputDepto4">Depto (opcional)</label>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-home"></i></span>
+                            <input type="number" class="form-control" id="inputDepto4" name = "txtDepto" placeholder="Ingrece número" min="1" max="99999">
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4">
                         <label for="inputCity">Región - Comuna</label>
                         <select name="selectComunaId" id="inputComuna4" class="form-control" required="">
                             <option value="0">SELECCIONE</option>

@@ -159,10 +159,13 @@ public class EmpresaDAOImpl implements EmpresaDAO {
             while (rs.next()) {
                 el = new EmpresaLista();
                 el.setId_empresa(Integer.parseInt(rs.getString(1)));
-                el.setNombre(rs.getString(2));
+                el.setNombre_empresa(rs.getString(2));
                 el.setRut(rs.getString(3));
-                el.setNombre_suc(rs.getString(4));
-                el.setDireccion(rs.getString(5));
+                el.setNombre_sucursal(rs.getString(4));
+                el.setNombre_calle(rs.getString(5));
+                el.setNumero(rs.getString(6));
+                el.setComuna(rs.getString(7));
+                el.setRegion(rs.getString(8));
                 emList.add(el);
             }
         } catch (SQLException ex) {
@@ -197,7 +200,7 @@ public class EmpresaDAOImpl implements EmpresaDAO {
 
     @Override
     public List<EmpresaLista> listarEmpresaListaDes() {
-        
+
         List<EmpresaLista> emList = new ArrayList<>();
         String sql = "SELECT * FROM VISTA_LISTA_EMPRESAS_DES";
         PreparedStatement pst = null;
@@ -209,10 +212,13 @@ public class EmpresaDAOImpl implements EmpresaDAO {
             while (rs.next()) {
                 el = new EmpresaLista();
                 el.setId_empresa(Integer.parseInt(rs.getString(1)));
-                el.setNombre(rs.getString(2));
+                el.setNombre_empresa(rs.getString(2));
                 el.setRut(rs.getString(3));
-                el.setNombre_suc(rs.getString(4));
-                el.setDireccion(rs.getString(5));
+                el.setNombre_sucursal(rs.getString(4));
+                el.setNombre_calle(rs.getString(5));
+                el.setNumero(rs.getString(6));
+                el.setComuna(rs.getString(7));
+                el.setRegion(rs.getString(8));
                 emList.add(el);
             }
         } catch (SQLException ex) {
@@ -243,12 +249,12 @@ public class EmpresaDAOImpl implements EmpresaDAO {
             }
         }
         return emList;
-        
+
     }
 
     @Override
     public int habilitarEmpresa(Integer idem) {
-     
+
         int result = 0;
         String sql = "UPDATE EMPRESA SET ESTADO = 0 WHERE ID_EMPRESA = ?";
         PreparedStatement pst = null;
@@ -278,7 +284,7 @@ public class EmpresaDAOImpl implements EmpresaDAO {
         }
 
         return result;
-        
+
     }
 
 }

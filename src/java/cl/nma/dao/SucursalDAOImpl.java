@@ -36,22 +36,18 @@ public class SucursalDAOImpl implements SucursalDAO {
     }
 
     @Override
-    public int agregar(Sucursal suc) {
+    public int agregarSucursalCasaMatriz(Sucursal suc) {
 
         int id = 0;
-        String sql = "INSERT INTO SUCURSAL(NOMBRE, DIRECCION,"
-                + "ID_EMPRESA_FK,ID_COMUNA_SUC_FK)"
-                + "VALUES("
-                + "?,?,?,?)";
+        String sql = "INSERT INTO SUCURSAL(NOMBRE, ID_DIRECCION_SUC_FK,ID_EMPRESA_FK,CASA_MATRIZ) VALUES(?,?,?,0)";
 
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
             pst = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pst.setString(1, suc.getNombre());
-            pst.setString(2, suc.getDireccion());
+            pst.setInt(2, suc.getId_direccion_suc_fk());
             pst.setInt(3, suc.getId_empresa_fk());
-            pst.setInt(4, suc.getId_comuna_suc_fk());
             int result = pst.executeUpdate();
 
             if (result == 0) {
@@ -125,7 +121,7 @@ public class SucursalDAOImpl implements SucursalDAO {
                 suc = new Sucursal();
                 suc.setId_sucursal(Integer.parseInt(rs.getString(1)));
                 suc.setNombre(rs.getString(2));
-                suc.setDireccion(rs.getString(3));
+               // suc.setDireccion(rs.getString(3));
                 sucList.add(suc);
             }
         } catch (SQLException ex) {
@@ -157,5 +153,61 @@ public class SucursalDAOImpl implements SucursalDAO {
         }
         return sucList;
 
+    }
+
+    @Override
+    public int agregarSucursal(Sucursal suc) {
+        
+        int id = 0;
+        String sql = "INSERT INTO SUCURSAL(NOMBRE, ID_DIRECCION_SUC_FK,ID_EMPRESA_FK,CASA_MATRIZ) VALUES(?,?,?,1)";
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            pst = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            pst.setString(1, suc.getNombre());
+            pst.setInt(2, suc.getId_direccion_suc_fk());
+            pst.setInt(3, suc.getId_empresa_fk());
+            int result = pst.executeUpdate();
+
+            if (result == 0) {
+                throw new SQLException("No fue posible insertar el registro");
+            }
+
+            rs = pst.getGeneratedKeys();
+            while (rs.next()) {
+                id = rs.getInt(1); //devuelve la clave autogenerada por la BD
+                System.out.println("ID GENERADO:" + id);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(SucursalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //siempre cerrar la conexion, rs y el pst
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return id;
     }
 }

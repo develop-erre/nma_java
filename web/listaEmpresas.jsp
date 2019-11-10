@@ -72,17 +72,17 @@
                 <tbody>
                     <c:forEach items="${listaEmp}" var="empresa">
                         <tr>
-                            <td>${empresa.nombre}</td>
+                            <td>${empresa.nombre_empresa}</td>
                             <td>${empresa.rut}</td>
-                            <td>${empresa.nombre_suc}</td>
-                            <td>${empresa.direccion}</td>
+                            <td>${empresa.nombre_sucursal}</td>
+                            <td>${empresa.nombre_calle} #${empresa.numero} - ${empresa.comuna} - ${empresa.region}</td>
                             <td>
                                 
                                 <form action="listaReportesAccidentes" method="POST">
                                     <button type="submit" value="Accidentes" class="btn btn-warning" name="btnAnadirSucursal" title="Ver Reportes Accidentes"><i class="fas fa-search"></i> <i class="fas fa-exclamation-triangle"></i></button>
                                     
                                     <input type="hidden" name="id_emp" value="${empresa.id_empresa}" />
-                                    <input type="hidden" name="nom_emp" value="${empresa.nombre}" />
+                                    <input type="hidden" name="nom_emp" value="${empresa.nombre_empresa}" />
                                 </form>
                             </td>
                             <td>
@@ -90,14 +90,14 @@
                                 <form action="cargarAnadirSucursal" method="POST">
                                     <button type="submit"  class="btn btn-success" name="btnAnadirSucursal" title="Agregar Sucursal"><i class="fas fa-plus"></i> <i class="fas fa-building"></i></button>
                                     <input type="hidden" name="id_emp" value="${empresa.id_empresa}" />
-                                    <input type="hidden" name="nom_emp" value="${empresa.nombre}" />
+                                    <input type="hidden" name="nom_emp" value="${empresa.nombre_empresa}" />
                                 </form>
                             </td>
                             <td>
                                 <form action="listasucursal" method="POST">
                                     <button type="submit" value="Sucursal" class="btn btn-primary" name="btnSucursal" title="Ver Sucursales"><i class="fas fa-search"></i> <i class="fas fa-building"></i></button>
                                     <input type="hidden" name="id_emp" value="${empresa.id_empresa}" />
-                                    <input type="hidden" name="nom_emp" value="${empresa.nombre}" />
+                                    <input type="hidden" name="nom_emp" value="${empresa.nombre_empresa}" />
                                 </form>
                             </td>
 

@@ -1,20 +1,38 @@
 /*
+VISTA TRAE REGION Y COMUNA CONCATENADA
+*/
+
+CREATE VIEW 
+vista_region_comuna AS
+SELECT 
+    comuna.id_comuna
+    ,CONCAT(region.nombre_region, " - ",comuna.nombre_comuna) AS nombre_comuna
+FROM comuna
+    JOIN region ON comuna.id_region_fk = region.id_region
+ORDER BY 1 DESC;
+
+
+/*
 CREACION DE VISTA DE EMPRESAS 
 DONDE SOLO SE VERA LA CASA MATRIZ COMO LA DIRECCION
 */
 CREATE VIEW 
     vista_lista_empresas AS 
 SELECT 
-    empresa.id_empresa id,
-    empresa.nombre nombre,
+    empresa.id_empresa id_empresa,
+    empresa.nombre nombre_empresa,
     empresa.rut rut,
     sucursal.nombre nombre_sucursal,
-    CONCAT(sucursal.direccion, " - ",comuna.nombre_comuna, " - ",region.nombre_region) AS direccion_empresa
+    direccion.nombre_calle,
+    direccion.numero,
+    comuna.nombre_comuna comuna,
+    region.nombre_region region
 FROM empresa 
-    JOIN sucursal ON id_empresa_fk = empresa.id_empresa
-    JOIN comuna ON sucursal.id_comuna_suc_fk = comuna.id_comuna
+    JOIN sucursal ON sucursal.id_empresa_fk = empresa.id_empresa
+    JOIN direccion ON sucursal.id_direccion_suc_fk = direccion.id_direccion
+    JOIN comuna ON comuna.id_comuna = direccion.id_comuna_fk
     JOIN region ON comuna.id_region_fk = region.id_region
-WHERE sucursal.nombre LIKE 'CASA MATRIZ%' AND empresa.estado = 0
+WHERE sucursal.casa_matriz=0 AND empresa.estado = 0
 ORDER BY 2 ASC;
 
 /*
@@ -24,17 +42,79 @@ DONDE SOLO SE LISTARA LAS EMPRESAS DESHABILITADAS
 CREATE VIEW 
     vista_lista_empresas_des AS 
 SELECT 
-    empresa.id_empresa id,
-    empresa.nombre nombre,
+    empresa.id_empresa id_empresa,
+    empresa.nombre nombre_empresa,
     empresa.rut rut,
     sucursal.nombre nombre_sucursal,
-    CONCAT(sucursal.direccion, " - ",comuna.nombre_comuna, " - ",region.nombre_region) AS direccion_empresa
+    direccion.nombre_calle,
+    direccion.numero,
+    comuna.nombre_comuna comuna,
+    region.nombre_region region
 FROM empresa 
-    JOIN sucursal ON id_empresa_fk = empresa.id_empresa
-    JOIN comuna ON sucursal.id_comuna_suc_fk = comuna.id_comuna
+    JOIN sucursal ON sucursal.id_empresa_fk = empresa.id_empresa
+    JOIN direccion ON sucursal.id_direccion_suc_fk = direccion.id_direccion
+    JOIN comuna ON comuna.id_comuna = direccion.id_comuna_fk
     JOIN region ON comuna.id_region_fk = region.id_region
-WHERE sucursal.nombre LIKE 'CASA MATRIZ%' AND empresa.estado = 1
+WHERE sucursal.casa_matriz=0 AND empresa.estado = 1
 ORDER BY 2 ASC;
+
+/*
+CREACION DE VISTA DE USUARIO 
+DONDE SOLO SE LISTARA USUARIOS HABILITADOS
+*/
+CREATE VIEW 
+    vista_lista_usuarios AS 
+SELECT 
+    usuario.id_usuario,
+    usuario.nombre,
+    usuario.apellidos,
+    usuario.rut,
+    usuario.fecha_nacimiento,
+    usuario.email,
+    usuario.telefono,
+    direccion.nombre_calle,
+    direccion.numero,
+    direccion.depto,
+    comuna.nombre_comuna comuna,
+    region.nombre_region region,
+    usuario.id_rol_fk,
+    usuario.id_empresa_fk
+FROM usuario 
+    JOIN direccion ON usuario.id_direccion_fk = direccion.id_direccion
+    JOIN comuna ON comuna.id_comuna = direccion.id_comuna_fk
+    JOIN region ON comuna.id_region_fk = region.id_region
+WHERE usuario.id_rol_fk=2 AND usuario.estado = 0
+ORDER BY 3 ASC;
+
+
+/*
+CREACION DE VISTA DE USUARIO DESHABILITADO
+DONDE SOLO SE LISTARA USUARIOS DESHABILITADO
+*/
+CREATE VIEW 
+    vista_lista_usuarios_deshabilitado AS 
+SELECT 
+    usuario.id_usuario,
+    usuario.nombre,
+    usuario.apellidos,
+    usuario.rut,
+    usuario.fecha_nacimiento,
+    usuario.email,
+    usuario.telefono,
+    direccion.nombre_calle,
+    direccion.numero,
+    direccion.depto,
+    comuna.nombre_comuna comuna,
+    region.nombre_region region,
+    usuario.id_rol_fk,
+    usuario.id_empresa_fk
+FROM usuario 
+    JOIN direccion ON usuario.id_direccion_fk = direccion.id_direccion
+    JOIN comuna ON comuna.id_comuna = direccion.id_comuna_fk
+    JOIN region ON comuna.id_region_fk = region.id_region
+WHERE usuario.id_rol_fk=2 AND usuario.estado = 1
+ORDER BY 3 ASC;
+
 
 
  
@@ -61,18 +141,6 @@ ORDER BY 1;
 
 
 
-/*
-VISTA TRAE REGION Y COMUNA CONCATENADA
-*/
-
-CREATE VIEW 
-vista_region_comuna AS
-SELECT 
-    comuna.id_comuna
-    ,CONCAT(region.nombre_region, " - ",comuna.nombre_comuna) AS nombre_comuna
-FROM comuna
-    JOIN region ON comuna.id_region_fk = region.id_region
-ORDER BY 1 DESC;
 
 
 /*CREATE PROCEDURE

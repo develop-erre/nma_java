@@ -7,6 +7,7 @@ package cl.nma.controllers;
 
 import cl.nma.dao.UsuarioDAOImpl;
 import cl.nma.dominio.Usuario;
+import cl.nma.dominio.UsuarioLista;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -87,7 +88,7 @@ public class listaProfesionalAsignacionAsesoriaServlets extends HttpServlet {
         String tipoAsesoria = request.getParameter("txtTipoAsesoria");
         
 
-        List<Usuario> lista = new ArrayList();
+        List<UsuarioLista> lista = new ArrayList();
         try {
             UsuarioDAOImpl profDAO = new UsuarioDAOImpl();
             lista = profDAO.listarProfesionalHabilitado();

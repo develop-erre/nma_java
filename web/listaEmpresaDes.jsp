@@ -65,16 +65,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items="${listaEmpeDes}" var="emp">
+                    <c:forEach items="${listaEmpeDes}" var="empresa">
                         <tr>
-                            <td>${emp.nombre}</td>
-                            <td>${emp.rut}</td>
-                            <td>${emp.nombre_suc}</td>
-                            <td>${emp.direccion}</td>
+                            <td>${empresa.nombre_empresa}</td>
+                            <td>${empresa.rut}</td>
+                            <td>${empresa.nombre_sucursal}</td>
+                            <td>${empresa.nombre_calle} #${empresa.numero} - ${empresa.comuna} - ${empresa.region}</td>
                             <td>
                                 <form action="habilitarEmpresa" method="POST" onclick="return confirmarHabilitar();">
                                     <input type="submit" class="btn btn-success" value="Habilitar" />
-                                    <input type="hidden" name="id_empresa_des" value="${emp.id_empresa}" />
+                                    <input type="hidden" name="id_empresa_des" value="${empresa.id_empresa}" />
                                 </form>
                             </td>
                         </tr>
