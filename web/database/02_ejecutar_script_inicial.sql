@@ -459,18 +459,21 @@ INSERT INTO COMUNA (NOMBRE_COMUNA,ID_REGION_FK) VALUES ("PADRE HURTADO","15");
 INSERT INTO COMUNA (NOMBRE_COMUNA,ID_REGION_FK) VALUES ("PEÑAFLOR","15");
 
 
-/*INSERT ADMIN 
-INSERT INTO `usuario` (`nombre`, `apellidos`, `rut`, `password`, `direccion`, `fecha_nacimiento`, `telefono`, `estado`, `id_comuna_us_fk`, `id_rol_fk`) 
-VALUES ('JUAN ANDRÉS', 'MARCUS GUTIERREZ', '11111', 'MTExMTE=', 'AVENIDA PEDRO MONTT #350', '1980-08-05', '988775566', '0', '295', '1');
-
-INSERT INTO `usuario` (`nombre`, `apellidos`, `rut`, `password`, `direccion`, `fecha_nacimiento`, `telefono`, `estado`, `id_comuna_us_fk`, `id_rol_fk`) 
-VALUES ('FELIPE EDUARDO', 'FUENTES MANRIQUEZ', 'admin', 'YWRtaW4=', 'AVENIDA PEDRO MONTT #350', '1980-08-05', '988775566', '0', '295', '1');
+/*
+INSERT USUARIOS ADMINISTRADORES Y PROFESIONALES
 */
 
-INSERT INTO `usuario` (`nombre`, `apellidos`, `rut`, `password`, `direccion`, `fecha_nacimiento`, `email`, `telefono`, `estado`, `id_comuna_us_fk`, `id_rol_fk`, `id_empresa_fk`) VALUES
-( 'JUAN ANDRÉS', 'MARCUS GUTIERREZ', '11111', 'MTExMTE=', 'AVENIDA PEDRO MONTT #350', '1980-08-05', NULL, '988775566', 0, 295, 1, NULL),
-( 'FELIPE EDUARDO', 'FUENTES MANRIQUEZ', 'admin', 'YWRtaW4=', 'AVENIDA PEDRO MONTT #350', '1980-08-05', NULL, '988775566', 0, 295, 1, NULL),
-( 'ALFONSO ANDRÉS', 'ARAYA GUITIERREZ', '20123456k', 'YWxmLmFyYSM5OS0wNQ==', 'AV. FERMÍN VIVACETA #600', '1999-05-04', 'ALFONSOARAYA@GMAIL.COM', '98877665', 0, 302, 2, NULL),
-( 'MARCOS ULISES', 'GONZALES MENESES', '189654122', 'bWFyLmdvbiM5Mi0wOA==', 'CARMEN  #124', '1992-08-13', 'MGONZALES@GMAIL.COM', '98877445', 0, 295, 2, NULL),
-( 'SAMUEL DAVID', 'FIGUEROA LÓPEZ', '154213654', 'c2FtLmZpZyM4Mi0xMA==', 'AV. EL OBSERVATORIO #5632', '1982-10-24', 'SAMUELFIGUEROA@GMAIL.COM', '22789654', 0, 299, 2, NULL);
+INSERT INTO `direccion` (`nombre_calle`, `numero`, `depto`, `id_comuna_fk`) 
+VALUES ('AV. MATTA', '450', '502', '295'), 
+('EL OBSERVADOR', '1200', NULL, '299'), 
+('PASAJE UNO', '100', NULL, '319'), 
+('AV. SAN MARTIN', '4100', NULL, '312'), 
+('AV. ALBERTO GONZALES', '320', NULL, '298');
+
+INSERT INTO `usuario` (`nombre`, `apellidos`, `rut`, `password`, `id_direccion_fk`, `fecha_nacimiento`, `email`, `telefono`, `estado`,`id_rol_fk`, `id_empresa_fk`) VALUES
+( 'JUAN ANDRÉS', 'MARCUS GUTIERREZ', '11111', 'MTExMTE=', '1', '1980-08-05', NULL, '988775566', 0,1, NULL),
+( 'FELIPE EDUARDO', 'FUENTES MANRIQUEZ', 'admin', 'YWRtaW4=', '2', '1980-08-05', NULL, '988775566', 0,1, NULL),
+( 'ALFONSO ANDRÉS', 'ARAYA GUITIERREZ', '20123456k', 'YWxmLmFyYSM5OS0wNQ==', '3', '1999-05-04', 'ALFONSOARAYA@GMAIL.COM', '98877665', 0,2, NULL),
+( 'MARCOS ULISES', 'GONZALES MENESES', '189654122', 'bWFyLmdvbiM5Mi0wOA==', '4', '1992-08-13', 'MGONZALES@GMAIL.COM', '98877445', 0,2, NULL),
+( 'SAMUEL DAVID', 'FIGUEROA LÓPEZ', '154213654', 'c2FtLmZpZyM4Mi0xMA==', '5', '1982-10-24', 'SAMUELFIGUEROA@GMAIL.COM', '22789654', 0,2, NULL);
 

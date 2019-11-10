@@ -1,1 +1,22 @@
-#Ejecutar archivos en el orden de numeros
+
+- Se pueden ejecutar de dos maneras los script de la base de datos.
+- Esos archivos se ejecutan en XAMPP levantando los servicios de Apache y MySql-
+- Se ejecutan dentro de PhpMyAdmin en SQL general.
+
+-------------------------------------------------------------------------------------------------
+Número uno:
+#base de datos solo con usuarios administrador y profesionales
+
+ejecutar los script de manera secuencial.
+
+01-ejecutar_modelo_data_base.sql
+02-ejecutar_script_inicial.sql
+03-ejecutar_script_procedure_view_functions.sql
+
+-------------------------------------------------------------------------------------------------
+Número dos:
+#base de datos con registros
+
+ejecutar el archivo database_no_mas_accidentes.sql
+
+-------------------------------------------------------------------------------------------------
