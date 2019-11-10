@@ -1,0 +1,37 @@
+CREDENCIALES 
+
+RUT = 11111
+PASSWORD = 11111
+
+RUT = admin
+PASSWORD = admin
+
+-----------------------------------------
+PROFESIONALES
+-----------------------------------------
+rut :   20123456k
+password  :  alf.ara#99-05
+
+rut :   189654122
+contrase�a  :  mar.gon#92-08
+
+rut :   154213654
+password  :  sam.fig#82-10
+
+-----------------------------------------
+cliente 
+farmacia venecia
+-----------------------------------------
+rut :   185002001
+password  :  fan.men#92-04
+
+-----------------------------------------
+clientes
+mueble don jose
+-----------------------------------------
+rut :   190000000
+password  :  car.rob#83-07
+
+
+
+

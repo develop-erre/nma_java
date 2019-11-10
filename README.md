@@ -6,9 +6,15 @@ dedicala a la prevención de riesgos.
 - Ejecución del proyecto:
 
 requisitos:
-- apache tomcat 8.5
+- instalar XAMPP 
+- instalar apache tomcat 8.5
 
--ejecutar archivo en la carpera nma\web\database en orden 
-01,02,03
+Ejecucion:
+
+- Leer archivo README de la ruta nma\web\database para elegir que manera ejecutar los script
+- Levantar servicios de Apache y Mysql en XAMPP
+- Abrir Phpmyadmin desde XAMPP
+- Ejecutar desde SQL genaral los script dependiendo de la manera que guste
+
 
 
