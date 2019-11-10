@@ -71,6 +71,11 @@
                                     <input type="hidden" name="txtIdActividad" value="${getallasesoria.id_actividad}" />
                                     <input type="hidden" name="txtTipoAsesoria" value="${getallasesoria.tipo_asesoria}" />
                                     <input type="hidden" name="txtNombreSucursal" value="${getallasesoria.nombre_sucursal}" />
+                                    
+                                    <input type="hidden" name="txtNombrecalle" value="${getallasesoria.nombre_calle}" />
+                                    <input type="hidden" name="txtNumero" value="${getallasesoria.numero}" />
+                                    <input type="hidden" name="txtComuna" value="${getallasesoria.nombre_comuna}" />
+                                    <input type="hidden" name="txtRegion" value="${getallasesoria.nombre_region}" />
                                     <button type="submit" class="btn btn-danger"><i class="fas fa-file-download"></i> Download</button>
                                 </form>
                             </td>

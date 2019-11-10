@@ -5,11 +5,10 @@
  */
 package cl.nma.controllers;
 
-
 import cl.nma.dao.RegionComunaDAOImpl;
 import cl.nma.dao.UsuarioDAOImpl;
 import cl.nma.dominio.RegionComuna;
-import cl.nma.dominio.Usuario;
+import cl.nma.dominio.UsuarioLista;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -84,6 +83,8 @@ public class cargarDatosActualizarServlets extends HttpServlet {
             throws ServletException, IOException {
 
         int idrol = Integer.parseInt(request.getParameter("id_rol"));
+        
+        
         System.out.println("rol : " + idrol);
 
         List<RegionComuna> listaComuna = new ArrayList();
@@ -92,8 +93,7 @@ public class cargarDatosActualizarServlets extends HttpServlet {
         try {
             rcDAO = new RegionComunaDAOImpl();
             listaComuna = rcDAO.listar();
-            
-            
+
             request.setAttribute("listaReg", listaComuna);
 
         } catch (SQLException ex) {
@@ -107,37 +107,24 @@ public class cargarDatosActualizarServlets extends HttpServlet {
             try {
 
                 UsuarioDAOImpl usDAO = new UsuarioDAOImpl();
-                Usuario us = usDAO.buscarUsuarioPorId(idProfesional);
-
-                /* descomprimir direccion*/
-                // Direccion competa
-                String sTexto = "sfsdfsd";
-                // Texto que vamos a buscar
-                String sTextoBuscado = "#";
-                //trae la posicion del caracter #
-                int posCaracter = sTexto.indexOf(sTextoBuscado);
-
-                System.out.println("posicion caracter#" + posCaracter);
-                //solo direccion 
-                String direccion = sTexto.substring(0, posCaracter);
-                System.out.println(direccion.trim());
-
-                String numero = sTexto.substring(posCaracter + 1);
-                System.out.println("el numero: " + numero.trim());
-                System.out.println("fecha : "+us.getFecha_nac());
+                UsuarioLista us = usDAO.traeUsuarioPorId(idProfesional);
 
                 request.setAttribute("getId_usuario", us.getId_usuario());
                 request.setAttribute("getNombre", us.getNombre());
                 request.setAttribute("getApellidos", us.getApellidos());
                 request.setAttribute("getRut", us.getRut());
+                request.setAttribute("getFecha_nacimiento", us.getFecha_nacimiento());
                 request.setAttribute("getEmail", us.getEmail());
                 request.setAttribute("getTelefono", us.getTelefono());
-                request.setAttribute("getDireccion", direccion);
-                request.setAttribute("getNumero", numero);
-                request.setAttribute("getFecha_nac", us.getFecha_nac());
-                request.setAttribute("idRol", idrol);
-                
-                
+                request.setAttribute("getNombre_calle", us.getNombre_calle());
+                request.setAttribute("getNumero", us.getNumero());
+                request.setAttribute("getDepto", us.getDepto());
+                request.setAttribute("getComuna", us.getComuna());
+                request.setAttribute("getRegion", us.getRegion());
+                request.setAttribute("getId_rol_fk", us.getId_rol_fk());
+                request.setAttribute("getId_empresa_fk", us.getId_empresa_fk());
+                request.setAttribute("getId_direccion_fk", us.getId_direccion_fk());
+
                 request.getRequestDispatcher("actualizarprofesional.jsp").forward(request, response);
 
             } catch (SQLException ex) {

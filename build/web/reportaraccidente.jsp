@@ -132,8 +132,8 @@
                             <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                             <select id="inputSucursal4" class="form-control" name="selectSucursalId">
                                 <option value="0">SELECCIONE</option>
-                                <c:forEach items="${listaSucursal}" var="variable">
-                                    <option value="${variable.id_sucursal}">${variable.nombre}</option>
+                                <c:forEach items="${listaSucursal}" var="suc">
+                                    <option value="${suc.id_sucursal}">${suc.nombre_sucursal}</option>
                                 </c:forEach>
                             </select>
                         </div>
@@ -150,7 +150,6 @@
                 <input  name="idEmpresa" type="hidden" value="<%= sesion.getAttribute("id_empresa")%>">
                 <button type="submit" class="btn btn-primary">Reportar Accidente</button>
             </form>
-            <c:out value="${mensaje}" />
         </div>
         
         <script lenguage="javascript" src="js/validarReporte.js"></script>

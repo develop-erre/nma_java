@@ -16,11 +16,12 @@ public class UsuarioLista {
     private String region;
     private String id_rol_fk;
     private String id_empresa_fk;
+    private String id_direccion_fk;
 
     public UsuarioLista() {
     }
 
-    public UsuarioLista(String id_usuario, String nombre, String apellidos, String rut, String fecha_nacimiento, String email, String telefono, String nombre_calle, String numero, String depto, String comuna, String region, String id_rol_fk, String id_empresa_fk) {
+    public UsuarioLista(String id_usuario, String nombre, String apellidos, String rut, String fecha_nacimiento, String email, String telefono, String nombre_calle, String numero, String depto, String comuna, String region, String id_rol_fk, String id_empresa_fk, String id_direccion_fk) {
         this.id_usuario = id_usuario;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -35,6 +36,7 @@ public class UsuarioLista {
         this.region = region;
         this.id_rol_fk = id_rol_fk;
         this.id_empresa_fk = id_empresa_fk;
+        this.id_direccion_fk = id_direccion_fk;
     }
 
     public String getId_usuario() {
@@ -149,5 +151,13 @@ public class UsuarioLista {
         this.id_empresa_fk = id_empresa_fk;
     }
 
+    public String getId_direccion_fk() {
+        return id_direccion_fk;
+    }
+
+    public void setId_direccion_fk(String id_direccion_fk) {
+        this.id_direccion_fk = id_direccion_fk;
+    }
+ 
     
 }

@@ -77,6 +77,13 @@ public class reporteAsesoriaServlets extends HttpServlet {
                 String tipoAsesoria = request.getParameter("txtTipoAsesoria");
                 String descProblema = request.getParameter("txtDescProblem");
                 String descPropuesta = request.getParameter("txtDescPropuesta");
+                
+                String nombrecalle = request.getParameter("txtNombrecalle");
+                String numero = request.getParameter("txtNumero");
+                String comuna = request.getParameter("txtComuna");
+                String region = request.getParameter("txtRegion");
+                
+                
 
                 Document documento = new Document();
                 PdfWriter.getInstance(documento, out);
@@ -104,6 +111,22 @@ public class reporteAsesoriaServlets extends HttpServlet {
                 lugaraSE.setAlignment(Element.ALIGN_LEFT);
                 lugaraSE.add(new Phrase(Chunk.NEWLINE));
                 documento.add(lugaraSE);
+                
+                //DIRECCION
+                Paragraph direccion = new Paragraph();
+                Font fontDireccion = new Font(Font.FontFamily.HELVETICA, 8, Font.BOLD, BaseColor.BLACK);
+                direccion.add(new Phrase( nombrecalle+" #"+numero, fontDireccion));
+                direccion.setAlignment(Element.ALIGN_LEFT);
+                direccion.add(new Phrase(Chunk.NEWLINE));
+                documento.add(direccion);
+                
+                //COMUNA REGION
+                Paragraph comunaReg = new Paragraph();
+                Font fontcomunaReg = new Font(Font.FontFamily.HELVETICA, 8, Font.BOLD, BaseColor.BLACK);
+                comunaReg.add(new Phrase( comuna+" - "+region, fontcomunaReg));
+                comunaReg.setAlignment(Element.ALIGN_LEFT);
+                comunaReg.add(new Phrase(Chunk.NEWLINE));
+                documento.add(comunaReg);
 
                 //TIPO ASESORIA
                 Paragraph tipoAse = new Paragraph();

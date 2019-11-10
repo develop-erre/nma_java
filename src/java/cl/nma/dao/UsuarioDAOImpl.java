@@ -40,22 +40,20 @@ public class UsuarioDAOImpl implements UsuarioDAO {
                 + "SET NOMBRE = ? \n"
                 + ",APELLIDOS = ? \n"
                 + ",RUT= ? \n"
-                + ",ID_DIRECCION_FK= ? \n"
                 + ",FECHA_NACIMIENTO= ? \n"
                 + ",EMAIL= ?\n"
                 + ",TELEFONO= ?\n"
-                + ",ID_COMUNA_US_FK= ? WHERE ID_USUARIO= ?";
+                + " WHERE ID_USUARIO= ?";
         PreparedStatement pst = null;
         try {
             pst = conexion.prepareStatement(sql);
             pst.setString(1, us.getNombre());
             pst.setString(2, us.getApellidos());
             pst.setString(3, us.getRut());
-            pst.setInt(4, us.getId_direccion_fk());
-            pst.setDate(5, castDateDAOImpl(us.getFecha_nac()));
-            pst.setString(6, us.getEmail());
-            pst.setString(7, us.getTelefono());
-            pst.setInt(9, us.getId_usuario());
+            pst.setDate(4, castDateDAOImpl(us.getFecha_nac()));
+            pst.setString(5, us.getEmail());
+            pst.setString(6, us.getTelefono());
+            pst.setInt(7, us.getId_usuario());
             result = pst.executeUpdate();
         } catch (SQLException | ParseException ex) {
             Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -569,6 +567,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
                 pf.setRegion(rs.getString(12));
                 pf.setId_rol_fk(rs.getString(13));
                 pf.setId_empresa_fk(rs.getString(14));
+                pf.setId_direccion_fk(rs.getString(15));
                 lista.add(pf);
             }
 
@@ -634,6 +633,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
                 pf.setRegion(rs.getString(12));
                 pf.setId_rol_fk(rs.getString(13));
                 pf.setId_empresa_fk(rs.getString(14));
+                pf.setId_direccion_fk(rs.getString(15));
                 lista.add(pf);
             }
 
@@ -701,6 +701,69 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         }
 
         return result;
+
+    }
+
+    @Override
+    public UsuarioLista traeUsuarioPorId(int idUsuario) {
+
+        String sql = " CALL GetUsuarioListaActualizar("+idUsuario+")";
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        UsuarioLista usuario = null;
+        try {
+            pst = conexion.prepareStatement(sql);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                usuario = new UsuarioLista();
+                usuario.setId_usuario(rs.getString(1));
+                usuario.setNombre(rs.getString(2));
+                usuario.setApellidos(rs.getString(3));
+                usuario.setRut(rs.getString(4));
+                usuario.setFecha_nacimiento(rs.getString(5));
+                usuario.setEmail(rs.getString(6));
+                usuario.setTelefono(rs.getString(7));
+                usuario.setNombre_calle(rs.getString(8));
+                usuario.setNumero(rs.getString(9));
+                usuario.setDepto(rs.getString(10));
+                usuario.setComuna(rs.getString(11));
+                usuario.setRegion(rs.getString(12));
+                usuario.setId_rol_fk(rs.getString(13));
+                usuario.setId_empresa_fk(rs.getString(14));
+                usuario.setId_direccion_fk(rs.getString(15));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //siempre cerrar la conexion, rs y el pst
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return usuario;
 
     }
 }

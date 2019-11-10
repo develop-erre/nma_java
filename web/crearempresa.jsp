@@ -119,7 +119,7 @@
                         </div>
                     </div>
                     
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-6">
                         <label for="inputCity">Región - Comuna</label>
                         <select name="selectComunaId" id="selectComunaId4" class="form-control" required="">
                             <option value="0">SELECCIONE</option>

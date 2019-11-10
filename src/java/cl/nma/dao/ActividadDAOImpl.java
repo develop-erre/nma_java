@@ -221,7 +221,6 @@ public class ActividadDAOImpl implements ActividadDAO {
 
         int result = 0;
         String sql = "UPDATE ACTIVIDAD SET FECHA_ACT =?, HORA_ACT =? , ID_USUARIO_FK =? WHERE ID_ACTIVIDAD =?";
-        //"UPDATE ACTIVIDAD SET FECHA_ACT =?, HORA_ACT =? , ID_USUARIO_FK =? WHERE ID_ACTIVIDAD =?"
         PreparedStatement pst = null;
         try {
             pst = conexion.prepareStatement(sql);
@@ -230,9 +229,7 @@ public class ActividadDAOImpl implements ActividadDAO {
             pst.setInt(3, act.getId_usuario_fk());
             pst.setInt(4, act.getId_actividad());
             result = pst.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(ActividadDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
+        } catch (SQLException | ParseException ex) {
             Logger.getLogger(ActividadDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             //siempre cerrar la conexion y el pst
@@ -278,8 +275,13 @@ public class ActividadDAOImpl implements ActividadDAO {
                 actAs.setId_asesoria(rs.getInt(6));
                 actAs.setComentarios_detectados(rs.getString(7));
                 actAs.setComentarios_propuesta(rs.getString(8));
-                actAs.setNombre_sucursal(rs.getString(9));
-                actAs.setTipo_asesoria(rs.getString(10));
+                actAs.setTipo_asesoria(rs.getString(9));
+                actAs.setNombre_sucursal(rs.getString(10));
+                actAs.setNombre_calle(rs.getString(11));
+                actAs.setNumero(rs.getString(12));
+                actAs.setNombre_comuna(rs.getString(13));
+                actAs.setNombre_region(rs.getString(14));
+                
                 solicitudList.add(actAs);
             }
         } catch (SQLException ex) {
@@ -380,8 +382,12 @@ public class ActividadDAOImpl implements ActividadDAO {
                 actAs.setId_asesoria(rs.getInt(6));
                 actAs.setComentarios_detectados(rs.getString(7));
                 actAs.setComentarios_propuesta(rs.getString(8));
-                actAs.setNombre_sucursal(rs.getString(9));
-                actAs.setTipo_asesoria(rs.getString(10));
+                actAs.setTipo_asesoria(rs.getString(9));
+                actAs.setNombre_sucursal(rs.getString(10));
+                actAs.setNombre_calle(rs.getString(11));
+                actAs.setNumero(rs.getString(12));
+                actAs.setNombre_comuna(rs.getString(13));
+                actAs.setNombre_region(rs.getString(14));
                 solicitudList.add(actAs);
             }
         } catch (SQLException ex) {

@@ -52,16 +52,17 @@
             </c:otherwise>
         </c:choose>
 
+        <% String id_usuario = String.valueOf(request.getAttribute("getId_usuario"));%>
         <% String nombre = String.valueOf(request.getAttribute("getNombre"));%>
         <% String apellidos = String.valueOf(request.getAttribute("getApellidos"));%>
         <% String rut = String.valueOf(request.getAttribute("getRut"));%>
+        <% String fechaNac = String.valueOf(request.getAttribute("getFecha_nacimiento"));%>
         <% String email = String.valueOf(request.getAttribute("getEmail"));%>
-        <% String direccion = String.valueOf(request.getAttribute("getDireccion"));%>
-        <% String numero = String.valueOf(request.getAttribute("getNumero"));%>
-        <% String idcomuna = String.valueOf(request.getAttribute("getId_comuna_us_fk"));%>
         <% String telefono = String.valueOf(request.getAttribute("getTelefono"));%>
-        <% String fechaNac = String.valueOf(request.getAttribute("getFecha_nac"));%>
-        <% String id_usuario = String.valueOf(request.getAttribute("getId_usuario"));%>
+        <% String nombre_calle = String.valueOf(request.getAttribute("getNombre_calle"));%>
+        <% String numero = String.valueOf(request.getAttribute("getNumero"));%>
+        <% String depto = String.valueOf(request.getAttribute("getDepto"));%>
+        <% String id_direccion_fk = String.valueOf(request.getAttribute("getId_direccion_fk"));%>
 
 
         <br>
@@ -104,7 +105,7 @@
                         <label for="inputTelefono4">Teléfono</label>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
-                            <input type="number" class="form-control" id="inputTelefono4" name = "txtTelefono" value="<%=telefono%>"  placeholder="Ingrece teléfono, Ej: 88225544 " required="" minlength="8"  maxlength="8" max="99999999">
+                            <input type="number" class="form-control" id="inputTelefono4" name = "txtTelefono" value="<%=telefono%>"  placeholder="Ingrece teléfono, Ej: 88225544 " required="" min="11111111" max="999999999">
                         </div>
 
                     </div>
@@ -112,10 +113,10 @@
 
                 <div class="form-row">
                     <div class="form-group col-md-4">
-                        <label for="inputAddress">Dirección</label>
+                        <label for="txtNombre_calle4">Dirección</label>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                            <input type="text" class="form-control" id="inputDireccion4" name = "txtDireccion" value="<%=direccion%>" placeholder="Ingrece Dirección" required="" maxlength="80">
+                            <input type="text" class="form-control" id="txtNombre_calle4" name = "txtNombre_calle" value="<%=nombre_calle%>" placeholder="Ingrece Dirección" required="" maxlength="80">
                         </div>
 
                     </div>
@@ -125,9 +126,17 @@
                             <span class="input-group-text"><i class="fas fa-home"></i></span>
                             <input type="number" class="form-control" id="inputNumero4" name = "txtNumero" value="<%=numero%>" placeholder="Ingrece número" min="1" max="99999" required="">
                         </div>
-
                     </div>
-                    <div class="form-group col-md-6">
+
+                    <div class="form-group col-md-2">
+                        <label for="inputDepto4">Depto (opcional)</label>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-home"></i></span>
+                            <input type="number" class="form-control" id="inputDepto4" name = "txtDepto" value="<%=depto%>" placeholder="Ingrece número" min="1" max="99999">
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4">
                         <label for="inputCity">Región - Comuna</label>
                         <select name="selectComunaId" id="inputComuna4"  class="form-control" required="">
                             <option value="0">SELECCIONE</option>
@@ -139,6 +148,7 @@
                 </div>
 
                 <input type="hidden" name="txtIdUsuario" value="<%=id_usuario%>">
+                <input type="hidden" name="txtId_direccion_fk" value="<%=id_direccion_fk%>">
                 <button type="submit" class="btn btn-success">Actualizar Profesional</button>
                 <br>
                 <br>

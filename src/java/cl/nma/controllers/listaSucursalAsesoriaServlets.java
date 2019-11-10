@@ -7,6 +7,7 @@ package cl.nma.controllers;
 
 import cl.nma.dao.SucursalDAOImpl;
 import cl.nma.dominio.Sucursal;
+import cl.nma.dominio.SucursalLista;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -45,7 +46,7 @@ public class listaSucursalAsesoriaServlets extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet listaSucursalAsesoriaServlets</title>");            
+            out.println("<title>Servlet listaSucursalAsesoriaServlets</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet listaSucursalAsesoriaServlets at " + request.getContextPath() + "</h1>");
@@ -66,24 +67,25 @@ public class listaSucursalAsesoriaServlets extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         HttpSession sesion = (HttpSession) request.getSession();
         System.out.println(sesion.getAttribute("nombre"));
-        String id = String.valueOf(sesion.getAttribute("id_empresa")) ;
+        String id = String.valueOf(sesion.getAttribute("id_empresa"));
         System.out.println(id);
         int idSucursal = Integer.parseInt(id);
-        
-        List<Sucursal> lista = new ArrayList();
+
+        List<SucursalLista> lista = new ArrayList();
         try {
             SucursalDAOImpl sucDAO = new SucursalDAOImpl();
             lista = sucDAO.obtenerSucursalPorId(idSucursal);
 
+            request.setAttribute("listaSucursal", lista);
+            request.getRequestDispatcher("solicitarasesoria.jsp").forward(request, response);
+
         } catch (SQLException ex) {
-            Logger.getLogger(listaEmpresaListServlets.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(listaSucursalAsesoriaServlets.class.getName()).log(Level.SEVERE, null, ex);
         }
-        request.setAttribute("listaSucursal", lista);
-        request.getRequestDispatcher("solicitarasesoria.jsp").forward(request, response);
-        
+
     }
 
     /**
@@ -97,23 +99,25 @@ public class listaSucursalAsesoriaServlets extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         HttpSession sesion = (HttpSession) request.getSession();
         System.out.println(sesion.getAttribute("nombre"));
-        String id = String.valueOf(sesion.getAttribute("id_empresa")) ;
+        String id = String.valueOf(sesion.getAttribute("id_empresa"));
         System.out.println(id);
         int idSucursal = Integer.parseInt(id);
-        
-        List<Sucursal> lista = new ArrayList();
+
+        List<SucursalLista> lista = new ArrayList();
         try {
             SucursalDAOImpl sucDAO = new SucursalDAOImpl();
             lista = sucDAO.obtenerSucursalPorId(idSucursal);
+            
+            request.setAttribute("listaSucursal", lista);
+        request.getRequestDispatcher("solicitarasesoria.jsp").forward(request, response);
 
         } catch (SQLException ex) {
             Logger.getLogger(listaEmpresaListServlets.class.getName()).log(Level.SEVERE, null, ex);
         }
-        request.setAttribute("listaSucursal", lista);
-        request.getRequestDispatcher("solicitarasesoria.jsp").forward(request, response);
+        
     }
 
     /**

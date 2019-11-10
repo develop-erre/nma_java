@@ -6,7 +6,7 @@
 package cl.nma.controllers;
 
 import cl.nma.dao.SucursalDAOImpl;
-import cl.nma.dominio.Sucursal;
+import cl.nma.dominio.SucursalLista;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -75,16 +75,17 @@ public class listaSucursalServlets extends HttpServlet {
         System.out.println(id);
         int idSucursal = Integer.parseInt(id);
 
-        List<Sucursal> lista = new ArrayList();
+        List<SucursalLista> lista = new ArrayList();
         try {
             SucursalDAOImpl sucDAO = new SucursalDAOImpl();
             lista = sucDAO.obtenerSucursalPorId(idSucursal);
 
+            request.setAttribute("listaSucursal", lista);
+            request.getRequestDispatcher("reportaraccidente.jsp").forward(request, response);
+
         } catch (SQLException ex) {
             Logger.getLogger(listaEmpresaListServlets.class.getName()).log(Level.SEVERE, null, ex);
         }
-        request.setAttribute("listaSucursal", lista);
-        request.getRequestDispatcher("reportaraccidente.jsp").forward(request, response);
 
     }
 
@@ -99,14 +100,13 @@ public class listaSucursalServlets extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         request.setCharacterEncoding("UTF-8");
 
         int id = Integer.parseInt(request.getParameter("id_emp"));
-        System.out.println(id);
         String nombreEmpresa = request.getParameter("nom_emp");
-
-        List<Sucursal> lista = new ArrayList();
+        System.out.println("ID : " + id + "- Empresa : " + nombreEmpresa);
+        List<SucursalLista> lista = new ArrayList();
         try {
             SucursalDAOImpl sucDAO = new SucursalDAOImpl();
             //OBTIENE SUCURSALES POR EL ID DE EMPRESA

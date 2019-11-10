@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,7 +26,42 @@ public class DireccionDAOImpl implements DireccionDAO {
      */
     @Override
     public int actualizar(Direccion dir) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        
+        int result = 0;
+        String sql = "UPDATE DIRECCION SET NOMBRE_CALLE = ? ,NUMERO = ? ,DEPTO= ? ,ID_COMUNA_FK= ?  WHERE ID_DIRECCION= ?";
+        PreparedStatement pst = null;
+        try {
+            pst = conexion.prepareStatement(sql);
+            pst.setString(1,dir.getNombre_calle());
+            pst.setString(2,dir.getNumero());
+            pst.setString(3,dir.getDepto());
+            pst.setInt(4,dir.getId_comuna_fk());
+            pst.setInt(5,dir.getId_direccion());
+            result = pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //siempre cerrar la conexion y el pst
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return result;
+        
     }
 
     @Override

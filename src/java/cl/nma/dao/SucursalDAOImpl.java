@@ -7,6 +7,7 @@ package cl.nma.dao;
 
 import cl.nma.database.DBUtil;
 import cl.nma.dominio.Sucursal;
+import cl.nma.dominio.SucursalLista;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -102,26 +103,21 @@ public class SucursalDAOImpl implements SucursalDAO {
     }
 
     @Override
-    public List<Sucursal> obtenerSucursalPorId(Integer id) {
+    public List<SucursalLista> obtenerSucursalPorId(Integer id) {
 
-        List<Sucursal> sucList = new ArrayList<>();
-        String sql = "SELECT sucursal.id_sucursal\n"
-                + ",sucursal.nombre\n"
-                + ",CONCAT( sucursal.direccion,\" - \",comuna.nombre_comuna ) AS direccion\n"
-                + "FROM SUCURSAL \n"
-                + "JOIN comuna ON sucursal.id_comuna_suc_fk = comuna.id_comuna\n"
-                + "WHERE ID_EMPRESA_FK =" + id;
+        List<SucursalLista> sucList = new ArrayList<>();
+        String sql = "CALL  GetObtenerSucursalPorId("+id+");";
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
             pst = conexion.prepareStatement(sql);
             rs = pst.executeQuery();
-            Sucursal suc;
+            SucursalLista suc;
             while (rs.next()) {
-                suc = new Sucursal();
-                suc.setId_sucursal(Integer.parseInt(rs.getString(1)));
-                suc.setNombre(rs.getString(2));
-               // suc.setDireccion(rs.getString(3));
+                suc = new SucursalLista();
+                suc.setId_sucursal(rs.getString(1));
+                suc.setNombre_sucursal(rs.getString(2));
+                suc.setDireccion_sucural(rs.getString(3));
                 sucList.add(suc);
             }
         } catch (SQLException ex) {

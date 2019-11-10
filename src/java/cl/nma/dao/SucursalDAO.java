@@ -6,6 +6,7 @@
 package cl.nma.dao;
 
 import cl.nma.dominio.Sucursal;
+import cl.nma.dominio.SucursalLista;
 import java.util.List;
 
 /**
@@ -24,6 +25,6 @@ public interface SucursalDAO {
 
     List<Sucursal> listarEmpresa();
     
-    List<Sucursal> obtenerSucursalPorId(Integer id);
+    List<SucursalLista> obtenerSucursalPorId(Integer id);
     
 }

@@ -78,7 +78,8 @@ SELECT
     comuna.nombre_comuna comuna,
     region.nombre_region region,
     usuario.id_rol_fk,
-    usuario.id_empresa_fk
+    usuario.id_empresa_fk,
+    usuario.id_direccion_fk
 FROM usuario 
     JOIN direccion ON usuario.id_direccion_fk = direccion.id_direccion
     JOIN comuna ON comuna.id_comuna = direccion.id_comuna_fk
@@ -107,7 +108,8 @@ SELECT
     comuna.nombre_comuna comuna,
     region.nombre_region region,
     usuario.id_rol_fk,
-    usuario.id_empresa_fk
+    usuario.id_empresa_fk,
+    usuario.id_direccion_fk
 FROM usuario 
     JOIN direccion ON usuario.id_direccion_fk = direccion.id_direccion
     JOIN comuna ON comuna.id_comuna = direccion.id_comuna_fk
@@ -141,8 +143,6 @@ ORDER BY 1;
 
 
 
-
-
 /*CREATE PROCEDURE
  OBTENER TODAS LAS ASESORIAS ASIGNADAS DE UN PROFESIONAL
 CON EL ESTADO DE LA ACTIVIDAD EN 0 
@@ -150,62 +150,21 @@ CON EL ESTADO DE LA ACTIVIDAD EN 0
 
 DELIMITER //
 
-CREATE PROCEDURE GetAllAsesoriasAsignadas(IN idUsu INT)
+CREATE PROCEDURE GetObtenerSucursalPorId(IN idEmpresa INT)
 BEGIN
 SELECT 
-    usuario.id_usuario
-    ,CONCAT(usuario.nombre, " ", usuario.apellidos) AS nombre_apellido
-    ,actividad.id_actividad
-    ,actividad.fecha_act
-    ,actividad.hora_act
-    ,asesoria.id_asesoria
-    ,asesoria.comentarios_detectados
-    ,asesoria.comentarios_propuesta
-    ,sucursal.nombre as nombre_sucursal
-    ,tipo_asesoria.descripcion as tipo_asesoria
-FROM USUARIO
-    JOIN ACTIVIDAD on actividad.id_usuario_fk = usuario.id_usuario
-    JOIN asesoria ON asesoria.id_actividad_fk_as = actividad.id_actividad
-    JOIN sucursal ON sucursal.id_sucursal = actividad.id_sucursal_empresa_fk
-    JOIN tipo_asesoria ON tipo_asesoria.id_tipo_asesoria = asesoria.id_tipo_asesoria_fk
-WHERE id_rol_fk = 2 and actividad.estado_act=0 and id_usuario= idUsu 
-ORDER BY 4 ASC;
+    sucursal.id_sucursal
+    ,sucursal.nombre
+    ,CONCAT( direccion.nombre_calle," #",direccion.numero, " - ",comuna.nombre_comuna, " - ",region.nombre_region ) AS direccion
+FROM SUCURSAL 
+    JOIN direccion ON sucursal.id_direccion_suc_fk = direccion.id_direccion
+    JOIN comuna ON comuna.id_comuna = direccion.id_comuna_fk
+    JOIN region ON comuna.id_region_fk = region.id_region
+WHERE ID_EMPRESA_FK = idEmpresa;
 END //
  
 DELIMITER ;
 
-
-/*
-PROCEDURE TRAER LISTA DE REPORTE ASESORIA 
-DE UNA EMPRESA EN ESPECIFICO
-
-*/
-
-DELIMITER //
-
-CREATE PROCEDURE GetAllAsesoriasFinalizadas(IN idEmp INT)
-BEGIN
-SELECT 
-    usuario.id_usuario
-    ,CONCAT(usuario.nombre, " ", usuario.apellidos) AS nombre_apellido
-    ,actividad.id_actividad
-    ,actividad.fecha_act
-    ,actividad.hora_act
-    ,asesoria.id_asesoria
-    ,asesoria.comentarios_detectados
-    ,asesoria.comentarios_propuesta
-    ,sucursal.nombre as nombre_sucursal
-    ,tipo_asesoria.descripcion as tipo_asesoria
-FROM USUARIO
-    JOIN ACTIVIDAD on actividad.id_usuario_fk = usuario.id_usuario
-    JOIN asesoria ON asesoria.id_actividad_fk_as = actividad.id_actividad
-    JOIN sucursal ON sucursal.id_sucursal = actividad.id_sucursal_empresa_fk
-    JOIN tipo_asesoria ON tipo_asesoria.id_tipo_asesoria = asesoria.id_tipo_asesoria_fk
-WHERE actividad.id_tipo_actividad_fk = 3 and actividad.estado_act=1 and sucursal.id_empresa_fk = idEmp
-ORDER BY 4;
-END //
- 
-DELIMITER ;
 
 
 /*
@@ -237,6 +196,89 @@ END //
 DELIMITER ;
 
 
+
+
+/*CREATE PROCEDURE
+ OBTENER TODAS LAS ASESORIAS ASIGNADAS DE UN PROFESIONAL
+CON EL ESTADO DE LA ACTIVIDAD EN 0 
+*/
+
+DELIMITER //
+
+CREATE PROCEDURE GetAllAsesoriasAsignadas(IN idUsu INT)
+BEGIN
+SELECT 
+    usuario.id_usuario
+    ,CONCAT(usuario.nombre, " ", usuario.apellidos) AS nombre_apellido
+    ,actividad.id_actividad
+    ,actividad.fecha_act
+    ,actividad.hora_act
+    ,asesoria.id_asesoria
+    ,asesoria.comentarios_detectados
+    ,asesoria.comentarios_propuesta
+    ,tipo_asesoria.descripcion as tipo_asesoria
+    ,sucursal.nombre as nombre_sucursal
+    ,direccion.nombre_calle
+    ,direccion.numero
+    ,comuna.nombre_comuna
+    ,region.nombre_region
+    
+FROM USUARIO
+    JOIN ACTIVIDAD on actividad.id_usuario_fk = usuario.id_usuario
+    JOIN asesoria ON asesoria.id_actividad_fk_as = actividad.id_actividad
+    JOIN sucursal ON sucursal.id_sucursal = actividad.id_sucursal_empresa_fk
+    JOIN direccion ON sucursal.id_direccion_suc_fk = direccion.id_direccion
+    JOIN comuna ON comuna.id_comuna = direccion.id_comuna_fk
+    JOIN region ON comuna.id_region_fk = region.id_region
+    JOIN tipo_asesoria ON tipo_asesoria.id_tipo_asesoria = asesoria.id_tipo_asesoria_fk
+WHERE id_rol_fk = 2 and actividad.estado_act=0 and id_usuario= idUsu 
+ORDER BY 4 ASC;
+END //
+ 
+DELIMITER ;
+
+
+/*
+PROCEDURE TRAER LISTA DE REPORTE ASESORIA 
+DE UNA EMPRESA EN ESPECIFICO
+
+*/
+
+DELIMITER //
+
+CREATE PROCEDURE GetAllAsesoriasFinalizadas(IN idEmp INT)
+BEGIN
+SELECT 
+     usuario.id_usuario
+    ,CONCAT(usuario.nombre, " ", usuario.apellidos) AS nombre_apellido
+    ,actividad.id_actividad
+    ,actividad.fecha_act
+    ,actividad.hora_act
+    ,asesoria.id_asesoria
+    ,asesoria.comentarios_detectados
+    ,asesoria.comentarios_propuesta
+    ,tipo_asesoria.descripcion as tipo_asesoria
+    ,sucursal.nombre as nombre_sucursal
+    ,direccion.nombre_calle
+    ,direccion.numero
+    ,comuna.nombre_comuna
+    ,region.nombre_region
+    
+FROM USUARIO
+    JOIN ACTIVIDAD on actividad.id_usuario_fk = usuario.id_usuario
+    JOIN asesoria ON asesoria.id_actividad_fk_as = actividad.id_actividad
+    JOIN sucursal ON sucursal.id_sucursal = actividad.id_sucursal_empresa_fk
+    JOIN direccion ON sucursal.id_direccion_suc_fk = direccion.id_direccion
+    JOIN comuna ON comuna.id_comuna = direccion.id_comuna_fk
+    JOIN region ON comuna.id_region_fk = region.id_region
+    JOIN tipo_asesoria ON tipo_asesoria.id_tipo_asesoria = asesoria.id_tipo_asesoria_fk
+WHERE actividad.id_tipo_actividad_fk = 3 and actividad.estado_act=1 and sucursal.id_empresa_fk = idEmp
+ORDER BY 4;
+END //
+ 
+DELIMITER ;
+
+
 /*
 lista las capacitaciones asignadas a un profesional
 
@@ -263,6 +305,44 @@ FROM USUARIO
     JOIN tipo_capacitacion ON tipo_capacitacion.id_tipo_capacitacion = capacitacion.id_tipo_capacitacion_fk
 WHERE usuario.id_rol_fk = 2 and actividad.estado_act=0 and usuario.id_usuario= idUsuario
 ORDER BY 5 ASC;
+END //
+ 
+DELIMITER ;
+
+
+
+
+
+/*
+PROCEDIMIENTO TRAE USUARIO CON SUS DATOS PARA LA ACTUALIZACION DE ELLOS.
+
+*/
+
+DELIMITER //
+
+CREATE PROCEDURE GetUsuarioListaActualizar(IN idUsuario INT)
+BEGIN
+SELECT 
+    usuario.id_usuario,
+    usuario.nombre,
+    usuario.apellidos,
+    usuario.rut,
+    usuario.fecha_nacimiento,
+    usuario.email,
+    usuario.telefono,
+    direccion.nombre_calle,
+    direccion.numero,
+    direccion.depto,
+    comuna.nombre_comuna comuna,
+    region.nombre_region region,
+    usuario.id_rol_fk,
+    usuario.id_empresa_fk,
+    direccion.id_direccion
+FROM usuario 
+    JOIN direccion ON usuario.id_direccion_fk = direccion.id_direccion
+    JOIN comuna ON comuna.id_comuna = direccion.id_comuna_fk
+    JOIN region ON comuna.id_region_fk = region.id_region
+WHERE usuario.estado = 0 AND usuario.id_usuario=idUsuario;
 END //
  
 DELIMITER ;

@@ -5,7 +5,9 @@
  */
 package cl.nma.controllers;
 
+import cl.nma.dao.DireccionDAOImpl;
 import cl.nma.dao.UsuarioDAOImpl;
+import cl.nma.dominio.Direccion;
 import cl.nma.dominio.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -45,7 +47,7 @@ public class actualizarUsuarioServlets extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet actualizarUsuarioServlets</title>");            
+            out.println("<title>Servlet actualizarUsuarioServlets</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet actualizarUsuarioServlets at " + request.getContextPath() + "</h1>");
@@ -80,44 +82,55 @@ public class actualizarUsuarioServlets extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
-        
+
         request.setCharacterEncoding("UTF-8");
+
+        //SE OBTIENE DATOS DEL PROFESIONAL DESDE ACTUALIZARPROFESIONAL.JSP 
+        int idUsuario = Integer.parseInt(request.getParameter("txtIdUsuario"));
+        int id_direccion_fk = Integer.parseInt(request.getParameter("txtId_direccion_fk"));
         String nombre = request.getParameter("txtNombre");
         String apellidos = request.getParameter("txtApellidos");
         String run = request.getParameter("txtRun");
         String fechaNac = request.getParameter("txtFechaNac");
         String email = request.getParameter("txtEmail");
         String telefono = request.getParameter("txtTelefono");
-        String direccion = request.getParameter("txtDireccion") + " #" + request.getParameter("txtNumero");
-        int comunaId = Integer.parseInt(request.getParameter("selectComunaId"));
-        int idUsuario = Integer.parseInt(request.getParameter("txtIdUsuario"));
-        
+
+        //SE OBTIENE DATOS DE LA DIRECCION DESDE ACTUALIZARPROFESIONAL.JSP 
+        String nombre_calle = request.getParameter("txtNombre_calle");
+        String numero = request.getParameter("txtNumero");
+        String depto = request.getParameter("txtDepto");
+        int id_comuna = Integer.parseInt(request.getParameter("selectComunaId"));
 
         try {
-            
+
             UsuarioDAOImpl usDAO = new UsuarioDAOImpl();
 
             Usuario us = new Usuario();
             us.setNombre(nombre.toUpperCase());
             us.setApellidos(apellidos.toUpperCase());
             us.setRut(run);
-        //    us.setDireccion(direccion.toUpperCase());
             us.setFecha_nac(castDate(fechaNac));
             us.setEmail(email.toUpperCase());
             us.setTelefono(telefono);
             us.setId_usuario(idUsuario);
-            
+
+            //SE ACTUALIZA DATOS DEL PROFESIONAL
             usDAO.actualizar(us);
 
-            
-            //SE INSERTA EN BASE DE DATOS
-           // profDAO.agregar(prof);
+            DireccionDAOImpl dirDAO = new DireccionDAOImpl();
+            Direccion dir = new Direccion();
+            dir.setId_direccion(id_direccion_fk);
+            dir.setNombre_calle(nombre_calle.toUpperCase());
+            dir.setNumero(numero);
+            dir.setDepto(depto);
+            dir.setId_comuna_fk(id_comuna);
 
-            request.getRequestDispatcher("home.jsp").forward(request, response);
+            //SE ACTUALIZA DATOS DE LA DIRECCION DEL PROFESIONAL
+            dirDAO.actualizar(dir);
 
-        }catch (SQLException ex) {
+            response.sendRedirect("listarProfesional");
+
+        } catch (SQLException ex) {
             Logger.getLogger(loginServlets.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
             Logger.getLogger(actualizarUsuarioServlets.class.getName()).log(Level.SEVERE, null, ex);
@@ -143,5 +156,5 @@ public class actualizarUsuarioServlets extends HttpServlet {
 
         return fech;
     }
-    
+
 }

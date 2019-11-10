@@ -19,7 +19,6 @@ public interface UsuarioDAO {
     
     Usuario buscarUsuarioPorId(int id);
     
-    
     int agregarUsuarioEmpresa(Usuario usuario);
     
     int agregarProfesional(Usuario usuario);
@@ -31,6 +30,8 @@ public interface UsuarioDAO {
     List<UsuarioLista> listarProfesionalHabilitado();
     
     List<UsuarioLista> listarProfesionalDeshabilitado();
+    
+    UsuarioLista traeUsuarioPorId(int idUsuario);
 
     List<Usuario> listarUsuario();
     

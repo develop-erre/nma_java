@@ -55,8 +55,8 @@
                 <tbody>
                     <c:forEach items="${listaSucursal}" var="sucursales">
                         <tr>
-                            <td>${sucursales.nombre}</td>
-                            <td>${sucursales.direccion}</td>
+                            <td>${sucursales.nombre_sucursal}</td>
+                            <td>${sucursales.direccion_sucural}</td>
                             <td>
                                 <form action="programarVisita" method="POST">
                                     <input type="submit" value="Programar Visita" class="btn btn-primary" />
