@@ -62,6 +62,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             try {
                 if (pst != null) {
                     pst.close();
+                    System.out.println("PreparedStatement cerrada");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -70,6 +71,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             try {
                 if (conexion != null) {
                     conexion.close();
+                    System.out.println("Conexion cerrada");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -115,6 +117,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             try {
                 if (pst != null) {
                     pst.close();
+                    System.out.println("PreparedStatement cerrada");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -123,6 +126,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             try {
                 if (rs != null) {
                     rs.close();
+                    System.out.println("ResultSet cerrada");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -130,6 +134,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             try {
                 if (conexion != null) {
                     conexion.close();
+                    System.out.println("Conexion cerrada");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -142,7 +147,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
         boolean bandera = false;
         Usuario usuario;
-        List<Usuario> usuarios = new ArrayList<>();
+//        List<Usuario> usuarios = new ArrayList<>();
         String sql = "SELECT * FROM USUARIO  WHERE rut='" + us + "' and password = '" + pass + "' ;";
         PreparedStatement pst = null;
         ResultSet rs = null;
@@ -154,15 +159,18 @@ public class UsuarioDAOImpl implements UsuarioDAO {
                 usuario = new Usuario();
                 usuario.setRut(rs.getString(4));
                 usuario.setPassword(rs.getString(5));
-                usuarios.add(usuario);
-            }
-
-            for (Usuario var : usuarios) {
-
-                if (var.getRut().equals(us) && var.getPassword().equals(pass)) {
+                if (usuario.getRut().equals(us) && usuario.getPassword().equals(pass)) {
                     bandera = true;
                 }
+//                usuarios.add(usuario);
             }
+
+//            for (Usuario var : usuarios) {
+//
+//                if (var.getRut().equals(us) && var.getPassword().equals(pass)) {
+//                    bandera = true;
+//                }
+//            }
 
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -171,6 +179,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             try {
                 if (pst != null) {
                     pst.close();
+                    System.out.println("PreparedStatement cerrada");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -179,6 +188,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             try {
                 if (rs != null) {
                     rs.close();
+                    System.out.println("Rseultset cerrada");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -186,6 +196,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             try {
                 if (conexion != null) {
                     conexion.close();
+                    System.out.println("Conexion cerrada");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -230,6 +241,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             try {
                 if (pst != null) {
                     pst.close();
+                    System.out.println("PreparedStatement cerrada");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -238,13 +250,16 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             try {
                 if (rs != null) {
                     rs.close();
+                    System.out.println("Resultset cerrada");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
             try {
                 if (conexion != null) {
-                    conexion.close();
+                    conexion.close()
+                            ;System.out.println("Conexion cerrada");
+                    
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -427,6 +442,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             try {
                 if (conexion != null) {
                     conexion.close();
+                    System.out.println("Conexion cerrada");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -490,6 +506,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             try {
                 if (conexion != null) {
                     conexion.close();
+                    System.out.println("Conexion cerrada");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -525,6 +542,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             try {
                 if (conexion != null) {
                     conexion.close();
+                    System.out.println("Conexion cerrada");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -593,6 +611,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             try {
                 if (conexion != null) {
                     conexion.close();
+                    System.out.println("Conexion cerrada");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -659,6 +678,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             try {
                 if (conexion != null) {
                     conexion.close();
+                    System.out.println("Conexion cerrada");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -694,6 +714,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             try {
                 if (conexion != null) {
                     conexion.close();
+                    System.out.println("Conexion cerrada");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -757,6 +778,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             try {
                 if (conexion != null) {
                     conexion.close();
+                    System.out.println("Conexion cerrada");
                 }
             } catch (Exception e) {
                 e.printStackTrace();

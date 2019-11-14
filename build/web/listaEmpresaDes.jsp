@@ -9,6 +9,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="fonts/css/all.min.css">
+        <meta name="viewport" content="width=device-width"/>
         <script lenguage="javascript">
             function confirmarHabilitar() {
 

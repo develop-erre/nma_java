@@ -71,8 +71,9 @@ public class loginServlets extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession sesion = request.getSession();
-        sesion.invalidate();
+        
+        System.out.println(request.getSession());
+        request.getSession().invalidate();
         response.sendRedirect("index.jsp");
     }
 
@@ -99,11 +100,10 @@ public class loginServlets extends HttpServlet {
 
         try {
             UsuarioDAOImpl usuarioVerificarDAO = new UsuarioDAOImpl();
-            UsuarioDAOImpl usuarioObtenerDAO = new UsuarioDAOImpl();
             boolean verificar = usuarioVerificarDAO.verificarUserSession(run, encodedString);
 
             if (verificar) {
-
+                UsuarioDAOImpl usuarioObtenerDAO = new UsuarioDAOImpl();
                 Usuario usuario = usuarioObtenerDAO.obtenerUsuario(run, encodedString);
 
                 if (usuario.getEstado() == 0) {

@@ -17,7 +17,7 @@
                     Acciones
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item disabled" href="#">Visitas Asignadas</a>
+                    <a class="dropdown-item" href="listarVisitasAsignadas">Visitas Asignadas</a>
                     <a class="dropdown-item" href="listaAsesoriasAsignadas">Asesorias Asignadas</a>
                     <a class="dropdown-item" href="listaCapacitacionAsignada">Capacitaciones Asignadas</a>
                 </div>

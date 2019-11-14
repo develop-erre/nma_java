@@ -459,21 +459,87 @@ INSERT INTO COMUNA (NOMBRE_COMUNA,ID_REGION_FK) VALUES ("PADRE HURTADO","15");
 INSERT INTO COMUNA (NOMBRE_COMUNA,ID_REGION_FK) VALUES ("PEÑAFLOR","15");
 
 
-/*
-INSERT USUARIOS ADMINISTRADORES Y PROFESIONALES
-*/
 
-INSERT INTO `direccion` (`nombre_calle`, `numero`, `depto`, `id_comuna_fk`) 
-VALUES ('AV. MATTA', '450', '502', '295'), 
+/* INSERT DE DIRECCIONES*/
+
+INSERT INTO `direccion` (`nombre_calle`, `numero`, `depto`, `id_comuna_fk`) VALUES 
+('AV. MATTA', '450', '502', '295'), 
 ('EL OBSERVADOR', '1200', NULL, '299'), 
 ('PASAJE UNO', '100', NULL, '319'), 
 ('AV. SAN MARTIN', '4100', NULL, '312'), 
-('AV. ALBERTO GONZALES', '320', NULL, '298');
+('AV. ALBERTO GONZALES', '320', NULL, '298'),
+('AV. INDEPENDENCIA', '8500', NULL, 302),
+('AV. MANUEL ANTONIO MATTA', '8520', NULL, 319),
+('SAN JOAQUÍN', '2010', NULL, 307),
+('AV. PRINCIPAL ', '100', NULL, 327),
+('SANTO DOMINGO', '300', '100', 320),
+('EL MIRADOR', '5200', '', 315);
+
+/* INSERT DE EMPRESAS*/
+
+INSERT INTO `empresa` (`id_empresa`, `nombre`, `rut`, `sitio_web`, `telefono`, `estado`, `id_rubro_fk`) VALUES
+(1, 'FARMACIA VENECIA', '99887744', 'WWW.FARMACIAVENECIA.CL', '22996655', 0, 15),
+(2, 'MUEBLES DON JOSÉ', '7744114444', '', '224569874', 0, 19);
+
+/* INSERT DE SUCURSALES*/
+
+INSERT INTO `sucursal` (`id_sucursal`, `nombre`, `id_direccion_suc_fk`, `id_empresa_fk`, `casa_matriz`) VALUES
+(1, 'CASA MATRIZ FARMACIA VENECIA', 6, 1, 0),
+(2, 'FARMACIA VENECIA QUILICURA', 7, 1, 1),
+(3, 'CASA MATRIZ MUEBLES DON JOSÉ', 8, 2, 0),
+(4, 'MUEBLES DON JOSÉ PUENTE ALTO', 9, 2, 1);
+
+/* INSERT DE CONTRATOS*/
+
+INSERT INTO `contrato` (`id_contrato`, `fecha_de_contrato`, `valor`, `descripcion`, `id_empresa_fk`) VALUES
+(1, '2019-11-10', 150000, 'Lorem um assumenda accusamus. Dicta nulla at quoaceat, deleniti volupta voluptatum excepturi. Eum magni velit soluta dolorem vero, quaerat aperiam quasi temporibus', 1),
+(2, '2019-11-10', 100000, 'Lorem ipsum dolor sit amet, consectetur lla at quoaceat, deleniti vadipisicilla at quoaceat, deleniti vng elit.m quasi temporibus', 2);
+
+/* INSERT DE USUARIOS ADMIN,PROFESIONALES,CLIENTES*/
 
 INSERT INTO `usuario` (`nombre`, `apellidos`, `rut`, `password`, `id_direccion_fk`, `fecha_nacimiento`, `email`, `telefono`, `estado`,`id_rol_fk`, `id_empresa_fk`) VALUES
 ( 'JUAN ANDRÉS', 'MARCUS GUTIERREZ', '11111', 'MTExMTE=', '1', '1980-08-05', NULL, '988775566', 0,1, NULL),
 ( 'FELIPE EDUARDO', 'FUENTES MANRIQUEZ', 'admin', 'YWRtaW4=', '2', '1980-08-05', NULL, '988775566', 0,1, NULL),
 ( 'ALFONSO ANDRÉS', 'ARAYA GUITIERREZ', '20123456k', 'YWxmLmFyYSM5OS0wNQ==', '3', '1999-05-04', 'ALFONSOARAYA@GMAIL.COM', '98877665', 0,2, NULL),
 ( 'MARCOS ULISES', 'GONZALES MENESES', '189654122', 'bWFyLmdvbiM5Mi0wOA==', '4', '1992-08-13', 'MGONZALES@GMAIL.COM', '98877445', 0,2, NULL),
-( 'SAMUEL DAVID', 'FIGUEROA LÓPEZ', '154213654', 'c2FtLmZpZyM4Mi0xMA==', '5', '1982-10-24', 'SAMUELFIGUEROA@GMAIL.COM', '22789654', 0,2, NULL);
+( 'SAMUEL DAVID', 'FIGUEROA LÓPEZ', '154213654', 'c2FtLmZpZyM4Mi0xMA==', '5', '1982-10-24', 'SAMUELFIGUEROA@GMAIL.COM', '22789654', 0,2, NULL),
+( 'FANCISCO JAVIER', 'MENESES MORALES', '185002001', 'ZmFuLm1lbiM5Mi0wNA==', 10, '1992-04-13', 'FANCISCO@GMAIL.COM', '22558874', 0, 3, 1),
+( 'CARLOS MARCOS', 'ROBERT ALBERT', '190000000', 'Y2FyLnJvYiM4My0wNw==', 11, '1983-07-28', 'CROBERT@GMAIL.COM', '99887766', 0, 3, 2);
+
+/* INSERT DE REPORTES DE ACCIDENTES*/
+
+INSERT INTO `reporte_accidente` (`id_reporte_accidente`, `fecha`, `hora`, `comentario`, `id_tipo_accidente_fk`, `id_sucursal_fk`) VALUES
+(1, '2019-11-08', '10:10', 'tecto ipsum assumenda accusamus. Dicta nulla at quo consequatur vero eum, placeat, deleniti volupta', 2, 1),
+(2, '2019-11-04', '16:15', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit et illum iusto voluptatum dolores ver', 7, 2),
+(3, '2019-11-02', '16:30', 'lestiae, amet itaque placeat earum rem alias culpa, mollitia quo perferendis voluptatem est praesen', 5, 3),
+(4, '2019-11-07', '12:35', 'lestiae, amet itaque placeat earum rem alias culpa, mollitia quo perferendis voluptatem est praesen', 1, 4);
+
+
+
+INSERT INTO `actividad` (`id_actividad`, `fecha_act`, `hora_act`, `estado_act`, `id_usuario_fk`, `id_sucursal_empresa_fk`, `id_tipo_actividad_fk`) VALUES
+(1, '2019-11-12', '09:00:00', 1, 3, 1, 3),
+(2, '2019-11-13', '15:00:00', 0, 3, 2, 3),
+(3, NULL, NULL, 0, NULL, 1, 3),
+(4, '2019-11-11', '10:00:00', 1, 5, 4, 3),
+(5, NULL, NULL, 0, NULL, 3, 3),
+(6, '2019-12-17', '11:00:00', 0, 3, 4, 1),
+(7, '2019-11-29', '15:00:00', 0, 3, 2, 1),
+(8, '2019-12-20', '14:00:00', 1, 5, 4, 1),
+(9, '2019-12-16', '12:00:00', 0, 5, 3, 1);
+
+
+
+INSERT INTO `asesoria` (`id_asesoria`, `comentarios_detectados`, `comentarios_propuesta`, `id_tipo_estado_fk`, `id_tipo_asesoria_fk`, `id_actividad_fk_as`) VALUES
+(1, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque molestiae, amet itaque placeat earum rem alias culpa, mollitia quo perferendis voluptatem est praesentium ipsa voluptatum dicta totam voluptas odit, quam tempora iusto quibusdam saepe architecto ipsum assumenda accusamus. Dicta nulla at quo consequatur vero eum, placeat, deleniti voluptate nam voluptatum excepturi. Eum magni velit soluta dolorem vero, quaerat aperiam quasi temporibus. Praesentium libero, voluptates velit e', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque molestiae, amet itaque placeat earum rem alias culpa, mollitia quo perferendis voluptatem est praesentium ipsa voluptatum dicta totam voluptas odit, quam tempora iusto quibusdam saepe architecto ipsum assumenda accusamus. Dicta nulla at quo consequatur vero eum, placeat, deleniti voluptate nam voluptatum excepturi. Eum magni velit soluta dolorem vero, quaerat aperiam quasi temporibus. Praesentium libero, voluptates velit e', 3, 1, 1),
+(2, NULL, NULL, 2, 8, 2),
+(3, NULL, NULL, 1, 4, 3),
+(4, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque molestiae, amet itaque placeat earum rem alias culpa, mollitia quo perferendis voluptatem est praesentium ipsa voluptatum dicta totam voluptas odit, quam tempora iusto quibusdam saepe architecto ipsum assumenda accusamus. Dicta nulla at quo consequatur vero eum, placeat, deleniti voluptate nam voluptatum excepturi. Eum magni velit soluta dolorem vero, quaerat aperiam quasi temporibus. Praesentium libero, voluptates velit e', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque molestiae, amet itaque placeat earum rem alias culpa, mollitia quo perferendis voluptatem est praesentium ipsa voluptatum dicta totam voluptas odit, quam tempora iusto quibusdam saepe architecto ipsum assumenda accusamus. Dicta nulla at quo consequatur vero eum, placeat, deleniti voluptate nam voluptatum excepturi. Eum magni velit soluta dolorem vero, quaerat aperiam quasi temporibus. Praesentium libero, voluptates velit e', 3, 3, 4),
+(5, NULL, NULL, 1, 6, 5);
+
+
+INSERT INTO `capacitacion` (`id_capacitacion`, `numero_asistente`, `id_tipo_capacitacion_fk`, `id_actividad_fk_c`) VALUES
+(1, 30, 6, 6),
+(2, 40, 14, 7),
+(3, 20, 9, 8),
+(4, 10, 3, 9);
 

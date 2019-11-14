@@ -5,6 +5,7 @@ import cl.nma.dominio.Actividad;
 import cl.nma.dominio.ActividadAsesoria;
 import cl.nma.dominio.ActividadAsesoriaGetAll;
 import cl.nma.dominio.ActividadCapacitacionGettAll;
+import cl.nma.dominio.ActividadVisita;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -281,7 +282,7 @@ public class ActividadDAOImpl implements ActividadDAO {
                 actAs.setNumero(rs.getString(12));
                 actAs.setNombre_comuna(rs.getString(13));
                 actAs.setNombre_region(rs.getString(14));
-                
+
                 solicitudList.add(actAs);
             }
         } catch (SQLException ex) {
@@ -473,6 +474,76 @@ public class ActividadDAOImpl implements ActividadDAO {
             }
         }
         return capList;
+
+    }
+
+    @Override
+    public List<ActividadVisita> listarActividadVisitaGetAllProfesional(int idUsuario) {
+
+        List<ActividadVisita> visList = new ArrayList<>();
+        String sql = "CALL GetAllVisitasAsignadas(" + idUsuario + ");";
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            pst = conexion.prepareStatement(sql);
+            rs = pst.executeQuery();
+            ActividadVisita actVis;
+            while (rs.next()) {
+                actVis = new ActividadVisita();
+                actVis.setId_usuario(rs.getInt(1));
+                actVis.setNombre_apellido(rs.getString(2));
+                actVis.setId_actividad(rs.getInt(3));
+                actVis.setFecha_act(rs.getDate(4));
+                actVis.setHora_act(rs.getString(5));
+                actVis.setId_visita(rs.getInt(6));
+                actVis.setTipo_visita(rs.getString(7));
+                actVis.setContratos(rs.getInt(8));
+                actVis.setDocumentacion(rs.getInt(9));
+                actVis.setFiniquitos(rs.getInt(10));
+                actVis.setComentarios_documentacion(rs.getString(11));
+                actVis.setInstalacion(rs.getInt(12));
+                actVis.setBanios(rs.getInt(13));
+                actVis.setComedores(rs.getInt(14));
+                actVis.setComentarios_faena(rs.getString(15));
+                actVis.setSeguridad(rs.getInt(16));
+                actVis.setPeligros(rs.getInt(17));
+                actVis.setComentarios_seguridad(rs.getString(18));
+                actVis.setComentarios_propuesta(rs.getString(19));
+                actVis.setNombre_sucursal(rs.getString(20));
+                actVis.setNombre_calle(rs.getString(21));
+                actVis.setNumero(rs.getString(22));
+                actVis.setNombre_comuna(rs.getString(23));
+                actVis.setNombre_region(rs.getString(24));
+                visList.add(actVis);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //siempre cerrar la conexion, rs y el pst
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return visList;
 
     }
 }

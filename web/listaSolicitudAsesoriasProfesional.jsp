@@ -7,6 +7,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width"/>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="fonts/css/all.min.css">
         <title>Asesorias Asignadas</title>

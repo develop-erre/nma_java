@@ -24,46 +24,37 @@
             </c:otherwise>
         </c:choose>
 
-        <c:choose>
-            <c:when test="${id_rol == 1}">
-                <jsp:include page="menuAdmin.jsp"/>
-            </c:when>    
-            <c:when test="${id_rol == 2}">
-                <jsp:include page="menuProfesional.jsp"/>
-            </c:when>  
-            <c:otherwise>
-                <jsp:include page="menuCliente.jsp"/>
-            </c:otherwise>
-        </c:choose>
+        <jsp:include page="menuProfesional.jsp"/>
 
-        <% String idAsesoria = request.getParameter("txtIdAsesoria"); %>
+       
         <% String idActividad = request.getParameter("txtIdActividad"); %>
-        <% String tipoAsesoria = request.getParameter("txtTipoAsesoria"); %>
+         <% String idVisita = request.getParameter("txtIdAVisita"); %>
+        <% String tipoVisita = request.getParameter("txtTipoVisita"); %>
         <% String nombreSucursal = request.getParameter("txtNombreSucursal");%>
 
 
         <br>
         <div class="container-fluid">
             <h3>Ejecutar Visita </h3><br>
-            <form action="finalizarAsesoria" name="formEjecutar" method="POST" onsubmit="return validarReporteAccidente();">
+            <form action="finalizarVisita" name="formEjecutarVisita" method="POST";">
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label><i class="fas fa-map-marker-alt"></i> <strong>Lugar: </strong><%= nombreSucursal%></label>
                     </div>
                     <div class="form-group col-md-4">
-                        <label> <strong>Tipo de Visita: </strong><%= tipoAsesoria%></label>
+                        <label> <strong>Tipo de Visita: </strong><%= tipoVisita%></label>
                     </div>
                 </div>
 
 
                 <!--  SECCION DOCUMENTACION-->
 
-                <label><strong><i class="far fa-folder-open"></i> Sección Documentos</strong></label>
+                <label><strong><i class="far fa-folder-open"></i> Sección Documentos - (Chequear solo si cumple la norma)</strong></label>
                 <div class="form-row">
                     <div class="form-group col-md-3">
                         <div class="form-group">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" name="checkContratos">
+                                <input class="form-check-input" type="checkbox" value="1" id="defaultCheck1" name="checkContratos">
                                 <label class="form-check-label" for="defaultCheck1">
                                     Contratos al día
                                 </label>
@@ -74,7 +65,7 @@
                     <div class="form-group col-md-3">
                         <div class="form-group">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" name="checkDocumentos">
+                                <input class="form-check-input" type="checkbox" value="1" id="defaultCheck2" name="checkDocumentos">
                                 <label class="form-check-label" for="defaultCheck2">
                                     Documnetación al día
                                 </label>
@@ -84,7 +75,7 @@
                     <div class="form-group col-md-3">
                         <div class="form-group">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck3" name="checkFiniquitos">
+                                <input class="form-check-input" type="checkbox" value="1" id="defaultCheck3" name="checkFiniquitos" >
                                 <label class="form-check-label" for="defaultCheck3">
                                     Finiquitos al día
                                 </label>
@@ -105,7 +96,7 @@
                 <hr>
                 <!--  SECCION INSTALACION DE FAENAS-->
 
-                <label><strong><i class="fas fa-check"></i> Sección Instalación de Faenas</strong></label>
+                <label><strong><i class="fas fa-check"></i> Sección Instalación de Faenas - (Chequear solo si cumple la norma)</strong></label>
                 <div class="form-row">
                     <div class="form-group col-md-3">
                         <div class="form-group">
@@ -153,7 +144,7 @@
                 <hr>
                 <!--  SECCION SEGURIDAD-->
 
-                <label><strong><i class="fas fa-user-shield"></i> Sección Seguridad</strong></label>
+                <label><strong><i class="fas fa-user-shield"></i> Sección Seguridad  - (Chequear solo si cumple la norma)</strong></label>
                 <div class="form-row">
                     <div class="form-group col-md-3">
                         <div class="form-group">
@@ -204,8 +195,8 @@
                 </div>
 
                 <input  name="idACT" type="hidden" value="<%=idActividad%>">
-                <input  name="idASE" type="hidden" value="<%=idAsesoria%>">
-                <button type="submit" class="btn btn-danger">Finalizar Asesoria</button>
+                <input  name="idASE" type="hidden" value="<%=idVisita%>">
+                <button type="submit" class="btn btn-danger">Finalizar Visita</button>
                 <br>
                 <br>
             </form>

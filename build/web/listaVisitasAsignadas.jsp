@@ -10,28 +10,14 @@
         <meta name="viewport" content="width=device-width"/>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="fonts/css/all.min.css">
-        <script lenguage="javascript">
-            function confirmarHabilitar() {
-
-                var respuesta = confirm("Estas seguro que deseas habilitar el usuario?");
-
-                if (respuesta === true) {
-                    return true;
-                } else {
-                    return false;
-
-                }
-            }
-        </script>
-        <title>Lista de Profesionales Deshabilitado</title>
+        <title>Lista de Visitas Asignadas</title>
     </head>
-    <body>
-
+    
         <% String rs = String.valueOf(sesion.getAttribute("id_rol"));%>
         <c:set var="id_rol" value="<%=rs%>" />
 
         <c:choose>
-            <c:when test="${id_rol == 1}">
+            <c:when test="${id_rol == 2}">
 
             </c:when>    
             <c:otherwise>
@@ -53,38 +39,42 @@
 
         <br>
         <div class="container-fluid">
-            <h3>Profesionales Deshabilitado</h3>
+            <h3>Lista de Visitas Asignadas</h3>
             <br>
             <table class="table table-sm table-responsive-md table-striped">
                 <thead class="thead-light">
                     <tr>
-                        <th>Nombre</th>
-                        <th>Rut</th>
-                        <th>Correo</th>
-                        <th>Telefono</th>
-                        <th>Habilitar</th>
+                        <th>Nombre Sucursal</th>
+                        <th>Tipo Visita</th>
+                        <th>Fecha Visita</th>
+                        <th>Hora Visita</th>
+                        <th>Acción</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items="${listaProfesional}" var="profesional">
+                    <c:forEach items="${listaActividadGetAll}" var="actividadGetAll">
                         <tr>
-                            <td>${profesional.apellidos} ${profesional.nombre}</td>
-                            <td>${profesional.rut}</td>
-                            <td>${profesional.email}</td>
-                            <td>${profesional.telefono}</td>
+                            <td>${actividadGetAll.nombre_sucursal}</td>
+                            <td>${actividadGetAll.tipo_visita}</td>
+                            <td>${actividadGetAll.fecha_act}</td>
+                            <td>${actividadGetAll.hora_act}</td>
                             <td>
-                                <form action="habilitarUsuario" method="POST" onclick="return confirmarHabilitar();">
-                                    <input type="submit" class="btn btn-success" value="Habilitar" />
-                                    <input type="hidden" name="id_prof_hab" value="${profesional.id_usuario}" />
+                                <form action="ejecutarVisita" method="POST">
+                                    <input type="hidden" name="txtIdActividad" value="${actividadGetAll.id_actividad}" />
+                                    <input type="hidden" name="txtIdAVisita" value="${actividadGetAll.id_visita}" />
+                                    <input type="hidden" name="txtTipoVisita" value="${actividadGetAll.tipo_visita}" />
+                                    <input type="hidden" name="txtNombreSucursal" value="${actividadGetAll.nombre_sucursal}" />
+                                    <button type="submit" class="btn btn-info"><i class="far fa-calendar-check"></i> Ejecutar</button>
                                 </form>
                             </td>
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
+        </div>
 
-            <script src="js/jquery-3.4.1.min.js"></script>
-            <script src="js/popper.min.js"></script>
-            <script src="js/bootstrap.min.js"></script>
-    </body>
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+    
 </html>

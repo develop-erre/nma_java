@@ -4,6 +4,7 @@ import cl.nma.dominio.Actividad;
 import cl.nma.dominio.ActividadAsesoria;
 import cl.nma.dominio.ActividadAsesoriaGetAll;
 import cl.nma.dominio.ActividadCapacitacionGettAll;
+import cl.nma.dominio.ActividadVisita;
 import java.util.List;
 
 
@@ -32,5 +33,7 @@ public interface ActividadDAO {
     List<ActividadAsesoriaGetAll> listarAsesoriasFinalizadasGetAll(int idEmpresa);
     
     List<ActividadCapacitacionGettAll> listarCapacitacionGetAll(int idUsuario);
+    
+    List<ActividadVisita> listarActividadVisitaGetAllProfesional(int idUsuario);
     
 }
