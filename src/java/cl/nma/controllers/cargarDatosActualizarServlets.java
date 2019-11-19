@@ -122,7 +122,7 @@ public class cargarDatosActualizarServlets extends HttpServlet {
                 request.setAttribute("getComuna", us.getComuna());
                 request.setAttribute("getRegion", us.getRegion());
                 request.setAttribute("getId_rol_fk", us.getId_rol_fk());
-                request.setAttribute("getId_empresa_fk", us.getId_empresa_fk());
+                request.setAttribute("getId_empresa_fk", us.getId_sucursal_fk());
                 request.setAttribute("getId_direccion_fk", us.getId_direccion_fk());
 
                 request.getRequestDispatcher("actualizarprofesional.jsp").forward(request, response);

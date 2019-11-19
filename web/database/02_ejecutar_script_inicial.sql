@@ -497,14 +497,14 @@ INSERT INTO `contrato` (`id_contrato`, `fecha_de_contrato`, `valor`, `descripcio
 
 /* INSERT DE USUARIOS ADMIN,PROFESIONALES,CLIENTES*/
 
-INSERT INTO `usuario` (`nombre`, `apellidos`, `rut`, `password`, `id_direccion_fk`, `fecha_nacimiento`, `email`, `telefono`, `estado`,`id_rol_fk`, `id_empresa_fk`) VALUES
+INSERT INTO `usuario` (`nombre`, `apellidos`, `rut`, `password`, `id_direccion_fk`, `fecha_nacimiento`, `email`, `telefono`, `estado`,`id_rol_fk`, `id_sucursal_fk`) VALUES
 ( 'JUAN ANDRÉS', 'MARCUS GUTIERREZ', '11111', 'MTExMTE=', '1', '1980-08-05', NULL, '988775566', 0,1, NULL),
 ( 'FELIPE EDUARDO', 'FUENTES MANRIQUEZ', 'admin', 'YWRtaW4=', '2', '1980-08-05', NULL, '988775566', 0,1, NULL),
 ( 'ALFONSO ANDRÉS', 'ARAYA GUITIERREZ', '20123456k', 'YWxmLmFyYSM5OS0wNQ==', '3', '1999-05-04', 'ALFONSOARAYA@GMAIL.COM', '98877665', 0,2, NULL),
 ( 'MARCOS ULISES', 'GONZALES MENESES', '189654122', 'bWFyLmdvbiM5Mi0wOA==', '4', '1992-08-13', 'MGONZALES@GMAIL.COM', '98877445', 0,2, NULL),
 ( 'SAMUEL DAVID', 'FIGUEROA LÓPEZ', '154213654', 'c2FtLmZpZyM4Mi0xMA==', '5', '1982-10-24', 'SAMUELFIGUEROA@GMAIL.COM', '22789654', 0,2, NULL),
 ( 'FANCISCO JAVIER', 'MENESES MORALES', '185002001', 'ZmFuLm1lbiM5Mi0wNA==', 10, '1992-04-13', 'FANCISCO@GMAIL.COM', '22558874', 0, 3, 1),
-( 'CARLOS MARCOS', 'ROBERT ALBERT', '190000000', 'Y2FyLnJvYiM4My0wNw==', 11, '1983-07-28', 'CROBERT@GMAIL.COM', '99887766', 0, 3, 2);
+( 'CARLOS MARCOS', 'ROBERT ALBERT', '190000000', 'Y2FyLnJvYiM4My0wNw==', 11, '1983-07-28', 'CROBERT@GMAIL.COM', '99887766', 0, 3, 3);
 
 /* INSERT DE REPORTES DE ACCIDENTES*/
 

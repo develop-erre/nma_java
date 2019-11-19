@@ -24,6 +24,7 @@
     <body>
 
         <% String rs = String.valueOf(sesion.getAttribute("id_rol"));%>
+         <% String nombreSucursal = String.valueOf(sesion.getAttribute("nombreSucursal"));%>
         <c:set var="id_rol" value="<%=rs%>" />
 
         <c:choose>
@@ -67,22 +68,17 @@
                         </select>
                     </div>
                 </div>
-
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="inputSucursal4">Lugar del accidente</label>
+                        <label for="inputFechaNac4">Lugar de Accidente</label>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                            <select id="inputSucursal4" class="form-control" name="selectSucursalId">
-                                <option value="0">SELECCIONE</option>
-                                <c:forEach items="${listaSucursal}" var="suc">
-                                    <option value="${suc.id_sucursal}">${suc.nombre_sucursal}</option>
-                                </c:forEach>
-                            </select>
+                            <input type="text" class="form-control" disabled="" value="<%=nombreSucursal%>">
                         </div>
                     </div>
                 </div>
-                <input  name="idEmpresa" type="hidden" value="<%= sesion.getAttribute("id_empresa")%>">
+
+                <input  name="idSucursal" type="hidden" value="<%= sesion.getAttribute("id_empresa")%>">
                 <button type="submit" class="btn btn-primary">Solicitar Asesoria</button>
             </form>
         </div>

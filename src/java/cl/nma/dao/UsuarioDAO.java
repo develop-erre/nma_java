@@ -37,6 +37,6 @@ public interface UsuarioDAO {
     
     Boolean verificarUser(String us, String pass);
     
-    Usuario  obtenerUsuario(String us, String pass);
+    UsuarioLista  obtenerUsuario(String us, String pass);
     
 }

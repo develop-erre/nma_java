@@ -5,13 +5,15 @@
  */
 package cl.nma.controllers;
 
-import cl.nma.dao.ActividadDAOImpl;
-import cl.nma.dao.AsesoriaDAOImpl;
-import cl.nma.dominio.Actividad;
-import cl.nma.dominio.Asesoria;
+import cl.nma.dao.EmpresaDAOImpl;
+import cl.nma.dao.RegionComunaDAOImpl;
+import cl.nma.dominio.EmpresaLista;
+import cl.nma.dominio.RegionComuna;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -22,10 +24,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Richard Foncea
+ * @author
  */
-@WebServlet(name = "solicitarAsesoriaServlets", urlPatterns = {"/solicitarAsesoria"})
-public class solicitarAsesoriaServlets extends HttpServlet {
+@WebServlet(name = "cargarRegionCrearUsuarioEmpresaServlets", urlPatterns = {"/cargarRegionCrearUsuarioEmpresa"})
+public class cargarRegionCrearUsuarioEmpresaServlets extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +46,10 @@ public class solicitarAsesoriaServlets extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet solicitarAsesoriaServlets</title>");            
+            out.println("<title>Servlet cargarRegionCrearUsuarioEmpresaServlets</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet solicitarAsesoriaServlets at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet cargarRegionCrearUsuarioEmpresaServlets at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -81,35 +83,24 @@ public class solicitarAsesoriaServlets extends HttpServlet {
             throws ServletException, IOException {
         
         request.setCharacterEncoding("UTF-8");
-        
-        int idTipoAsesoria = Integer.parseInt(request.getParameter("selectTipoAsesoria"));
-        int idSucursalAsesoria = Integer.parseInt(request.getParameter("idSucursal"));
 
+        String idSucursal = request.getParameter("txtIdSucursal");
+        String nombre_sucursal = request.getParameter("nombre_sucursal");
+        List<RegionComuna> listaComuna = new ArrayList();
         try {
-                //SE CREA ACTIVIDAD CREAR CAPACITACION
-                ActividadDAOImpl actDAO = new ActividadDAOImpl();
-                Actividad act = new Actividad();
-                //SE SETEA VALOR DE JSP
-                act.setEstado_act(0);
-                act.setId_sucursal_empresa_fk(idSucursalAsesoria);
-                act.setId_tipo_actividad_fk(3);
 
-                int idAct = actDAO.agregarAsesoria(act);
-                
-                AsesoriaDAOImpl asDAO = new AsesoriaDAOImpl();
-                Asesoria as = new Asesoria();
-                as.setId_tipo_asesoria_fk(idTipoAsesoria);
-                as.setId_actividades_fk_as(idAct);
-                
-                asDAO.agregar(as);
-                
-                request.getRequestDispatcher("/home.jsp").forward(request, response);
+            RegionComunaDAOImpl rcDAO = new RegionComunaDAOImpl();
+            listaComuna = rcDAO.listar();
 
-            } catch (SQLException ex) {
-                Logger.getLogger(reportarAccidenteServlets.class.getName()).log(Level.SEVERE, null, ex);
-            }
-                
-                
+            request.setAttribute("listaReg", listaComuna);
+            request.setAttribute("idSucursal", idSucursal);
+            request.setAttribute("nombre_sucursal", nombre_sucursal);
+            request.getRequestDispatcher("crearusuarioempresa.jsp").forward(request, response);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(cargarRegionCrearUsuarioEmpresaServlets.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        
     }
 
     /**

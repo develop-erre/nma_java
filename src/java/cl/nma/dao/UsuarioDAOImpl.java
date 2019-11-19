@@ -106,7 +106,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
                 usurio.setTelefono(rs.getString(9));
                 usurio.setEstado(rs.getInt(10));
                 usurio.setId_rol_fk(rs.getInt(11));
-                usurio.setId_empresa_fk(rs.getInt(12));
+                usurio.setId_sucursal_fk(rs.getInt(12));
 
                 usuarios.add(usurio);
             }
@@ -171,7 +171,6 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 //                    bandera = true;
 //                }
 //            }
-
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -224,7 +223,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
                 usuario.setPassword(rs.getString(5));
                 usuario.setEstado(rs.getByte(10));
                 usuario.setId_rol_fk(rs.getInt(12));
-                usuario.setId_empresa_fk(rs.getInt(13));
+                usuario.setId_sucursal_fk(rs.getInt(13));
                 usuarios.add(usuario);
             }
 
@@ -257,9 +256,9 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             }
             try {
                 if (conexion != null) {
-                    conexion.close()
-                            ;System.out.println("Conexion cerrada");
-                    
+                    conexion.close();
+                    System.out.println("Conexion cerrada");
+
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -273,7 +272,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
         int id = 0;
         String sql = "INSERT INTO USUARIO(NOMBRE,APELLIDOS,RUT,PASSWORD,ID_DIRECCION_FK,FECHA_NACIMIENTO,EMAIL,TELEFONO,ESTADO,"
-                + "ID_ROL_FK,ID_EMPRESA_FK) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+                + "ID_ROL_FK,ID_SUCURSAL_FK) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 
         PreparedStatement pst = null;
         ResultSet rs = null;
@@ -289,7 +288,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             pst.setString(8, usuario.getTelefono());
             pst.setInt(9, usuario.getEstado());
             pst.setInt(10, usuario.getId_rol_fk());
-            pst.setInt(11, usuario.getId_empresa_fk());
+            pst.setInt(11, usuario.getId_sucursal_fk());
             int result = pst.executeUpdate();
 
             if (result == 0) {
@@ -335,10 +334,21 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     }
 
     @Override
-    public Usuario obtenerUsuario(String us, String pass) {
+    public UsuarioLista obtenerUsuario(String us, String pass) {
 
-        Usuario usuario = new Usuario();
-        String sql = "SELECT * FROM USUARIO  WHERE rut='" + us + "' and password = '" + pass + "' ;";
+        UsuarioLista usuario = new UsuarioLista();
+        String sql = "SELECT \n"
+                + "    usuario.id_usuario,\n"
+                + "    usuario.nombre,\n"
+                + "    usuario.apellidos,\n"
+                + "    usuario.rut,\n"
+                + "    usuario.estado,\n"
+                + "    usuario.id_rol_fk,\n"
+                + "    usuario.id_sucursal_fk,\n"
+                + "    sucursal.nombre as nombre_sucursal\n"
+                + "FROM usuario \n"
+                + "JOIN sucursal ON sucursal.id_sucursal = usuario.id_sucursal_fk\n"
+                + "WHERE usuario.rut='" + us + "' and usuario.password = '" + pass + "' ;";
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
@@ -346,14 +356,15 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             rs = pst.executeQuery();
 
             while (rs.next()) {
-                usuario.setId_usuario(rs.getInt(1));
+                usuario.setId_usuario(rs.getString(1));
                 usuario.setNombre(rs.getString(2));
                 usuario.setApellidos(rs.getString(3));
                 usuario.setRut(rs.getString(4));
-                usuario.setPassword(rs.getString(5));
-                usuario.setEstado(rs.getInt(10));
-                usuario.setId_rol_fk(rs.getInt(11));
-                usuario.setId_empresa_fk(rs.getInt(12));
+                usuario.setEstado(rs.getString(5));
+                usuario.setEstado(rs.getString(5));
+                usuario.setId_rol_fk(rs.getString(6));
+                usuario.setId_sucursal_fk(rs.getString(7));
+                usuario.setNombre_sucursal(rs.getString(8));
             }
 
         } catch (SQLException ex) {
@@ -417,7 +428,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
                 usuario.setTelefono(rs.getString(9));
                 usuario.setEstado(rs.getInt(10));
                 usuario.setId_rol_fk(rs.getInt(11));
-                usuario.setId_empresa_fk(rs.getInt(12));
+                usuario.setId_sucursal_fk(rs.getInt(12));
             }
 
         } catch (SQLException ex) {
@@ -584,7 +595,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
                 pf.setComuna(rs.getString(11));
                 pf.setRegion(rs.getString(12));
                 pf.setId_rol_fk(rs.getString(13));
-                pf.setId_empresa_fk(rs.getString(14));
+                pf.setId_sucursal_fk(rs.getString(14));
                 pf.setId_direccion_fk(rs.getString(15));
                 lista.add(pf);
             }
@@ -651,7 +662,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
                 pf.setComuna(rs.getString(11));
                 pf.setRegion(rs.getString(12));
                 pf.setId_rol_fk(rs.getString(13));
-                pf.setId_empresa_fk(rs.getString(14));
+                pf.setId_sucursal_fk(rs.getString(14));
                 pf.setId_direccion_fk(rs.getString(15));
                 lista.add(pf);
             }
@@ -728,7 +739,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     @Override
     public UsuarioLista traeUsuarioPorId(int idUsuario) {
 
-        String sql = " CALL GetUsuarioListaActualizar("+idUsuario+")";
+        String sql = " CALL GetUsuarioListaActualizar(" + idUsuario + ")";
 
         PreparedStatement pst = null;
         ResultSet rs = null;
@@ -752,7 +763,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
                 usuario.setComuna(rs.getString(11));
                 usuario.setRegion(rs.getString(12));
                 usuario.setId_rol_fk(rs.getString(13));
-                usuario.setId_empresa_fk(rs.getString(14));
+                usuario.setId_sucursal_fk(rs.getString(14));
                 usuario.setId_direccion_fk(rs.getString(15));
             }
 

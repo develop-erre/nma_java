@@ -15,13 +15,15 @@ public class UsuarioLista {
     private String comuna;
     private String region;
     private String id_rol_fk;
-    private String id_empresa_fk;
+    private String id_sucursal_fk;
     private String id_direccion_fk;
+    private String nombre_sucursal;
+    private String estado;
 
     public UsuarioLista() {
     }
 
-    public UsuarioLista(String id_usuario, String nombre, String apellidos, String rut, String fecha_nacimiento, String email, String telefono, String nombre_calle, String numero, String depto, String comuna, String region, String id_rol_fk, String id_empresa_fk, String id_direccion_fk) {
+    public UsuarioLista(String id_usuario, String nombre, String apellidos, String rut, String fecha_nacimiento, String email, String telefono, String nombre_calle, String numero, String depto, String comuna, String region, String id_rol_fk, String id_sucursal_fk, String id_direccion_fk, String nombre_sucursal, String estado) {
         this.id_usuario = id_usuario;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -35,9 +37,14 @@ public class UsuarioLista {
         this.comuna = comuna;
         this.region = region;
         this.id_rol_fk = id_rol_fk;
-        this.id_empresa_fk = id_empresa_fk;
+        this.id_sucursal_fk = id_sucursal_fk;
         this.id_direccion_fk = id_direccion_fk;
+        this.nombre_sucursal = nombre_sucursal;
+        this.estado = estado;
     }
+
+  
+ 
 
     public String getId_usuario() {
         return id_usuario;
@@ -143,12 +150,12 @@ public class UsuarioLista {
         this.id_rol_fk = id_rol_fk;
     }
 
-    public String getId_empresa_fk() {
-        return id_empresa_fk;
+    public String getId_sucursal_fk() {
+        return id_sucursal_fk;
     }
 
-    public void setId_empresa_fk(String id_empresa_fk) {
-        this.id_empresa_fk = id_empresa_fk;
+    public void setId_sucursal_fk(String id_sucursal_fk) {
+        this.id_sucursal_fk = id_sucursal_fk;
     }
 
     public String getId_direccion_fk() {
@@ -158,6 +165,21 @@ public class UsuarioLista {
     public void setId_direccion_fk(String id_direccion_fk) {
         this.id_direccion_fk = id_direccion_fk;
     }
- 
+
+    public String getNombre_sucursal() {
+        return nombre_sucursal;
+    }
+
+    public void setNombre_sucursal(String nombre_sucursal) {
+        this.nombre_sucursal = nombre_sucursal;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
     
 }

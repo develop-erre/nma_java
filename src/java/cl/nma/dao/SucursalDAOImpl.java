@@ -106,7 +106,7 @@ public class SucursalDAOImpl implements SucursalDAO {
     public List<SucursalLista> obtenerSucursalPorId(Integer id) {
 
         List<SucursalLista> sucList = new ArrayList<>();
-        String sql = "CALL  GetObtenerSucursalPorId("+id+");";
+        String sql = "CALL  GetObtenerSucursalPorId(" + id + ");";
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
@@ -153,7 +153,7 @@ public class SucursalDAOImpl implements SucursalDAO {
 
     @Override
     public int agregarSucursal(Sucursal suc) {
-        
+
         int id = 0;
         String sql = "INSERT INTO SUCURSAL(NOMBRE, ID_DIRECCION_SUC_FK,ID_EMPRESA_FK,CASA_MATRIZ) VALUES(?,?,?,1)";
 

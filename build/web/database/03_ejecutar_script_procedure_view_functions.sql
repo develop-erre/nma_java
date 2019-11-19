@@ -78,7 +78,7 @@ SELECT
     comuna.nombre_comuna comuna,
     region.nombre_region region,
     usuario.id_rol_fk,
-    usuario.id_empresa_fk,
+    usuario.id_sucursal_fk,
     usuario.id_direccion_fk
 FROM usuario 
     JOIN direccion ON usuario.id_direccion_fk = direccion.id_direccion
@@ -108,7 +108,7 @@ SELECT
     comuna.nombre_comuna comuna,
     region.nombre_region region,
     usuario.id_rol_fk,
-    usuario.id_empresa_fk,
+    usuario.id_sucursal_fk,
     usuario.id_direccion_fk
 FROM usuario 
     JOIN direccion ON usuario.id_direccion_fk = direccion.id_direccion
@@ -246,7 +246,7 @@ DE UNA EMPRESA EN ESPECIFICO
 
 DELIMITER //
 
-CREATE PROCEDURE GetAllAsesoriasFinalizadas(IN idEmp INT)
+CREATE PROCEDURE GetAllAsesoriasFinalizadas(IN idSucursal INT)
 BEGIN
 SELECT 
      usuario.id_usuario
@@ -272,7 +272,7 @@ FROM USUARIO
     JOIN comuna ON comuna.id_comuna = direccion.id_comuna_fk
     JOIN region ON comuna.id_region_fk = region.id_region
     JOIN tipo_asesoria ON tipo_asesoria.id_tipo_asesoria = asesoria.id_tipo_asesoria_fk
-WHERE actividad.id_tipo_actividad_fk = 3 and actividad.estado_act=1 and sucursal.id_empresa_fk = idEmp
+WHERE actividad.id_tipo_actividad_fk = 3 and actividad.estado_act=1 and sucursal.id_sucursal = idSucursal
 ORDER BY 4;
 END //
  
@@ -336,7 +336,7 @@ SELECT
     comuna.nombre_comuna comuna,
     region.nombre_region region,
     usuario.id_rol_fk,
-    usuario.id_empresa_fk,
+    usuario.id_sucursal_fk,
     direccion.id_direccion
 FROM usuario 
     JOIN direccion ON usuario.id_direccion_fk = direccion.id_direccion

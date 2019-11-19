@@ -50,6 +50,9 @@
             </c:otherwise>
         </c:choose>
 
+        <% String idSucursal = (String) (request.getAttribute("idSucursal"));%>
+        <% String nombreSuc = (String) (request.getAttribute("nombre_sucursal"));%>
+
         <br>
         <div class="container-fluid">
             <h3>Crear Usuario Empresa </h3>
@@ -101,7 +104,7 @@
                             <input type="text" class="form-control" id="inputDireccion4" name = "txtDireccion" placeholder="Ingrece Dirección" required="" maxlength="80">
                         </div>
                     </div>
-                    
+
                     <div class="form-group col-md-2">
                         <label for="inputAddress">Número</label>
                         <div class="input-group-prepend">
@@ -130,17 +133,13 @@
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <label for="inputState">Empresa</label>
-                        <select name="txtIdEmpresa" id="empresaIdSelect" class="form-control" required="">
-                            <option value="0">SELECCIONE</option>
-                            <c:forEach items="${listaEmp}" var="empresa">
-                                <option value="${empresa.id_empresa}">${empresa.nombre_empresa}</option>
-                            </c:forEach>
-                        </select>
+                    <div class="form-group col-md-6">
+                        <label for="inputNombre4">Nombre Sucursal</label>
+                        <input type="text" class="form-control disabled" id="inputNombre4" name="txtNombreSucursal" value="<%= nombreSuc%>" disabled="">
                     </div>
                 </div>
 
+                        <input type="hidden"  name="txtIdSucursal" value="<%= idSucursal%>">
                 <button type="submit" class="btn btn-primary">Crear Usuario Empresa</button>
             </form>
 

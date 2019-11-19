@@ -8,6 +8,7 @@ package cl.nma.controllers;
 import cl.nma.dao.UsuarioDAO;
 import cl.nma.dao.UsuarioDAOImpl;
 import cl.nma.dominio.Usuario;
+import cl.nma.dominio.UsuarioLista;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -104,9 +105,9 @@ public class loginServlets extends HttpServlet {
 
             if (verificar) {
                 UsuarioDAOImpl usuarioObtenerDAO = new UsuarioDAOImpl();
-                Usuario usuario = usuarioObtenerDAO.obtenerUsuario(run, encodedString);
+                UsuarioLista usuario = usuarioObtenerDAO.obtenerUsuario(run, encodedString);
 
-                if (usuario.getEstado() == 0) {
+                if (usuario.getEstado().equals("0")) {
 
                     Date objDate = new Date();
                     System.out.println(objDate);
@@ -119,7 +120,8 @@ public class loginServlets extends HttpServlet {
                     session.setAttribute("apellidos", usuario.getApellidos());
                     session.setAttribute("id_usuario", usuario.getId_usuario());
                     session.setAttribute("id_rol", usuario.getId_rol_fk());
-                    session.setAttribute("id_empresa", usuario.getId_empresa_fk());
+                    session.setAttribute("id_empresa", usuario.getId_sucursal_fk());
+                    session.setAttribute("nombreSucursal", usuario.getNombre_sucursal());
                     session.setAttribute("estado", usuario.getEstado());
                     session.setAttribute("fechaHoy", objSDF.format(objDate));
                     request.getRequestDispatcher("/home.jsp").forward(request, response);

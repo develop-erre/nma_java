@@ -15,12 +15,12 @@ public class Usuario {
     private String _telefono;
     private int _estado;
     private int _id_rol_fk;
-    private int id_empresa_fk;
+    private int id_sucursal_fk;
 
     public Usuario() {
     }
 
-    public Usuario(int _id_usuario, String _nombre, String _apellidos, String _rut, String _password, int _id_direccion_fk, Date _fecha_nac, String _email, String _telefono, int _estado, int _id_rol_fk, int id_empresa_fk) {
+    public Usuario(int _id_usuario, String _nombre, String _apellidos, String _rut, String _password, int _id_direccion_fk, Date _fecha_nac, String _email, String _telefono, int _estado, int _id_rol_fk, int id_sucursal_fk) {
         this._id_usuario = _id_usuario;
         this._nombre = _nombre;
         this._apellidos = _apellidos;
@@ -32,7 +32,7 @@ public class Usuario {
         this._telefono = _telefono;
         this._estado = _estado;
         this._id_rol_fk = _id_rol_fk;
-        this.id_empresa_fk = id_empresa_fk;
+        this.id_sucursal_fk = id_sucursal_fk;
     }
 
     public int getId_usuario() {
@@ -123,12 +123,12 @@ public class Usuario {
         this._id_rol_fk = _id_rol_fk;
     }
 
-    public int getId_empresa_fk() {
-        return id_empresa_fk;
+    public int getId_sucursal_fk() {
+        return id_sucursal_fk;
     }
 
-    public void setId_empresa_fk(int id_empresa_fk) {
-        this.id_empresa_fk = id_empresa_fk;
+    public void setId_sucursal_fk(int id_sucursal_fk) {
+        this.id_sucursal_fk = id_sucursal_fk;
     }
     
     public String createPassword (String date){

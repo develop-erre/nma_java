@@ -90,10 +90,10 @@ public class reporteAsesoriaServlets extends HttpServlet {
                 // abrir documento
                 documento.open();
 
-                Image imagen = Image.getInstance("http://18.223.187.212/imagen/icono-reporte-asesoria.png");
-                imagen.setAlignment(Element.ALIGN_LEFT);
-                imagen.scaleToFit(50, 50);
-                documento.add(imagen);
+//                Image imagen = Image.getInstance("http://18.223.187.212/imagen/icono-reporte-asesoria.png");
+//                imagen.setAlignment(Element.ALIGN_LEFT);
+//                imagen.scaleToFit(50, 50);
+//                documento.add(imagen);
 
                 Paragraph par1 = new Paragraph();
                 Font fontTitulo = new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD, BaseColor.BLACK);

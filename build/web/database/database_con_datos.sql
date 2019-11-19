@@ -3,29 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-11-2019 a las 23:07:31
+-- Tiempo de generación: 19-11-2019 a las 03:21:11
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.3.9
-
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-
--- -----------------------------------------------------
--- Schema no_mas_accidentes
--- -----------------------------------------------------
--- utf8-unicode
--- 
-DROP SCHEMA IF EXISTS `no_mas_accidentes` ;
-
--- -----------------------------------------------------
--- Schema no_mas_accidentes
---
--- utf8-unicode
--- 
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `no_mas_accidentes` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ;
-USE `no_mas_accidentes` ;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -75,7 +55,7 @@ WHERE id_rol_fk = 2 and actividad.estado_act=0 and id_usuario= idUsu
 ORDER BY 4 ASC;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `GetAllAsesoriasFinalizadas` (IN `idEmp` INT)  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetAllAsesoriasFinalizadas` (IN `idSucursal` INT)  BEGIN
 SELECT 
      usuario.id_usuario
     ,CONCAT(usuario.nombre, " ", usuario.apellidos) AS nombre_apellido
@@ -100,7 +80,7 @@ FROM USUARIO
     JOIN comuna ON comuna.id_comuna = direccion.id_comuna_fk
     JOIN region ON comuna.id_region_fk = region.id_region
     JOIN tipo_asesoria ON tipo_asesoria.id_tipo_asesoria = asesoria.id_tipo_asesoria_fk
-WHERE actividad.id_tipo_actividad_fk = 3 and actividad.estado_act=1 and sucursal.id_empresa_fk = idEmp
+WHERE actividad.id_tipo_actividad_fk = 3 and actividad.estado_act=1 and sucursal.id_sucursal = idSucursal
 ORDER BY 4;
 END$$
 
@@ -169,7 +149,7 @@ SELECT
     comuna.nombre_comuna comuna,
     region.nombre_region region,
     usuario.id_rol_fk,
-    usuario.id_empresa_fk,
+    usuario.id_sucursal_fk,
     direccion.id_direccion
 FROM usuario 
     JOIN direccion ON usuario.id_direccion_fk = direccion.id_direccion
@@ -210,6 +190,17 @@ INSERT INTO `actividad` (`id_actividad`, `fecha_act`, `hora_act`, `estado_act`, 
 (7, '2019-11-29', '15:00:00', 0, 3, 2, 1),
 (8, '2019-12-20', '14:00:00', 1, 5, 4, 1),
 (9, '2019-12-16', '12:00:00', 0, 5, 3, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `actividad_has_detalle_factura`
+--
+
+CREATE TABLE `actividad_has_detalle_factura` (
+  `id_actividad_has` int(11) NOT NULL,
+  `id_detalle_factura_has` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -643,8 +634,8 @@ CREATE TABLE `contrato` (
 --
 
 INSERT INTO `contrato` (`id_contrato`, `fecha_de_contrato`, `valor`, `descripcion`, `id_empresa_fk`) VALUES
-(1, '2019-11-10', 200000, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque molestiae, amet itaque placeat earum rem alias culpa, mollitia quo perferendis voluptatem est praesentium ipsa voluptatum dicta totam voluptas odit, quam tempora iusto quibusdam saepe architecto ipsum assumenda accusamus. Dicta nulla at quo consequatur vero eum, placeat, deleniti voluptate nam voluptatum excepturi. Eum magni velit soluta dolorem vero, quaerat aperiam quasi temporibus', 1),
-(2, '2019-11-10', 100000, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque molestiae, amet itaque placeat earum rem alias culpa, mollitia quo perferendis voluptatem est praesentium ipsa voluptatum dicta totam voluptas odit, quam tempora iusto quibusdam saepe architecto ipsum assumenda accusamus. Dicta nulla at quo consequatur vero eum, placeat, deleniti voluptate nam voluptatum excepturi. Eum magni velit soluta dolorem vero, quaerat aperiam quasi temporibus', 2);
+(1, '2019-11-10', 150000, 'Lorem um assumenda accusamus. Dicta nulla at quoaceat, deleniti volupta voluptatum excepturi. Eum magni velit soluta dolorem vero, quaerat aperiam quasi temporibus', 1),
+(2, '2019-11-10', 100000, 'Lorem ipsum dolor sit amet, consectetur lla at quoaceat, deleniti vadipisicilla at quoaceat, deleniti vng elit.m quasi temporibus', 2);
 
 -- --------------------------------------------------------
 
@@ -654,7 +645,8 @@ INSERT INTO `contrato` (`id_contrato`, `fecha_de_contrato`, `valor`, `descripcio
 
 CREATE TABLE `detalle_factura` (
   `id_detalle_factura` int(11) NOT NULL,
-  `detalle_facturacol` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL
+  `valor_total` int(11) NOT NULL,
+  `factura_id_pago` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -722,8 +714,8 @@ CREATE TABLE `factura` (
   `id_pago` int(11) NOT NULL,
   `fecha_pago` date NOT NULL,
   `fecha_vencimiento` date NOT NULL,
-  `total` int(11) NOT NULL,
   `estado_pago` tinyint(4) NOT NULL,
+  `valor_plan` int(11) NOT NULL,
   `id_empresa_fk` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -1023,21 +1015,21 @@ CREATE TABLE `usuario` (
   `telefono` varchar(45) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   `estado` tinyint(4) NOT NULL,
   `id_rol_fk` int(11) NOT NULL,
-  `id_empresa_fk` int(11) DEFAULT NULL
+  `id_sucursal_fk` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellidos`, `rut`, `password`, `id_direccion_fk`, `fecha_nacimiento`, `email`, `telefono`, `estado`, `id_rol_fk`, `id_empresa_fk`) VALUES
+INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellidos`, `rut`, `password`, `id_direccion_fk`, `fecha_nacimiento`, `email`, `telefono`, `estado`, `id_rol_fk`, `id_sucursal_fk`) VALUES
 (1, 'JUAN ANDRÉS', 'MARCUS GUTIERREZ', '11111', 'MTExMTE=', 1, '1980-08-05', NULL, '988775566', 0, 1, NULL),
 (2, 'FELIPE EDUARDO', 'FUENTES MANRIQUEZ', 'admin', 'YWRtaW4=', 2, '1980-08-05', NULL, '988775566', 0, 1, NULL),
 (3, 'ALFONSO ANDRÉS', 'ARAYA GUITIERREZ', '20123456k', 'YWxmLmFyYSM5OS0wNQ==', 3, '1999-05-04', 'ALFONSOARAYA@GMAIL.COM', '98877665', 0, 2, NULL),
-(4, 'MARCOS ULISES', 'GONZALES MENESES', '189654122', 'bWFyLmdvbiM5Mi0wOA==', 4, '1992-08-13', 'MGONZALES@GMAIL.COM', '98877445', 1, 2, NULL),
+(4, 'MARCOS ULISES', 'GONZALES MENESES', '189654122', 'bWFyLmdvbiM5Mi0wOA==', 4, '1992-08-13', 'MGONZALES@GMAIL.COM', '98877445', 0, 2, NULL),
 (5, 'SAMUEL DAVID', 'FIGUEROA LÓPEZ', '154213654', 'c2FtLmZpZyM4Mi0xMA==', 5, '1982-10-24', 'SAMUELFIGUEROA@GMAIL.COM', '22789654', 0, 2, NULL),
 (6, 'FANCISCO JAVIER', 'MENESES MORALES', '185002001', 'ZmFuLm1lbiM5Mi0wNA==', 10, '1992-04-13', 'FANCISCO@GMAIL.COM', '22558874', 0, 3, 1),
-(7, 'CARLOS MARCOS', 'ROBERT ALBERT', '190000000', 'Y2FyLnJvYiM4My0wNw==', 11, '1983-07-28', 'CROBERT@GMAIL.COM', '99887766', 0, 3, 2);
+(7, 'CARLOS MARCOS', 'ROBERT ALBERT', '190000000', 'Y2FyLnJvYiM4My0wNw==', 11, '1983-07-28', 'CROBERT@GMAIL.COM', '99887766', 0, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -1117,7 +1109,7 @@ CREATE TABLE `vista_lista_usuarios` (
 ,`comuna` varchar(100)
 ,`region` varchar(100)
 ,`id_rol_fk` int(11)
-,`id_empresa_fk` int(11)
+,`id_sucursal_fk` int(11)
 ,`id_direccion_fk` int(11)
 );
 
@@ -1141,7 +1133,7 @@ CREATE TABLE `vista_lista_usuarios_deshabilitado` (
 ,`comuna` varchar(100)
 ,`region` varchar(100)
 ,`id_rol_fk` int(11)
-,`id_empresa_fk` int(11)
+,`id_sucursal_fk` int(11)
 ,`id_direccion_fk` int(11)
 );
 
@@ -1195,7 +1187,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vista_lista_usuarios`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_lista_usuarios`  AS  select `usuario`.`id_usuario` AS `id_usuario`,`usuario`.`nombre` AS `nombre`,`usuario`.`apellidos` AS `apellidos`,`usuario`.`rut` AS `rut`,`usuario`.`fecha_nacimiento` AS `fecha_nacimiento`,`usuario`.`email` AS `email`,`usuario`.`telefono` AS `telefono`,`direccion`.`nombre_calle` AS `nombre_calle`,`direccion`.`numero` AS `numero`,`direccion`.`depto` AS `depto`,`comuna`.`nombre_comuna` AS `comuna`,`region`.`nombre_region` AS `region`,`usuario`.`id_rol_fk` AS `id_rol_fk`,`usuario`.`id_empresa_fk` AS `id_empresa_fk`,`usuario`.`id_direccion_fk` AS `id_direccion_fk` from (((`usuario` join `direccion` on(`usuario`.`id_direccion_fk` = `direccion`.`id_direccion`)) join `comuna` on(`comuna`.`id_comuna` = `direccion`.`id_comuna_fk`)) join `region` on(`comuna`.`id_region_fk` = `region`.`id_region`)) where `usuario`.`id_rol_fk` = 2 and `usuario`.`estado` = 0 order by 3 ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_lista_usuarios`  AS  select `usuario`.`id_usuario` AS `id_usuario`,`usuario`.`nombre` AS `nombre`,`usuario`.`apellidos` AS `apellidos`,`usuario`.`rut` AS `rut`,`usuario`.`fecha_nacimiento` AS `fecha_nacimiento`,`usuario`.`email` AS `email`,`usuario`.`telefono` AS `telefono`,`direccion`.`nombre_calle` AS `nombre_calle`,`direccion`.`numero` AS `numero`,`direccion`.`depto` AS `depto`,`comuna`.`nombre_comuna` AS `comuna`,`region`.`nombre_region` AS `region`,`usuario`.`id_rol_fk` AS `id_rol_fk`,`usuario`.`id_sucursal_fk` AS `id_sucursal_fk`,`usuario`.`id_direccion_fk` AS `id_direccion_fk` from (((`usuario` join `direccion` on(`usuario`.`id_direccion_fk` = `direccion`.`id_direccion`)) join `comuna` on(`comuna`.`id_comuna` = `direccion`.`id_comuna_fk`)) join `region` on(`comuna`.`id_region_fk` = `region`.`id_region`)) where `usuario`.`id_rol_fk` = 2 and `usuario`.`estado` = 0 order by 3 ;
 
 -- --------------------------------------------------------
 
@@ -1204,7 +1196,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vista_lista_usuarios_deshabilitado`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_lista_usuarios_deshabilitado`  AS  select `usuario`.`id_usuario` AS `id_usuario`,`usuario`.`nombre` AS `nombre`,`usuario`.`apellidos` AS `apellidos`,`usuario`.`rut` AS `rut`,`usuario`.`fecha_nacimiento` AS `fecha_nacimiento`,`usuario`.`email` AS `email`,`usuario`.`telefono` AS `telefono`,`direccion`.`nombre_calle` AS `nombre_calle`,`direccion`.`numero` AS `numero`,`direccion`.`depto` AS `depto`,`comuna`.`nombre_comuna` AS `comuna`,`region`.`nombre_region` AS `region`,`usuario`.`id_rol_fk` AS `id_rol_fk`,`usuario`.`id_empresa_fk` AS `id_empresa_fk`,`usuario`.`id_direccion_fk` AS `id_direccion_fk` from (((`usuario` join `direccion` on(`usuario`.`id_direccion_fk` = `direccion`.`id_direccion`)) join `comuna` on(`comuna`.`id_comuna` = `direccion`.`id_comuna_fk`)) join `region` on(`comuna`.`id_region_fk` = `region`.`id_region`)) where `usuario`.`id_rol_fk` = 2 and `usuario`.`estado` = 1 order by 3 ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_lista_usuarios_deshabilitado`  AS  select `usuario`.`id_usuario` AS `id_usuario`,`usuario`.`nombre` AS `nombre`,`usuario`.`apellidos` AS `apellidos`,`usuario`.`rut` AS `rut`,`usuario`.`fecha_nacimiento` AS `fecha_nacimiento`,`usuario`.`email` AS `email`,`usuario`.`telefono` AS `telefono`,`direccion`.`nombre_calle` AS `nombre_calle`,`direccion`.`numero` AS `numero`,`direccion`.`depto` AS `depto`,`comuna`.`nombre_comuna` AS `comuna`,`region`.`nombre_region` AS `region`,`usuario`.`id_rol_fk` AS `id_rol_fk`,`usuario`.`id_sucursal_fk` AS `id_sucursal_fk`,`usuario`.`id_direccion_fk` AS `id_direccion_fk` from (((`usuario` join `direccion` on(`usuario`.`id_direccion_fk` = `direccion`.`id_direccion`)) join `comuna` on(`comuna`.`id_comuna` = `direccion`.`id_comuna_fk`)) join `region` on(`comuna`.`id_region_fk` = `region`.`id_region`)) where `usuario`.`id_rol_fk` = 2 and `usuario`.`estado` = 1 order by 3 ;
 
 -- --------------------------------------------------------
 
@@ -1236,6 +1228,14 @@ ALTER TABLE `actividad`
   ADD KEY `fk_actividad_usuario1_idx` (`id_usuario_fk`),
   ADD KEY `fk_actividad_sucursal1_idx` (`id_sucursal_empresa_fk`),
   ADD KEY `fk_actividad_tipo_actividad1_idx` (`id_tipo_actividad_fk`);
+
+--
+-- Indices de la tabla `actividad_has_detalle_factura`
+--
+ALTER TABLE `actividad_has_detalle_factura`
+  ADD PRIMARY KEY (`id_actividad_has`,`id_detalle_factura_has`),
+  ADD KEY `fk_actividad_has_detalle_factura_detalle_factura1_idx` (`id_detalle_factura_has`),
+  ADD KEY `fk_actividad_has_detalle_factura_actividad1_idx` (`id_actividad_has`);
 
 --
 -- Indices de la tabla `asesoria`
@@ -1272,7 +1272,8 @@ ALTER TABLE `contrato`
 -- Indices de la tabla `detalle_factura`
 --
 ALTER TABLE `detalle_factura`
-  ADD PRIMARY KEY (`id_detalle_factura`);
+  ADD PRIMARY KEY (`id_detalle_factura`),
+  ADD KEY `fk_detalle_factura_factura1_idx` (`factura_id_pago`);
 
 --
 -- Indices de la tabla `direccion`
@@ -1371,8 +1372,8 @@ ALTER TABLE `tipo_visita`
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id_usuario`),
   ADD KEY `fk_usuario_rol1_idx` (`id_rol_fk`),
-  ADD KEY `fk_usuario_empresa1_idx` (`id_empresa_fk`),
-  ADD KEY `fk_usuario_direccion1_idx` (`id_direccion_fk`);
+  ADD KEY `fk_usuario_direccion1_idx` (`id_direccion_fk`),
+  ADD KEY `fk_usuario_sucursal1_idx` (`id_sucursal_fk`);
 
 --
 -- Indices de la tabla `visita`
@@ -1531,6 +1532,13 @@ ALTER TABLE `actividad`
   ADD CONSTRAINT `fk_actividad_usuario1` FOREIGN KEY (`id_usuario_fk`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Filtros para la tabla `actividad_has_detalle_factura`
+--
+ALTER TABLE `actividad_has_detalle_factura`
+  ADD CONSTRAINT `fk_actividad_has_detalle_factura_actividad1` FOREIGN KEY (`id_actividad_has`) REFERENCES `actividad` (`id_actividad`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_actividad_has_detalle_factura_detalle_factura1` FOREIGN KEY (`id_detalle_factura_has`) REFERENCES `detalle_factura` (`id_detalle_factura`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Filtros para la tabla `asesoria`
 --
 ALTER TABLE `asesoria`
@@ -1556,6 +1564,12 @@ ALTER TABLE `comuna`
 --
 ALTER TABLE `contrato`
   ADD CONSTRAINT `fk_contrato_empresa1` FOREIGN KEY (`id_empresa_fk`) REFERENCES `empresa` (`id_empresa`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `detalle_factura`
+--
+ALTER TABLE `detalle_factura`
+  ADD CONSTRAINT `fk_detalle_factura_factura1` FOREIGN KEY (`factura_id_pago`) REFERENCES `factura` (`id_pago`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `direccion`
@@ -1594,8 +1608,8 @@ ALTER TABLE `sucursal`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `fk_usuario_direccion1` FOREIGN KEY (`id_direccion_fk`) REFERENCES `direccion` (`id_direccion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_usuario_empresa1` FOREIGN KEY (`id_empresa_fk`) REFERENCES `empresa` (`id_empresa`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_usuario_rol1` FOREIGN KEY (`id_rol_fk`) REFERENCES `rol` (`id_rol`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_usuario_rol1` FOREIGN KEY (`id_rol_fk`) REFERENCES `rol` (`id_rol`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_usuario_sucursal1` FOREIGN KEY (`id_sucursal_fk`) REFERENCES `sucursal` (`id_sucursal`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `visita`

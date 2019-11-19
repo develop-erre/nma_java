@@ -49,6 +49,7 @@
                     <tr>
                         <th>Nombre Sucursal</th>
                         <th>Direccion</th>
+                        <th>Crear</th>
                         <th>visita</th>
                         <th>Capacitación</th>
                     </tr>
@@ -58,6 +59,13 @@
                         <tr>
                             <td>${sucursales.nombre_sucursal}</td>
                             <td>${sucursales.direccion_sucural}</td>
+                            <td>
+                                <form action="cargarRegionCrearUsuarioEmpresa" method="POST">
+                                    <button type="submit" class="btn btn-success" ><i class="fas fa-user-plus"></i> Crear Usuario</button>
+                                    <input type="hidden" name="txtIdSucursal" value="${sucursales.id_sucursal}" />
+                                    <input type="hidden" name="nombre_sucursal" value="${sucursales.nombre_sucursal}" />
+                                </form>
+                            </td>
                             <td>
                                 <form action="programarVisita" method="POST">
                                     <input type="submit" value="Programar Visita" class="btn btn-primary" />

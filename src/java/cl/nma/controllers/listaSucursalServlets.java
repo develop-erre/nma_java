@@ -75,12 +75,11 @@ public class listaSucursalServlets extends HttpServlet {
         System.out.println(id);
         int idSucursal = Integer.parseInt(id);
 
-        List<SucursalLista> lista = new ArrayList();
         try {
             SucursalDAOImpl sucDAO = new SucursalDAOImpl();
-            lista = sucDAO.obtenerSucursalPorId(idSucursal);
+          //  nombre_sucursal = sucDAO.obtenerNombreSucursalPorId(idSucursal);
 
-            request.setAttribute("listaSucursal", lista);
+           // request.setAttribute("nombre_sucursal", nombre_sucursal);
             request.getRequestDispatcher("reportaraccidente.jsp").forward(request, response);
 
         } catch (SQLException ex) {

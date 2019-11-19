@@ -24,18 +24,7 @@
                 <%response.sendRedirect("http://localhost:8080/nma/home.jsp");%>
             </c:otherwise>
         </c:choose>
-
-        <c:choose>
-            <c:when test="${id_rol == 1}">
-                <jsp:include page="menuAdmin.jsp"/>
-            </c:when>    
-            <c:when test="${id_rol == 2}">
-                <jsp:include page="menuProfesional.jsp"/>
-            </c:when>  
-            <c:otherwise>
-                <jsp:include page="menuCliente.jsp"/>
-            </c:otherwise>
-        </c:choose>
+        <jsp:include page="menuCliente.jsp"/>
 
         <br>
         <div class="container-fluid">
@@ -66,12 +55,12 @@
                                     <input type="hidden" name="txtNombreSucursal" value="${getallasesoria.nombre_sucursal}" />
                                     <input type="hidden" name="txtDescProblem" value="${getallasesoria.comentarios_detectados}" />
                                     <input type="hidden" name="txtDescPropuesta" value="${getallasesoria.comentarios_propuesta}" />
-                                    
+
                                     <input type="hidden" name="txtIdAsesoria" value="${getallasesoria.id_asesoria}" />
                                     <input type="hidden" name="txtIdActividad" value="${getallasesoria.id_actividad}" />
                                     <input type="hidden" name="txtTipoAsesoria" value="${getallasesoria.tipo_asesoria}" />
                                     <input type="hidden" name="txtNombreSucursal" value="${getallasesoria.nombre_sucursal}" />
-                                    
+
                                     <input type="hidden" name="txtNombrecalle" value="${getallasesoria.nombre_calle}" />
                                     <input type="hidden" name="txtNumero" value="${getallasesoria.numero}" />
                                     <input type="hidden" name="txtComuna" value="${getallasesoria.nombre_comuna}" />

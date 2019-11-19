@@ -131,7 +131,7 @@ public class crearUsuarioEmpresa extends HttpServlet {
         String telefono = request.getParameter("txtTelefono");
         int estado = 0;
         
-        int empresaId = Integer.parseInt(request.getParameter("txtIdEmpresa"));
+        int sucursalId = Integer.parseInt(request.getParameter("txtIdSucursal"));
 
         try {
             
@@ -157,7 +157,7 @@ public class crearUsuarioEmpresa extends HttpServlet {
             usu.setTelefono(telefono);
             usu.setEstado(estado);
             usu.setId_rol_fk(3);
-            usu.setId_empresa_fk(empresaId);
+            usu.setId_sucursal_fk(sucursalId);
 
             //METODO CREAR CRONTRASEÑA ENTRE NOMBRE, APELLIDO Y FECHA DE NACIMIENTO
             String pass = usu.createPassword(fechaNac);

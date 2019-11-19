@@ -95,7 +95,7 @@ public class reportarAccidenteServlets extends HttpServlet {
 
         //String dateString = fecha+" " + hora;
         String comentario = request.getParameter("textareaDescripcion");
-        int idSucursal = Integer.parseInt(request.getParameter("selectSucursalId"));
+        int idSucursal = Integer.parseInt(request.getParameter("idSucursal"));
         int idTipoAccidente = Integer.parseInt(request.getParameter("selectTipoAccidente"));
 
         
