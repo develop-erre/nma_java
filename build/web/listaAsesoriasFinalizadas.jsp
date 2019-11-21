@@ -14,6 +14,7 @@
     <body>
 
         <% String rs = String.valueOf(sesion.getAttribute("id_rol"));%>
+        <% String nombreSucursal = String.valueOf(sesion.getAttribute("nombreSucursal"));%>
         <c:set var="id_rol" value="<%=rs%>" />
 
         <c:choose>
@@ -28,12 +29,12 @@
 
         <br>
         <div class="container-fluid">
-            <h3>Asesorias finalizadas</h3>
+            <h3>Asesorias finalizadas - <%=nombreSucursal%></h3>
             <br>
             <table class="table table-sm table-responsive-md table-striped">
                 <thead class="thead-light">
                     <tr>
-                        <th>Nombre Sucursal</th>
+                        <th>Nombre Profesional</th>
                         <th>Tipo Asesoria</th>
                         <th>Fecha Asesoria</th>
                         <th>Hora Asesoria</th>
@@ -43,7 +44,7 @@
                 <tbody>
                     <c:forEach items="${listaGetAllAsesoria}" var="getallasesoria">
                         <tr>
-                            <td>${getallasesoria.nombre_sucursal}</td>
+                            <td>${getallasesoria.nombre_apellido}</td>
                             <td>${getallasesoria.tipo_asesoria}</td>
                             <td>${getallasesoria.fecha_act}</td>
                             <td>${getallasesoria.hora_act}</td>

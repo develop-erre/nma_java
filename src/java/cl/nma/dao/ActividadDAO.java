@@ -32,6 +32,8 @@ public interface ActividadDAO {
     
     List<ActividadAsesoriaGetAll> listarAsesoriasFinalizadasGetAll(int idEmpresa);
     
+    List<ActividadVisita> listarVisitasFinalizadasGetAll(int idSucursal);
+    
     List<ActividadCapacitacionGettAll> listarCapacitacionGetAll(int idUsuario);
     
     List<ActividadVisita> listarActividadVisitaGetAllProfesional(int idUsuario);

@@ -9,6 +9,20 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="fonts/css/all.min.css">
         <title>Ejecutar Visita</title>
+        <script>
+            script lenguage = "javascript" >
+                    function confirmarFinish() {
+
+                        var respuesta = confirm("Estas seguro de finalizar visita?");
+
+                        if (respuesta === true) {
+                            return true;
+                        } else {
+                            return false;
+
+                        }
+                    }
+        </script>
     </head>
     <body>
 
@@ -26,17 +40,15 @@
 
         <jsp:include page="menuProfesional.jsp"/>
 
-       
         <% String idActividad = request.getParameter("txtIdActividad"); %>
-         <% String idVisita = request.getParameter("txtIdAVisita"); %>
+        <% String idVisita = request.getParameter("txtIdAVisita"); %>
         <% String tipoVisita = request.getParameter("txtTipoVisita"); %>
         <% String nombreSucursal = request.getParameter("txtNombreSucursal");%>
-
 
         <br>
         <div class="container-fluid">
             <h3>Ejecutar Visita </h3><br>
-            <form action="finalizarVisita" name="formEjecutarVisita" method="POST";">
+            <form action="finalizarVisita" name="formEjecutarVisita" method="POST" onsubmit="return  confirmarFinish();">
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label><i class="fas fa-map-marker-alt"></i> <strong>Lugar: </strong><%= nombreSucursal%></label>
@@ -45,8 +57,6 @@
                         <label> <strong>Tipo de Visita: </strong><%= tipoVisita%></label>
                     </div>
                 </div>
-
-
                 <!--  SECCION DOCUMENTACION-->
 
                 <label><strong><i class="far fa-folder-open"></i> Sección Documentos - (Chequear solo si cumple la norma)</strong></label>
@@ -54,7 +64,7 @@
                     <div class="form-group col-md-3">
                         <div class="form-group">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="1" id="defaultCheck1" name="checkContratos">
+                                <input class="form-check-input" type="checkbox" value="1"  id="defaultCheck1" name="checkContratos">
                                 <label class="form-check-label" for="defaultCheck1">
                                     Contratos al día
                                 </label>
@@ -92,7 +102,6 @@
                         </div>
                     </div>
                 </div>
-
                 <hr>
                 <!--  SECCION INSTALACION DE FAENAS-->
 
@@ -101,9 +110,9 @@
                     <div class="form-group col-md-3">
                         <div class="form-group">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                <input class="form-check-input" type="checkbox" value="1" id="defaultCheck4" name="checkInstalaciones">
                                 <label class="form-check-label" for="defaultCheck1">
-                                    Contratos al día
+                                    Instalaciones correctas
                                 </label>
                             </div>
                         </div>
@@ -112,9 +121,9 @@
                     <div class="form-group col-md-3">
                         <div class="form-group">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                <input class="form-check-input" type="checkbox" value="1" id="defaultCheck5" name="checkBanios">
                                 <label class="form-check-label" for="defaultCheck1">
-                                    Documnetación al día
+                                    Baños en buen estado
                                 </label>
                             </div>
                         </div>
@@ -122,21 +131,20 @@
                     <div class="form-group col-md-3">
                         <div class="form-group">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                <input class="form-check-input" type="checkbox" value="1" id="defaultCheck6" name="checkComedores">
                                 <label class="form-check-label" for="defaultCheck1">
-                                    Finiquitos al día
+                                    Comedores en buen estado
                                 </label>
                             </div>
                         </div>
                     </div>
                 </div>
 
-
                 <div class="form-row">
                     <div class="form-group col-md-9">
                         <label for="inputValor4"><i class="fas fa-edit"></i> Comentarios revición Instalaciones</label>
                         <div class="input-group-prepend">
-                            <textarea class="form-control" name="textareaSolucionPropuesta" rows="3" cols="100" placeholder="Escriba Aqui ..." required="" minlength="10" maxlength="490" ></textarea>
+                            <textarea class="form-control" name="textareaComentariosInstalacion" rows="3" cols="100" placeholder="Escriba Aqui ..." required="" minlength="10" maxlength="490" ></textarea>
                         </div>
                     </div>
                 </div>
@@ -149,7 +157,7 @@
                     <div class="form-group col-md-3">
                         <div class="form-group">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                <input class="form-check-input" type="checkbox" value="1" id="defaultCheck7" value="1" name="checkZonas">
                                 <label class="form-check-label" for="defaultCheck1">
                                     Zonas seguras establecidas
                                 </label>
@@ -160,7 +168,7 @@
                     <div class="form-group col-md-3">
                         <div class="form-group">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                <input class="form-check-input" type="checkbox" value="1" id="defaultCheck8"  value="1" name="checkPeligros">
                                 <label class="form-check-label" for="defaultCheck1">
                                     Se observan peligros
                                 </label>
@@ -173,12 +181,10 @@
                     <div class="form-group col-md-9">
                         <label for="inputValor4"><i class="fas fa-edit"></i> Comentarios revición seguridad</label>
                         <div class="input-group-prepend">
-                            <textarea class="form-control" name="textareaSolucionPropuesta" rows="3" cols="100" placeholder="Escriba Aqui ..." required="" minlength="10" maxlength="490" ></textarea>
+                            <textarea class="form-control" name="textareaComentariosSeguridad" rows="3" cols="100" placeholder="Escriba Aqui ..." required="" minlength="10" maxlength="490" ></textarea>
                         </div>
                     </div>
                 </div>
-
-
 
                 <hr>
                 <!--  SECCION PROPUESTA-->
@@ -194,16 +200,32 @@
                     </div>
                 </div>
 
-                <input  name="idACT" type="hidden" value="<%=idActividad%>">
-                <input  name="idASE" type="hidden" value="<%=idVisita%>">
+                <input  name="idAct" type="hidden" value="<%=idActividad%>">
+                <input  name="idVis" type="hidden" value="<%=idVisita%>">
                 <button type="submit" class="btn btn-danger">Finalizar Visita</button>
+                <br>
+                <br>
                 <br>
                 <br>
             </form>
         </div>
     </div>
 
+    <script>
+            script lenguage = "javascript" >
+                    function confirmarFinish() {
 
+                        var respuesta = confirm("Estas seguro de finalizar visita?");
+
+                        if (respuesta === true) {
+                            return true;
+                        } else {
+                            return false;
+
+                        }
+                    }
+        </script>
+        
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

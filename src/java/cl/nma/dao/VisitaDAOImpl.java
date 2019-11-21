@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,7 +24,63 @@ public class VisitaDAOImpl implements VisitaDAO {
 
     @Override
     public int actualizar(Visita vis) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        int result = 0;
+        String sql = "UPDATE VISITA \n"
+                + "SET CONTRATOS = ? \n"
+                + ",DOCUMENTACION = ? \n"
+                + ",FINIQUITOS= ? \n"
+                + ",COMENTARIO_DOCUMENTACION= ? \n"
+                + ",INSTALACION= ? \n"
+                + ",BANIOS= ? \n"
+                + ",COMEDORES= ? \n"
+                + ",COMENTARIOS_FAENA= ? \n"
+                + ",SEGURIDAD= ? \n"
+                + ",PELIGROS= ? \n"
+                + ",COMENTARIOS_SEGURIDAD= ? \n"
+                + ",COMENTARIOS_PROPUESTA= ? \n"
+                + " WHERE ID_VISITA= ?";
+        PreparedStatement pst = null;
+        try {
+            pst = conexion.prepareStatement(sql);
+            pst.setInt(1, vis.getContratos());
+            pst.setInt(2, vis.getDocumentacion());
+            pst.setInt(3, vis.getFiniquitos());
+            pst.setString(4, vis.getComentarios_documentacion());
+            pst.setInt(5, vis.getInstalacion());
+            pst.setInt(6, vis.getBanios());
+            pst.setInt(7, vis.getComedores());
+            pst.setString(8, vis.getComentarios_faena());
+            pst.setInt(9, vis.getSeguridad());
+            pst.setInt(10, vis.getPeligros());
+            pst.setString(11, vis.getComentarios_seguridad());
+            pst.setString(12, vis.getComentarios_propuesta());
+            pst.setInt(13, vis.getId_visita());
+            result = pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //siempre cerrar la conexion y el pst
+            try {
+                if (pst != null) {
+                    pst.close();
+                    System.out.println("PreparedStatement cerrada");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                    System.out.println("Conexion cerrada");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return result;
     }
 
     @Override

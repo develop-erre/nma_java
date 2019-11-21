@@ -24,22 +24,12 @@
                 <%response.sendRedirect("http://localhost:8080/nma/home.jsp");%>
             </c:otherwise>
         </c:choose>
-
-        <c:choose>
-            <c:when test="${id_rol == 1}">
-                <jsp:include page="menuAdmin.jsp"/>
-            </c:when>    
-            <c:when test="${id_rol == 2}">
-                <jsp:include page="menuProfesional.jsp"/>
-            </c:when>  
-            <c:otherwise>
-                <jsp:include page="menuCliente.jsp"/>
-            </c:otherwise>
-        </c:choose>
+        
+        <jsp:include page="menuProfesional.jsp"/>
 
         <br>
         <div class="container-fluid">
-            <h3>Lista de Visitas Asignadas</h3>
+            <h3>Visitas Asignadas</h3>
             <br>
             <table class="table table-sm table-responsive-md table-striped">
                 <thead class="thead-light">

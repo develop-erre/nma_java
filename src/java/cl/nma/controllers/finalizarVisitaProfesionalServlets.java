@@ -1,7 +1,13 @@
 package cl.nma.controllers;
 
+import cl.nma.dao.ActividadDAOImpl;
+import cl.nma.dao.VisitaDAOImpl;
+import cl.nma.dominio.Visita;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -64,20 +70,82 @@ public class finalizarVisitaProfesionalServlets extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String chContratos = request.getParameter("checkContratos");
+        int idActividad = Integer.parseInt(request.getParameter("idAct"));
+        int idVisita = Integer.parseInt(request.getParameter("idVis"));
+
+        //SECCION DOCUMENTOS
+        String  chContratos = request.getParameter("checkContratos");
+        if (chContratos == null) {
+            chContratos="0";
+        }
         String chDocumentos = request.getParameter("checkDocumentos");
+        if (chDocumentos == null) {
+            chDocumentos="0";
+        }
         String chFiniquitos = request.getParameter("checkFiniquitos");
+        if (chFiniquitos == null) {
+            chFiniquitos="0";
+        }
         String areaComentariosDocumentos = request.getParameter("textareaComentariosDocumentos");
         
-        System.out.println(chContratos);
-        System.out.println(chDocumentos);
-        System.out.println(chFiniquitos);
-        System.out.println(areaComentariosDocumentos);
+        //SECCION INSTALACIONES
+        String chInstalaciones = request.getParameter("checkInstalaciones");
+        if (chInstalaciones == null) {
+            chInstalaciones="0";
+        }
+        String chBanios = request.getParameter("checkBanios");
+        if (chBanios == null) {
+            chBanios="0";
+        }
+        String chComedores = request.getParameter("checkComedores");
+        if (chComedores == null) {
+            chComedores="0";
+        }
+        String areaComentariosInstalacion = request.getParameter("textareaComentariosInstalacion");
         
-        request.getRequestDispatcher("/home.jsp").forward(request, response);
+        //SECCION SEGURIDAD
+        String checkZonas = request.getParameter("checkZonas");
+        if (checkZonas == null) {
+            checkZonas="0";
+        }
+        String checkPeligros = request.getParameter("checkPeligros");
+        if (checkPeligros == null) {
+            checkPeligros="0";
+        }
+        String textareaComentariosSeguridad = request.getParameter("textareaComentariosSeguridad");
+        String textareaSolucionPropuesta = request.getParameter("textareaSolucionPropuesta");
         
+        try {
+            VisitaDAOImpl visDAO = new VisitaDAOImpl();
+            Visita vis = new Visita();
+            vis.setId_visita(idVisita);
+            //SECCION DOCUMENTACION
+            vis.setContratos(Integer.parseInt(chContratos));
+            vis.setDocumentacion(Integer.parseInt(chDocumentos));
+            vis.setFiniquitos(Integer.parseInt(chFiniquitos));
+            vis.setComentarios_documentacion(areaComentariosDocumentos);
+            //SECCION INSTALACIONES
+            vis.setInstalacion(Integer.parseInt(chInstalaciones));
+            vis.setBanios(Integer.parseInt(chBanios));
+            vis.setComedores(Integer.parseInt(chComedores));
+            vis.setComentarios_faena(areaComentariosInstalacion);
+            //SECCION SEGURIDAD
+            vis.setSeguridad(Integer.parseInt(checkZonas));
+            vis.setPeligros(Integer.parseInt(checkPeligros));
+            vis.setComentarios_seguridad(textareaComentariosSeguridad);
+            vis.setComentarios_propuesta(textareaSolucionPropuesta);
+            
+            visDAO.actualizar(vis);
+            
+            ActividadDAOImpl actDAO = new ActividadDAOImpl();
+            actDAO.finalizarActividad(idActividad);
+            
+            request.getRequestDispatcher("/home.jsp").forward(request, response);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(finalizarVisitaProfesionalServlets.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-
     /**
      * Returns a short description of the servlet.
      *

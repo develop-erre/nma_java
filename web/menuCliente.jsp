@@ -27,6 +27,7 @@
                     Ver
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="listaVisitasFinalizadas">Visitas Finalizadas</a>
                     <a class="dropdown-item" href="asesoriasFinalizadas">Asesorias Finalizadas</a>
                 </div>
             </li> 

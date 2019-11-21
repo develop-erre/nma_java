@@ -346,3 +346,95 @@ WHERE usuario.estado = 0 AND usuario.id_usuario=idUsuario;
 END //
  
 DELIMITER ;
+
+/*
+PROCEDIMIENTO PARA LISTAR VISITAS ASIGNADAS
+**/
+
+DELIMITER //
+
+CREATE PROCEDURE GetAllVisitasAsignadas(IN idProf INT)
+BEGIN
+SELECT 
+    usuario.id_usuario
+    ,CONCAT(usuario.nombre ," ",usuario.apellidos) AS nombre_apellido
+    ,actividad.id_actividad
+    ,actividad.fecha_act
+    ,actividad.hora_act
+    ,visita.id_visita
+    ,tipo_visita.descripcion tipo_visita
+    ,visita.contratos
+    ,visita.documentacion
+    ,visita.finiquitos
+    ,visita.comentario_documentacion
+    ,visita.instalacion
+    ,visita.banios
+    ,visita.comedores
+    ,visita.comentarios_faena
+    ,visita.seguridad
+    ,visita.peligros
+    ,visita.comentarios_seguridad
+    ,visita.comentarios_propuesta
+    ,sucursal.nombre nombre_sucursal
+    ,direccion.nombre_calle
+    ,direccion.numero
+    ,comuna.nombre_comuna
+    ,region.nombre_region
+FROM usuario 
+    JOIN actividad ON usuario.id_usuario = actividad.id_usuario_fk
+    JOIN visita ON visita.id_actividad_fk_v = actividad.id_actividad
+    JOIN tipo_visita ON visita.id_tipo_visita_fk = tipo_visita.id_tipo_visita
+    JOIN sucursal ON actividad.id_sucursal_empresa_fk = sucursal.id_sucursal
+    JOIN direccion ON sucursal.id_direccion_suc_fk = direccion.id_direccion
+    JOIN comuna ON comuna.id_comuna = direccion.id_comuna_fk
+    JOIN region ON comuna.id_region_fk = region.id_region
+WHERE actividad.estado_act=0 AND usuario.id_usuario=idProf 
+ORDER BY 4 ;
+END //
+ 
+DELIMITER ;
+
+/*PROCEDIMIENTO PARA LISTAR VISITAS FINALIZADAS POR ID SUCURSAL*/
+
+DELIMITER //
+
+CREATE PROCEDURE GetAllVisitasFinalizadas(IN idSucursal INT)
+BEGIN
+SELECT 
+    usuario.id_usuario
+    ,CONCAT(usuario.nombre ," ",usuario.apellidos) AS nombre_apellido
+    ,actividad.id_actividad
+    ,actividad.fecha_act
+    ,actividad.hora_act
+    ,visita.id_visita
+    ,tipo_visita.descripcion tipo_visita
+    ,visita.contratos
+    ,visita.documentacion
+    ,visita.finiquitos
+    ,visita.comentario_documentacion
+    ,visita.instalacion
+    ,visita.banios
+    ,visita.comedores
+    ,visita.comentarios_faena
+    ,visita.seguridad
+    ,visita.peligros
+    ,visita.comentarios_seguridad
+    ,visita.comentarios_propuesta
+    ,sucursal.nombre nombre_sucursal
+    ,direccion.nombre_calle
+    ,direccion.numero
+    ,comuna.nombre_comuna
+    ,region.nombre_region
+FROM usuario 
+    JOIN actividad ON usuario.id_usuario = actividad.id_usuario_fk
+    JOIN visita ON visita.id_actividad_fk_v = actividad.id_actividad
+    JOIN tipo_visita ON visita.id_tipo_visita_fk = tipo_visita.id_tipo_visita
+    JOIN sucursal ON actividad.id_sucursal_empresa_fk = sucursal.id_sucursal
+    JOIN direccion ON sucursal.id_direccion_suc_fk = direccion.id_direccion
+    JOIN comuna ON comuna.id_comuna = direccion.id_comuna_fk
+    JOIN region ON comuna.id_region_fk = region.id_region
+WHERE actividad.estado_act=1 AND sucursal.id_sucursal=idSucursal
+ORDER BY 4;
+END //
+ 
+DELIMITER ;

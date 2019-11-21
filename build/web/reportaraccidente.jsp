@@ -138,7 +138,7 @@
                     <div class="form-group col-md-6">
                         <label for="inputValor4">Comentario accidente</label>
                         <div class="input-group-prepend">
-                            <textarea class="form-control" name="textareaDescripcion" rows="3" cols="100" placeholder="Escriba Aqui ..." required="" minlength="10" maxlength="99" ></textarea>
+                            <textarea class="form-control" name="textareaDescripcion" rows="3" cols="100" placeholder="Escriba Aqui ..." required="" minlength="10" maxlength="199" ></textarea>
                         </div>
                     </div>
                 </div>

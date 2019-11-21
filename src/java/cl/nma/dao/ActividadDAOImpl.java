@@ -546,4 +546,74 @@ public class ActividadDAOImpl implements ActividadDAO {
         return visList;
 
     }
+
+    @Override
+    public List<ActividadVisita> listarVisitasFinalizadasGetAll(int idSucursal) {
+        
+        List<ActividadVisita> solicitudList = new ArrayList<>();
+        String sql = "CALL GetAllVisitasFinalizadas(" + idSucursal + ");";
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            pst = conexion.prepareStatement(sql);
+            rs = pst.executeQuery();
+            ActividadVisita actAs;
+            while (rs.next()) {
+                actAs = new ActividadVisita();
+                actAs.setId_usuario(rs.getInt(1));
+                actAs.setNombre_apellido(rs.getString(2));
+                actAs.setId_actividad(rs.getInt(3));
+                actAs.setFecha_act(rs.getDate(4));
+                actAs.setHora_act(rs.getString(5));
+                actAs.setId_visita(rs.getInt(6));
+                actAs.setTipo_visita(rs.getString(7));
+                actAs.setContratos(rs.getInt(8));
+                actAs.setDocumentacion(rs.getInt(9));
+                actAs.setFiniquitos(rs.getInt(10));
+                actAs.setComentarios_documentacion(rs.getString(11));
+                actAs.setInstalacion(rs.getInt(12));
+                actAs.setBanios(rs.getInt(13));
+                actAs.setComedores(rs.getInt(14));
+                actAs.setComentarios_faena(rs.getString(15));
+                actAs.setSeguridad(rs.getInt(16));
+                actAs.setPeligros(rs.getInt(17));
+                actAs.setComentarios_seguridad(rs.getString(18));
+                actAs.setComentarios_propuesta(rs.getString(19));
+                actAs.setNombre_sucursal(rs.getString(20));
+                actAs.setNombre_calle(rs.getString(21));
+                actAs.setNumero(rs.getString(22));
+                actAs.setNombre_comuna(rs.getString(23));
+                actAs.setNombre_region(rs.getString(24));
+                solicitudList.add(actAs);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //siempre cerrar la conexion, rs y el pst
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return solicitudList;
+        
+    }
 }

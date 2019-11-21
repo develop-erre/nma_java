@@ -347,7 +347,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
                 + "    usuario.id_sucursal_fk,\n"
                 + "    sucursal.nombre as nombre_sucursal\n"
                 + "FROM usuario \n"
-                + "JOIN sucursal ON sucursal.id_sucursal = usuario.id_sucursal_fk\n"
+                + "LEFT JOIN sucursal ON sucursal.id_sucursal = usuario.id_sucursal_fk\n"
                 + "WHERE usuario.rut='" + us + "' and usuario.password = '" + pass + "' ;";
         PreparedStatement pst = null;
         ResultSet rs = null;
