@@ -65,6 +65,16 @@
                                     <input type="hidden" name="txtFiniquitos" value="${getallvisita.finiquitos}" />
                                     <input type="hidden" name="txtComentariosDocumentos" value="${getallvisita.comentarios_documentacion}" />
                                     
+                                    <input type="hidden" name="txtInstalacion" value="${getallvisita.instalacion}" />
+                                    <input type="hidden" name="txtBanios" value="${getallvisita.banios}" />
+                                    <input type="hidden" name="txtComedores" value="${getallvisita.comedores}" />
+                                    <input type="hidden" name="txtComentariosFaena" value="${getallvisita.comentarios_faena}" />
+                                    
+                                    <input type="hidden" name="txtSeguridad" value="${getallvisita.seguridad}" />
+                                    <input type="hidden" name="txtPeligros" value="${getallvisita.peligros}" />
+                                    <input type="hidden" name="txtComentariosSeguridad" value="${getallvisita.comentarios_seguridad}" />
+                                    <input type="hidden" name="txtComentariosPropuesta" value="${getallvisita.comentarios_propuesta}" />
+                                    
                                     <button type="submit" class="btn btn-danger"><i class="fas fa-file-download"></i> Download</button>
                                 </form>
                             </td>

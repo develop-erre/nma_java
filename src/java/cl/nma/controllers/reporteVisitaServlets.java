@@ -98,33 +98,72 @@ public class reporteVisitaServlets extends HttpServlet {
                 String nombreProfesional = request.getParameter("txtNombreProf");
                 String fecha_act = request.getParameter("txtFecha");
                 String hora_act = request.getParameter("txtHora");
-                
+
                 //SECCION DOCUMENTOS
                 String contratos = request.getParameter("txtContratos");
                 if (contratos.equals("0")) {
-                    contratos="Incompletos";
-                }else{
-                    contratos="Completos";
+                    contratos = "Incompletos";
+                } else {
+                    contratos = "Completos";
                 }
                 String finiquitos = request.getParameter("txtDocumentos");
                 if (finiquitos.equals("0")) {
-                    finiquitos="Incompletos";
-                }else{
-                    finiquitos="Completos";
+                    finiquitos = "Incompletos";
+                } else {
+                    finiquitos = "Completos";
                 }
                 String documnetos = request.getParameter("txtFiniquitos");
                 if (documnetos.equals("0")) {
-                    documnetos="Incompletos";
-                }else{
-                    documnetos="Completos";
+                    documnetos = "Incompletos";
+                } else {
+                    documnetos = "Completos";
                 }
-                
-                String comentariosDocumentos = request.getParameter("txtComentariosDocumentos");
-                
 
+                String comentariosDocumentos = request.getParameter("txtComentariosDocumentos");
+
+                //SECCION FAENA
+                String instalacion = request.getParameter("txtInstalacion");
+                if (instalacion.equals("0")) {
+                    instalacion = "Incompletos";
+                } else {
+                    instalacion = "Completos";
+                }
+                String banios = request.getParameter("txtBanios");
+                if (banios.equals("0")) {
+                    banios = "Incompletos";
+                } else {
+                    banios = "Completos";
+                }
+                String comedores = request.getParameter("txtComedores");
+                if (comedores.equals("0")) {
+                    comedores = "Incompletos";
+                } else {
+                    comedores = "Completos";
+                }
+
+                String comentariosFaena = request.getParameter("txtComentariosFaena");
+
+                //SECCION SEGURIDAD
+                String seguridad = request.getParameter("txtSeguridad");
+                if (seguridad.equals("0")) {
+                    seguridad = "Incompletos";
+                } else {
+                    seguridad = "Completos";
+                }
+                String peligros = request.getParameter("txtPeligros");
+                if (peligros.equals("0")) {
+                    peligros = "Incompletos";
+                } else {
+                    peligros = "Completos";
+                }
+                String comentarios_seguridad = request.getParameter("txtComentariosSeguridad");
+
+                String comentarios_Propuesta = request.getParameter("txtComentariosPropuesta");
+
+                //INICIO DEL DOCUMENTO PDF
                 Document documento = new Document();
                 PdfWriter.getInstance(documento, out);
-                // abrir documento
+                // ABRIR DOCUMENTO
                 documento.open();
 
 //                Image imagen = Image.getInstance("http://18.223.187.212/imagen/icono-reporte-asesoria.png");
@@ -201,50 +240,151 @@ public class reporteVisitaServlets extends HttpServlet {
 
                 //SECCION DOCUMENTACION
                 Paragraph tituloDocumentacion = new Paragraph();
-                Font fontDescripcion = new Font(Font.FontFamily.COURIER, 10, Font.UNDERLINE, BaseColor.BLACK);
-                tituloDocumentacion.add(new Phrase("Sección Documentos:", fontDescripcion));
-                tituloDocumentacion.setAlignment(Element.ALIGN_JUSTIFIED);
+                Font fontDescripcion = new Font(Font.FontFamily.COURIER, 14, Font.BOLD, BaseColor.BLACK);
+                tituloDocumentacion.add(new Phrase("SECCIÓN DOCUMENTOS", fontDescripcion));
+                tituloDocumentacion.setAlignment(Element.ALIGN_CENTER);
                 tituloDocumentacion.add(new Phrase(Chunk.NEWLINE));
                 tituloDocumentacion.add(new Phrase(Chunk.NEWLINE));
                 documento.add(tituloDocumentacion);
-                
+
                 Paragraph Pcontratos = new Paragraph();
                 Font fontContratos = new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL, BaseColor.BLACK);
-                Pcontratos.add(new Phrase("Contratos: "+ contratos, fontContratos));
+                Pcontratos.add(new Phrase("Contratos: " + contratos, fontContratos));
                 Pcontratos.setAlignment(Element.ALIGN_JUSTIFIED);
                 Pcontratos.add(new Phrase(Chunk.NEWLINE));
                 documento.add(Pcontratos);
-                
+
                 Paragraph Pdocumentos = new Paragraph();
                 Font fontDocumentos = new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL, BaseColor.BLACK);
-                Pdocumentos.add(new Phrase("Documentación: "+ documnetos, fontDocumentos));
+                Pdocumentos.add(new Phrase("Documentación: " + documnetos, fontDocumentos));
                 Pdocumentos.setAlignment(Element.ALIGN_JUSTIFIED);
                 Pdocumentos.add(new Phrase(Chunk.NEWLINE));
                 documento.add(Pdocumentos);
-                
+
                 Paragraph Pfiniquitos = new Paragraph();
                 Font fontFiniquitos = new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL, BaseColor.BLACK);
-                Pfiniquitos.add(new Phrase("Finiquitos: "+ finiquitos, fontFiniquitos));
+                Pfiniquitos.add(new Phrase("Finiquitos: " + finiquitos, fontFiniquitos));
                 Pfiniquitos.setAlignment(Element.ALIGN_JUSTIFIED);
                 Pfiniquitos.add(new Phrase(Chunk.NEWLINE));
                 Pfiniquitos.add(new Phrase(Chunk.NEWLINE));
                 documento.add(Pfiniquitos);
-                
+
                 Paragraph tituloComentariosDoc = new Paragraph();
                 Font fontTituloDoc = new Font(Font.FontFamily.COURIER, 10, Font.UNDERLINE, BaseColor.BLACK);
                 tituloComentariosDoc.add(new Phrase("Comentarios Documentación:", fontTituloDoc));
                 tituloComentariosDoc.setAlignment(Element.ALIGN_JUSTIFIED);
                 tituloComentariosDoc.add(new Phrase(Chunk.NEWLINE));
                 documento.add(tituloComentariosDoc);
-                
+
                 Paragraph comDoc = new Paragraph();
                 Font fontComDoc = new Font(Font.FontFamily.COURIER, 10, Font.NORMAL, BaseColor.BLACK);
-                comDoc.add(new Phrase( comentariosDocumentos, fontComDoc));
+                comDoc.add(new Phrase(comentariosDocumentos, fontComDoc));
                 comDoc.setAlignment(Element.ALIGN_JUSTIFIED);
                 comDoc.add(new Phrase(Chunk.NEWLINE));
+                comDoc.add(new Phrase(Chunk.NEWLINE));
                 documento.add(comDoc);
-                
+
                 //SECCION FAENA
+                Paragraph tituloFaena = new Paragraph();
+                Font fontFaena = new Font(Font.FontFamily.COURIER, 14, Font.BOLD, BaseColor.BLACK);
+                tituloFaena.add(new Phrase("SECCIÓN FAENA", fontFaena));
+                tituloFaena.setAlignment(Element.ALIGN_CENTER);
+                tituloFaena.add(new Phrase(Chunk.NEWLINE));
+                tituloFaena.add(new Phrase(Chunk.NEWLINE));
+                documento.add(tituloFaena);
+
+                Paragraph Pinstalacion = new Paragraph();
+                Font fontInstalacion = new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL, BaseColor.BLACK);
+                Pinstalacion.add(new Phrase("Instalación: " + instalacion, fontInstalacion));
+                Pinstalacion.setAlignment(Element.ALIGN_JUSTIFIED);
+                Pinstalacion.add(new Phrase(Chunk.NEWLINE));
+                documento.add(Pinstalacion);
+
+                Paragraph Pbanio = new Paragraph();
+                Font fontBanio = new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL, BaseColor.BLACK);
+                Pbanio.add(new Phrase("Baños: " + banios, fontBanio));
+                Pbanio.setAlignment(Element.ALIGN_JUSTIFIED);
+                Pbanio.add(new Phrase(Chunk.NEWLINE));
+                documento.add(Pbanio);
+
+                Paragraph Pcomedores = new Paragraph();
+                Font fontComedores = new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL, BaseColor.BLACK);
+                Pcomedores.add(new Phrase("Comedores: " + comedores, fontComedores));
+                Pcomedores.setAlignment(Element.ALIGN_JUSTIFIED);
+                Pcomedores.add(new Phrase(Chunk.NEWLINE));
+                Pcomedores.add(new Phrase(Chunk.NEWLINE));
+                documento.add(Pcomedores);
+
+                Paragraph tituloComentariosFaena = new Paragraph();
+                Font fontTituloFaena = new Font(Font.FontFamily.COURIER, 10, Font.UNDERLINE, BaseColor.BLACK);
+                tituloComentariosFaena.add(new Phrase("Comentarios Faena:", fontTituloFaena));
+                tituloComentariosFaena.setAlignment(Element.ALIGN_JUSTIFIED);
+                tituloComentariosFaena.add(new Phrase(Chunk.NEWLINE));
+                documento.add(tituloComentariosFaena);
+
+                Paragraph comFaena = new Paragraph();
+                Font fontComentariosFaena = new Font(Font.FontFamily.COURIER, 10, Font.NORMAL, BaseColor.BLACK);
+                comFaena.add(new Phrase(comentariosFaena, fontComentariosFaena));
+                comFaena.setAlignment(Element.ALIGN_JUSTIFIED);
+                comFaena.add(new Phrase(Chunk.NEWLINE));
+                comFaena.add(new Phrase(Chunk.NEWLINE));
+                documento.add(comFaena);
+
+                //SECCION SEGURIDAD
+                Paragraph tituloSeguridad = new Paragraph();
+                Font fontSeguridad = new Font(Font.FontFamily.COURIER, 14, Font.BOLD, BaseColor.BLACK);
+                tituloSeguridad.add(new Phrase("SECCIÓN SEGURIDAD", fontSeguridad));
+                tituloSeguridad.setAlignment(Element.ALIGN_CENTER);
+                tituloSeguridad.add(new Phrase(Chunk.NEWLINE));
+                tituloSeguridad.add(new Phrase(Chunk.NEWLINE));
+                documento.add(tituloSeguridad);
+
+                Paragraph Pseguridad = new Paragraph();
+                Font fontSeg = new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL, BaseColor.BLACK);
+                Pseguridad.add(new Phrase("Seguridad: " + seguridad, fontSeg));
+                Pseguridad.setAlignment(Element.ALIGN_JUSTIFIED);
+                Pseguridad.add(new Phrase(Chunk.NEWLINE));
+                documento.add(Pseguridad);
+
+                Paragraph Ppeligros = new Paragraph();
+                Font fontPeligro = new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL, BaseColor.BLACK);
+                Ppeligros.add(new Phrase("Peligros: " + peligros, fontPeligro));
+                Ppeligros.setAlignment(Element.ALIGN_JUSTIFIED);
+                Ppeligros.add(new Phrase(Chunk.NEWLINE));
+                Ppeligros.add(new Phrase(Chunk.NEWLINE));
+                documento.add(Ppeligros);
+
+                Paragraph PcomentariosSeguridad = new Paragraph();
+                Font fontComeSeg = new Font(Font.FontFamily.HELVETICA, 10, Font.UNDERLINE, BaseColor.BLACK);
+                PcomentariosSeguridad.add(new Phrase("Comentarios Seguridad: ", fontComeSeg));
+                PcomentariosSeguridad.setAlignment(Element.ALIGN_JUSTIFIED);
+                PcomentariosSeguridad.add(new Phrase(Chunk.NEWLINE));
+                documento.add(PcomentariosSeguridad);
+
+                Paragraph comSeguridad = new Paragraph();
+                Font fontComSeg = new Font(Font.FontFamily.COURIER, 10, Font.NORMAL, BaseColor.BLACK);
+                comSeguridad.add(new Phrase(comentarios_seguridad, fontComSeg));
+                comSeguridad.setAlignment(Element.ALIGN_JUSTIFIED);
+                comSeguridad.add(new Phrase(Chunk.NEWLINE));
+                comSeguridad.add(new Phrase(Chunk.NEWLINE));
+                documento.add(comSeguridad);
+                
+                //PROPUESTA DE MEJORA
+                
+                Paragraph tituloPropuesta = new Paragraph();
+                Font fontPropuesta = new Font(Font.FontFamily.COURIER, 14, Font.BOLD, BaseColor.BLACK);
+                tituloPropuesta.add(new Phrase("PROPUESTA DE MEJORA", fontPropuesta));
+                tituloPropuesta.setAlignment(Element.ALIGN_CENTER);
+                tituloPropuesta.add(new Phrase(Chunk.NEWLINE));
+                tituloPropuesta.add(new Phrase(Chunk.NEWLINE));
+                documento.add(tituloPropuesta);
+
+                Paragraph Ppropuesta = new Paragraph();
+                Font fontPropuestaMejora = new Font(Font.FontFamily.COURIER, 10, Font.NORMAL, BaseColor.BLACK);
+                Ppropuesta.add(new Phrase(comentarios_Propuesta, fontPropuestaMejora));
+                Ppropuesta.setAlignment(Element.ALIGN_JUSTIFIED);
+                Ppropuesta.add(new Phrase(Chunk.NEWLINE));
+                documento.add(Ppropuesta);
 
                 documento.close();
 
