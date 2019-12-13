@@ -104,6 +104,7 @@ function validarCrearEmpresa() {
 
     var selectRubro = document.getElementById("selectRubro4").value;
     var selectRegion = document.getElementById("selectComunaId4").value;
+    var SelectValor = document.getElementById("selectValorId4").value;
 
     expresion = /\w+@\w+\.+[a-z]/;
 
@@ -113,6 +114,10 @@ function validarCrearEmpresa() {
     }
     if (selectRegion == 0) {
         alert("Debe seleccionar Comuna");
+        return false;
+    }
+    if (SelectValor == 0) {
+        alert("Debe seleccionar Valor del contrato");
         return false;
     }
 }

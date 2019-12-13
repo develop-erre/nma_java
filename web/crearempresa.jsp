@@ -58,7 +58,7 @@
                         <label for="inputTelefono4">Teléfono</label>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
-                            <input type="number" class="form-control" id="inputTelefono4" name = "txtTelefono" placeholder="Ej: 226655889 " required="" min="11111" max="999999999" minlength="7"  maxlength="9">
+                            <input type="number" class="form-control" id="inputTelefono4" name = "txtTelefono" placeholder="Ej: 226655889 " required="" min="11111111" max="999999999" minlength="7"  maxlength="9">
                         </div>
                     </div>
 
@@ -118,7 +118,7 @@
                             <input type="number" class="form-control" id="inputNumeroEmp4" name = "txtNumero" placeholder="Ingrece número" min="1" max="99999" required="">
                         </div>
                     </div>
-                    
+
                     <div class="form-group col-md-6">
                         <label for="inputCity">Región - Comuna</label>
                         <select name="selectComunaId" id="selectComunaId4" class="form-control" required="">
@@ -133,11 +133,18 @@
                 <h3>Contrato</h3>
                 <div class="form-row">
                     <div class="form-group col-md-2">
-                        <label for="inputValor4">Valor</label>
+                        <label for="selectValorId4">Valor</label>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
-                            <input type="number" class="form-control" id="inputValor4" name = "txtValor" placeholder="Ingrece valor" min="10000" max="100000000" required=""> 
-                        </div>
+                            <select name="txtValor" id="selectValorId4" class="form-control" required="">
+                                <option value="0">SELECCIONE</option>
+                                <option value="100000">$100.000</option>
+                                <option value="200000">$200.000</option>
+                                <option value="300000">$300.000</option>
+                                <option value="400000">$400.000</option>
+                                <option value="500000">$500.000</option>
+                            </select>
+                         </div>
                     </div>
                     <div class="form-group col-md-10">
                         <label for="inputValor4">Descripción contrato</label>

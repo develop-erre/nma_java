@@ -58,10 +58,10 @@
             <table class="table table-sm table-responsive-md table-striped">
                 <thead class="thead-light">
                     <tr>
-                        <th>Nombre</th>
+                        <th>Nombre Empresa</th>
                         <th>Rut</th>
-                        <th>Correo</th>
-                        <th>Telefono</th>
+                        <th>Sucursal</th>
+                        <th>Dirección</th>
                         <th>Habilitar</th>
                     </tr>
                 </thead>

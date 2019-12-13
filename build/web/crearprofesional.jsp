@@ -114,7 +114,7 @@
                             <input type="number" class="form-control" id="inputNumero4" name = "txtNumero" placeholder="Ingrece número" min="1" max="99999" required="">
                         </div>
                     </div>
-                    
+
                     <div class="form-group col-md-2">
                         <label for="inputDepto4">Depto (opcional)</label>
                         <div class="input-group-prepend">
@@ -138,13 +138,7 @@
                 <br>
             </form>
         </div>
-
-        <footer class="py-4 text-center footer" style="background: #454545">
-            <div class="container">
-                <h6>Previriesgos &copy; 2019</h6>
-            </div>
-        </footer>
-
+        <br><br>
 
         <script lenguage="javascript" src="js/validar.js"></script>
         <script src="js/bootstrap.min.js"></script>
