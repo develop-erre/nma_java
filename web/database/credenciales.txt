@@ -1,15 +1,15 @@
 CREDENCIALES 
 
-RUT = 11111
+RUT = 10200300k
 PASSWORD = 11111
 
-RUT = admin
+RUT = 10200400k
 PASSWORD = admin
 
 -----------------------------------------
 PROFESIONALES
 -----------------------------------------
-rut :   20123456k
+rut :   201002001
 password  :  alf.ara#99-05
 
 rut :   189654122

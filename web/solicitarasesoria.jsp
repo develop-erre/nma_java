@@ -20,11 +20,36 @@
                 $("#datepicker").datepicker({minDate: 0, maxDate: 30});
             });
         </script>
+        <script>
+            function validarAsesoria() {
+
+                var selectTipo = document.getElementById("inputTipoAsesoria4").value;
+
+                if (selectTipo == 0) {
+                    alert("Debe seleccionar tipo asesoria");
+                    return false;
+                }
+
+            }
+            
+             function solicitarAsesoria() {
+
+                var respuesta = confirm("Estas seguro que deseas solicitar la asesoria?");
+
+                if (respuesta === true) {
+                    return true;
+                } else {
+                    return false;
+
+                }
+
+            }
+        </script>
     </head>
     <body>
 
         <% String rs = String.valueOf(sesion.getAttribute("id_rol"));%>
-         <% String nombreSucursal = String.valueOf(sesion.getAttribute("nombreSucursal"));%>
+        <% String nombreSucursal = String.valueOf(sesion.getAttribute("nombreSucursal"));%>
         <c:set var="id_rol" value="<%=rs%>" />
 
         <c:choose>
@@ -51,7 +76,7 @@
         <br>
         <div class="container-fluid">
             <h3>Solicitar Asesoria</h3>
-            <form action="solicitarAsesoria" name="formSolicitarAsesoria" method="POST" onsubmit="return validarSolicitarAsesoria();">
+            <form action="solicitarAsesoria" name="formSolicitarAsesoria" method="POST" onsubmit="return validarAsesoria();">
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputTipoAsesoria4">Tipo de asesoria</label>
@@ -79,7 +104,7 @@
                 </div>
 
                 <input  name="idSucursal" type="hidden" value="<%= sesion.getAttribute("id_empresa")%>">
-                <button type="submit" class="btn btn-primary">Solicitar Asesoria</button>
+                <button type="submit" class="btn btn-primary" onclick="return solicitarAsesoria()">Solicitar Asesoria</button>
             </form>
         </div>
 

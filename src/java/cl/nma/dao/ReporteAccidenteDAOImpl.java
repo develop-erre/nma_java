@@ -33,8 +33,8 @@ public class ReporteAccidenteDAOImpl implements ReporteAccidenteDAO {
     public int agregar(ReporteAccidente ra) {
 
         int id = 0;
-        String sql = "INSERT INTO REPORTE_ACCIDENTE(FECHA,HORA,COMENTARIO,ID_TIPO_ACCIDENTE_FK,ID_SUCURSAL_FK)"
-                + "VALUES(?,?,?,?,?)";
+        String sql = "insert into reporte_accidente(fecha,hora,comentario,id_tipo_accidente_fk,id_sucursal_fk)"
+                + "values(?,?,?,?,?)";
 
         PreparedStatement pst = null;
         ResultSet rs = null;

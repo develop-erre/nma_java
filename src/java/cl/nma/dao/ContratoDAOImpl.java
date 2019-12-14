@@ -39,8 +39,8 @@ public class ContratoDAOImpl implements ContratoDAO {
     public int agregar(Contrato con) {
 
         int id = 0;
-        String sql = "INSERT INTO CONTRATO(FECHA_DE_CONTRATO,VALOR,DESCRIPCION,ID_EMPRESA_FK)"
-                + "VALUES(CURRENT_DATE(),?,?,?)";
+        String sql = "insert into contrato(fecha_de_contrato,valor,descripcion,id_empresa_fk)"
+                + "values(current_date(),?,?,?)";
 
         PreparedStatement pst = null;
         ResultSet rs = null;

@@ -133,7 +133,7 @@ SELECT
     ,sucursal.id_sucursal
     ,sucursal.nombre
     ,tipo_asesoria.descripcion 
-FROM ACTIVIDAD
+FROM actividad
     JOIN sucursal ON sucursal.id_sucursal = actividad.id_sucursal_empresa_fk
     JOIN asesoria ON asesoria.id_actividad_fk_as = actividad.id_actividad
     JOIN tipo_asesoria on asesoria.id_tipo_asesoria_fk = tipo_asesoria.id_tipo_asesoria
@@ -156,7 +156,7 @@ SELECT
     sucursal.id_sucursal
     ,sucursal.nombre
     ,CONCAT( direccion.nombre_calle," #",direccion.numero, " - ",comuna.nombre_comuna, " - ",region.nombre_region ) AS direccion
-FROM SUCURSAL 
+FROM sucursal 
     JOIN direccion ON sucursal.id_direccion_suc_fk = direccion.id_direccion
     JOIN comuna ON comuna.id_comuna = direccion.id_comuna_fk
     JOIN region ON comuna.id_region_fk = region.id_region
@@ -223,8 +223,8 @@ SELECT
     ,comuna.nombre_comuna
     ,region.nombre_region
     
-FROM USUARIO
-    JOIN ACTIVIDAD on actividad.id_usuario_fk = usuario.id_usuario
+FROM usuario
+    JOIN actividad on actividad.id_usuario_fk = usuario.id_usuario
     JOIN asesoria ON asesoria.id_actividad_fk_as = actividad.id_actividad
     JOIN sucursal ON sucursal.id_sucursal = actividad.id_sucursal_empresa_fk
     JOIN direccion ON sucursal.id_direccion_suc_fk = direccion.id_direccion
@@ -264,8 +264,8 @@ SELECT
     ,comuna.nombre_comuna
     ,region.nombre_region
     
-FROM USUARIO
-    JOIN ACTIVIDAD on actividad.id_usuario_fk = usuario.id_usuario
+FROM usuario
+    JOIN actividad on actividad.id_usuario_fk = usuario.id_usuario
     JOIN asesoria ON asesoria.id_actividad_fk_as = actividad.id_actividad
     JOIN sucursal ON sucursal.id_sucursal = actividad.id_sucursal_empresa_fk
     JOIN direccion ON sucursal.id_direccion_suc_fk = direccion.id_direccion
@@ -298,8 +298,8 @@ SELECT
     ,capacitacion.numero_asistente
     ,sucursal.nombre as nombre_sucursal
     ,tipo_capacitacion.descripcion
-FROM USUARIO
-    JOIN ACTIVIDAD on actividad.id_usuario_fk = usuario.id_usuario
+FROM usuario
+    JOIN actividad on actividad.id_usuario_fk = usuario.id_usuario
     JOIN capacitacion ON capacitacion.id_actividad_fk_c = actividad.id_actividad
     JOIN sucursal ON sucursal.id_sucursal = actividad.id_sucursal_empresa_fk
     JOIN tipo_capacitacion ON tipo_capacitacion.id_tipo_capacitacion = capacitacion.id_tipo_capacitacion_fk
@@ -314,7 +314,7 @@ DELIMITER ;
 
 
 /*
-PROCEDIMIENTO TRAE USUARIO CON SUS DATOS PARA LA ACTUALIZACION DE ELLOS.
+PROCEDIMIENTO TRAE usuario CON SUS DATOS PARA LA ACTUALIZACION DE ELLOS.
 
 */
 

@@ -26,20 +26,20 @@ public class VisitaDAOImpl implements VisitaDAO {
     public int actualizar(Visita vis) {
         
         int result = 0;
-        String sql = "UPDATE VISITA \n"
-                + "SET CONTRATOS = ? \n"
-                + ",DOCUMENTACION = ? \n"
-                + ",FINIQUITOS= ? \n"
-                + ",COMENTARIO_DOCUMENTACION= ? \n"
-                + ",INSTALACION= ? \n"
-                + ",BANIOS= ? \n"
-                + ",COMEDORES= ? \n"
-                + ",COMENTARIOS_FAENA= ? \n"
-                + ",SEGURIDAD= ? \n"
-                + ",PELIGROS= ? \n"
-                + ",COMENTARIOS_SEGURIDAD= ? \n"
-                + ",COMENTARIOS_PROPUESTA= ? \n"
-                + " WHERE ID_VISITA= ?";
+        String sql = "update visita \n"
+                + "set contratos = ? \n"
+                + ",documentacion = ? \n"
+                + ",finiquitos= ? \n"
+                + ",comentario_documentacion= ? \n"
+                + ",instalacion= ? \n"
+                + ",banios= ? \n"
+                + ",comedores= ? \n"
+                + ",comentarios_faena= ? \n"
+                + ",seguridad= ? \n"
+                + ",peligros= ? \n"
+                + ",comentarios_seguridad= ? \n"
+                + ",comentarios_propuesta= ? \n"
+                + " where id_visita= ?";
         PreparedStatement pst = null;
         try {
             pst = conexion.prepareStatement(sql);
@@ -87,8 +87,8 @@ public class VisitaDAOImpl implements VisitaDAO {
     public int agregar(Visita vis) {
 
         int id = 0;
-        String sql = "INSERT INTO VISITA(ID_TIPO_VISITA_FK,ID_ACTIVIDAD_FK_V)"
-                + "VALUES(?,?)";
+        String sql = "insert into visita(id_tipo_visita_fk,id_actividad_fk_v)"
+                + "values(?,?)";
 
         PreparedStatement pst = null;
         ResultSet rs = null;

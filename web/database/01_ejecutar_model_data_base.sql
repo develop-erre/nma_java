@@ -383,7 +383,7 @@ CREATE TABLE IF NOT EXISTS `no_mas_accidentes`.`visita` (
   `finiquitos` TINYINT NULL,
   `comentario_documentacion` VARCHAR(500) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NULL,
   `instalacion` TINYINT NULL,
-  `baños` TINYINT NULL,
+  `banios` TINYINT NULL,
   `comedores` TINYINT NULL,
   `comentarios_faena` VARCHAR(500) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NULL,
   `seguridad` TINYINT NULL,

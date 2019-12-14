@@ -37,8 +37,8 @@ public class ActividadDAOImpl implements ActividadDAO {
     public int agregarAsesoria(Actividad act) {
 
         int id = 0;
-        String sql = "INSERT INTO ACTIVIDAD(ESTADO_ACT,ID_SUCURSAL_EMPRESA_FK,ID_TIPO_ACTIVIDAD_FK)"
-                + "VALUES(?,?,?)";
+        String sql = "insert into actividad(estado_act,id_sucursal_empresa_fk,id_tipo_actividad_fk)"
+                + "values(?,?,?)";
 
         PreparedStatement pst = null;
         ResultSet rs = null;
@@ -95,8 +95,8 @@ public class ActividadDAOImpl implements ActividadDAO {
     public int agregar(Actividad act) {
 
         int id = 0;
-        String sql = "INSERT INTO ACTIVIDAD(FECHA_ACT,HORA_ACT,ESTADO_ACT,ID_USUARIO_FK,ID_SUCURSAL_EMPRESA_FK,ID_TIPO_ACTIVIDAD_FK)"
-                + "VALUES(?,?,?,?,?,?)";
+        String sql = "insert into actividad(fecha_act,hora_act,estado_act,id_usuario_fk,id_sucursal_empresa_fk,id_tipo_actividad_fk)"
+                + "values(?,?,?,?,?,?)";
 
         PreparedStatement pst = null;
         ResultSet rs = null;
@@ -170,7 +170,7 @@ public class ActividadDAOImpl implements ActividadDAO {
     public List<ActividadAsesoria> listarSolicitudAsesoria() {
 
         List<ActividadAsesoria> solicitudList = new ArrayList<>();
-        String sql = "SELECT * FROM VISTA_SOLICITUD_ASESORIAS";
+        String sql = "select * from vista_solicitud_asesorias";
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
@@ -221,7 +221,7 @@ public class ActividadDAOImpl implements ActividadDAO {
     public int asignarAsesoria(Actividad act) {
 
         int result = 0;
-        String sql = "UPDATE ACTIVIDAD SET FECHA_ACT =?, HORA_ACT =? , ID_USUARIO_FK =? WHERE ID_ACTIVIDAD =?";
+        String sql = "update actividad set fecha_act =?, hora_act =? , id_usuario_fk =? where id_actividad =?";
         PreparedStatement pst = null;
         try {
             pst = conexion.prepareStatement(sql);
@@ -333,7 +333,7 @@ public class ActividadDAOImpl implements ActividadDAO {
     @Override
     public int finalizarActividad(int idActividad) {
         int result = 0;
-        String sql = "UPDATE ACTIVIDAD SET ESTADO_ACT = 1 WHERE ID_ACTIVIDAD = " + idActividad;
+        String sql = "UPDATE actividad set estado_act = 1 where id_actividad = " + idActividad;
         PreparedStatement pst = null;
         try {
             pst = conexion.prepareStatement(sql);

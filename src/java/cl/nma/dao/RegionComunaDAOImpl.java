@@ -26,7 +26,7 @@ public class RegionComunaDAOImpl implements RegionComunaDAO{
     public List<RegionComuna> listar() {
         
         List<RegionComuna> listaComunas = new ArrayList<>();
-        String sql = "SELECT * FROM VISTA_REGION_COMUNA";
+        String sql = "select * from vista_region_comuna";
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {

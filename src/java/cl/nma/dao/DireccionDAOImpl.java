@@ -29,7 +29,7 @@ public class DireccionDAOImpl implements DireccionDAO {
         
         
         int result = 0;
-        String sql = "UPDATE DIRECCION SET NOMBRE_CALLE = ? ,NUMERO = ? ,DEPTO= ? ,ID_COMUNA_FK= ?  WHERE ID_DIRECCION= ?";
+        String sql = "update direccion set nombre_calle = ? ,numero = ? ,depto= ? ,id_comuna_fk= ?  where id_direccion= ?";
         PreparedStatement pst = null;
         try {
             pst = conexion.prepareStatement(sql);
@@ -68,7 +68,7 @@ public class DireccionDAOImpl implements DireccionDAO {
     public int agregar(Direccion dir) {
 
         int id = 0;
-        String sql = "INSERT INTO DIRECCION (NOMBRE_CALLE, NUMERO, DEPTO, ID_COMUNA_FK) VALUES (?, ?, ?,?);";
+        String sql = "insert into direccion (nombre_calle, numero, depto, id_comuna_fk) values (?, ?, ?,?);";
 
         PreparedStatement pst = null;
         ResultSet rs = null;

@@ -7,9 +7,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="fonts/css/all.min.css">
-        <script lenguage="javascript" src="js/validarReporte.js"></script>
         <meta name="viewport" content="width=device-width"/>
         <title>Reportar Accidente</title>
+        <script lenguage="javascript" src="js/validarReporte.js"></script>
         <link rel="stylesheet" href="js/base/jquery-ui.css">
         <link rel="stylesheet" href="js/base/style.css">
         <script src="js/jquery-1.12.4.js"></script>
@@ -40,22 +40,12 @@
             </c:otherwise>
         </c:choose>
 
-        <c:choose>
-            <c:when test="${id_rol == 1}">
-                <jsp:include page="menuAdmin.jsp"/>
-            </c:when>    
-            <c:when test="${id_rol == 2}">
-                <jsp:include page="menuProfesional.jsp"/>
-            </c:when>  
-            <c:otherwise>
-                <jsp:include page="menuCliente.jsp"/>
-            </c:otherwise>
-        </c:choose>
+        <jsp:include page="menuCliente.jsp"/>
 
         <br>
         <div class="container-fluid">
             <h3>Reportar Accidente </h3>
-            <form action="reportarAccidente" name="formReport" method="post" onsubmit="return validarReporteAccidente();">
+            <form action="reportarAccidente" name="formReporteAs" method="POST" onsubmit="return valReportAccidente();">
                 <div class="form-row">
                     <div class="form-group col-md-2">
                         <label for="inputFechaNac4">Fecha Accidente</label>
@@ -68,7 +58,7 @@
                         <label for="inputHora4">Hora</label>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-clock"></i></span>
-                            <select name="txtHora" id="inputHora4" class="form-control" required="">
+                            <select name="txtHora" id="selectHorareporte" class="form-control" required="">
                                 <option value="0">SELECCIONE</option>
                                 <option value="08">08:00 AM</option>
                                 <option value="09">09:00 AM</option>
@@ -90,7 +80,7 @@
                         <label for="inputMinuto4">Minutos</label>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="far fa-clock"></i></span>
-                            <select name="txtMinutos" id="inputMinuto4" class="form-control" required="">
+                            <select name="txtMinutos" id="selectMinutoreporte" class="form-control" required="">
                                 <option value="SELECCIONE">SELECCIONE</option>
                                 <option value="00">00:00</option>
                                 <option value="05">05:00</option>
@@ -112,7 +102,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputTipoAccidente4">Tipo de accidente</label>
-                        <select name="selectTipoAccidente" id="inputTipoAccidente4" class="form-control" required="">
+                        <select name="selectTipoAccidente" id="selectTipoAccidentereporte" class="form-control" required="">
                             <option value="0">SELECCIONE</option>
                             <option  value="1">CAÍDAS AL MISMO NIVEL</option>
                             <option  value="2">CAÍDAS DE ALTURA</option>
@@ -143,7 +133,7 @@
                     </div>
                 </div>
                 <input  name="idSucursal" type="hidden" value="<%= sesion.getAttribute("id_empresa")%>">
-                <button type="submit" class="btn btn-primary">Reportar Accidente</button>
+                <input  type="submit" class="btn btn-primary" value="Reportar Accidente">
             </form>
         </div>
 

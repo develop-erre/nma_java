@@ -36,14 +36,14 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     public int actualizar(Usuario us) {
 
         int result = 0;
-        String sql = "UPDATE USUARIO \n"
-                + "SET NOMBRE = ? \n"
-                + ",APELLIDOS = ? \n"
-                + ",RUT= ? \n"
-                + ",FECHA_NACIMIENTO= ? \n"
-                + ",EMAIL= ?\n"
-                + ",TELEFONO= ?\n"
-                + " WHERE ID_USUARIO= ?";
+        String sql = "update usuario \n"
+                + "set nombre = ? \n"
+                + ",apellidos = ? \n"
+                + ",rut= ? \n"
+                + ",fecha_nacimiento= ? \n"
+                + ",email= ?\n"
+                + ",telefono= ?\n"
+                + " where id_usuario= ?";
         PreparedStatement pst = null;
         try {
             pst = conexion.prepareStatement(sql);
@@ -86,7 +86,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     public List<Usuario> listarUsuario() {
 
         List<Usuario> usuarios = new ArrayList<>();
-        String sql = "SELECT * FROM USUARIO";
+        String sql = "select * from usuario";
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
@@ -148,7 +148,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         boolean bandera = false;
         Usuario usuario;
 //        List<Usuario> usuarios = new ArrayList<>();
-        String sql = "SELECT * FROM USUARIO  WHERE rut='" + us + "' and password = '" + pass + "' ;";
+        String sql = "select * from usuario  where rut='" + us + "' and password = '" + pass + "' ;";
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
@@ -209,7 +209,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
         boolean bandera = false;
         List<Usuario> usuarios = new ArrayList<>();
-        String sql = "SELECT * FROM USUARIO";
+        String sql = "select * from usuario";
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
@@ -271,8 +271,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     public int agregarUsuarioEmpresa(Usuario usuario) {
 
         int id = 0;
-        String sql = "INSERT INTO USUARIO(NOMBRE,APELLIDOS,RUT,PASSWORD,ID_DIRECCION_FK,FECHA_NACIMIENTO,EMAIL,TELEFONO,ESTADO,"
-                + "ID_ROL_FK,ID_SUCURSAL_FK) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into usuario(nombre,apellidos,rut,password,id_direccion_fk,fecha_nacimiento,email,telefono,estado,"
+                + "id_rol_fk,id_sucursal_fk) values(?,?,?,?,?,?,?,?,?,?,?)";
 
         PreparedStatement pst = null;
         ResultSet rs = null;
@@ -337,7 +337,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     public UsuarioLista obtenerUsuario(String us, String pass) {
 
         UsuarioLista usuario = new UsuarioLista();
-        String sql = "SELECT \n"
+        String sql = "select \n"
                 + "    usuario.id_usuario,\n"
                 + "    usuario.nombre,\n"
                 + "    usuario.apellidos,\n"
@@ -346,9 +346,9 @@ public class UsuarioDAOImpl implements UsuarioDAO {
                 + "    usuario.id_rol_fk,\n"
                 + "    usuario.id_sucursal_fk,\n"
                 + "    sucursal.nombre as nombre_sucursal\n"
-                + "FROM usuario \n"
-                + "LEFT JOIN sucursal ON sucursal.id_sucursal = usuario.id_sucursal_fk\n"
-                + "WHERE usuario.rut='" + us + "' and usuario.password = '" + pass + "' ;";
+                + "from usuario \n"
+                + "left join sucursal on sucursal.id_sucursal = usuario.id_sucursal_fk\n"
+                + "where usuario.rut='" + us + "' and usuario.password = '" + pass + "' ;";
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
@@ -410,7 +410,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     public Usuario buscarUsuarioPorId(int id) {
 
         Usuario usuario = new Usuario();
-        String sql = "SELECT * FROM USUARIO WHERE ID_USUARIO =" + id;
+        String sql = "select * from usuario where id_usuario =" + id;
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
@@ -466,8 +466,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     public int agregarProfesional(Usuario usuario) {
 
         int id = 0;
-        String sql = "INSERT INTO USUARIO(NOMBRE, APELLIDOS,RUT,PASSWORD,ID_DIRECCION_FK,FECHA_NACIMIENTO,EMAIL,TELEFONO,ESTADO,"
-                + "ID_ROL_FK) VALUES(?,?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into usuario(nombre, apellidos,rut,password,id_direccion_fk,fecha_nacimiento,email,telefono,estado,"
+                + "id_rol_fk) values(?,?,?,?,?,?,?,?,?,?)";
 
         PreparedStatement pst = null;
         ResultSet rs = null;
@@ -532,7 +532,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     public int deshabilitarProfesional(int id) {
 
         int result = 0;
-        String sql = "UPDATE USUARIO SET ESTADO = 1 WHERE id_usuario = ?";
+        String sql = "update usuario set estado = 1 where id_usuario = ?";
         PreparedStatement pst = null;
         try {
             pst = conexion.prepareStatement(sql);
@@ -569,7 +569,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
         List<UsuarioLista> lista = new ArrayList<>();
 
-        String sql = "SELECT * FROM VISTA_LISTA_USUARIOS";
+        String sql = "select * from vista_lista_usuarios";
 
         PreparedStatement pst = null;
         ResultSet rs = null;
@@ -637,7 +637,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
         List<UsuarioLista> lista = new ArrayList<>();
 
-        String sql = "SELECT * FROM VISTA_LISTA_USUARIOS_DESHABILITADO";
+        String sql = "select * from vista_lista_usuarios_deshabilitado";
         PreparedStatement pst = null;
         ResultSet rs = null;
 
@@ -704,7 +704,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     public int habilitar(Integer idusuario) {
 
         int result = 0;
-        String sql = "UPDATE USUARIO SET ESTADO = 0 WHERE ID_USUARIO = ?";
+        String sql = "update usuario set estado = 0 where id_usuario = ?";
         PreparedStatement pst = null;
         try {
             pst = conexion.prepareStatement(sql);

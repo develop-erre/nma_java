@@ -30,7 +30,7 @@ public class AsesoriaDAOImpl implements AsesoriaDAO {
     public int agregar(Asesoria as) {
 
         int id = 0;
-        String sql = "INSERT INTO ASESORIA(ID_TIPO_ASESORIA_FK,ID_ACTIVIDAD_FK_AS,ID_TIPO_ESTADO_FK)"
+        String sql = "INSERT INTO asesoria(ID_TIPO_ASESORIA_FK,ID_ACTIVIDAD_FK_AS,ID_TIPO_ESTADO_FK)"
                 + "VALUES(?,?,1)";
 
         PreparedStatement pst = null;
@@ -102,7 +102,7 @@ public class AsesoriaDAOImpl implements AsesoriaDAO {
     public int finalizarAsesoria(Asesoria as) {
 
         int result = 0;
-        String sql = "UPDATE ASESORIA SET COMENTARIOS_DETECTADOS = ? ,COMENTARIOS_PROPUESTA = ? , ID_TIPO_ESTADO_FK = 3  WHERE ID_ASESORIA = ?";
+        String sql = "update asesoria set comentarios_detectados = ? ,comentarios_propuesta = ? , id_tipo_estado_fk = 3  where id_asesoria = ?";
         PreparedStatement pst = null;
         try {
             pst = conexion.prepareStatement(sql);
@@ -139,7 +139,7 @@ public class AsesoriaDAOImpl implements AsesoriaDAO {
     public int EstadoAsesoriaAsignado(int idAsesoria) {
 
         int result = 0;
-        String sql = "UPDATE ASESORIA SET ID_TIPO_ESTADO_FK  = 2   WHERE ID_ASESORIA =" + idAsesoria;
+        String sql = "UPDATE asesoria set id_tipo_estado_fk  = 2   where id_asesoria =" + idAsesoria;
         PreparedStatement pst = null;
         try {
             pst = conexion.prepareStatement(sql);

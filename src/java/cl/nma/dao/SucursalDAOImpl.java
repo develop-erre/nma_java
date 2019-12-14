@@ -40,7 +40,7 @@ public class SucursalDAOImpl implements SucursalDAO {
     public int agregarSucursalCasaMatriz(Sucursal suc) {
 
         int id = 0;
-        String sql = "INSERT INTO SUCURSAL(NOMBRE, ID_DIRECCION_SUC_FK,ID_EMPRESA_FK,CASA_MATRIZ) VALUES(?,?,?,0)";
+        String sql = "insert into sucursal(nombre, id_direccion_suc_fk,id_empresa_fk,casa_matriz) values(?,?,?,0)";
 
         PreparedStatement pst = null;
         ResultSet rs = null;
@@ -155,7 +155,7 @@ public class SucursalDAOImpl implements SucursalDAO {
     public int agregarSucursal(Sucursal suc) {
 
         int id = 0;
-        String sql = "INSERT INTO SUCURSAL(NOMBRE, ID_DIRECCION_SUC_FK,ID_EMPRESA_FK,CASA_MATRIZ) VALUES(?,?,?,1)";
+        String sql = "insert into sucursal(nombre, id_direccion_suc_fk,id_empresa_fk,casa_matriz) values(?,?,?,1)";
 
         PreparedStatement pst = null;
         ResultSet rs = null;

@@ -39,8 +39,8 @@ public class CapacitacionDAOImpl implements CapacitacionDAO {
     public int agregar(Capacitacion cap) {
 
         int id = 0;
-        String sql = "INSERT INTO CAPACITACION(NUMERO_ASISTENTE,ID_TIPO_CAPACITACION_FK,ID_ACTIVIDAD_FK_C)"
-                + "VALUES(?,?,?)";
+        String sql = "insert into capacitacion(numero_asistente,id_tipo_capacitacion_fk,id_actividad_fk_c)"
+                + "values(?,?,?)";
 
         PreparedStatement pst = null;
         ResultSet rs = null;

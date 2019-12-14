@@ -41,9 +41,9 @@ public class EmpresaDAOImpl implements EmpresaDAO {
     public int agregar(Empresa em) {
 
         int id = 0;
-        String sql = "INSERT INTO EMPRESA(NOMBRE, RUT,"
-                + "SITIO_WEB,TELEFONO, ESTADO,ID_RUBRO_FK)"
-                + "VALUES("
+        String sql = "insert into empresa(nombre, rut,"
+                + "sitio_web,telefono, estado,id_rubro_fk)"
+                + "values("
                 + "?,?,?,?,?,?)";
 
         PreparedStatement pst = null;
@@ -104,7 +104,7 @@ public class EmpresaDAOImpl implements EmpresaDAO {
     public int eliminar(Integer idem) {
 
         int result = 0;
-        String sql = "UPDATE EMPRESA SET ESTADO = 1 WHERE ID_EMPRESA = ?";
+        String sql = "update empresa set estado = 1 where id_empresa = ?";
         PreparedStatement pst = null;
         try {
             pst = conexion.prepareStatement(sql);
@@ -149,7 +149,7 @@ public class EmpresaDAOImpl implements EmpresaDAO {
     public List<EmpresaLista> listarEmpresaLista() {
 
         List<EmpresaLista> emList = new ArrayList<>();
-        String sql = "SELECT * FROM VISTA_LISTA_EMPRESAS";
+        String sql = "select * from vista_lista_empresas";
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
@@ -202,7 +202,7 @@ public class EmpresaDAOImpl implements EmpresaDAO {
     public List<EmpresaLista> listarEmpresaListaDes() {
 
         List<EmpresaLista> emList = new ArrayList<>();
-        String sql = "SELECT * FROM VISTA_LISTA_EMPRESAS_DES";
+        String sql = "select * from vista_lista_empresas_des";
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
@@ -256,7 +256,7 @@ public class EmpresaDAOImpl implements EmpresaDAO {
     public int habilitarEmpresa(Integer idem) {
 
         int result = 0;
-        String sql = "UPDATE EMPRESA SET ESTADO = 0 WHERE ID_EMPRESA = ?";
+        String sql = "update empresa set estado = 0 where id_empresa = ?";
         PreparedStatement pst = null;
         try {
             pst = conexion.prepareStatement(sql);
