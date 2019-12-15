@@ -1,11 +1,13 @@
 
-- Se pueden ejecutar de dos maneras los script de la base de datos.
-- Esos archivos se ejecutan en XAMPP levantando los servicios de Apache y MySql-
-- Se ejecutan dentro de PhpMyAdmin en SQL general.
+Para la ejecución de la plataforma Web se requiere la instalación de XAMPP
+donde se creará la Base de datos localmente.
 
--------------------------------------------------------------------------------------------------
-Número uno:
-#base de datos solo con usuarios administrador y profesionales
+tambien se requiere la intslación de apache Tomcat desde la version 7 en adelante y ejecutarlo
+en la IDE Netbeans.
+ 
+- Se pueden ejecutar los script de la base de datos 
+- Esos archivos se ejecutan en XAMPP levantando los servicios de Apache y MySql respectivamente.
+- Se ejecutan dentro de PhpMyAdmin en SQL general.
 
 ejecutar los script de manera secuencial.
 
@@ -13,10 +15,4 @@ ejecutar los script de manera secuencial.
 02-ejecutar_script_inicial.sql
 03-ejecutar_script_procedure_view_functions.sql
 
--------------------------------------------------------------------------------------------------
-Número dos:
-#base de datos con registros
-
-ejecutar el archivo database_no_mas_accidentes.sql
-
--------------------------------------------------------------------------------------------------
+para que no ocurran errores.

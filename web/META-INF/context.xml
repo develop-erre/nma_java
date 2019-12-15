@@ -6,8 +6,8 @@
                 maxTotal="100" 
                 maxIdle="30" 
                 maxWaitMillis="10000"
-                username="masterAWS2019" 
-                password="masterAWS2019" 
+                 username="root" 
+                password="" 
                 driverClassName="com.mysql.jdbc.Driver"
-                url="jdbc:mysql://database-2019aws.csqg0ndwturp.us-east-1.rds.amazonaws.com:3306/no_mas_accidentes"/>
+                url="jdbc:mysql://localhost:3306/no_mas_accidentes"/>
 </Context>
